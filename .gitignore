@@ -1,0 +1,411 @@
+# Criado por https://www.toptal.com/developers/gitignore/api/qtcreator,qt,visualstudiocode,pycharm,python,jupyternotebooks
+# Edite em https://www.toptal.com/developers/gitignore?templates=qtcreator,qt,visualstudiocode,pycharm,python,jupyternotebooks
+
+### Cadernos Jupyter ###
+# modelo gitignore para notebooks Jupyter
+# site: http://jupyter.org/
+
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# IPython
+perfil_padrão/
+ipython_config.py
+
+# Remove ipynb_checkpoints anteriores
+# git rm -r .ipynb_checkpoints/
+
+###PyCharm###
+# Abrange IDEs JetBrains: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm e Rider
+# Referência: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
+
+# Coisas específicas do usuário
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dicionários
+.idea/**/prateleira
+
+# Específico do usuário da AWS
+.idea/**/aws.xml
+
+#Arquivos gerados
+.idea/**/contentModel.xml
+
+# Arquivos confidenciais ou de alta rotatividade
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/dbnavigator.xml
+
+#Gradle
+.idea/**/gradle.xml
+.idea/**/bibliotecas
+
+# Gradle e Maven com importação automática
+# Ao usar Gradle ou Maven com importação automática, você deve excluir arquivos de módulo,
+# já que eles serão recriados e poderão causar rotatividade. Remova o comentário se estiver usando
+# importação automática.
+# .idea/artefatos
+# .idea/compiler.xml
+#.idea/jarRepositories.xml
+#.idea/modules.xml
+# .idea/*.iml
+# .idea/módulos
+# *.iml
+# *.ipr
+
+#CMake
+cmake-construir-*/
+
+# Plug-in do Mongo Explorer
+.idea/**/mongoSettings.xml
+
+# Formato de projeto baseado em arquivo
+*.iws
+
+#IntelliJ
+fora/
+
+# plugin mpeltonen/sbt-idea
+.idea_modules/
+
+# Plug-in JIRA
+atlassian-ide-plugin.xml
+
+# Plug-in Cursivo Clojure
+.idea/replstate.xml
+
+#Plugin SonarLint
+.idea/sonarlint/
+
+# Plug-in Crashlytics (para Android Studio e IntelliJ)
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+tecido.propriedades
+
+# Cliente Rest baseado em editor
+.idea/httpRequests
+
+# Arquivo de cache serializado do Android Studio 3.1+
+.idea/caches/build_file_checksums.ser
+
+### Patch PyCharm ###
+# Motivo do comentário: https://github.com/joeblau/gitignore.io/issues/186#issuecomment -215987721
+
+# *.iml
+# módulos.xml
+#.idea/misc.xml
+# *.ipr
+
+#Plugin Sonarlint
+# https://plugins.jetbrains.com/plugin/7973-sonarlint
+.idea/**/sonarlint/
+
+# Plug-in SonarQube
+# https://plugins.jetbrains.com/plugin/7238-sonarqube-community-plugin
+.idea/**/sonarIssues.xml
+
+#Plugin Markdown Navigator
+# https://plugins.jetbrains.com/plugin/7896-markdown-navigator-enhanced
+.idea/**/markdown-navigator.xml
+.idea/**/markdown-navigator-enh.xml
+.idea/**/markdown-navigator/
+
+# Bug de criação de arquivo de cache
+# Consulte https://youtrack.jetbrains.com/issue/JBR-2257
+.idea/$CACHE_FILE$
+
+#Plugin CodeStream
+# https://plugins.jetbrains.com/plugin/12206-codestream
+.idea/codestream.xml
+
+# Kit de ferramentas do Azure para plug-in IntelliJ
+# https://plugins.jetbrains.com/plugin/8053-azure-toolkit-for-intellij
+.idea/**/azureSettings.xml
+
+### Pitão ###
+# Arquivos compilados/otimizados/DLL em bytes
+__pycache__/
+*.py[código]
+*$py.class
+
+# Extensões C
+*.então
+
+# Distribuição/embalagem
+.Pitão
+construir/
+desenvolver-ovos/
+dist/
+Transferências/
+ovos/
+.ovos/
+biblioteca/
+lib64/
+peças/
+sdist/
+var/
+rodas/
+compartilhar/rodas python/
+*.egg-info/
+.instalado.cfg
+*.ovo
+MANIFESTO
+
+# PyInstaller
+# Geralmente esses arquivos são escritos por um script python a partir de um modelo
+# antes do PyInstaller construir o exe, para injetar data/outras informações nele.
+*.manifesto
+*.especificação
+
+# Logs do instalador
+pip-log.txt
+pip-delete-este-diretório.txt
+
+# Relatórios de teste/cobertura de unidade
+htmlcov/
+.tox/
+.nox/
+.cobertura
+.cobertura.*
+.cache
+nariztestes.xml
+cobertura.xml
+*.cobrir
+*.py,capa
+.hipótese/
+.pytest_cache/
+cobrir/
+
+# Traduções
+*.mo
+*.Panela
+
+# Coisas do Django:
+*.registro
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Material do frasco:
+instância/
+.webassets-cache
+
+# Coisas raspadas:
+.scrapy
+
+# Documentação da Esfinge
+documentos/_build/
+
+# PyBuilder
+.pybuilder/
+alvo/
+
+# Caderno Jupyter
+
+# IPython
+
+#pyenv
+# Para uma biblioteca ou pacote, você pode ignorar esses arquivos, pois o código é
+# destinado a ser executado em vários ambientes; caso contrário, verifique-os:
+# .python-versão
+
+#pipenv
+# De acordo com pypa/pipenv#598, é recomendado incluir Pipfile.lock no controle de versão.
+# No entanto, em caso de colaboração, se houver dependências ou dependências específicas da plataforma
+# não tendo suporte multiplataforma, o pipenv pode instalar dependências que não funcionam ou não
+#instale todas as dependências necessárias.
+#Pipfile.lock
+
+#poesia
+# Semelhante ao Pipfile.lock, geralmente é recomendado incluir poesia.lock no controle de versão.
+# Isto é especialmente recomendado para pacotes binários para garantir a reprodutibilidade, e é mais
+# comumente ignorado em bibliotecas.
+# https://python-poetry.org/docs/basic-usage/#commit-your-poetrylock-file-to-version-control
+#poesia.lock
+
+#pdm
+# Semelhante ao Pipfile.lock, geralmente é recomendado incluir pdm.lock no controle de versão.
+#pdm.lock
+# O pdm armazena configurações de todo o projeto em .pdm.toml, mas é recomendado não incluí-lo
+# no controle de versão.
+# https://pdm.fming.dev/#use-with-ide
+.pdm.toml
+
+#PEP 582; usado por, por exemplo, github.com/David-OConnor/pyflow e github.com/pdm-project/pdm
+__pypacotes__/
+
+# Coisas de aipo
+programação de aipo
+aipo.pid
+
+# SageMath analisou arquivos
+*.sage.py
+
+# Ambientes
+.env
+.venv
+ambiente/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+#Configurações do projeto Spyder
+.spyderproject
+.spyproject
+
+# Configurações do projeto de corda
+.ropeproject
+
+#documentação mkdocs
+/site
+
+# meupy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Verificador de tipo de pira
+.pira/
+
+# analisador de tipo estático pytype
+.pytype/
+
+# Símbolos de depuração Cython
+cython_debug/
+
+# PyCharm
+# O modelo específico do JetBrains é mantido em um JetBrains.gitignore separado que pode
+# pode ser encontrado em https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
+# e pode ser adicionado ao gitignore global ou mesclado neste arquivo. Por um ambiente mais nuclear
+# opção (não recomendada), você pode descomentar o seguinte para ignorar toda a pasta de ideias.
+#.ideia/
+
+### Patch Python###
+# Arquivo de configuração local do Poetry - https://python-poetry.org/docs/configuration/#local-configuration
+poesia.toml
+
+# rufo
+.ruff_cache/
+
+# arquivos de configuração LSP
+pyrightconfig.json
+
+###Qt###
+# Objetos e bibliotecas C++
+*.slo
+*.lo
+*.o
+*.a
+*.la
+*.lai
+*.então.*
+*.dll
+*.dylib
+
+# Qt-es
+object_script.*.Release
+object_script.*.Depurar
+*_plugin_import.cpp
+/.qmake.cache
+/.qmake.stash
+*.pro.usuário
+*.pro.usuário.*
+*.qbs.usuário
+*.qbs.usuário.*
+*.moc
+moc_*.cpp
+moc_*.h
+qrc_*.cpp
+ui_*.h
+*.qmlc
+*.jsc
+Makefile*
+*construir-*
+*.qm
+*.prl
+
+# testes de unidade Qt
+target_wrapper.*
+
+#QtCreator
+*.salvamento automático
+
+#QtCreatorQml
+*.qmlproject.user
+*.qmlproject.user.*
+
+#QtCreatorCMake
+CMakeLists.txt.user*
+
+# QtCreator 4.8< banco de dados de compilação
+compile_commands.json
+
+# Arquivos específicos da máquina local QtCreator para projetos importados
+*criador.usuário*
+
+*_qmlcache.qrc
+
+###QtCreator###
+# gitignore para Qt Creator como IDE para projeto C/C++ puro sem Qt
+#
+# Referência: http://doc.qt.io/qtcreator/creator-project-generic.html
+
+
+
+# Arquivos gerados automaticamente pelo Qt Creator
+
+
+# Uma listagem de todos os arquivos incluídos no projeto
+*.arquivos
+
+# Inclui diretórios
+*.inclui
+
+# Definições de configuração do projeto, como macros predefinidas
+*.config
+
+#Configurações do Qt Creator
+*.O Criador
+
+# Configurações do projeto do usuário
+*.criador.usuário*
+
+# Backups do Qt Creator
+
+# Sinalizadores para modelo de código Clang
+*.cxxflags
+*.cflags
+
+
+###VisualStudioCode###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensões.json
+!.vscode/*.code-snippets
+
+# Histórico local para código do Visual Studio
+.história/
+
+# Construídas extensões de código do Visual Studio
+*.vsix
+
+###Patch do VisualStudioCode###
+# Ignora todo o histórico local de arquivos
+.história
+.ionido
+
+# Fim de https://www.toptal.com/developers/gitignore/api/qtcreator,qt,visualstudiocode,pycharm,python,jupyternotebooks
+
+## adicionados manualmente
+*.mp4
+test/exemploTest/
+.idea/
