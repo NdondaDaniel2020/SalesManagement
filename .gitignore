@@ -407,5 +407,5 @@ compile_commands.json
 
 ## adicionados manualmente
 *.mp4
-src/test/exemploTest/
+src/test/exemploTest/*
 .idea/
