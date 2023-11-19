@@ -240,9 +240,9 @@ class _ToolTip(QLabel):
         color: {_text_foreground};
         padding-left: 10px;
         padding-right: 10px;
-        border-radius: 17px;
+        border-radius: 12px;
         border: 0px solid transparent;
-        font: 800 9pt "Segoe UI";
+        font: 800 10pt "Segoe UI";
     }}
     """
     style_tooltip_active = """
@@ -271,7 +271,7 @@ class _ToolTip(QLabel):
 
         self.setObjectName(u"label_tooltip")
         self.setStyleSheet(style)
-        self.setMinimumHeight(34)
+        self.setMinimumHeight(25)
         self.setParent(parent)
         self.setText(tooltip)
         self.adjustSize()

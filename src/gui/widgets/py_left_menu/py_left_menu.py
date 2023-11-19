@@ -29,10 +29,10 @@ class LeftMenu(QWidget):
         super().__init__(parent)
 
         # Parametros
-        self._pos_x = 5
-        self._pos_y = 5
+        self._pos_x = 4
+        self._pos_y = 6
         self._pos_width = 100
-        self._pos_height = app_height - 20
+        self._pos_height = app_height - 22
 
         self._app_parent = app_parent
         self._parent = parent
@@ -61,14 +61,23 @@ class LeftMenu(QWidget):
         self.left_menu_float = _UiLeftMenu(self.frame_left_menu_floating)
         self.frame_left_menu_floating.hide()
 
+        self.left_menu_float.vertical_layout_left_menu_continer.setContentsMargins(0, 0, 10, 0)
         self.left_menu_float.verticalLayout_4.setContentsMargins(1, 0, 7, 0)
 
 
-        # connecting
+        # CONEXÃO ENTRE OS BOTÕES E OS METODOS
+        # CONNECTION BETWEEN BUTTONS AND METHODS
+        # //////////////////////////////////////////////////////
         self.left_menu_float.btn_menu.clicked.connect(self._hideLeftMenuFloat)
         self.left_menu_base.btn_menu.clicked.connect(self._showLeftMenuFloat)
 
-        #
+
+        # ADICIONAR O TEXTO NO TOOLTIP DOS BUTTONS
+        # ADD TEXT TO THE BUTTONS TOOLTIP
+        # //////////////////////////////////////////////////////
+        self.__addToolTip__()
+
+
 
     def _showLeftMenuFloat(self) -> None:
         """
@@ -77,8 +86,9 @@ class LeftMenu(QWidget):
         :return:
         """
 
-        self.frame_left_menu_floating.setGeometry(5, 5, self._pos_width, self._pos_height)
+        self.frame_left_menu_floating.setGeometry(6, 6, self._pos_width, self._pos_height)
         self.frame_left_menu_floating.show()
+
 
     def _hideLeftMenuFloat(self) -> None:
         """
@@ -96,12 +106,9 @@ class LeftMenu(QWidget):
         :return:
         """
 
-        self.frame_left_menu_floating.setGeometry(object.x()+2, object.y()+3, object.width(), object.height()-5)
+        self.frame_left_menu_floating.setGeometry(6, 6, object.width(), object.height()-5)
 
-        self._pos_x = object.x() + 2
-        self._pos_y = object.x() + 3
         self._pos_width = object.width()
-
         self._pos_height = object.height() - 5 if object.height() - 5 > 100 else self._pos_height
 
     def __addToolTip__(self):
@@ -111,30 +118,84 @@ class LeftMenu(QWidget):
         :return:
         """
 
-        self.left_menu_base.btn_home.setTooltipText("Home", self._app_parent, pos_tooltip="right")
-        self.left_menu_float.btn_home.setTooltipText("Home", self._app_parent, pos_tooltip="right")
+        self.left_menu_base.btn_back.setTooltipText("Voltar", self._app_parent,
+                                                    pos_tooltip="right", adjust_x=14, adjust_y=3)
+        self.left_menu_float.btn_back.setTooltipText("Voltar", self._app_parent,
+                                                     pos_tooltip="right", adjust_x=14, adjust_y=3)
 
-        self.left_menu_base.btn_menu.setTooltipText("Menu", self._app_parent, pos_tooltip="right")
-        self.left_menu_float.btn_menu.setTooltipText("Menu", self._app_parent, pos_tooltip="right")
+        self.left_menu_base.btn_menu.setTooltipText("Menu", self._app_parent,
+                                                    pos_tooltip="right", adjust_x=15, adjust_y=3)
+        self.left_menu_float.btn_menu.setTooltipText("Menu", self._app_parent,
+                                                     pos_tooltip="right", adjust_x=15, adjust_y=3)
 
-        self.left_menu_base.btn_compra.setTooltipText("Compra", self._app_parent, pos_tooltip="right")
-        self.left_menu_float.btn_compra.setTooltipText("Compra", self._app_parent, pos_tooltip="right")
+        self.left_menu_base.btn_home.setTooltipText("Home", self._app_parent,
+                                                    pos_tooltip="right", adjust_x=15, adjust_y=3)
+        self.left_menu_float.btn_home.setTooltipText("Home", self._app_parent,
+                                                     pos_tooltip="right", adjust_x=15, adjust_y=3)
 
-        self.left_menu_base.btn_venda.setTooltipText("Venda", self._app_parent, pos_tooltip="right")
-        self.left_menu_float.btn_venda.setTooltipText("Venda", self._app_parent, pos_tooltip="right")
+        self.left_menu_base.btn_compra.setTooltipText("Compra", self._app_parent,
+                                                      pos_tooltip="right", adjust_x=12, adjust_y=3)
+        self.left_menu_float.btn_compra.setTooltipText("Compra", self._app_parent,
+                                                       pos_tooltip="right", adjust_x=12, adjust_y=3)
 
 
-        self.left_menu_base.btn_relatorio.setTooltipText("Relatorio", self._app_parent, pos_tooltip="right")
-        self.left_menu_float.btn_relatorio.setTooltipText("Relatorio", self._app_parent, pos_tooltip="right")
 
-        self.left_menu_base.btn_setting.setTooltipText("Configuração", self._app_parent, pos_tooltip="right")
-        self.left_menu_float.btn_setting.setTooltipText("Configuração", self._app_parent, pos_tooltip="right")
+        self.left_menu_base.btn_venda.setTooltipText("Venda", self._app_parent,
+                                                     pos_tooltip="right", adjust_x=15, adjust_y=3)
+        self.left_menu_float.btn_venda.setTooltipText("Venda", self._app_parent,
+                                                      pos_tooltip="right", adjust_x=15, adjust_y=3)
 
-        self.left_menu_base.btn_info.setTooltipText("Informação", self._app_parent, pos_tooltip="right")
-        self.left_menu_float.btn_info.setTooltipText("Informação", self._app_parent, pos_tooltip="right")
+        self.left_menu_base.btn_relatorio.setTooltipText("Relatorio", self._app_parent,
+                                                         pos_tooltip="right", adjust_x=10, adjust_y=3)
+        self.left_menu_float.btn_relatorio.setTooltipText("Relatorio", self._app_parent,
+                                                          pos_tooltip="right", adjust_x=10, adjust_y=3)
 
-        self.left_menu_base.btn_user.setTooltipText("Usuario", self._app_parent, pos_tooltip="right")
-        self.left_menu_float.btn_user.setTooltipText("Usuario", self._app_parent, pos_tooltip="right")
+        self.left_menu_base.btn_service.setTooltipText("Serviço", self._app_parent,
+                                                       pos_tooltip="right", adjust_x=12, adjust_y=3)
+        self.left_menu_float.btn_service.setTooltipText("Serviço", self._app_parent,
+                                                        pos_tooltip="right", adjust_x=12, adjust_y=3)
+
+        self.left_menu_base.btn_fornecedor.setTooltipText("Fornecedor", self._app_parent,
+                                                          pos_tooltip="right", adjust_x=7, adjust_y=3)
+        self.left_menu_float.btn_fornecedor.setTooltipText("Fornecedor", self._app_parent,
+                                                           pos_tooltip="right", adjust_x=7, adjust_y=3)
+
+        self.left_menu_base.btn_cliente.setTooltipText("Cliente", self._app_parent,
+                                                       pos_tooltip="right", adjust_x=12, adjust_y=3)
+        self.left_menu_float.btn_cliente.setTooltipText("Cliente", self._app_parent,
+                                                        pos_tooltip="right", adjust_x=12, adjust_y=3)
+
+        self.left_menu_base.btn_agenda.setTooltipText("Agenda", self._app_parent,
+                                                      pos_tooltip="right", adjust_x=12, adjust_y=3)
+        self.left_menu_float.btn_agenda.setTooltipText("Agenda", self._app_parent,
+                                                       pos_tooltip="right", adjust_x=12, adjust_y=3)
+
+        self.left_menu_base.btn_recibo.setTooltipText("Recibo", self._app_parent,
+                                                      pos_tooltip="right", adjust_x=14, adjust_y=3)
+        self.left_menu_float.btn_recibo.setTooltipText("Recibo", self._app_parent,
+                                                       pos_tooltip="right", adjust_x=14, adjust_y=3)
+
+        self.left_menu_base.btn_copia_seguranca.setTooltipText("Recibo", self._app_parent,
+                                                               pos_tooltip="right", adjust_x=14, adjust_y=3)
+        self.left_menu_float.btn_copia_seguranca.setTooltipText("Recibo", self._app_parent,
+                                                                pos_tooltip="right", adjust_x=14, adjust_y=3)
+
+
+
+        self.left_menu_base.btn_setting.setTooltipText("Configuração", self._app_parent,
+                                                       pos_tooltip="right", adjust_x=4, adjust_y=3)
+        self.left_menu_float.btn_setting.setTooltipText("Configuração", self._app_parent,
+                                                        pos_tooltip="right", adjust_x=4, adjust_y=3)
+
+        self.left_menu_base.btn_info.setTooltipText("Informação", self._app_parent,
+                                                    pos_tooltip="right", adjust_x=5, adjust_y=3)
+        self.left_menu_float.btn_info.setTooltipText("Informação", self._app_parent,
+                                                     pos_tooltip="right", adjust_x=5, adjust_y=3)
+
+        self.left_menu_base.btn_user.setTooltipText("Usuario", self._app_parent,
+                                                    pos_tooltip="right", adjust_x=12, adjust_y=3)
+        self.left_menu_float.btn_user.setTooltipText("Usuario", self._app_parent,
+                                                     pos_tooltip="right", adjust_x=12, adjust_y=3)
 
 
 
