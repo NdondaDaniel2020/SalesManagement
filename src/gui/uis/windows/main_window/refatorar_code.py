@@ -10,48 +10,6 @@ with open("ui_main_window.py", 'r', encoding="utf-8") as file:
             code += line
 
 
-        elif "self.btn_menu = PyPushButton" in line:
-            line = """        self.btn_menu = PyPushButton(self.frame_continer_left_menu_logo,
-                                     radius=8, text_padding=0,
-                                     btn_hover="#313237",
-                                     btn_pressed="#26272b")\n"""
-            code += line
-
-        elif """icon.addFile""" in line:
-            line = '        icon.addFile(Functions().set_svg_icon("icon_menu.svg"), QSize(), QIcon.Normal, QIcon.Off)\n'
-            code += line
-
-
-        elif "self.btn_home = PyPushButton(self.frame_left_menu_top)" in line:
-            line = """        self.btn_home = PyPushButton(self.frame_left_menu_top,
-                                     radius=8, text_padding=5,
-                                     is_active=True)\n"""
-            code += line
-
-        elif """icon1.addFile""" in line:
-            line = '        icon1.addFile(Functions().set_svg_icon("icon_home.svg"), QSize(), QIcon.Normal, QIcon.Off)\n'
-            code += line
-
-
-        elif "self.btn_compra = PyPushButton(self.frame_left_menu_top)" in line:
-            line = """        self.btn_compra = PyPushButton(self.frame_left_menu_top,
-                                       radius=8, text_padding=2)\n"""
-            code += line
-
-        elif """icon2.addFile""" in line:
-            line = '        icon2.addFile(Functions().set_svg_icon("icon_compra.svg"), QSize(), QIcon.Normal, QIcon.Off)\n'
-            code += line
-
-
-        elif "self.btn_venda = PyPushButton" in line:
-            line = """        self.btn_venda = PyPushButton(self.frame_left_menu_top,
-                                       radius=8, text_padding=1)\n"""
-            code += line
-
-        elif """icon3.addFile""" in line:
-            line = '        icon3.addFile(Functions().set_svg_icon("icon_venda.svg"), QSize(), QIcon.Normal, QIcon.Off)\n'
-            code += line
-
 
         elif "self.btn_close = PyPushButton" in line:
             line = """        self.btn_close = PyPushButton(self.frame_continer_control_window,
@@ -89,44 +47,7 @@ with open("ui_main_window.py", 'r', encoding="utf-8") as file:
             code += line
 
 
-        elif "self.btn_setting = PyPushButton" in line:
-            line = """        self.btn_setting = PyPushButton(self.frame_left_menu_top,
-                                       radius=8, text_padding=6)\n"""
-            code += line
 
-        elif """icon11.addFile""" in line:
-            line = '        icon11.addFile(Functions().set_svg_icon("icon_setting.svg"), QSize(), QIcon.Normal, QIcon.Off)\n'
-            code += line
-
-
-        elif "self.btn_info = PyPushButton" in line:
-            line = """        self.btn_info = PyPushButton(self.frame_left_menu_top,
-                                       radius=8, text_padding=6)\n"""
-            code += line
-
-        elif """icon12.addFile""" in line:
-            line = '        icon12.addFile(Functions().set_svg_icon("icon_information.svg"), QSize(), QIcon.Normal, QIcon.Off)\n'
-            code += line
-
-
-        elif "self.btn_user = PyPushButton" in line:
-            line = """        self.btn_user = PyPushButton(self.frame_left_menu_top,
-                                       radius=8, text_padding=2)\n"""
-            code += line
-
-        elif """icon13.addFile""" in line:
-            line = '        icon13.addFile(Functions().set_svg_image("daniel.jpg"), QSize(), QIcon.Normal, QIcon.Off)\n'
-            code += line
-
-
-        elif "self.btn_user = PyPushButton" in line:
-            line = """        self.btn_user = PyPushButton(self.frame_left_menu_top,
-                                       radius=8, text_padding=2)\n"""
-            code += line
-
-        elif """icon13.addFile""" in line:
-            line = '        icon13.addFile(Functions().set_svg_image("daniel.jpg"), QSize(), QIcon.Normal, QIcon.Off)\n'
-            code += line
 
 
 
