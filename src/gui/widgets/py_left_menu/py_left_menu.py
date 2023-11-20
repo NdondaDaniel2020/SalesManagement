@@ -31,8 +31,15 @@ class LeftMenu(QWidget):
         # Parametros
         self._pos_x = 4
         self._pos_y = 6
-        self._pos_width = 100
+        self._pos_width = 44
         self._pos_height = app_height - 22
+
+
+        self._base_left_menu_width_animation = self._pos_width + 2
+        self._float_left_menu_width_animation = self._pos_width + 2
+        self._size_screen = QApplication.primaryScreen().size()
+
+        self.expand = 200
 
         self._app_parent = app_parent
         self._parent = parent
@@ -44,25 +51,42 @@ class LeftMenu(QWidget):
         self.left_menu_base = _UiLeftMenu(parent)
 
 
-
         # CRIADO UM FRAME QUE FIQUE POR CIMA DA INTERFACE ONDE FICARÁ O LEFT MENU FLUTUANTE
         # CREATED A FRAME THAT IS ON TOP OF THE INTERFACE WHERE THE FLOATING LEFT MENU WILL BE
         # //////////////////////////////////////////////////////
-        self.frame_left_menu_floating = QFrame(app_parent)
-        self.frame_left_menu_floating.setGeometry(self._pos_x, self._pos_y, self._pos_width, self._pos_height)
-        self.frame_left_menu_floating.setMaximumWidth(self._pos_width)
-        self.frame_left_menu_floating.setMinimumWidth(self._pos_width)
-        self.frame_left_menu_floating.setStyleSheet("""*{background-color: rgba(85, 255, 127, 10); border-radius:6px;}
+        self.frame_left_menu_float = QFrame(app_parent)
+        self.frame_left_menu_float.setGeometry(self._pos_x, self._pos_y, self._pos_width, self._pos_height)
+        self.frame_left_menu_float.setMaximumWidth(self._pos_width)
+        self.frame_left_menu_float.setMinimumWidth(self._pos_width)
+        self.frame_left_menu_float.setStyleSheet("""*{background-color: rgb(32, 33, 37); border-radius:6px;}
                                                         #scroll_area_widget_contents_left_menu, #scroll_area_left_menu{
                                                         background-color: rgb(32, 33, 37);
-                                                        border:none}""")  # background-color: ;
+                                                        border:none}""")
+
+        # SET DROP SHADOW
+        self.shadow_float = QGraphicsDropShadowEffect(self)
+        self.shadow_float.setBlurRadius(30)
+        self.shadow_float.setXOffset(0)
+        self.shadow_float.setYOffset(0)
+        self.shadow_float.setColor(QColor(0, 0, 0, 80))   ### retificar para cor verdadeira
+
+        self.frame_left_menu_float.setGraphicsEffect(self.shadow_float)
+
+        self.frame_left_menu_float.hide()
+
+        # ADICIONAR O MENU NA FLUTUANTE DA INTERFACE, TORNADO ELE PARTE DO LAYOUT
+        # ADD THE MENU AT THE FLOATIN OF THE INTERFACE, MAKING IT PART OF THE LAYOUT
+        # //////////////////////////////////////////////////////
+        self.left_menu_float = _UiLeftMenu(self.frame_left_menu_float)
 
 
-        self.left_menu_float = _UiLeftMenu(self.frame_left_menu_floating)
-        self.frame_left_menu_floating.hide()
-
-        self.left_menu_float.vertical_layout_left_menu_continer.setContentsMargins(0, 0, 10, 0)
-        self.left_menu_float.verticalLayout_4.setContentsMargins(1, 0, 7, 0)
+        # POR NÃO ESTAR EM UM LAYOU, HOUVE NA NECECIADADE DE DACER AJUSTES
+        # BECAUSE IT IS NOT IN A LAYOUT, THERE WAS A NEED TO MAKE ADJUSTMENTS
+        # //////////////////////////////////////////////////////
+        self.left_menu_float.verticalLayout_4.setContentsMargins(1, 3, 7, 0)
+        self.left_menu_float.frame_left_menu.setMinimumSize(QSize(43, 0))
+        self.left_menu_float.frame_left_menu.setMaximumSize(QSize(43, 16777215))
+        # //////////////////////////////////////////////////////
 
 
         # CONEXÃO ENTRE OS BOTÕES E OS METODOS
@@ -86,9 +110,115 @@ class LeftMenu(QWidget):
         :return:
         """
 
-        self.frame_left_menu_floating.setGeometry(6, 6, self._pos_width, self._pos_height)
-        self.frame_left_menu_floating.show()
 
+        # REDIMENCIONAR O TAMANHO DO LEFT MENU FLOAT
+        # RESIZE LEFT MENU FLOAT SIZE
+        #/////////////////////////////////////////////////////////////
+        self.frame_left_menu_float.setGeometry(6, 6, self._pos_width, self._pos_height)
+
+
+        if self._pos_height > self._size_screen.height()-80:
+
+
+
+            # CREATE ANIMATION FLOAT
+            self.left_menu_base_animation = QPropertyAnimation(self._parent, b"minimumWidth")
+            self.frame_left_menu_base_animation = QPropertyAnimation(self.left_menu_base.frame_left_menu, b"minimumWidth")
+            self.line_left_menu_base_animation = QPropertyAnimation(self.left_menu_base.line_left_menu, b"minimumWidth")
+
+            self.left_menu_base_animation.stop()
+            self.frame_left_menu_base_animation.stop()
+            self.line_left_menu_base_animation.stop()
+
+
+            if self._base_left_menu_width_animation == 46:
+                self._hideVisibilityToolTip_()
+
+                self.left_menu_base_animation.setStartValue(46)
+                self.left_menu_base_animation.setEndValue(self.expand)
+                self.left_menu_base_animation.setEasingCurve(QEasingCurve.Type.InOutCubic)
+                self.left_menu_base_animation.setDuration(200)
+
+                self.frame_left_menu_base_animation.setStartValue(44)
+                self.frame_left_menu_base_animation.setEndValue(self.expand)
+                self.frame_left_menu_base_animation.setEasingCurve(QEasingCurve.Type.InOutCubic)
+                self.frame_left_menu_base_animation.setDuration(200)
+
+                self.line_left_menu_base_animation.setStartValue(40)
+                self.line_left_menu_base_animation.setEndValue(self.expand-4)
+                self.line_left_menu_base_animation.setEasingCurve(QEasingCurve.Type.InOutCubic)
+                self.line_left_menu_base_animation.setDuration(200)
+            else:
+                self._showVisibilityToolTip_()
+
+                self.left_menu_base_animation.setStartValue(self.expand)
+                self.left_menu_base_animation.setEndValue(46)
+                self.left_menu_base_animation.setEasingCurve(QEasingCurve.Type.InOutCubic)
+                self.left_menu_base_animation.setDuration(200)
+
+                self.frame_left_menu_base_animation.setStartValue(self.expand)
+                self.frame_left_menu_base_animation.setEndValue(44)
+                self.frame_left_menu_base_animation.setEasingCurve(QEasingCurve.Type.InOutCubic)
+                self.frame_left_menu_base_animation.setDuration(200)
+
+                self.line_left_menu_base_animation.setStartValue(self.expand-4)
+                self.line_left_menu_base_animation.setEndValue(40)
+                self.line_left_menu_base_animation.setEasingCurve(QEasingCurve.Type.InOutCubic)
+                self.line_left_menu_base_animation.setDuration(200)
+
+
+            self.base_animation_group = QParallelAnimationGroup()
+            self.base_animation_group.addAnimation(self.left_menu_base_animation)
+            self.base_animation_group.addAnimation(self.frame_left_menu_base_animation)
+            self.base_animation_group.addAnimation(self.line_left_menu_base_animation)
+            self.base_animation_group.start()
+
+            self._base_left_menu_width_animation = 200 if self._base_left_menu_width_animation == 46 else 46
+
+        else:
+            self.left_menu_base.line_left_menu.hide()
+
+            self.frame_left_menu_float.show()
+
+            self._hideVisibilityToolTip_()
+
+            # # CREATE ANIMATION FLOAT
+            self.left_menu_base_animation = QPropertyAnimation(self.frame_left_menu_float, b"minimumWidth")
+            self.left_menu_base_animation_max = QPropertyAnimation(self.frame_left_menu_float, b"maximumWidth")
+            self.frame_left_menu_float_animation = QPropertyAnimation(self.left_menu_float.frame_left_menu,
+                                                                      b"minimumWidth")
+            self.line_left_menu_float_animation = QPropertyAnimation(self.left_menu_float.line_left_menu,
+                                                                     b"minimumWidth")
+
+
+            self.left_menu_base_animation.setStartValue(46)
+            self.left_menu_base_animation.setEndValue(self.expand)
+            self.left_menu_base_animation.setEasingCurve(QEasingCurve.Type.InOutCubic)
+            self.left_menu_base_animation.setDuration(200)
+
+            self.left_menu_base_animation_max.setStartValue(46)
+            self.left_menu_base_animation_max.setEndValue(self.expand)
+            self.left_menu_base_animation_max.setEasingCurve(QEasingCurve.Type.InOutCubic)
+            self.left_menu_base_animation_max.setDuration(200)
+            self.left_menu_base_animation_max.start()
+
+            self.frame_left_menu_float_animation.setStartValue(44)
+            self.frame_left_menu_float_animation.setEndValue(self.expand)
+            self.frame_left_menu_float_animation.setEasingCurve(QEasingCurve.Type.InOutCubic)
+            self.frame_left_menu_float_animation.setDuration(200)
+
+            self.line_left_menu_float_animation.setStartValue(40)
+            self.line_left_menu_float_animation.setEndValue(self.expand-4)
+            self.line_left_menu_float_animation.setEasingCurve(QEasingCurve.Type.InOutCubic)
+            self.line_left_menu_float_animation.setDuration(200)
+
+
+            self.float_animation_group = QParallelAnimationGroup()
+            self.float_animation_group.addAnimation(self.left_menu_base_animation)
+            self.float_animation_group.addAnimation(self.left_menu_base_animation_max)
+            self.float_animation_group.addAnimation(self.frame_left_menu_float_animation)
+            self.float_animation_group.addAnimation(self.line_left_menu_float_animation)
+            self.float_animation_group.start()
 
     def _hideLeftMenuFloat(self) -> None:
         """
@@ -97,7 +227,50 @@ class LeftMenu(QWidget):
         :return:
         """
 
-        self.frame_left_menu_floating.hide()
+        self.left_menu_base.line_left_menu.show()
+
+
+        self._showVisibilityToolTip_()
+        self.left_menu_base_animation_max = QPropertyAnimation(self.frame_left_menu_float, b"maximumWidth")
+        self.left_menu_base_animation = QPropertyAnimation(self.frame_left_menu_float, b"minimumWidth")
+        self.frame_left_menu_float_animation = QPropertyAnimation(self.left_menu_float.frame_left_menu,
+                                                                  b"minimumWidth")
+        self.line_left_menu_float_animation = QPropertyAnimation(self.left_menu_float.line_left_menu,
+                                                                 b"minimumWidth")
+
+
+        self.left_menu_base_animation_max.setStartValue(self.expand)
+        self.left_menu_base_animation_max.setEndValue(40)
+        self.left_menu_base_animation_max.setEasingCurve(QEasingCurve.Type.InOutCubic)
+        self.left_menu_base_animation_max.setDuration(200)
+
+        self.left_menu_base_animation.setStartValue(self.expand)
+        self.left_menu_base_animation.setEndValue(40)
+        self.left_menu_base_animation.setEasingCurve(QEasingCurve.Type.InOutCubic)
+        self.left_menu_base_animation.setDuration(200)
+
+        self.frame_left_menu_float_animation.setStartValue(self.expand)
+        self.frame_left_menu_float_animation.setEndValue(40)
+        self.frame_left_menu_float_animation.setEasingCurve(QEasingCurve.Type.InOutCubic)
+        self.frame_left_menu_float_animation.setDuration(200)
+
+        self.line_left_menu_float_animation.setStartValue(self.expand - 4)
+        self.line_left_menu_float_animation.setEndValue(40)
+        self.line_left_menu_float_animation.setEasingCurve(QEasingCurve.Type.InOutCubic)
+        self.line_left_menu_float_animation.setDuration(200)
+
+
+        self.float_animation_group = QParallelAnimationGroup()
+        self.float_animation_group.addAnimation(self.left_menu_base_animation)
+        self.float_animation_group.addAnimation(self.left_menu_base_animation_max)
+        self.float_animation_group.addAnimation(self.frame_left_menu_float_animation)
+        self.float_animation_group.addAnimation(self.line_left_menu_float_animation)
+        self.float_animation_group.start()
+        self.float_animation_group.finished.connect(lambda:
+                                                    QTimer.singleShot(50, lambda: self.frame_left_menu_float.hide()))
+
+    def setExpand(self, value):
+        self.expand = value
 
     def setResize(self, object: QRect) -> None:
         """
@@ -106,7 +279,7 @@ class LeftMenu(QWidget):
         :return:
         """
 
-        self.frame_left_menu_floating.setGeometry(6, 6, object.width(), object.height()-5)
+        self.frame_left_menu_float.setGeometry(6, 6, object.width(), object.height() - 5)
 
         self._pos_width = object.width()
         self._pos_height = object.height() - 5 if object.height() - 5 > 100 else self._pos_height
@@ -197,6 +370,109 @@ class LeftMenu(QWidget):
         self.left_menu_float.btn_user.setTooltipText("Usuario", self._app_parent,
                                                      pos_tooltip="right", adjust_x=12, adjust_y=3)
 
+    def _showVisibilityToolTip_(self):
+        """
+        PERMITIR QUE TOOLTIP APARECE
+        ALLOW TOOLTIP TO APPEAR
+        :return:
+        """
+
+        self.left_menu_base.btn_back.setPermissionShowTooltip(True)
+        self.left_menu_float.btn_back.setPermissionShowTooltip(True)
+
+        self.left_menu_base.btn_menu.setPermissionShowTooltip(True)
+        self.left_menu_float.btn_menu.setPermissionShowTooltip(True)
+
+        self.left_menu_base.btn_home.setPermissionShowTooltip(True)
+        self.left_menu_float.btn_home.setPermissionShowTooltip(True)
+
+        self.left_menu_base.btn_compra.setPermissionShowTooltip(True)
+        self.left_menu_float.btn_compra.setPermissionShowTooltip(True)
+
+        self.left_menu_base.btn_venda.setPermissionShowTooltip(True)
+        self.left_menu_float.btn_venda.setPermissionShowTooltip(True)
+
+        self.left_menu_base.btn_relatorio.setPermissionShowTooltip(True)
+        self.left_menu_float.btn_relatorio.setPermissionShowTooltip(True)
+
+        self.left_menu_base.btn_service.setPermissionShowTooltip(True)
+        self.left_menu_float.btn_service.setPermissionShowTooltip(True)
+
+        self.left_menu_base.btn_fornecedor.setPermissionShowTooltip(True)
+        self.left_menu_float.btn_fornecedor.setPermissionShowTooltip(True)
+
+        self.left_menu_base.btn_cliente.setPermissionShowTooltip(True)
+        self.left_menu_float.btn_cliente.setPermissionShowTooltip(True)
+
+        self.left_menu_base.btn_agenda.setPermissionShowTooltip(True)
+        self.left_menu_float.btn_agenda.setPermissionShowTooltip(True)
+
+        self.left_menu_base.btn_recibo.setPermissionShowTooltip(True)
+        self.left_menu_float.btn_recibo.setPermissionShowTooltip(True)
+
+        self.left_menu_base.btn_copia_seguranca.setPermissionShowTooltip(True)
+        self.left_menu_float.btn_copia_seguranca.setPermissionShowTooltip(True)
+
+        self.left_menu_base.btn_setting.setPermissionShowTooltip(True)
+        self.left_menu_float.btn_setting.setPermissionShowTooltip(True)
+
+        self.left_menu_base.btn_info.setPermissionShowTooltip(True)
+        self.left_menu_float.btn_info.setPermissionShowTooltip(True)
+
+        self.left_menu_base.btn_user.setPermissionShowTooltip(True)
+        self.left_menu_float.btn_user.setPermissionShowTooltip(True)
+
+    def _hideVisibilityToolTip_(self):
+        """
+        NÃO PERMITIR QUE TOOLTIP APARECE
+        DO NOT ALLOW TOOLTIP TO APPEAR
+        :return:
+        """
+
+        self.left_menu_base.btn_back.setPermissionShowTooltip(False)
+        self.left_menu_float.btn_back.setPermissionShowTooltip(False)
+
+        self.left_menu_base.btn_menu.setPermissionShowTooltip(False)
+        self.left_menu_float.btn_menu.setPermissionShowTooltip(False)
+
+        self.left_menu_base.btn_home.setPermissionShowTooltip(False)
+        self.left_menu_float.btn_home.setPermissionShowTooltip(False)
+
+        self.left_menu_base.btn_compra.setPermissionShowTooltip(False)
+        self.left_menu_float.btn_compra.setPermissionShowTooltip(False)
+
+        self.left_menu_base.btn_venda.setPermissionShowTooltip(False)
+        self.left_menu_float.btn_venda.setPermissionShowTooltip(False)
+
+        self.left_menu_base.btn_relatorio.setPermissionShowTooltip(False)
+        self.left_menu_float.btn_relatorio.setPermissionShowTooltip(False)
+
+        self.left_menu_base.btn_service.setPermissionShowTooltip(False)
+        self.left_menu_float.btn_service.setPermissionShowTooltip(False)
+
+        self.left_menu_base.btn_fornecedor.setPermissionShowTooltip(False)
+        self.left_menu_float.btn_fornecedor.setPermissionShowTooltip(False)
+
+        self.left_menu_base.btn_cliente.setPermissionShowTooltip(False)
+        self.left_menu_float.btn_cliente.setPermissionShowTooltip(False)
+
+        self.left_menu_base.btn_agenda.setPermissionShowTooltip(False)
+        self.left_menu_float.btn_agenda.setPermissionShowTooltip(False)
+
+        self.left_menu_base.btn_recibo.setPermissionShowTooltip(False)
+        self.left_menu_float.btn_recibo.setPermissionShowTooltip(False)
+
+        self.left_menu_base.btn_copia_seguranca.setPermissionShowTooltip(False)
+        self.left_menu_float.btn_copia_seguranca.setPermissionShowTooltip(False)
+
+        self.left_menu_base.btn_setting.setPermissionShowTooltip(False)
+        self.left_menu_float.btn_setting.setPermissionShowTooltip(False)
+
+        self.left_menu_base.btn_info.setPermissionShowTooltip(False)
+        self.left_menu_float.btn_info.setPermissionShowTooltip(False)
+
+        self.left_menu_base.btn_user.setPermissionShowTooltip(False)
+        self.left_menu_float.btn_user.setPermissionShowTooltip(False)
 
 
 class _UiLeftMenu(QWidget):
@@ -489,19 +765,19 @@ class _UiLeftMenu(QWidget):
 
     def retranslateUi(self):
         # Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
-        self.btn_back.setText("")
-        self.btn_menu.setText("")
-        self.btn_home.setText(QCoreApplication.translate("Form", u"Home", None))
+        self.btn_back.setText(QCoreApplication.translate("Form", u"    Back", None))
+        self.btn_menu.setText(QCoreApplication.translate("Form", u"  Menu", None))
+        self.btn_home.setText(QCoreApplication.translate("Form", u"  Home", None))
         self.btn_compra.setText(QCoreApplication.translate("Form", u"Compra", None))
-        self.btn_venda.setText(QCoreApplication.translate("Form", u"Venda", None))
-        self.btn_relatorio.setText(QCoreApplication.translate("Form", u"Relatorio", None))
-        self.btn_service.setText(QCoreApplication.translate("Form", u"  Servi\u00e7os", None))
-        self.btn_fornecedor.setText(QCoreApplication.translate("Form", u" Funcion\u00e1rio", None))
+        self.btn_venda.setText(QCoreApplication.translate("Form", u" Venda", None))
+        self.btn_relatorio.setText(QCoreApplication.translate("Form", u" Relatorio", None))
+        self.btn_service.setText(QCoreApplication.translate("Form", u"   Servi\u00e7os", None))
+        self.btn_fornecedor.setText(QCoreApplication.translate("Form", u"  Funcion\u00e1rio", None))
         self.btn_cliente.setText(QCoreApplication.translate("Form", u" Cliente", None))
-        self.btn_agenda.setText(QCoreApplication.translate("Form", u"Agenda", None))
+        self.btn_agenda.setText(QCoreApplication.translate("Form", u" Agenda", None))
         self.btn_recibo.setText(QCoreApplication.translate("Form", u" Recibo", None))
         self.btn_copia_seguranca.setText(QCoreApplication.translate("Form", u" C\u00f3pia de seguran\u00e7a", None))
-        self.btn_setting.setText(QCoreApplication.translate("Form", u"Configura\u00e7\u00e3o", None))
-        self.btn_info.setText(QCoreApplication.translate("Form", u" Informa\u00e7\u00e3o", None))
-        self.btn_user.setText(QCoreApplication.translate("Form", u"User", None))
+        self.btn_setting.setText(QCoreApplication.translate("Form", u"  Configura\u00e7\u00e3o", None))
+        self.btn_info.setText(QCoreApplication.translate("Form", u"   Informa\u00e7\u00e3o", None))
+        self.btn_user.setText(QCoreApplication.translate("Form", u"  User", None))
     # retranslateUi

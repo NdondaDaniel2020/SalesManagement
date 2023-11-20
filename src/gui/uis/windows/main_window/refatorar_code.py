@@ -30,8 +30,8 @@ with open("ui_main_window.py", 'r', encoding="utf-8") as file:
                                        radius=4, text_padding=3)\n"""
             code += line
 
-        elif """icon7.addFile""" in line:
-            line = '        icon7.addFile(Functions().set_svg_icon("icon_minimize.svg"), QSize(), QIcon.Normal, QIcon.Off)\n'
+        elif """icon1.addFile""" in line:
+            line = '        icon1.addFile(Functions().set_svg_icon("icon_minimize.svg"), QSize(), QIcon.Normal, QIcon.Off)\n'
             code += line
 
 
@@ -45,10 +45,6 @@ with open("ui_main_window.py", 'r', encoding="utf-8") as file:
         elif """icon8.addFile""" in line:
             line = '        icon8.addFile(Functions().set_svg_icon("icon_maximize.svg"), QSize(), QIcon.Normal, QIcon.Off)\n'
             code += line
-
-
-
-
 
 
         else:

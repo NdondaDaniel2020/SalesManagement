@@ -21,7 +21,7 @@ class PyPushButton(QPushButton):
             icon_path="",
             icon_color="#e9eaec",
             btn_radius=8,
-            btn_color="#313237",
+            btn_color="#202125",
             btn_hover="#4050aa",
             btn_pressed="#596deb",
             is_active=False,
@@ -57,6 +57,7 @@ class PyPushButton(QPushButton):
         self._adjust_x = 0
         self._adjust_y = 0
         self._pos_tooltip = 'top'
+        self.permission_show_tooltip = True
 
         self._tooltip_text = tooltip_text
         self._tooltip = _ToolTip(
@@ -89,6 +90,10 @@ class PyPushButton(QPushButton):
             is_active=is_active_menu
         )
 
+    def setMoveTooltipText(self, adjust_x=0, adjust_y=0):
+        self._adjust_x = adjust_x
+        self._adjust_y = adjust_y
+
     def setTooltipText(self, tooltip_text, app_parent, pos_tooltip="top", adjust_x=0, adjust_y=0):
 
         self._tooltip_text = tooltip_text
@@ -106,17 +111,20 @@ class PyPushButton(QPushButton):
         )
         self._tooltip.hide()
 
+    def setPermissionShowTooltip(self, bool):
+        self.permission_show_tooltip = bool
 
     def enterEvent(self, event):
-        self.move_tooltip()
-        self._tooltip.show()
+        self.moveTooltip()
+        if self.permission_show_tooltip:
+            self._tooltip.show()
 
 
     def leaveEvent(self, event):
-        self.move_tooltip()
+        self.moveTooltip()
         self._tooltip.hide()
 
-    def move_tooltip(self):
+    def moveTooltip(self):
         # GET MAIN WINDOW PARENT
         gp = self.mapToGlobal(QPoint(0, 0))
 
@@ -156,7 +164,7 @@ class PyPushButton(QPushButton):
             text_padding=55,
             text_color="#e9eaec",
             btn_radius=8,
-            btn_color="#313237",
+            btn_color="#202125",
             btn_hover="#4050aa",
             btn_pressed="#596deb",
             is_active=True

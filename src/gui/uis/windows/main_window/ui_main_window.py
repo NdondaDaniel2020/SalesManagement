@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_windowZhHmEk.ui'
+## Form generated from reading UI file 'main_windowofbCjr.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.4.2
 ##
@@ -62,6 +62,23 @@ class Ui_MainWindow(object):
         self.frame_left_menu.setStyleSheet(u"")
         self.frame_left_menu.setFrameShape(QFrame.StyledPanel)
         self.frame_left_menu.setFrameShadow(QFrame.Raised)
+        self.frame_continer_scroll_area_widget = QFrame(self.frame_left_menu)
+        self.frame_continer_scroll_area_widget.setObjectName(u"frame_continer_scroll_area_widget")
+        self.frame_continer_scroll_area_widget.setGeometry(QRect(1, 218, 16, 123))
+        sizePolicy = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.frame_continer_scroll_area_widget.sizePolicy().hasHeightForWidth())
+        self.frame_continer_scroll_area_widget.setSizePolicy(sizePolicy)
+        self.frame_continer_scroll_area_widget.setMinimumSize(QSize(0, 123))
+        self.frame_continer_scroll_area_widget.setMaximumSize(QSize(16777215, 123))
+        self.frame_continer_scroll_area_widget.setStyleSheet(u"")
+        self.frame_continer_scroll_area_widget.setFrameShape(QFrame.StyledPanel)
+        self.frame_continer_scroll_area_widget.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_5 = QHBoxLayout(self.frame_continer_scroll_area_widget)
+        self.horizontalLayout_5.setSpacing(0)
+        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
+        self.horizontalLayout_5.setContentsMargins(0, 0, 0, 0)
 
         self.horizontalLayout_2.addWidget(self.frame_left_menu)
 
@@ -108,51 +125,51 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_4.addItem(self.horizontalSpacer)
 
-        self.frame_continer_control_window = QFrame(self.title_bar)
-        self.frame_continer_control_window.setObjectName(u"frame_continer_control_window")
-        self.frame_continer_control_window.setMinimumSize(QSize(97, 0))
-        self.frame_continer_control_window.setStyleSheet(u"")
-        self.frame_continer_control_window.setFrameShape(QFrame.StyledPanel)
-        self.frame_continer_control_window.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_3 = QHBoxLayout(self.frame_continer_control_window)
+        self.frame_control_window = QFrame(self.title_bar)
+        self.frame_control_window.setObjectName(u"frame_control_window")
+        self.frame_control_window.setMinimumSize(QSize(97, 0))
+        self.frame_control_window.setStyleSheet(u"")
+        self.frame_control_window.setFrameShape(QFrame.StyledPanel)
+        self.frame_control_window.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_3 = QHBoxLayout(self.frame_control_window)
         self.horizontalLayout_3.setSpacing(7)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.btn_minimize = PyPushButton(self.frame_continer_control_window)
+        self.btn_minimize = PyPushButton(self.frame_control_window)
         self.btn_minimize.setObjectName(u"btn_minimize")
         self.btn_minimize.setMinimumSize(QSize(25, 25))
         self.btn_minimize.setMaximumSize(QSize(25, 25))
         icon = QIcon()
         icon.addFile(u"../../../images/svg_icons/icon_minimize.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_minimize.setIcon(icon)
-        self.btn_minimize.setIconSize(QSize(18, 18))
+        self.btn_minimize.setIconSize(QSize(15, 15))
 
         self.horizontalLayout_3.addWidget(self.btn_minimize)
 
-        self.btn_maximize = PyPushButton(self.frame_continer_control_window)
+        self.btn_maximize = PyPushButton(self.frame_control_window)
         self.btn_maximize.setObjectName(u"btn_maximize")
         self.btn_maximize.setMinimumSize(QSize(25, 25))
         self.btn_maximize.setMaximumSize(QSize(25, 25))
         icon1 = QIcon()
         icon1.addFile(u"../../../images/svg_icons/icon_maximize.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_maximize.setIcon(icon1)
-        self.btn_maximize.setIconSize(QSize(19, 19))
+        self.btn_maximize.setIconSize(QSize(15, 15))
 
         self.horizontalLayout_3.addWidget(self.btn_maximize)
 
-        self.btn_close = PyPushButton(self.frame_continer_control_window)
+        self.btn_close = PyPushButton(self.frame_control_window)
         self.btn_close.setObjectName(u"btn_close")
         self.btn_close.setMinimumSize(QSize(25, 25))
         self.btn_close.setMaximumSize(QSize(25, 25))
         icon2 = QIcon()
         icon2.addFile(u"../../../images/svg_icons/icon_close.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_close.setIcon(icon2)
-        self.btn_close.setIconSize(QSize(19, 19))
+        self.btn_close.setIconSize(QSize(15, 15))
 
         self.horizontalLayout_3.addWidget(self.btn_close)
 
 
-        self.horizontalLayout_4.addWidget(self.frame_continer_control_window)
+        self.horizontalLayout_4.addWidget(self.frame_control_window)
 
 
         self.verticalLayout.addWidget(self.title_bar)
@@ -335,6 +352,12 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {\n"
 " 	background-color: rgb(38, 39, 43);\n"
 "}")
+        self.frame = QFrame(self.container_central_frame)
+        self.frame.setObjectName(u"frame")
+        self.frame.setGeometry(QRect(30, 129, 471, 201))
+        self.frame.setStyleSheet(u"background-color: rgb(255, 255, 255);")
+        self.frame.setFrameShape(QFrame.StyledPanel)
+        self.frame.setFrameShadow(QFrame.Raised)
 
         self.verticalLayout.addWidget(self.container_central_frame)
 
