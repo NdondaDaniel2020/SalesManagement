@@ -95,6 +95,9 @@ class LeftMenu(QWidget):
         self.left_menu_float.btn_menu.clicked.connect(self._hideLeftMenuFloat)
         self.left_menu_base.btn_menu.clicked.connect(self._showLeftMenuFloat)
 
+        self.left_menu_base.scroll_area_left_menu.verticalScrollBar().valueChanged.connect(self.onScrollValueChanged)
+        self.left_menu_float.scroll_area_left_menu.verticalScrollBar().valueChanged.connect(self.onScrollValueChanged)
+
 
         # ADICIONAR O TEXTO NO TOOLTIP DOS BUTTONS
         # ADD TEXT TO THE BUTTONS TOOLTIP
@@ -103,6 +106,7 @@ class LeftMenu(QWidget):
 
 
 
+    @Slot(None)
     def _showLeftMenuFloat(self) -> None:
         """
         MOSTRAR O LEFT MENU FLUTUANTE E REDIMENCIONAR
@@ -220,6 +224,7 @@ class LeftMenu(QWidget):
             self.float_animation_group.addAnimation(self.line_left_menu_float_animation)
             self.float_animation_group.start()
 
+    @Slot(None)
     def _hideLeftMenuFloat(self) -> None:
         """
         ESCONDER O LEFT MENU FLUTUANTE E REDIMENCIONAR
@@ -268,6 +273,11 @@ class LeftMenu(QWidget):
         self.float_animation_group.start()
         self.float_animation_group.finished.connect(lambda:
                                                     QTimer.singleShot(50, lambda: self.frame_left_menu_float.hide()))
+
+    def onScrollValueChanged(self, value):
+        if not self.sender().orientation() == Qt.Horizontal:
+            self.left_menu_base.scroll_area_left_menu.verticalScrollBar().setValue(value)
+            self.left_menu_float.scroll_area_left_menu.verticalScrollBar().setValue(value)
 
     def setExpand(self, value):
         self.expand = value

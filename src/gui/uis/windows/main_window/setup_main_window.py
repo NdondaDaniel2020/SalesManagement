@@ -30,7 +30,7 @@ class SetUpMainWindow(QMainWindow):
 
 
         self.setup.btn_close.setTooltipText("Fechar", self.setup.central_widget,
-                                            pos_tooltip="bottom", adjust_y=-10, adjust_x=-18)
+                                            pos_tooltip="bottom", adjust_y=-10, adjust_x=-17)
         self.setup.btn_maximize.setTooltipText("Maximizar", self.setup.central_widget, pos_tooltip="bottom", adjust_y=-10)
         self.setup.btn_minimize.setTooltipText("Minimizar", self.setup.central_widget, pos_tooltip="bottom", adjust_y=-10)
 

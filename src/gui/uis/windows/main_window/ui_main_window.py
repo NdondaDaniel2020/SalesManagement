@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_windowofbCjr.ui'
+## Form generated from reading UI file 'main_windowetMgUM.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.4.2
 ##
@@ -352,12 +352,6 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {\n"
 " 	background-color: rgb(38, 39, 43);\n"
 "}")
-        self.frame = QFrame(self.container_central_frame)
-        self.frame.setObjectName(u"frame")
-        self.frame.setGeometry(QRect(30, 129, 471, 201))
-        self.frame.setStyleSheet(u"background-color: rgb(255, 255, 255);")
-        self.frame.setFrameShape(QFrame.StyledPanel)
-        self.frame.setFrameShadow(QFrame.Raised)
 
         self.verticalLayout.addWidget(self.container_central_frame)
 
