@@ -28,11 +28,14 @@ class SetUpMainWindow(QMainWindow):
 
         self.left_menu = LeftMenu(self.setup.frame_left_menu, self.setup.central_widget, self.geometry().height())
 
+        # self.left_menu.btn_home.connect(lambda: print("test home"))
 
         self.setup.btn_close.setTooltipText("Fechar", self.setup.central_widget,
                                             pos_tooltip="bottom", adjust_y=-10, adjust_x=-17)
-        self.setup.btn_maximize.setTooltipText("Maximizar", self.setup.central_widget, pos_tooltip="bottom", adjust_y=-10)
-        self.setup.btn_minimize.setTooltipText("Minimizar", self.setup.central_widget, pos_tooltip="bottom", adjust_y=-10)
+        self.setup.btn_maximize.setTooltipText("Maximizar", self.setup.central_widget,
+                                               pos_tooltip="bottom", adjust_y=-10)
+        self.setup.btn_minimize.setTooltipText("Minimizar", self.setup.central_widget,
+                                               pos_tooltip="bottom", adjust_y=-10)
 
 
 

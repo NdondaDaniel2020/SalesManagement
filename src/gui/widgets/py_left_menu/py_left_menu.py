@@ -39,6 +39,34 @@ class LeftMenu(QWidget):
         self._float_left_menu_width_animation = self._pos_width + 2
         self._size_screen = QApplication.primaryScreen().size()
 
+        self.button_settings = {
+            'btn_home': {'btn_radius': 8, 'text_padding': 5},
+
+            'btn_compra': {'btn_radius': 8, 'text_padding': 2},
+
+            'btn_venda': {'btn_radius': 8, 'text_padding': 1},
+
+            'btn_relatorio': {'btn_radius': 8, 'text_padding': 0},
+
+            'btn_service': {'btn_radius': 8, 'text_padding': 7},
+
+            'btn_fornecedor': {'btn_radius': 8, 'text_padding': 6},
+
+            'btn_cliente': {'btn_radius': 8, 'text_padding': 6},
+
+            'btn_agenda': {'btn_radius': 8, 'text_padding': -2},
+
+            'btn_recibo': {'btn_radius': 8, 'text_padding': 6},
+
+            'btn_copia_seguranca': {'btn_radius': 8, 'text_padding': 7},
+
+            'btn_setting': {'btn_radius': 8, 'text_padding': 5},
+
+            'btn_info': {'btn_radius': 8, 'text_padding': 6},
+
+            'btn_user': {'btn_radius': 8, 'text_padding': 1.3}
+        }
+
         self.expand = 200
 
         self._app_parent = app_parent
@@ -63,7 +91,9 @@ class LeftMenu(QWidget):
                                                         background-color: rgb(32, 33, 37);
                                                         border:none}""")
 
+
         # SET DROP SHADOW
+        # //////////////////////////////////////////////////////
         self.shadow_float = QGraphicsDropShadowEffect(self)
         self.shadow_float.setBlurRadius(30)
         self.shadow_float.setXOffset(0)
@@ -95,8 +125,48 @@ class LeftMenu(QWidget):
         self.left_menu_float.btn_menu.clicked.connect(self._hideLeftMenuFloat)
         self.left_menu_base.btn_menu.clicked.connect(self._showLeftMenuFloat)
 
-        self.left_menu_base.scroll_area_left_menu.verticalScrollBar().valueChanged.connect(self.onScrollValueChanged)
-        self.left_menu_float.scroll_area_left_menu.verticalScrollBar().valueChanged.connect(self.onScrollValueChanged)
+        self.left_menu_base.scroll_area_left_menu.verticalScrollBar().valueChanged.connect(self._onScrollValueChanged_)
+        self.left_menu_float.scroll_area_left_menu.verticalScrollBar().valueChanged.connect(self._onScrollValueChanged_)
+
+
+        self.left_menu_base.btn_home.clicked.connect(self._connections_of_all_buttons_)
+        self.left_menu_float.btn_home.clicked.connect(self._connections_of_all_buttons_)
+
+        self.left_menu_base.btn_compra.clicked.connect(self._connections_of_all_buttons_)
+        self.left_menu_float.btn_compra.clicked.connect(self._connections_of_all_buttons_)
+
+        self.left_menu_base.btn_venda.clicked.connect(self._connections_of_all_buttons_)
+        self.left_menu_float.btn_venda.clicked.connect(self._connections_of_all_buttons_)
+
+        self.left_menu_base.btn_relatorio.clicked.connect(self._connections_of_all_buttons_)
+        self.left_menu_float.btn_relatorio.clicked.connect(self._connections_of_all_buttons_)
+
+        self.left_menu_base.btn_service.clicked.connect(self._connections_of_all_buttons_)
+        self.left_menu_float.btn_service.clicked.connect(self._connections_of_all_buttons_)
+
+        self.left_menu_base.btn_fornecedor.clicked.connect(self._connections_of_all_buttons_)
+        self.left_menu_float.btn_fornecedor.clicked.connect(self._connections_of_all_buttons_)
+
+        self.left_menu_base.btn_cliente.clicked.connect(self._connections_of_all_buttons_)
+        self.left_menu_float.btn_cliente.clicked.connect(self._connections_of_all_buttons_)
+
+        self.left_menu_base.btn_agenda.clicked.connect(self._connections_of_all_buttons_)
+        self.left_menu_float.btn_agenda.clicked.connect(self._connections_of_all_buttons_)
+
+        self.left_menu_base.btn_copia_seguranca.clicked.connect(self._connections_of_all_buttons_)
+        self.left_menu_float.btn_copia_seguranca.clicked.connect(self._connections_of_all_buttons_)
+
+        self.left_menu_base.btn_recibo.clicked.connect(self._connections_of_all_buttons_)
+        self.left_menu_float.btn_recibo.clicked.connect(self._connections_of_all_buttons_)
+
+        self.left_menu_base.btn_setting.clicked.connect(self._connections_of_all_buttons_)
+        self.left_menu_float.btn_setting.clicked.connect(self._connections_of_all_buttons_)
+
+        self.left_menu_base.btn_info.clicked.connect(self._connections_of_all_buttons_)
+        self.left_menu_float.btn_info.clicked.connect(self._connections_of_all_buttons_)
+
+        self.left_menu_base.btn_user.clicked.connect(self._connections_of_all_buttons_)
+        self.left_menu_float.btn_user.clicked.connect(self._connections_of_all_buttons_)
 
 
         # ADICIONAR O TEXTO NO TOOLTIP DOS BUTTONS
@@ -105,6 +175,113 @@ class LeftMenu(QWidget):
         self.__addToolTip__()
 
 
+    @Slot(str)
+    def _connections_of_all_buttons_(self):
+
+        print(self.sender().objectName())
+
+        # PEGAR OS BTNS PARA ALTERAR O ESTILO
+        # GET THE BTNS TO CHANGE THE STYLE
+        # //////////////////////////////////////////////////////
+        list_float_top = self.left_menu_float.frame_left_menu_top.findChildren(QPushButton)
+        list_base_top = self.left_menu_base.frame_left_menu_top.findChildren(QPushButton)
+
+        list_float = self.left_menu_float.frame_continer_scroll_area_widget_contents_left_menu.findChildren(QPushButton)
+        list_base = self.left_menu_base.frame_continer_scroll_area_widget_contents_left_menu.findChildren(QPushButton)
+
+        list_float_bottom = self.left_menu_float.frame_conteiner_left_menu_bottom.findChildren(QPushButton)
+        list_base_bottom = self.left_menu_base.frame_conteiner_left_menu_bottom.findChildren(QPushButton)
+
+
+        # PEGAR TODOS OS MANTER ESTILO BASE DE CADA BTN
+        # CATCH ALL KEEP BASE STYLE OF EACH BTN
+        # //////////////////////////////////////////////////////
+        for btn_base_top, btn_float_top in zip(list_float_top, list_base_top):
+            for obj_name, obj_item in zip(self.button_settings.keys(), self.button_settings.values()):
+
+                if btn_base_top.objectName() == obj_name:
+
+                    btn_base_top.set_style(is_active=False,
+                                           btn_radius=obj_item['btn_radius'],
+                                           text_padding=obj_item['text_padding'])
+
+                    btn_float_top.set_style(is_active=False,
+                                           btn_radius=obj_item['btn_radius'],
+                                           text_padding=obj_item['text_padding'])
+
+
+        for btn_base, btn_float in zip(list_float, list_base):
+            for obj_name, obj_item in zip(self.button_settings.keys(), self.button_settings.values()):
+
+                if btn_base.objectName() == obj_name:
+
+                    btn_base.set_style(is_active=False,
+                                           btn_radius=obj_item['btn_radius'],
+                                           text_padding=obj_item['text_padding'])
+
+                    btn_float.set_style(is_active=False,
+                                           btn_radius=obj_item['btn_radius'],
+                                           text_padding=obj_item['text_padding'])
+
+
+        for btn_base_bottom, btn_float_bottom in zip(list_float_bottom, list_base_bottom):
+            for obj_name, obj_item in zip(self.button_settings.keys(), self.button_settings.values()):
+
+                if btn_base_bottom.objectName() == obj_name:
+
+                    btn_base_bottom.set_style(is_active=False,
+                                              btn_radius=obj_item['btn_radius'],
+                                              text_padding=obj_item['text_padding'])
+
+                    btn_float_bottom.set_style(is_active=False,
+                                               btn_radius=obj_item['btn_radius'],
+                                               text_padding=obj_item['text_padding'])
+
+
+
+        # ADICIONAR ESTILO DE BTN ATIVO AO BTN SELECIONADO
+        # ADD ACTIVE BTN STYLE TO SELECTED BTN
+        # //////////////////////////////////////////////////////
+        for btn_base_top, btn_float_top in zip(list_float_top, list_base_top):
+            for obj_name, obj_item in zip(self.button_settings.keys(), self.button_settings.values()):
+
+                if btn_base_top.objectName() == obj_name == self.sender().objectName():
+
+                    btn_base_top.set_style(is_active=True,
+                                           btn_radius=obj_item['btn_radius'],
+                                           text_padding=obj_item['text_padding'])
+
+                    btn_float_top.set_style(is_active=True,
+                                            btn_radius=obj_item['btn_radius'],
+                                            text_padding=obj_item['text_padding'])
+
+
+        for btn_base, btn_float in zip(list_float, list_base):
+            for obj_name, obj_item in zip(self.button_settings.keys(), self.button_settings.values()):
+
+                if btn_base.objectName() == obj_name == self.sender().objectName():
+
+                    btn_base.set_style(is_active=True,
+                                       btn_radius=obj_item['btn_radius'],
+                                       text_padding=obj_item['text_padding'])
+
+                    btn_float.set_style(is_active=True,
+                                        btn_radius=obj_item['btn_radius'],
+                                        text_padding=obj_item['text_padding'])
+
+
+        for btn_base_bottom, btn_float_bottom in zip(list_float_bottom, list_base_bottom):
+            for obj_name, obj_item in zip(self.button_settings.keys(), self.button_settings.values()):
+
+                if btn_base_bottom.objectName() == obj_name == self.sender().objectName():
+
+                    btn_base_bottom.set_style(is_active=True,
+                                       btn_radius=obj_item['btn_radius'],
+                                       text_padding=obj_item['text_padding'])
+
+                    btn_float_bottom.set_style(is_active=True,
+                                        btn_radius=obj_item['btn_radius'],
+                                        text_padding=obj_item['text_padding'])
 
     @Slot(None)
     def _showLeftMenuFloat(self) -> None:
@@ -274,7 +451,13 @@ class LeftMenu(QWidget):
         self.float_animation_group.finished.connect(lambda:
                                                     QTimer.singleShot(50, lambda: self.frame_left_menu_float.hide()))
 
-    def onScrollValueChanged(self, value):
+    def _onScrollValueChanged_(self, value):
+        """
+        sincronizar os dois QScrollArea
+        synchronize the two QScrollArea
+        :param value:
+        :return:
+        """
         if not self.sender().orientation() == Qt.Horizontal:
             self.left_menu_base.scroll_area_left_menu.verticalScrollBar().setValue(value)
             self.left_menu_float.scroll_area_left_menu.verticalScrollBar().setValue(value)
@@ -483,6 +666,14 @@ class LeftMenu(QWidget):
 
         self.left_menu_base.btn_user.setPermissionShowTooltip(False)
         self.left_menu_float.btn_user.setPermissionShowTooltip(False)
+
+    ## TESTE PROPERTY ###
+
+    @property
+    def btn_home(self) -> QPushButton:
+        return self.left_menu_base.btn_home
+
+
 
 
 class _UiLeftMenu(QWidget):

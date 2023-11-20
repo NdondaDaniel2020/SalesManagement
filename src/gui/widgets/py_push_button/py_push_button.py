@@ -119,7 +119,6 @@ class PyPushButton(QPushButton):
         if self.permission_show_tooltip:
             self._tooltip.show()
 
-
     def leaveEvent(self, event):
         self.moveTooltip()
         self._tooltip.hide()
@@ -161,7 +160,7 @@ class PyPushButton(QPushButton):
 
     def set_style(
             self,
-            text_padding=55,
+            text_padding=4,
             text_color="#e9eaec",
             btn_radius=8,
             btn_color="#202125",
@@ -205,7 +204,7 @@ class PyPushButton(QPushButton):
         if not is_active:
             self.setStyleSheet(style)
         else:
-            self.setStyleSheet(active_style)
+            self.setStyleSheet(style + active_style)
 
     def paintEvent(self, event):
         # Return default style

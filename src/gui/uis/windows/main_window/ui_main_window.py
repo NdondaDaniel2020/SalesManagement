@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_windowetMgUM.ui'
+## Form generated from reading UI file 'main_windowKohjEK.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.4.2
 ##
@@ -137,34 +137,34 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.btn_minimize = PyPushButton(self.frame_control_window)
         self.btn_minimize.setObjectName(u"btn_minimize")
-        self.btn_minimize.setMinimumSize(QSize(25, 25))
-        self.btn_minimize.setMaximumSize(QSize(25, 25))
+        self.btn_minimize.setMinimumSize(QSize(26, 26))
+        self.btn_minimize.setMaximumSize(QSize(26, 26))
         icon = QIcon()
         icon.addFile(u"../../../images/svg_icons/icon_minimize.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_minimize.setIcon(icon)
-        self.btn_minimize.setIconSize(QSize(15, 15))
+        self.btn_minimize.setIconSize(QSize(17, 17))
 
         self.horizontalLayout_3.addWidget(self.btn_minimize)
 
         self.btn_maximize = PyPushButton(self.frame_control_window)
         self.btn_maximize.setObjectName(u"btn_maximize")
-        self.btn_maximize.setMinimumSize(QSize(25, 25))
-        self.btn_maximize.setMaximumSize(QSize(25, 25))
+        self.btn_maximize.setMinimumSize(QSize(26, 26))
+        self.btn_maximize.setMaximumSize(QSize(26, 26))
         icon1 = QIcon()
         icon1.addFile(u"../../../images/svg_icons/icon_maximize.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_maximize.setIcon(icon1)
-        self.btn_maximize.setIconSize(QSize(15, 15))
+        self.btn_maximize.setIconSize(QSize(17, 17))
 
         self.horizontalLayout_3.addWidget(self.btn_maximize)
 
         self.btn_close = PyPushButton(self.frame_control_window)
         self.btn_close.setObjectName(u"btn_close")
-        self.btn_close.setMinimumSize(QSize(25, 25))
-        self.btn_close.setMaximumSize(QSize(25, 25))
+        self.btn_close.setMinimumSize(QSize(26, 26))
+        self.btn_close.setMaximumSize(QSize(26, 26))
         icon2 = QIcon()
         icon2.addFile(u"../../../images/svg_icons/icon_close.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_close.setIcon(icon2)
-        self.btn_close.setIconSize(QSize(15, 15))
+        self.btn_close.setIconSize(QSize(16, 16))
 
         self.horizontalLayout_3.addWidget(self.btn_close)
 
