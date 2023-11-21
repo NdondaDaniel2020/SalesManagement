@@ -178,7 +178,6 @@ class LeftMenu(QWidget):
     @Slot(str)
     def _connections_of_all_buttons_(self):
 
-        print(self.sender().objectName())
 
         # PEGAR OS BTNS PARA ALTERAR O ESTILO
         # GET THE BTNS TO CHANGE THE STYLE
@@ -477,6 +476,13 @@ class LeftMenu(QWidget):
         self._pos_width = object.width()
         self._pos_height = object.height() - 5 if object.height() - 5 > 100 else self._pos_height
 
+        ## PARA ATIVAR O AUTO SCRO DO QScrolArea mude o maximumsize. cria outra def
+        # self.left_menu_base.frame_continer_scroll_area_widget
+        # self.left_menu_float.frame_continer_scroll_area_widget
+        # .setMaximumSize(QSize(16777215, 295))
+        # if object.height() - 378 >= 122 and object.height() - 378 <= 295:
+        #     print(object.height() - 378)
+
     def __addToolTip__(self):
         """
         ADICIONAR O TEXTO NO TOOLTIP DOS BUTTONS
@@ -667,11 +673,7 @@ class LeftMenu(QWidget):
         self.left_menu_base.btn_user.setPermissionShowTooltip(False)
         self.left_menu_float.btn_user.setPermissionShowTooltip(False)
 
-    ## TESTE PROPERTY ###
 
-    @property
-    def btn_home(self) -> QPushButton:
-        return self.left_menu_base.btn_home
 
 
 
@@ -793,7 +795,8 @@ class _UiLeftMenu(QWidget):
         self.horizontalLayout_5.setContentsMargins(0, 0, 0, 0)
         self.scroll_area_left_menu = QScrollArea(self.frame_continer_scroll_area_widget)
         self.scroll_area_left_menu.setObjectName(u"scroll_area_left_menu")
-        self.scroll_area_left_menu.setMinimumSize(QSize(0, 120))
+        self.scroll_area_left_menu.setMinimumSize(QSize(0, 122))
+        self.scroll_area_left_menu.setMaximumSize(QSize(16777215, 122))
         self.scroll_area_left_menu.setLineWidth(0)
         self.scroll_area_left_menu.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.scroll_area_left_menu.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
@@ -982,3 +985,4 @@ class _UiLeftMenu(QWidget):
         self.btn_info.setText(QCoreApplication.translate("Form", u"   Informa\u00e7\u00e3o", None))
         self.btn_user.setText(QCoreApplication.translate("Form", u"  User", None))
     # retranslateUi
+
