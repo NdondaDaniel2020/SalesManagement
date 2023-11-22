@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_windowKohjEK.ui'
+## Form generated from reading UI file 'main_windowJWXohO.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.4.2
 ##
@@ -20,6 +20,7 @@ from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
     QVBoxLayout, QWidget)
 
 from src.gui.widgets.py_push_button.py_push_button import PyPushButton
+from src.gui.core.functions import Functions
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -28,21 +29,7 @@ class Ui_MainWindow(object):
         MainWindow.resize(910, 575)
         self.widget_style_sheet = QWidget(MainWindow)
         self.widget_style_sheet.setObjectName(u"widget_style_sheet")
-        self.widget_style_sheet.setStyleSheet(u"#central_widget, #line_left_menu, #line_title_bar{\n"
-"	background-color: rgb(32, 33, 37);	\n"
-"    border-radius: 8px}\n"
-"\n"
-"#container_central_frame{\n"
-"	background-color: rgb(19, 20, 22);	\n"
-"	border-top-left-radius: 7px;}\n"
-"\n"
-"#scroll_area_widget_contents_left_menu, #scroll_area_left_menu{\n"
-"	background-color: rgb(32, 33, 37);\n"
-"	border:none}\n"
-"\n"
-"#line_left_menu, #line_title_bar{	border:none}\n"
-"\n"
-"")
+
         self.horizontalLayout = QHBoxLayout(self.widget_style_sheet)
         self.horizontalLayout.setSpacing(0)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
@@ -135,18 +122,24 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.setSpacing(7)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.btn_minimize = PyPushButton(self.frame_control_window)
+        self.btn_minimize = PyPushButton(self.frame_control_window,
+                                       btn_hover="#313237",
+                                       btn_pressed="#26272b",
+                                       btn_radius=4, text_padding=4)
         self.btn_minimize.setObjectName(u"btn_minimize")
         self.btn_minimize.setMinimumSize(QSize(26, 26))
         self.btn_minimize.setMaximumSize(QSize(26, 26))
         icon = QIcon()
-        icon.addFile(u"../../../images/svg_icons/icon_minimize.svg", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(Functions().set_svg_icon("icon_minimize.svg"), QSize(), QIcon.Normal, QIcon.Off)
         self.btn_minimize.setIcon(icon)
         self.btn_minimize.setIconSize(QSize(17, 17))
 
         self.horizontalLayout_3.addWidget(self.btn_minimize)
 
-        self.btn_maximize = PyPushButton(self.frame_control_window)
+        self.btn_maximize = PyPushButton(self.frame_control_window,
+                                       btn_hover="#313237",
+                                       btn_pressed="#26272b",
+                                       btn_radius=4, text_padding=4.5)
         self.btn_maximize.setObjectName(u"btn_maximize")
         self.btn_maximize.setMinimumSize(QSize(26, 26))
         self.btn_maximize.setMaximumSize(QSize(26, 26))
@@ -157,14 +150,17 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_3.addWidget(self.btn_maximize)
 
-        self.btn_close = PyPushButton(self.frame_control_window)
+        self.btn_close = PyPushButton(self.frame_control_window,
+                                       btn_hover="#313237",
+                                       btn_pressed="#e10000",
+                                       btn_radius=4, text_padding=5)
         self.btn_close.setObjectName(u"btn_close")
         self.btn_close.setMinimumSize(QSize(26, 26))
         self.btn_close.setMaximumSize(QSize(26, 26))
         icon2 = QIcon()
-        icon2.addFile(u"../../../images/svg_icons/icon_close.svg", QSize(), QIcon.Normal, QIcon.Off)
+        icon2.addFile(Functions().set_svg_icon("icon_close.svg"), QSize(), QIcon.Normal, QIcon.Off)
         self.btn_close.setIcon(icon2)
-        self.btn_close.setIconSize(QSize(16, 16))
+        self.btn_close.setIconSize(QSize(17, 17))
 
         self.horizontalLayout_3.addWidget(self.btn_close)
 

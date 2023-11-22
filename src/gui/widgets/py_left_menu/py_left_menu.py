@@ -8,16 +8,6 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-                            QMetaObject, QObject, QPoint, QRect,
-                            QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-                           QFont, QFontDatabase, QGradient, QIcon,
-                           QImage, QKeySequence, QLinearGradient, QPainter,
-                           QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QScrollArea,
-                               QSizePolicy, QSpacerItem, QVBoxLayout, QWidget)
-
 from src.qt_core import *
 
 from src.gui.widgets.py_push_button.py_push_button import PyPushButton
@@ -33,7 +23,6 @@ class LeftMenu(QWidget):
         self._pos_y = 6
         self._pos_width = 44
         self._pos_height = app_height - 22
-
 
         self._base_left_menu_width_animation = self._pos_width + 2
         self._float_left_menu_width_animation = self._pos_width + 2
@@ -72,17 +61,38 @@ class LeftMenu(QWidget):
         self._app_parent = app_parent
         self._parent = parent
 
+        # INICIALIZAÇÃO (INSTACIA) E CONFIGURAÇÃO DOS LEFT MENU
+        # INITIALIZATION (INSTACIA) AND LEFT MENU CONFIGURATION
+        # /////////////////////////////////////////////////////
+        self._initUi_()
 
+        # CONEXÃO ENTRE OS BOTÕES E OS METODOS
+        # CONNECTION BETWEEN BUTTONS AND METHODS
+        # //////////////////////////////////////////////////////
+        self._connections_()
+
+        # ADICIONAR O TEXTO NO TOOLTIP DOS BUTTONS
+        # ADD TEXT TO THE BUTTONS TOOLTIP
+        # //////////////////////////////////////////////////////
+        self.__addToolTip__()
+
+
+    def _initUi_(self):
+        """
+        CONSTRUCTION AND CONFIGUARATION OF THE LEFT MENU
+        CONSTRUÇÃO E CONFIGUARAÇÃO DAS LEFT MENU
+        :return:
+        """
         # ADICIONAR O MENU NA BASE DA INTERFACE, TORNADO ELE PARTE DO LAYOUT
         # ADD THE MENU AT THE BASE OF THE INTERFACE, MAKING IT PART OF THE LAYOUT
         # //////////////////////////////////////////////////////
-        self.left_menu_base = _UiLeftMenu(parent)
+        self.left_menu_base = _UiLeftMenu_(self._parent)
 
 
         # CRIADO UM FRAME QUE FIQUE POR CIMA DA INTERFACE ONDE FICARÁ O LEFT MENU FLUTUANTE
         # CREATED A FRAME THAT IS ON TOP OF THE INTERFACE WHERE THE FLOATING LEFT MENU WILL BE
         # //////////////////////////////////////////////////////
-        self.frame_left_menu_float = QFrame(app_parent)
+        self.frame_left_menu_float = QFrame(self._app_parent)
         self.frame_left_menu_float.setGeometry(self._pos_x, self._pos_y, self._pos_width, self._pos_height)
         self.frame_left_menu_float.setMaximumWidth(self._pos_width)
         self.frame_left_menu_float.setMinimumWidth(self._pos_width)
@@ -98,16 +108,23 @@ class LeftMenu(QWidget):
         self.shadow_float.setBlurRadius(30)
         self.shadow_float.setXOffset(0)
         self.shadow_float.setYOffset(0)
-        self.shadow_float.setColor(QColor(0, 0, 0, 80))   ### retificar para cor verdadeira
-
+        self.shadow_float.setColor(QColor(0, 0, 0, 80))
         self.frame_left_menu_float.setGraphicsEffect(self.shadow_float)
+
 
         self.frame_left_menu_float.hide()
 
         # ADICIONAR O MENU NA FLUTUANTE DA INTERFACE, TORNADO ELE PARTE DO LAYOUT
         # ADD THE MENU AT THE FLOATIN OF THE INTERFACE, MAKING IT PART OF THE LAYOUT
         # //////////////////////////////////////////////////////
-        self.left_menu_float = _UiLeftMenu(self.frame_left_menu_float)
+        self.left_menu_float = _UiLeftMenu_(self.frame_left_menu_float)
+
+        self.shadow_frame_left_menu = QGraphicsDropShadowEffect(self)
+        self.shadow_frame_left_menu.setBlurRadius(30)
+        self.shadow_frame_left_menu.setXOffset(0)
+        self.shadow_frame_left_menu.setYOffset(0)
+        self.shadow_frame_left_menu.setColor(QColor(0, 0, 0, 80))
+        self.left_menu_float.frame_left_menu.setGraphicsEffect(self.shadow_frame_left_menu)
 
 
         # POR NÃO ESTAR EM UM LAYOU, HOUVE NA NECECIADADE DE DACER AJUSTES
@@ -118,10 +135,12 @@ class LeftMenu(QWidget):
         self.left_menu_float.frame_left_menu.setMaximumSize(QSize(43, 16777215))
         # //////////////////////////////////////////////////////
 
-
+    def _connections_(self):
+        """
         # CONEXÃO ENTRE OS BOTÕES E OS METODOS
         # CONNECTION BETWEEN BUTTONS AND METHODS
-        # //////////////////////////////////////////////////////
+        :return:
+        """
         self.left_menu_float.btn_menu.clicked.connect(self._hideLeftMenuFloat)
         self.left_menu_base.btn_menu.clicked.connect(self._showLeftMenuFloat)
 
@@ -168,13 +187,6 @@ class LeftMenu(QWidget):
         self.left_menu_base.btn_user.clicked.connect(self._connections_of_all_buttons_)
         self.left_menu_float.btn_user.clicked.connect(self._connections_of_all_buttons_)
 
-
-        # ADICIONAR O TEXTO NO TOOLTIP DOS BUTTONS
-        # ADD TEXT TO THE BUTTONS TOOLTIP
-        # //////////////////////////////////////////////////////
-        self.__addToolTip__()
-
-
     @Slot(str)
     def _connections_of_all_buttons_(self):
 
@@ -192,52 +204,6 @@ class LeftMenu(QWidget):
         list_base_bottom = self.left_menu_base.frame_conteiner_left_menu_bottom.findChildren(QPushButton)
 
 
-        # PEGAR TODOS OS MANTER ESTILO BASE DE CADA BTN
-        # CATCH ALL KEEP BASE STYLE OF EACH BTN
-        # //////////////////////////////////////////////////////
-        for btn_base_top, btn_float_top in zip(list_float_top, list_base_top):
-            for obj_name, obj_item in zip(self.button_settings.keys(), self.button_settings.values()):
-
-                if btn_base_top.objectName() == obj_name:
-
-                    btn_base_top.set_style(is_active=False,
-                                           btn_radius=obj_item['btn_radius'],
-                                           text_padding=obj_item['text_padding'])
-
-                    btn_float_top.set_style(is_active=False,
-                                           btn_radius=obj_item['btn_radius'],
-                                           text_padding=obj_item['text_padding'])
-
-
-        for btn_base, btn_float in zip(list_float, list_base):
-            for obj_name, obj_item in zip(self.button_settings.keys(), self.button_settings.values()):
-
-                if btn_base.objectName() == obj_name:
-
-                    btn_base.set_style(is_active=False,
-                                           btn_radius=obj_item['btn_radius'],
-                                           text_padding=obj_item['text_padding'])
-
-                    btn_float.set_style(is_active=False,
-                                           btn_radius=obj_item['btn_radius'],
-                                           text_padding=obj_item['text_padding'])
-
-
-        for btn_base_bottom, btn_float_bottom in zip(list_float_bottom, list_base_bottom):
-            for obj_name, obj_item in zip(self.button_settings.keys(), self.button_settings.values()):
-
-                if btn_base_bottom.objectName() == obj_name:
-
-                    btn_base_bottom.set_style(is_active=False,
-                                              btn_radius=obj_item['btn_radius'],
-                                              text_padding=obj_item['text_padding'])
-
-                    btn_float_bottom.set_style(is_active=False,
-                                               btn_radius=obj_item['btn_radius'],
-                                               text_padding=obj_item['text_padding'])
-
-
-
         # ADICIONAR ESTILO DE BTN ATIVO AO BTN SELECIONADO
         # ADD ACTIVE BTN STYLE TO SELECTED BTN
         # //////////////////////////////////////////////////////
@@ -253,6 +219,16 @@ class LeftMenu(QWidget):
                     btn_float_top.set_style(is_active=True,
                                             btn_radius=obj_item['btn_radius'],
                                             text_padding=obj_item['text_padding'])
+                else:
+                    if btn_base_top.objectName() == obj_name:
+
+                        btn_base_top.set_style(is_active=False,
+                                               btn_radius=obj_item['btn_radius'],
+                                               text_padding=obj_item['text_padding'])
+
+                        btn_float_top.set_style(is_active=False,
+                                                btn_radius=obj_item['btn_radius'],
+                                                text_padding=obj_item['text_padding'])
 
 
         for btn_base, btn_float in zip(list_float, list_base):
@@ -267,6 +243,17 @@ class LeftMenu(QWidget):
                     btn_float.set_style(is_active=True,
                                         btn_radius=obj_item['btn_radius'],
                                         text_padding=obj_item['text_padding'])
+                else:
+
+                    if btn_base.objectName() == obj_name:
+
+                        btn_base.set_style(is_active=False,
+                                           btn_radius=obj_item['btn_radius'],
+                                           text_padding=obj_item['text_padding'])
+
+                        btn_float.set_style(is_active=False,
+                                            btn_radius=obj_item['btn_radius'],
+                                            text_padding=obj_item['text_padding'])
 
 
         for btn_base_bottom, btn_float_bottom in zip(list_float_bottom, list_base_bottom):
@@ -281,6 +268,17 @@ class LeftMenu(QWidget):
                     btn_float_bottom.set_style(is_active=True,
                                         btn_radius=obj_item['btn_radius'],
                                         text_padding=obj_item['text_padding'])
+                else:
+
+                    if btn_base_bottom.objectName() == obj_name:
+
+                        btn_base_bottom.set_style(is_active=False,
+                                                  btn_radius=obj_item['btn_radius'],
+                                                  text_padding=obj_item['text_padding'])
+
+                        btn_float_bottom.set_style(is_active=False,
+                                                   btn_radius=obj_item['btn_radius'],
+                                                   text_padding=obj_item['text_padding'])
 
     @Slot(None)
     def _showLeftMenuFloat(self) -> None:
@@ -678,7 +676,7 @@ class LeftMenu(QWidget):
 
 
 
-class _UiLeftMenu(QWidget):
+class _UiLeftMenu_(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
 

@@ -73,6 +73,7 @@ class PyPushButton(QPushButton):
         self.set_style(
             text_padding=self._text_padding,
             text_color=self._text_color,
+            btn_radius=self._btn_radius,
             btn_color=self._btn_color,
             btn_hover=self._btn_hover,
             btn_pressed=self._btn_pressed,
