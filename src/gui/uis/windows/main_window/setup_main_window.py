@@ -132,15 +132,41 @@ class SetUpMainWindow(QMainWindow):
                                            btn_pressed="#26272b",
                                            btn_radius=4, text_padding=3)
 
+            self.ui.widget_style_sheet.setStyleSheet("""#central_widget, #line_left_menu, #line_title_bar{
+                                                                                background-color: rgb(32, 33, 37);
+                                                                                border-radius: 0px}
+
+                                                                            #container_central_frame{
+                                                                                background-color: rgb(19, 20, 22);
+                                                                                border-radius: 7px;}
+
+                                                                            #scroll_area_widget_contents_left_menu, #scroll_area_left_menu{
+                                                                                background-color: rgb(32, 33, 37);
+                                                                                border:none}
+
+                                                                            #line_left_menu, #line_title_bar{	border:none}""")
+
         else:
             self.showNormal()
             self.ui.horizontalLayout.setContentsMargins(5, 5, 5, 5)
 
             self.ui.btn_maximize.setIcon(QIcon(Functions().set_svg_icon('icon_maximize.svg')))
             self.ui.btn_maximize.setIconSize(QSize(17, 17))
-            self.ui.btn_maximize.set_style(btn_hover="#313237",
-                                           btn_pressed="#26272b",
-                                           btn_radius=4, text_padding=4.5)
+
+
+            self.ui.widget_style_sheet.setStyleSheet("""#central_widget, #line_left_menu, #line_title_bar{
+                                                                                            background-color: rgb(32, 33, 37);
+                                                                                            border-radius: 8px}
+
+                                                                                        #container_central_frame{
+                                                                                            background-color: rgb(19, 20, 22);
+                                                                                            border-radius: 7px;}
+
+                                                                                        #scroll_area_widget_contents_left_menu, #scroll_area_left_menu{
+                                                                                            background-color: rgb(32, 33, 37);
+                                                                                            border:none}
+
+                                                                                        #line_left_menu, #line_title_bar{	border:none}""")
 
     def mousePressEvent(self, event):
         self._dragPos = event.globalPos()
