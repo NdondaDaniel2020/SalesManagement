@@ -68,9 +68,11 @@ class SetUpMainWindow(QMainWindow):
         self.setWindowFlags(Qt.FramelessWindowHint)  # este comando é responsavel por eliminar a barra de titulo
         self.setAttribute(Qt.WA_TranslucentBackground)  # este comando é responsavel por tornar o fundo transparente
 
+        # CONENCTION
         self.ui.btn_close.clicked.connect(lambda: self.close())
         self.ui.btn_minimize.clicked.connect(lambda: self.showMinimized())
         self.ui.btn_maximize.clicked.connect(self.restoreWinddow)
+
 
         # EVENTO PARA MOVER A JANELA
         def moveWindow(event):
@@ -87,6 +89,18 @@ class SetUpMainWindow(QMainWindow):
         self.ui.title_bar.mouseMoveEvent = moveWindow
         self.ui.title_bar.mouseDoubleClickEvent = mouseDoubleClickEvent
 
+        # ADICIONAR SOMBRA NA JANELA PRINCIPAL
+        self.shadow_window = QGraphicsDropShadowEffect(self)
+        self.shadow_window.setBlurRadius(30)
+        self.shadow_window.setXOffset(0)
+        self.shadow_window.setYOffset(0)
+        self.shadow_window.setColor(QColor(0, 0, 0, 60))
+        self.ui.central_widget.setGraphicsEffect(self.shadow_window)
+
+
+        # PONTOS DE MOVIMENTAÇÃO INSTANCIADOS
+        # INSTANCED MOVEMENT POINTS
+        #////////////////////////////////////
         self.left_grip = PyGrips(self, "left", True)
         self.right_grip = PyGrips(self, "right", True)
         self.top_grip = PyGrips(self, "top", True)

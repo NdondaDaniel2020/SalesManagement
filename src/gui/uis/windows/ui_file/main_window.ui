@@ -7,30 +7,13 @@
     <x>0</x>
     <y>0</y>
     <width>910</width>
-    <height>575</height>
+    <height>658</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="widget_style_sheet">
-   <property name="styleSheet">
-    <string notr="true">#central_widget, #line_left_menu, #line_title_bar{
-	background-color: rgb(32, 33, 37);	
-    border-radius: 8px}
-
-#container_central_frame{
-	background-color: rgb(19, 20, 22);	
-	border-top-left-radius: 7px;}
-
-#scroll_area_widget_contents_left_menu, #scroll_area_left_menu{
-	background-color: rgb(32, 33, 37);
-	border:none}
-
-#line_left_menu, #line_title_bar{	border:none}
-
-</string>
-   </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <property name="spacing">
      <number>0</number>
