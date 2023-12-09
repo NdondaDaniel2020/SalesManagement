@@ -1,0 +1,23 @@
+#central_widget,
+#line_left_menu,
+#line_title_bar{
+    background-color: rgb(32, 33, 37);
+    border-radius: 0px}
+
+#back_ground_frame_line{
+    background-color: rgb(32, 33, 37);
+    border-radius: 0px}
+
+#frame_line{
+	background-color: rgb(64, 80, 170);
+	border-radius: 0px}
+
+#stacked_widget, #stacked_widget > QWidget{
+    background-color: rgb(19, 20, 22);
+    border-radius: 0px;}
+
+#scroll_area_widget_contents_left_menu, #scroll_area_left_menu{
+    background-color: rgb(32, 33, 37);
+    border:none}
+
+#line_left_menu, #line_title_bar{border:none}

@@ -1,5 +1,4 @@
-import io
-from pprint import pprint
+
 
 code = ""
 with open("ui_main_window.py", 'r', encoding="utf-8") as file:
@@ -42,8 +41,8 @@ with open("ui_main_window.py", 'r', encoding="utf-8") as file:
                                        btn_radius=4, text_padding=4)\n"""
             code += line
 
-        elif """icon2.addFile""" in line:
-            line = '        icon2.addFile(Functions().set_svg_icon("icon_maximize.svg"), QSize(), QIcon.Normal, QIcon.Off)\n'
+        elif """icon1.addFile""" in line:
+            line = '        icon1.addFile(Functions().set_svg_icon("icon_maximize.svg"), QSize(), QIcon.Normal, QIcon.Off)\n'
             code += line
 
 

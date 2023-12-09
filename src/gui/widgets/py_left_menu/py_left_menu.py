@@ -15,14 +15,25 @@ from src.gui.core.functions import Functions
 
 
 class LeftMenu(QWidget):
-    def __init__(self, parent=None, app_parent=None, app_height=QRect):
+    def __init__(self, parent=None, app_parent=None, app_height=QRect, title_bar=True) -> None:
         super().__init__(parent)
 
-        # Parametros
-        self._pos_x = 4
-        self._pos_y = 6
+
+        self.title_bar = title_bar
+
+        if title_bar:
+            self._pos_x = 6
+            self._pos_y = 6
+            self._pos_height = app_height - 25.5
+        else:
+            self._pos_x = 6
+            self._pos_y = 6
+            self._pos_height = app_height - 13.9
+
+
+
         self._pos_width = 44
-        self._pos_height = app_height - 22
+
 
         self._base_left_menu_width_animation = self._pos_width + 2
         self._float_left_menu_width_animation = self._pos_width + 2
@@ -64,7 +75,7 @@ class LeftMenu(QWidget):
         # INICIALIZAÇÃO (INSTACIA) E CONFIGURAÇÃO DOS LEFT MENU
         # INITIALIZATION (INSTACIA) AND LEFT MENU CONFIGURATION
         # /////////////////////////////////////////////////////
-        self._initUi_()
+        self._initUiFloat_()
 
         # CONEXÃO ENTRE OS BOTÕES E OS METODOS
         # CONNECTION BETWEEN BUTTONS AND METHODS
@@ -77,7 +88,7 @@ class LeftMenu(QWidget):
         self.__addToolTip__()
 
 
-    def _initUi_(self):
+    def _initUiFloat_(self):
         """
         CONSTRUCTION AND CONFIGUARATION OF THE LEFT MENU
         CONSTRUÇÃO E CONFIGUARAÇÃO DAS LEFT MENU
@@ -89,6 +100,7 @@ class LeftMenu(QWidget):
         self.left_menu_base = _UiLeftMenu_(self._parent)
 
 
+
         # CRIADO UM FRAME QUE FIQUE POR CIMA DA INTERFACE ONDE FICARÁ O LEFT MENU FLUTUANTE
         # CREATED A FRAME THAT IS ON TOP OF THE INTERFACE WHERE THE FLOATING LEFT MENU WILL BE
         # //////////////////////////////////////////////////////
@@ -97,7 +109,8 @@ class LeftMenu(QWidget):
         self.frame_left_menu_float.setMaximumWidth(self._pos_width)
         self.frame_left_menu_float.setMinimumWidth(self._pos_width)
         self.frame_left_menu_float.setStyleSheet("""*{background-color: rgb(32, 33, 37); border-radius:6px;}
-                                                        #scroll_area_widget_contents_left_menu, #scroll_area_left_menu{
+                                                    #scroll_area_widget_contents_left_menu,
+                                                    #scroll_area_left_menu{
                                                         background-color: rgb(32, 33, 37);
                                                         border:none}""")
 
@@ -135,7 +148,7 @@ class LeftMenu(QWidget):
         self.left_menu_float.frame_left_menu.setMaximumSize(QSize(43, 16777215))
         # //////////////////////////////////////////////////////
 
-    def _connections_(self):
+    def _connections_(self) -> None:
         """
         # CONEXÃO ENTRE OS BOTÕES E OS METODOS
         # CONNECTION BETWEEN BUTTONS AND METHODS
@@ -148,47 +161,47 @@ class LeftMenu(QWidget):
         self.left_menu_float.scroll_area_left_menu.verticalScrollBar().valueChanged.connect(self._onScrollValueChanged_)
 
 
-        self.left_menu_base.btn_home.clicked.connect(self._connections_of_all_buttons_)
-        self.left_menu_float.btn_home.clicked.connect(self._connections_of_all_buttons_)
+        self.left_menu_base.btn_home.clicked.connect(self._connections_top_buttons_)
+        self.left_menu_float.btn_home.clicked.connect(self._connections_top_buttons_)
 
-        self.left_menu_base.btn_compra.clicked.connect(self._connections_of_all_buttons_)
-        self.left_menu_float.btn_compra.clicked.connect(self._connections_of_all_buttons_)
+        self.left_menu_base.btn_compra.clicked.connect(self._connections_top_buttons_)
+        self.left_menu_float.btn_compra.clicked.connect(self._connections_top_buttons_)
 
-        self.left_menu_base.btn_venda.clicked.connect(self._connections_of_all_buttons_)
-        self.left_menu_float.btn_venda.clicked.connect(self._connections_of_all_buttons_)
+        self.left_menu_base.btn_venda.clicked.connect(self._connections_top_buttons_)
+        self.left_menu_float.btn_venda.clicked.connect(self._connections_top_buttons_)
 
-        self.left_menu_base.btn_relatorio.clicked.connect(self._connections_of_all_buttons_)
-        self.left_menu_float.btn_relatorio.clicked.connect(self._connections_of_all_buttons_)
+        self.left_menu_base.btn_relatorio.clicked.connect(self._connections_top_buttons_)
+        self.left_menu_float.btn_relatorio.clicked.connect(self._connections_top_buttons_)
 
-        self.left_menu_base.btn_service.clicked.connect(self._connections_of_all_buttons_)
-        self.left_menu_float.btn_service.clicked.connect(self._connections_of_all_buttons_)
+        self.left_menu_base.btn_service.clicked.connect(self._connections_top_buttons_)
+        self.left_menu_float.btn_service.clicked.connect(self._connections_top_buttons_)
 
-        self.left_menu_base.btn_fornecedor.clicked.connect(self._connections_of_all_buttons_)
-        self.left_menu_float.btn_fornecedor.clicked.connect(self._connections_of_all_buttons_)
+        self.left_menu_base.btn_fornecedor.clicked.connect(self._connections_top_buttons_)
+        self.left_menu_float.btn_fornecedor.clicked.connect(self._connections_top_buttons_)
 
-        self.left_menu_base.btn_cliente.clicked.connect(self._connections_of_all_buttons_)
-        self.left_menu_float.btn_cliente.clicked.connect(self._connections_of_all_buttons_)
+        self.left_menu_base.btn_cliente.clicked.connect(self._connections_top_buttons_)
+        self.left_menu_float.btn_cliente.clicked.connect(self._connections_top_buttons_)
 
-        self.left_menu_base.btn_agenda.clicked.connect(self._connections_of_all_buttons_)
-        self.left_menu_float.btn_agenda.clicked.connect(self._connections_of_all_buttons_)
+        self.left_menu_base.btn_agenda.clicked.connect(self._connections_top_buttons_)
+        self.left_menu_float.btn_agenda.clicked.connect(self._connections_top_buttons_)
 
-        self.left_menu_base.btn_copia_seguranca.clicked.connect(self._connections_of_all_buttons_)
-        self.left_menu_float.btn_copia_seguranca.clicked.connect(self._connections_of_all_buttons_)
+        self.left_menu_base.btn_copia_seguranca.clicked.connect(self._connections_top_buttons_)
+        self.left_menu_float.btn_copia_seguranca.clicked.connect(self._connections_top_buttons_)
 
-        self.left_menu_base.btn_recibo.clicked.connect(self._connections_of_all_buttons_)
-        self.left_menu_float.btn_recibo.clicked.connect(self._connections_of_all_buttons_)
+        self.left_menu_base.btn_recibo.clicked.connect(self._connections_top_buttons_)
+        self.left_menu_float.btn_recibo.clicked.connect(self._connections_top_buttons_)
 
-        self.left_menu_base.btn_setting.clicked.connect(self._connections_of_all_buttons_)
-        self.left_menu_float.btn_setting.clicked.connect(self._connections_of_all_buttons_)
+        self.left_menu_base.btn_setting.clicked.connect(self._connections_bottom_buttons_)
+        self.left_menu_float.btn_setting.clicked.connect(self._connections_bottom_buttons_)
 
-        self.left_menu_base.btn_info.clicked.connect(self._connections_of_all_buttons_)
-        self.left_menu_float.btn_info.clicked.connect(self._connections_of_all_buttons_)
+        self.left_menu_base.btn_info.clicked.connect(self._connections_bottom_buttons_)
+        self.left_menu_float.btn_info.clicked.connect(self._connections_bottom_buttons_)
 
-        self.left_menu_base.btn_user.clicked.connect(self._connections_of_all_buttons_)
-        self.left_menu_float.btn_user.clicked.connect(self._connections_of_all_buttons_)
+        self.left_menu_base.btn_user.clicked.connect(self._connections_bottom_buttons_)
+        self.left_menu_float.btn_user.clicked.connect(self._connections_bottom_buttons_)
 
     @Slot(str)
-    def _connections_of_all_buttons_(self):
+    def _connections_top_buttons_(self) -> None:
 
 
         # PEGAR OS BTNS PARA ALTERAR O ESTILO
@@ -259,16 +272,7 @@ class LeftMenu(QWidget):
         for btn_base_bottom, btn_float_bottom in zip(list_float_bottom, list_base_bottom):
             for obj_name, obj_item in zip(self.button_settings.keys(), self.button_settings.values()):
 
-                if btn_base_bottom.objectName() == obj_name == self.sender().objectName():
-
-                    btn_base_bottom.set_style(is_active=True,
-                                       btn_radius=obj_item['btn_radius'],
-                                       text_padding=obj_item['text_padding'])
-
-                    btn_float_bottom.set_style(is_active=True,
-                                        btn_radius=obj_item['btn_radius'],
-                                        text_padding=obj_item['text_padding'])
-                else:
+                if not btn_base_bottom.objectName() == obj_name == self.sender().objectName():
 
                     if btn_base_bottom.objectName() == obj_name:
 
@@ -280,7 +284,36 @@ class LeftMenu(QWidget):
                                                    btn_radius=obj_item['btn_radius'],
                                                    text_padding=obj_item['text_padding'])
 
-    @Slot(None)
+    @Slot(str)
+    def _connections_bottom_buttons_(self):
+
+        list_float_bottom = self.left_menu_float.frame_conteiner_left_menu_bottom.findChildren(QPushButton)
+        list_base_bottom = self.left_menu_base.frame_conteiner_left_menu_bottom.findChildren(QPushButton)
+
+        for btn_base_bottom, btn_float_bottom in zip(list_float_bottom, list_base_bottom):
+            for obj_name, obj_item in zip(self.button_settings.keys(), self.button_settings.values()):
+
+                if btn_base_bottom.objectName() == obj_name == self.sender().objectName():
+
+                    btn_base_bottom.set_style(is_active=True,
+                                              btn_radius=obj_item['btn_radius'],
+                                              text_padding=obj_item['text_padding'])
+
+                    btn_float_bottom.set_style(is_active=True,
+                                               btn_radius=obj_item['btn_radius'],
+                                               text_padding=obj_item['text_padding'])
+                else:
+
+                    if btn_base_bottom.objectName() == obj_name:
+                        btn_base_bottom.set_style(is_active=False,
+                                                  btn_radius=obj_item['btn_radius'],
+                                                  text_padding=obj_item['text_padding'])
+
+                        btn_float_bottom.set_style(is_active=False,
+                                                   btn_radius=obj_item['btn_radius'],
+                                                   text_padding=obj_item['text_padding'])
+
+    @Slot()
     def _showLeftMenuFloat(self) -> None:
         """
         MOSTRAR O LEFT MENU FLUTUANTE E REDIMENCIONAR
@@ -292,10 +325,10 @@ class LeftMenu(QWidget):
         # REDIMENCIONAR O TAMANHO DO LEFT MENU FLOAT
         # RESIZE LEFT MENU FLOAT SIZE
         #/////////////////////////////////////////////////////////////
-        self.frame_left_menu_float.setGeometry(6, 6, self._pos_width, self._pos_height)
+        self.frame_left_menu_float.setGeometry(self._pos_x, self._pos_y, self._pos_width, self._pos_height)
 
 
-        if self._pos_height > self._size_screen.height()-80:
+        if self._pos_height > self._size_screen.height()-75:
 
 
 
@@ -354,51 +387,57 @@ class LeftMenu(QWidget):
             self._base_left_menu_width_animation = 200 if self._base_left_menu_width_animation == 46 else 46
 
         else:
-            self.left_menu_base.line_left_menu.hide()
 
-            self.frame_left_menu_float.show()
+            if self._parent.width() < self.expand:
 
-            self._hideVisibilityToolTip_()
+                self.left_menu_base.line_left_menu.hide()
 
-            # # CREATE ANIMATION FLOAT
-            self.left_menu_base_animation = QPropertyAnimation(self.frame_left_menu_float, b"minimumWidth")
-            self.left_menu_base_animation_max = QPropertyAnimation(self.frame_left_menu_float, b"maximumWidth")
-            self.frame_left_menu_float_animation = QPropertyAnimation(self.left_menu_float.frame_left_menu,
-                                                                      b"minimumWidth")
-            self.line_left_menu_float_animation = QPropertyAnimation(self.left_menu_float.line_left_menu,
-                                                                     b"minimumWidth")
+                self.frame_left_menu_float.show()
 
+                self._hideVisibilityToolTip_()
 
-            self.left_menu_base_animation.setStartValue(46)
-            self.left_menu_base_animation.setEndValue(self.expand)
-            self.left_menu_base_animation.setEasingCurve(QEasingCurve.Type.InOutCubic)
-            self.left_menu_base_animation.setDuration(200)
-
-            self.left_menu_base_animation_max.setStartValue(46)
-            self.left_menu_base_animation_max.setEndValue(self.expand)
-            self.left_menu_base_animation_max.setEasingCurve(QEasingCurve.Type.InOutCubic)
-            self.left_menu_base_animation_max.setDuration(200)
-            self.left_menu_base_animation_max.start()
-
-            self.frame_left_menu_float_animation.setStartValue(44)
-            self.frame_left_menu_float_animation.setEndValue(self.expand)
-            self.frame_left_menu_float_animation.setEasingCurve(QEasingCurve.Type.InOutCubic)
-            self.frame_left_menu_float_animation.setDuration(200)
-
-            self.line_left_menu_float_animation.setStartValue(40)
-            self.line_left_menu_float_animation.setEndValue(self.expand-4)
-            self.line_left_menu_float_animation.setEasingCurve(QEasingCurve.Type.InOutCubic)
-            self.line_left_menu_float_animation.setDuration(200)
+                # # CREATE ANIMATION FLOAT
+                self.left_menu_base_animation = QPropertyAnimation(self.frame_left_menu_float, b"minimumWidth")
+                self.left_menu_base_animation_max = QPropertyAnimation(self.frame_left_menu_float, b"maximumWidth")
+                self.frame_left_menu_float_animation = QPropertyAnimation(self.left_menu_float.frame_left_menu,
+                                                                          b"minimumWidth")
+                self.line_left_menu_float_animation = QPropertyAnimation(self.left_menu_float.line_left_menu,
+                                                                         b"minimumWidth")
 
 
-            self.float_animation_group = QParallelAnimationGroup()
-            self.float_animation_group.addAnimation(self.left_menu_base_animation)
-            self.float_animation_group.addAnimation(self.left_menu_base_animation_max)
-            self.float_animation_group.addAnimation(self.frame_left_menu_float_animation)
-            self.float_animation_group.addAnimation(self.line_left_menu_float_animation)
-            self.float_animation_group.start()
+                self.left_menu_base_animation.setStartValue(46)
+                self.left_menu_base_animation.setEndValue(self.expand)
+                self.left_menu_base_animation.setEasingCurve(QEasingCurve.Type.InOutCubic)
+                self.left_menu_base_animation.setDuration(200)
 
-    @Slot(None)
+                self.left_menu_base_animation_max.setStartValue(46)
+                self.left_menu_base_animation_max.setEndValue(self.expand)
+                self.left_menu_base_animation_max.setEasingCurve(QEasingCurve.Type.InOutCubic)
+                self.left_menu_base_animation_max.setDuration(200)
+                self.left_menu_base_animation_max.start()
+
+                self.frame_left_menu_float_animation.setStartValue(44)
+                self.frame_left_menu_float_animation.setEndValue(self.expand)
+                self.frame_left_menu_float_animation.setEasingCurve(QEasingCurve.Type.InOutCubic)
+                self.frame_left_menu_float_animation.setDuration(200)
+
+                self.line_left_menu_float_animation.setStartValue(40)
+                self.line_left_menu_float_animation.setEndValue(self.expand-4)
+                self.line_left_menu_float_animation.setEasingCurve(QEasingCurve.Type.InOutCubic)
+                self.line_left_menu_float_animation.setDuration(200)
+
+
+                self.float_animation_group = QParallelAnimationGroup()
+                self.float_animation_group.addAnimation(self.left_menu_base_animation)
+                self.float_animation_group.addAnimation(self.left_menu_base_animation_max)
+                self.float_animation_group.addAnimation(self.frame_left_menu_float_animation)
+                self.float_animation_group.addAnimation(self.line_left_menu_float_animation)
+                self.float_animation_group.start()
+
+            else:
+                self._hideLeftMenuFloat()
+
+    @Slot()
     def _hideLeftMenuFloat(self) -> None:
         """
         ESCONDER O LEFT MENU FLUTUANTE E REDIMENCIONAR
@@ -448,7 +487,7 @@ class LeftMenu(QWidget):
         self.float_animation_group.finished.connect(lambda:
                                                     QTimer.singleShot(50, lambda: self.frame_left_menu_float.hide()))
 
-    def _onScrollValueChanged_(self, value):
+    def _onScrollValueChanged_(self, value) -> None:
         """
         sincronizar os dois QScrollArea
         synchronize the two QScrollArea
@@ -459,8 +498,19 @@ class LeftMenu(QWidget):
             self.left_menu_base.scroll_area_left_menu.verticalScrollBar().setValue(value)
             self.left_menu_float.scroll_area_left_menu.verticalScrollBar().setValue(value)
 
-    def setExpand(self, value):
+    def setExpand(self, value) -> None:
         self.expand = value
+
+    def setPosHeight(self, height) -> None:
+
+        if self.title_bar:
+            self._pos_x = 6
+            self._pos_y = 6
+            self._pos_height = height - 25.5
+        else:
+            self._pos_x = 6
+            self._pos_y = 6
+            self._pos_height = height - 13.9
 
     def setResize(self, object: QRect) -> None:
         """
@@ -469,10 +519,20 @@ class LeftMenu(QWidget):
         :return:
         """
 
-        self.frame_left_menu_float.setGeometry(6, 6, object.width(), object.height() - 5)
+        height = 0
+        if self.title_bar:
+            height = object.height() - 6
+        else:
+            height = object.height() - 20
 
+        self.frame_left_menu_float.setGeometry(self._pos_x, self._pos_y, object.width(), height)
+        # print(height, object.height())
         self._pos_width = object.width()
-        self._pos_height = object.height() - 5 if object.height() - 5 > 100 else self._pos_height
+
+        if self.title_bar:
+            self._pos_height = object.height() - 6 if object.height() - 6 > 100 else self._pos_height
+        else:
+            self._pos_height = object.height() - 6 if object.height() > 100 else self._pos_height
 
         ## PARA ATIVAR O AUTO SCRO DO QScrolArea mude o maximumsize. cria outra def
         # self.left_menu_base.frame_continer_scroll_area_widget
@@ -481,7 +541,7 @@ class LeftMenu(QWidget):
         # if object.height() - 378 >= 122 and object.height() - 378 <= 295:
         #     print(object.height() - 378)
 
-    def __addToolTip__(self):
+    def __addToolTip__(self) -> None:
         """
         ADICIONAR O TEXTO NO TOOLTIP DOS BUTTONS
         ADD TEXT TO THE BUTTONS TOOLTIP
@@ -557,9 +617,9 @@ class LeftMenu(QWidget):
         self.left_menu_float.btn_setting.setTooltipText("Configuração", self._app_parent,
                                                         pos_tooltip="right", adjust_x=4, adjust_y=3)
 
-        self.left_menu_base.btn_info.setTooltipText("Informação", self._app_parent,
+        self.left_menu_base.btn_info.setTooltipText("Informações", self._app_parent,
                                                     pos_tooltip="right", adjust_x=5, adjust_y=3)
-        self.left_menu_float.btn_info.setTooltipText("Informação", self._app_parent,
+        self.left_menu_float.btn_info.setTooltipText("Informações", self._app_parent,
                                                      pos_tooltip="right", adjust_x=5, adjust_y=3)
 
         self.left_menu_base.btn_user.setTooltipText("Usuario", self._app_parent,
@@ -567,7 +627,7 @@ class LeftMenu(QWidget):
         self.left_menu_float.btn_user.setTooltipText("Usuario", self._app_parent,
                                                      pos_tooltip="right", adjust_x=12, adjust_y=3)
 
-    def _showVisibilityToolTip_(self):
+    def _showVisibilityToolTip_(self) -> None:
         """
         PERMITIR QUE TOOLTIP APARECE
         ALLOW TOOLTIP TO APPEAR
@@ -619,7 +679,7 @@ class LeftMenu(QWidget):
         self.left_menu_base.btn_user.setPermissionShowTooltip(True)
         self.left_menu_float.btn_user.setPermissionShowTooltip(True)
 
-    def _hideVisibilityToolTip_(self):
+    def _hideVisibilityToolTip_(self) -> None:
         """
         NÃO PERMITIR QUE TOOLTIP APARECE
         DO NOT ALLOW TOOLTIP TO APPEAR
@@ -931,18 +991,18 @@ class _UiLeftMenu_(QWidget):
         icon_setting = QIcon()
         icon_setting.addFile(Functions().set_svg_icon("icon_setting.svg"), QSize(), QIcon.Normal, QIcon.Off)
         self.btn_setting.setIcon(icon_setting)
-        self.btn_setting.setIconSize(QSize(29, 29))
+        self.btn_setting.setIconSize(QSize(28, 28))
 
         self.verticalLayout_2.addWidget(self.btn_setting)
 
-        self.btn_info = PyPushButton(self.frame_conteiner_left_menu_bottom, btn_radius=8, text_padding=6)
+        self.btn_info = PyPushButton(self.frame_conteiner_left_menu_bottom, btn_radius=8, text_padding=5)
         self.btn_info.setObjectName(u"btn_info")
         self.btn_info.setMinimumSize(QSize(37, 37))
         self.btn_info.setMaximumSize(QSize(1234, 37))
         icon_info = QIcon()
         icon_info.addFile(Functions().set_svg_icon("icon_information.svg"), QSize(), QIcon.Normal, QIcon.Off)
         self.btn_info.setIcon(icon_info)
-        self.btn_info.setIconSize(QSize(26, 26))
+        self.btn_info.setIconSize(QSize(27, 27))
 
         self.verticalLayout_2.addWidget(self.btn_info)
 
@@ -979,8 +1039,8 @@ class _UiLeftMenu_(QWidget):
         self.btn_agenda.setText(QCoreApplication.translate("Form", u" Agenda", None))
         self.btn_recibo.setText(QCoreApplication.translate("Form", u" Recibo", None))
         self.btn_copia_seguranca.setText(QCoreApplication.translate("Form", u" C\u00f3pia de seguran\u00e7a", None))
-        self.btn_setting.setText(QCoreApplication.translate("Form", u"  Configura\u00e7\u00e3o", None))
-        self.btn_info.setText(QCoreApplication.translate("Form", u"   Informa\u00e7\u00e3o", None))
+        self.btn_setting.setText(QCoreApplication.translate("Form", u"  Configura\u00e7\u00f5es", None))
+        self.btn_info.setText(QCoreApplication.translate("Form", u"   Informa\u00e7\u00f5es", None))
         self.btn_user.setText(QCoreApplication.translate("Form", u"  User", None))
     # retranslateUi
 
