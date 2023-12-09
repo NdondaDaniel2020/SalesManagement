@@ -345,7 +345,7 @@ border-radius: 7px}
                     <widget class="QFrame" name="left_colum">
                      <property name="minimumSize">
                       <size>
-                       <width>180</width>
+                       <width>200</width>
                        <height>0</height>
                       </size>
                      </property>
@@ -380,110 +380,6 @@ border-radius: 7px}
                       <property name="bottomMargin">
                        <number>5</number>
                       </property>
-                      <item>
-                       <widget class="QFrame" name="title_bar_left_column">
-                        <property name="minimumSize">
-                         <size>
-                          <width>0</width>
-                          <height>30</height>
-                         </size>
-                        </property>
-                        <property name="maximumSize">
-                         <size>
-                          <width>16777215</width>
-                          <height>30</height>
-                         </size>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">background-color: rgb(38, 39, 43);
-border-radius: 6px;</string>
-                        </property>
-                        <property name="frameShape">
-                         <enum>QFrame::StyledPanel</enum>
-                        </property>
-                        <property name="frameShadow">
-                         <enum>QFrame::Raised</enum>
-                        </property>
-                        <layout class="QHBoxLayout" name="horizontal_layout_title_bar_left_column">
-                         <property name="spacing">
-                          <number>5</number>
-                         </property>
-                         <property name="leftMargin">
-                          <number>2</number>
-                         </property>
-                         <property name="topMargin">
-                          <number>0</number>
-                         </property>
-                         <property name="rightMargin">
-                          <number>3</number>
-                         </property>
-                         <property name="bottomMargin">
-                          <number>0</number>
-                         </property>
-                         <item>
-                          <widget class="QPushButton" name="icon_information_left_column">
-                           <property name="maximumSize">
-                            <size>
-                             <width>25</width>
-                             <height>25</height>
-                            </size>
-                           </property>
-                           <property name="text">
-                            <string/>
-                           </property>
-                           <property name="icon">
-                            <iconset>
-                             <normaloff>../../../images/svg_icons/icon_information.svg</normaloff>../../../images/svg_icons/icon_information.svg</iconset>
-                           </property>
-                           <property name="iconSize">
-                            <size>
-                             <width>20</width>
-                             <height>20</height>
-                            </size>
-                           </property>
-                          </widget>
-                         </item>
-                         <item>
-                          <widget class="QLabel" name="label_14">
-                           <property name="font">
-                            <font>
-                             <pointsize>10</pointsize>
-                            </font>
-                           </property>
-                           <property name="styleSheet">
-                            <string notr="true">color: rgb(233, 234, 236);</string>
-                           </property>
-                           <property name="text">
-                            <string>Informações</string>
-                           </property>
-                          </widget>
-                         </item>
-                         <item>
-                          <widget class="QPushButton" name="back_left_column">
-                           <property name="maximumSize">
-                            <size>
-                             <width>25</width>
-                             <height>25</height>
-                            </size>
-                           </property>
-                           <property name="text">
-                            <string/>
-                           </property>
-                           <property name="icon">
-                            <iconset>
-                             <normaloff>../../../images/svg_icons/icon_back_2.svg</normaloff>../../../images/svg_icons/icon_back_2.svg</iconset>
-                           </property>
-                           <property name="iconSize">
-                            <size>
-                             <width>19</width>
-                             <height>19</height>
-                            </size>
-                           </property>
-                          </widget>
-                         </item>
-                        </layout>
-                       </widget>
-                      </item>
                       <item>
                        <widget class="QFrame" name="frame_23">
                         <property name="frameShape">
@@ -536,7 +432,7 @@ border-radius: 6px;</string>
                               </property>
                               <property name="icon">
                                <iconset>
-                                <normaloff>../../../images/svg_images/SalesManagement_-_Cópia-removebg-preview.svg</normaloff>../../../images/svg_images/SalesManagement_-_Cópia-removebg-preview.svg</iconset>
+                                <normaloff>../../../images/svg_images/SalesManagement.svg</normaloff>../../../images/svg_images/SalesManagement.svg</iconset>
                               </property>
                               <property name="iconSize">
                                <size>
@@ -597,6 +493,492 @@ border-radius: 6px;</string>
                                <property name="bottomMargin">
                                 <number>0</number>
                                </property>
+                               <item alignment="Qt::AlignHCenter">
+                                <widget class="QLabel" name="label_17">
+                                 <property name="styleSheet">
+                                  <string notr="true">color: rgb(222, 223, 225);</string>
+                                 </property>
+                                 <property name="text">
+                                  <string>Version: 0.0.1</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QLabel" name="label_16">
+                                 <property name="minimumSize">
+                                  <size>
+                                   <width>0</width>
+                                   <height>16</height>
+                                  </size>
+                                 </property>
+                                 <property name="styleSheet">
+                                  <string notr="true">color: rgb(222, 223, 225);</string>
+                                 </property>
+                                 <property name="text">
+                                  <string>GitHub: github.com/NdondaDaniel2020/SalesManagement</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item alignment="Qt::AlignHCenter">
+                                <widget class="QLabel" name="label_18">
+                                 <property name="styleSheet">
+                                  <string notr="true">color: rgb(222, 223, 225);</string>
+                                 </property>
+                                 <property name="text">
+                                  <string>TextLabel</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QFrame" name="frame_35">
+                                 <property name="minimumSize">
+                                  <size>
+                                   <width>0</width>
+                                   <height>19</height>
+                                  </size>
+                                 </property>
+                                 <property name="frameShape">
+                                  <enum>QFrame::StyledPanel</enum>
+                                 </property>
+                                 <property name="frameShadow">
+                                  <enum>QFrame::Raised</enum>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QLabel" name="label_19">
+                                 <property name="maximumSize">
+                                  <size>
+                                   <width>16777215</width>
+                                   <height>20</height>
+                                  </size>
+                                 </property>
+                                 <property name="font">
+                                  <font>
+                                   <family>Segoe UI Semibold</family>
+                                   <pointsize>14</pointsize>
+                                  </font>
+                                 </property>
+                                 <property name="styleSheet">
+                                  <string notr="true">color: rgb(233, 234, 236);</string>
+                                 </property>
+                                 <property name="text">
+                                  <string>Outros</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QFrame" name="frame_27">
+                                 <property name="frameShape">
+                                  <enum>QFrame::StyledPanel</enum>
+                                 </property>
+                                 <property name="frameShadow">
+                                  <enum>QFrame::Raised</enum>
+                                 </property>
+                                 <layout class="QVBoxLayout" name="verticalLayout_17">
+                                  <property name="spacing">
+                                   <number>5</number>
+                                  </property>
+                                  <property name="leftMargin">
+                                   <number>0</number>
+                                  </property>
+                                  <property name="topMargin">
+                                   <number>4</number>
+                                  </property>
+                                  <property name="rightMargin">
+                                   <number>0</number>
+                                  </property>
+                                  <property name="bottomMargin">
+                                   <number>0</number>
+                                  </property>
+                                  <item>
+                                   <widget class="QFrame" name="frame_32">
+                                    <property name="styleSheet">
+                                     <string notr="true">QFrame{
+	background-color: rgb(38, 39, 43);
+	border-radius: 8px;
+}
+QFrame:hover{
+	background-color: rgb(65, 80, 173);
+	border-radius: 8px;
+}
+QFrame:focus {
+ 	background-color: rgb(88, 106, 233);
+}</string>
+                                    </property>
+                                    <property name="frameShape">
+                                     <enum>QFrame::StyledPanel</enum>
+                                    </property>
+                                    <property name="frameShadow">
+                                     <enum>QFrame::Raised</enum>
+                                    </property>
+                                    <layout class="QHBoxLayout" name="horizontalLayout_10">
+                                     <property name="spacing">
+                                      <number>0</number>
+                                     </property>
+                                     <property name="leftMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <property name="topMargin">
+                                      <number>0</number>
+                                     </property>
+                                     <property name="rightMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <property name="bottomMargin">
+                                      <number>0</number>
+                                     </property>
+                                     <item>
+                                      <widget class="QPushButton" name="pushButton_test_11">
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>37</width>
+                                         <height>37</height>
+                                        </size>
+                                       </property>
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>1234</width>
+                                         <height>37</height>
+                                        </size>
+                                       </property>
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI Semibold</family>
+                                         <pointsize>10</pointsize>
+                                        </font>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true">QPushButton {
+            color: rgb(233, 234, 236);
+            background-color: transparent;
+			 padding-left: 7px;
+            text-align: left;
+            border: none;
+            border-radius: 8px;
+}
+</string>
+                                       </property>
+                                       <property name="text">
+                                        <string>  Pizza Chart</string>
+                                       </property>
+                                       <property name="icon">
+                                        <iconset>
+                                         <normaloff>../../../../../../../Downloads/Imagens/analytics-hands-report-svgrepo-com.svg</normaloff>../../../../../../../Downloads/Imagens/analytics-hands-report-svgrepo-com.svg</iconset>
+                                       </property>
+                                       <property name="iconSize">
+                                        <size>
+                                         <width>26</width>
+                                         <height>26</height>
+                                        </size>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item>
+                                      <widget class="QPushButton" name="pushButton_test_12">
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>36</width>
+                                         <height>37</height>
+                                        </size>
+                                       </property>
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>36</width>
+                                         <height>37</height>
+                                        </size>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true">QPushButton {
+            color: rgb(233, 234, 236);
+            background-color: transparent;;
+            border: none;
+            border-radius: 8px;
+}</string>
+                                       </property>
+                                       <property name="text">
+                                        <string/>
+                                       </property>
+                                       <property name="icon">
+                                        <iconset>
+                                         <normaloff>../../../../../../../Downloads/more-horizontal-svgrepo-com.svg</normaloff>../../../../../../../Downloads/more-horizontal-svgrepo-com.svg</iconset>
+                                       </property>
+                                       <property name="iconSize">
+                                        <size>
+                                         <width>21</width>
+                                         <height>21</height>
+                                        </size>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                    </layout>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QFrame" name="frame_33">
+                                    <property name="styleSheet">
+                                     <string notr="true">QFrame{
+	background-color: rgb(38, 39, 43);
+	border-radius: 8px;
+}
+QFrame:hover{
+	background-color: rgb(65, 80, 173);
+	border-radius: 8px;
+}
+QFrame:focus {
+ 	background-color: rgb(88, 106, 233);
+}</string>
+                                    </property>
+                                    <property name="frameShape">
+                                     <enum>QFrame::StyledPanel</enum>
+                                    </property>
+                                    <property name="frameShadow">
+                                     <enum>QFrame::Raised</enum>
+                                    </property>
+                                    <layout class="QHBoxLayout" name="horizontalLayout_11">
+                                     <property name="spacing">
+                                      <number>0</number>
+                                     </property>
+                                     <property name="leftMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <property name="topMargin">
+                                      <number>0</number>
+                                     </property>
+                                     <property name="rightMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <property name="bottomMargin">
+                                      <number>0</number>
+                                     </property>
+                                     <item>
+                                      <widget class="QPushButton" name="pushButton_test_13">
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>37</width>
+                                         <height>37</height>
+                                        </size>
+                                       </property>
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>1234</width>
+                                         <height>37</height>
+                                        </size>
+                                       </property>
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI Semibold</family>
+                                         <pointsize>10</pointsize>
+                                        </font>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true">QPushButton {
+            color: rgb(233, 234, 236);
+            background-color: transparent;
+			 padding-left: 7px;
+            text-align: left;
+            border: none;
+            border-radius: 8px;
+}
+</string>
+                                       </property>
+                                       <property name="text">
+                                        <string>  SMS</string>
+                                       </property>
+                                       <property name="icon">
+                                        <iconset>
+                                         <normaloff>../../../../../../../Downloads/Imagens/inbox-2-svgrepo-com.svg</normaloff>../../../../../../../Downloads/Imagens/inbox-2-svgrepo-com.svg</iconset>
+                                       </property>
+                                       <property name="iconSize">
+                                        <size>
+                                         <width>26</width>
+                                         <height>26</height>
+                                        </size>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item>
+                                      <widget class="QPushButton" name="pushButton_test_14">
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>36</width>
+                                         <height>37</height>
+                                        </size>
+                                       </property>
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>36</width>
+                                         <height>37</height>
+                                        </size>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true">QPushButton {
+            color: rgb(233, 234, 236);
+            background-color: transparent;;
+            border: none;
+            border-radius: 8px;
+}</string>
+                                       </property>
+                                       <property name="text">
+                                        <string/>
+                                       </property>
+                                       <property name="icon">
+                                        <iconset>
+                                         <normaloff>../../../../../../../Downloads/more-horizontal-svgrepo-com.svg</normaloff>../../../../../../../Downloads/more-horizontal-svgrepo-com.svg</iconset>
+                                       </property>
+                                       <property name="iconSize">
+                                        <size>
+                                         <width>21</width>
+                                         <height>21</height>
+                                        </size>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                    </layout>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QFrame" name="frame_34">
+                                    <property name="styleSheet">
+                                     <string notr="true">QFrame{
+	background-color: rgb(38, 39, 43);
+	border-radius: 8px;
+}
+QFrame:hover{
+	background-color: rgb(65, 80, 173);
+	border-radius: 8px;
+}
+QFrame:focus {
+ 	background-color: rgb(88, 106, 233);
+}</string>
+                                    </property>
+                                    <property name="frameShape">
+                                     <enum>QFrame::StyledPanel</enum>
+                                    </property>
+                                    <property name="frameShadow">
+                                     <enum>QFrame::Raised</enum>
+                                    </property>
+                                    <layout class="QHBoxLayout" name="horizontalLayout_16">
+                                     <property name="spacing">
+                                      <number>0</number>
+                                     </property>
+                                     <property name="leftMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <property name="topMargin">
+                                      <number>0</number>
+                                     </property>
+                                     <property name="rightMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <property name="bottomMargin">
+                                      <number>0</number>
+                                     </property>
+                                     <item>
+                                      <widget class="QPushButton" name="pushButton_test_15">
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>37</width>
+                                         <height>37</height>
+                                        </size>
+                                       </property>
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>1234</width>
+                                         <height>37</height>
+                                        </size>
+                                       </property>
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI Semibold</family>
+                                         <pointsize>10</pointsize>
+                                        </font>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true">QPushButton {
+            color: rgb(233, 234, 236);
+            background-color: transparent;
+			 padding-left: 7px;
+            text-align: left;
+            border: none;
+            border-radius: 8px;
+}
+</string>
+                                       </property>
+                                       <property name="text">
+                                        <string>  Char</string>
+                                       </property>
+                                       <property name="icon">
+                                        <iconset>
+                                         <normaloff>../../../../../../../Downloads/Imagens/analytics-svgrepo-com (2).svg</normaloff>../../../../../../../Downloads/Imagens/analytics-svgrepo-com (2).svg</iconset>
+                                       </property>
+                                       <property name="iconSize">
+                                        <size>
+                                         <width>26</width>
+                                         <height>26</height>
+                                        </size>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item>
+                                      <widget class="QPushButton" name="pushButton_test_16">
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>36</width>
+                                         <height>37</height>
+                                        </size>
+                                       </property>
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>36</width>
+                                         <height>37</height>
+                                        </size>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true">QPushButton {
+            color: rgb(233, 234, 236);
+            background-color: transparent;;
+            border: none;
+            border-radius: 8px;
+}</string>
+                                       </property>
+                                       <property name="text">
+                                        <string/>
+                                       </property>
+                                       <property name="icon">
+                                        <iconset>
+                                         <normaloff>../../../../../../../Downloads/more-horizontal-svgrepo-com.svg</normaloff>../../../../../../../Downloads/more-horizontal-svgrepo-com.svg</iconset>
+                                       </property>
+                                       <property name="iconSize">
+                                        <size>
+                                         <width>21</width>
+                                         <height>21</height>
+                                        </size>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                    </layout>
+                                   </widget>
+                                  </item>
+                                 </layout>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QFrame" name="frame_31">
+                                 <property name="minimumSize">
+                                  <size>
+                                   <width>0</width>
+                                   <height>19</height>
+                                  </size>
+                                 </property>
+                                 <property name="frameShape">
+                                  <enum>QFrame::StyledPanel</enum>
+                                 </property>
+                                 <property name="frameShadow">
+                                  <enum>QFrame::Raised</enum>
+                                 </property>
+                                </widget>
+                               </item>
                                <item>
                                 <widget class="QLabel" name="label_15">
                                  <property name="maximumSize">
@@ -632,7 +1014,7 @@ border-radius: 6px;</string>
                                    <number>5</number>
                                   </property>
                                   <property name="leftMargin">
-                                   <number>0</number>
+                                   <number>2</number>
                                   </property>
                                   <property name="topMargin">
                                    <number>0</number>
@@ -644,143 +1026,219 @@ border-radius: 6px;</string>
                                    <number>0</number>
                                   </property>
                                   <item>
-                                   <widget class="QPushButton" name="pushButton_test_3">
-                                    <property name="minimumSize">
-                                     <size>
-                                      <width>37</width>
-                                      <height>37</height>
-                                     </size>
-                                    </property>
-                                    <property name="maximumSize">
-                                     <size>
-                                      <width>1234</width>
-                                      <height>37</height>
-                                     </size>
-                                    </property>
+                                   <widget class="QFrame" name="frame_38">
                                     <property name="styleSheet">
-                                     <string notr="true">QPushButton {
-            color: rgb(233, 234, 236);
-            background-color: rgb(32, 33, 37);
-            padding-left: 55px;
-            text-align: left;
-            border: 1px solid rgb(44, 45, 50);
-            border-radius: 8px;
+                                     <string notr="true">QFrame{
+	background-color: rgb(32, 33, 37);
+	border: 1px solid rgb(44, 45, 50);
+	border-radius: 8px;
 }
- QPushButton:hover {
- 	background-color: rgb(49, 50, 55)
- }
-QPushButton:pressed {
- 	background-color: rgb(38, 39, 43);
+QFrame:hover{
+	background-color: rgb(65, 80, 173);
+	border-radius: 8px;
+}
+QFrame:focus {
+ 	background-color: rgb(88, 106, 233);
 }</string>
                                     </property>
-                                    <property name="text">
-                                     <string>Test mais uma vez</string>
+                                    <property name="frameShape">
+                                     <enum>QFrame::StyledPanel</enum>
                                     </property>
-                                   </widget>
-                                  </item>
-                                  <item>
-                                   <widget class="QPushButton" name="pushButton_test_7">
-                                    <property name="minimumSize">
-                                     <size>
-                                      <width>37</width>
-                                      <height>37</height>
-                                     </size>
+                                    <property name="frameShadow">
+                                     <enum>QFrame::Raised</enum>
                                     </property>
-                                    <property name="maximumSize">
-                                     <size>
-                                      <width>1234</width>
-                                      <height>37</height>
-                                     </size>
-                                    </property>
-                                    <property name="styleSheet">
-                                     <string notr="true">QPushButton {
+                                    <layout class="QHBoxLayout" name="horizontalLayout_20">
+                                     <property name="spacing">
+                                      <number>0</number>
+                                     </property>
+                                     <property name="leftMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <property name="topMargin">
+                                      <number>0</number>
+                                     </property>
+                                     <property name="rightMargin">
+                                      <number>2</number>
+                                     </property>
+                                     <property name="bottomMargin">
+                                      <number>0</number>
+                                     </property>
+                                     <item>
+                                      <widget class="QPushButton" name="pushButton_test_23">
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>37</width>
+                                         <height>37</height>
+                                        </size>
+                                       </property>
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>36</width>
+                                         <height>37</height>
+                                        </size>
+                                       </property>
+                                       <property name="font">
+                                        <font>
+                                         <family>Segoe UI Semibold</family>
+                                         <pointsize>10</pointsize>
+                                        </font>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true">QPushButton {
             color: rgb(233, 234, 236);
-            background-color: rgb(32, 33, 37);
-            padding-left: 55px;
+            background-color: transparent;
+			 padding-left: 5px;
             text-align: left;
-            border: 1px solid rgb(44, 45, 50);
+            border: none;
             border-radius: 8px;
 }
- QPushButton:hover {
- 	background-color: rgb(49, 50, 55)
- }
-QPushButton:pressed {
- 	background-color: rgb(38, 39, 43);
-}</string>
-                                    </property>
-                                    <property name="text">
-                                     <string>Test mais uma vez</string>
-                                    </property>
-                                   </widget>
-                                  </item>
-                                  <item>
-                                   <widget class="QPushButton" name="pushButton_test_6">
-                                    <property name="minimumSize">
-                                     <size>
-                                      <width>37</width>
-                                      <height>37</height>
-                                     </size>
-                                    </property>
-                                    <property name="maximumSize">
-                                     <size>
-                                      <width>1234</width>
-                                      <height>37</height>
-                                     </size>
-                                    </property>
-                                    <property name="styleSheet">
-                                     <string notr="true">QPushButton {
+</string>
+                                       </property>
+                                       <property name="text">
+                                        <string/>
+                                       </property>
+                                       <property name="icon">
+                                        <iconset>
+                                         <normaloff>../../../images/svg_images/daniel.jpg</normaloff>../../../images/svg_images/daniel.jpg</iconset>
+                                       </property>
+                                       <property name="iconSize">
+                                        <size>
+                                         <width>26</width>
+                                         <height>26</height>
+                                        </size>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                     <item>
+                                      <widget class="QFrame" name="frame_40">
+                                       <property name="styleSheet">
+                                        <string notr="true">border:none;
+background-color: transparent;</string>
+                                       </property>
+                                       <property name="frameShape">
+                                        <enum>QFrame::StyledPanel</enum>
+                                       </property>
+                                       <property name="frameShadow">
+                                        <enum>QFrame::Raised</enum>
+                                       </property>
+                                       <layout class="QVBoxLayout" name="verticalLayout_20">
+                                        <property name="spacing">
+                                         <number>0</number>
+                                        </property>
+                                        <property name="leftMargin">
+                                         <number>0</number>
+                                        </property>
+                                        <property name="topMargin">
+                                         <number>0</number>
+                                        </property>
+                                        <property name="rightMargin">
+                                         <number>0</number>
+                                        </property>
+                                        <property name="bottomMargin">
+                                         <number>0</number>
+                                        </property>
+                                        <item>
+                                         <widget class="QLabel" name="label_39">
+                                          <property name="minimumSize">
+                                           <size>
+                                            <width>0</width>
+                                            <height>10</height>
+                                           </size>
+                                          </property>
+                                          <property name="maximumSize">
+                                           <size>
+                                            <width>16777215</width>
+                                            <height>13</height>
+                                           </size>
+                                          </property>
+                                          <property name="font">
+                                           <font>
+                                            <family>Segoe UI Semibold</family>
+                                            <pointsize>10</pointsize>
+                                           </font>
+                                          </property>
+                                          <property name="styleSheet">
+                                           <string notr="true">color: rgb(255, 255, 255);
+background-color: transparent;
+border:none</string>
+                                          </property>
+                                          <property name="text">
+                                           <string> Daniel</string>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                        <item>
+                                         <widget class="QLabel" name="label_40">
+                                          <property name="minimumSize">
+                                           <size>
+                                            <width>0</width>
+                                            <height>10</height>
+                                           </size>
+                                          </property>
+                                          <property name="maximumSize">
+                                           <size>
+                                            <width>16777215</width>
+                                            <height>10</height>
+                                           </size>
+                                          </property>
+                                          <property name="font">
+                                           <font>
+                                            <family>Segoe UI Light</family>
+                                            <pointsize>8</pointsize>
+                                           </font>
+                                          </property>
+                                          <property name="styleSheet">
+                                           <string notr="true">color: rgb(255, 255, 255);
+background-color: transparent;
+border:none;
+padding-left: 0.4px;</string>
+                                          </property>
+                                          <property name="text">
+                                           <string> Daniel</string>
+                                          </property>
+                                         </widget>
+                                        </item>
+                                       </layout>
+                                      </widget>
+                                     </item>
+                                     <item>
+                                      <widget class="QPushButton" name="pushButton_test_24">
+                                       <property name="minimumSize">
+                                        <size>
+                                         <width>36</width>
+                                         <height>37</height>
+                                        </size>
+                                       </property>
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>36</width>
+                                         <height>37</height>
+                                        </size>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true">QPushButton {
             color: rgb(233, 234, 236);
-            background-color: rgb(32, 33, 37);
-            padding-left: 55px;
-            text-align: left;
-            border: 1px solid rgb(44, 45, 50);
+            background-color: transparent;;
+            border: none;
             border-radius: 8px;
-}
- QPushButton:hover {
- 	background-color: rgb(49, 50, 55)
- }
-QPushButton:pressed {
- 	background-color: rgb(38, 39, 43);
 }</string>
-                                    </property>
-                                    <property name="text">
-                                     <string>Test mais uma vez</string>
-                                    </property>
-                                   </widget>
-                                  </item>
-                                  <item>
-                                   <widget class="QPushButton" name="pushButton_test_8">
-                                    <property name="minimumSize">
-                                     <size>
-                                      <width>37</width>
-                                      <height>37</height>
-                                     </size>
-                                    </property>
-                                    <property name="maximumSize">
-                                     <size>
-                                      <width>1234</width>
-                                      <height>37</height>
-                                     </size>
-                                    </property>
-                                    <property name="styleSheet">
-                                     <string notr="true">QPushButton {
-            color: rgb(233, 234, 236);
-            background-color: rgb(32, 33, 37);
-            padding-left: 55px;
-            text-align: left;
-            border: 1px solid rgb(44, 45, 50);
-            border-radius: 8px;
-}
- QPushButton:hover {
- 	background-color: rgb(49, 50, 55)
- }
-QPushButton:pressed {
- 	background-color: rgb(38, 39, 43);
-}</string>
-                                    </property>
-                                    <property name="text">
-                                     <string>Test mais uma vez</string>
-                                    </property>
+                                       </property>
+                                       <property name="text">
+                                        <string/>
+                                       </property>
+                                       <property name="icon">
+                                        <iconset>
+                                         <normaloff>../../../../../../../Downloads/more-horizontal-svgrepo-com.svg</normaloff>../../../../../../../Downloads/more-horizontal-svgrepo-com.svg</iconset>
+                                       </property>
+                                       <property name="iconSize">
+                                        <size>
+                                         <width>21</width>
+                                         <height>21</height>
+                                        </size>
+                                       </property>
+                                      </widget>
+                                     </item>
+                                    </layout>
                                    </widget>
                                   </item>
                                   <item>
@@ -800,16 +1258,6 @@ QPushButton:pressed {
                                 </widget>
                                </item>
                               </layout>
-                             </widget>
-                            </item>
-                            <item>
-                             <widget class="QFrame" name="frame_27">
-                              <property name="frameShape">
-                               <enum>QFrame::StyledPanel</enum>
-                              </property>
-                              <property name="frameShadow">
-                               <enum>QFrame::Raised</enum>
-                              </property>
                              </widget>
                             </item>
                            </layout>
@@ -1047,6 +1495,357 @@ QPushButton:pressed {
                        <property name="text">
                         <string>Test mais uma vez</string>
                        </property>
+                      </widget>
+                      <widget class="QFrame" name="frame_30">
+                       <property name="geometry">
+                        <rect>
+                         <x>70</x>
+                         <y>350</y>
+                         <width>191</width>
+                         <height>41</height>
+                        </rect>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">QFrame{
+	background-color: rgb(38, 39, 43);
+	border-radius: 8px;
+}
+QFrame:hover{
+	background-color: rgb(65, 80, 173);
+	border-radius: 8px;
+}
+QFrame:focus {
+ 	background-color: rgb(88, 106, 233);
+}</string>
+                       </property>
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <layout class="QHBoxLayout" name="horizontalLayout_5">
+                        <property name="spacing">
+                         <number>0</number>
+                        </property>
+                        <property name="leftMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>0</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>0</number>
+                        </property>
+                        <item>
+                         <widget class="QPushButton" name="pushButton_test_9">
+                          <property name="minimumSize">
+                           <size>
+                            <width>37</width>
+                            <height>37</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>1234</width>
+                            <height>37</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Segoe UI Semibold</family>
+                            <pointsize>10</pointsize>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QPushButton {
+            color: rgb(233, 234, 236);
+            background-color: transparent;
+			 padding-left: 7px;
+            text-align: left;
+            border: none;
+            border-radius: 8px;
+}
+</string>
+                          </property>
+                          <property name="text">
+                           <string>Test mais uma vez</string>
+                          </property>
+                          <property name="icon">
+                           <iconset>
+                            <normaloff>../../../../../../../Downloads/Imagens/analytics-hands-report-svgrepo-com.svg</normaloff>../../../../../../../Downloads/Imagens/analytics-hands-report-svgrepo-com.svg</iconset>
+                          </property>
+                          <property name="iconSize">
+                           <size>
+                            <width>26</width>
+                            <height>26</height>
+                           </size>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QPushButton" name="pushButton_test_10">
+                          <property name="minimumSize">
+                           <size>
+                            <width>36</width>
+                            <height>37</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>36</width>
+                            <height>37</height>
+                           </size>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QPushButton {
+            color: rgb(233, 234, 236);
+            background-color: transparent;;
+            border: none;
+            border-radius: 8px;
+}</string>
+                          </property>
+                          <property name="text">
+                           <string/>
+                          </property>
+                          <property name="icon">
+                           <iconset>
+                            <normaloff>../../../../../../../Downloads/more-horizontal-svgrepo-com.svg</normaloff>../../../../../../../Downloads/more-horizontal-svgrepo-com.svg</iconset>
+                          </property>
+                          <property name="iconSize">
+                           <size>
+                            <width>21</width>
+                            <height>21</height>
+                           </size>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                      <widget class="QFrame" name="frame_36">
+                       <property name="geometry">
+                        <rect>
+                         <x>80</x>
+                         <y>450</y>
+                         <width>180</width>
+                         <height>36</height>
+                        </rect>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">QFrame{
+	background-color: rgb(32, 33, 37);
+	border: 1px solid rgb(44, 45, 50);
+	border-radius: 8px;
+}
+QFrame:hover{
+	background-color: rgb(65, 80, 173);
+	border-radius: 8px;
+}
+QFrame:focus {
+ 	background-color: rgb(88, 106, 233);
+}</string>
+                       </property>
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <layout class="QHBoxLayout" name="horizontalLayout_18">
+                        <property name="spacing">
+                         <number>0</number>
+                        </property>
+                        <property name="leftMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>0</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>0</number>
+                        </property>
+                        <item>
+                         <widget class="QPushButton" name="pushButton_test_19">
+                          <property name="minimumSize">
+                           <size>
+                            <width>37</width>
+                            <height>37</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>36</width>
+                            <height>37</height>
+                           </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Segoe UI Semibold</family>
+                            <pointsize>10</pointsize>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QPushButton {
+            color: rgb(233, 234, 236);
+            background-color: transparent;
+			 padding-left: 7px;
+            text-align: left;
+            border: none;
+            border-radius: 8px;
+}
+</string>
+                          </property>
+                          <property name="text">
+                           <string/>
+                          </property>
+                          <property name="icon">
+                           <iconset>
+                            <normaloff>../../../../../../../Downloads/Imagens/analytics-hands-report-svgrepo-com.svg</normaloff>../../../../../../../Downloads/Imagens/analytics-hands-report-svgrepo-com.svg</iconset>
+                          </property>
+                          <property name="iconSize">
+                           <size>
+                            <width>26</width>
+                            <height>26</height>
+                           </size>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QFrame" name="frame_37">
+                          <property name="styleSheet">
+                           <string notr="true">border:none;
+background-color: transparent;</string>
+                          </property>
+                          <property name="frameShape">
+                           <enum>QFrame::StyledPanel</enum>
+                          </property>
+                          <property name="frameShadow">
+                           <enum>QFrame::Raised</enum>
+                          </property>
+                          <layout class="QVBoxLayout" name="verticalLayout_18">
+                           <property name="spacing">
+                            <number>0</number>
+                           </property>
+                           <property name="leftMargin">
+                            <number>0</number>
+                           </property>
+                           <property name="topMargin">
+                            <number>0</number>
+                           </property>
+                           <property name="rightMargin">
+                            <number>0</number>
+                           </property>
+                           <property name="bottomMargin">
+                            <number>0</number>
+                           </property>
+                           <item>
+                            <widget class="QLabel" name="label_14">
+                             <property name="minimumSize">
+                              <size>
+                               <width>0</width>
+                               <height>10</height>
+                              </size>
+                             </property>
+                             <property name="maximumSize">
+                              <size>
+                               <width>16777215</width>
+                               <height>13</height>
+                              </size>
+                             </property>
+                             <property name="font">
+                              <font>
+                               <family>Segoe UI Semibold</family>
+                               <pointsize>10</pointsize>
+                              </font>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">color: rgb(255, 255, 255);
+background-color: transparent;
+border:none</string>
+                             </property>
+                             <property name="text">
+                              <string> Daniel</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QLabel" name="label_20">
+                             <property name="minimumSize">
+                              <size>
+                               <width>0</width>
+                               <height>10</height>
+                              </size>
+                             </property>
+                             <property name="maximumSize">
+                              <size>
+                               <width>16777215</width>
+                               <height>10</height>
+                              </size>
+                             </property>
+                             <property name="font">
+                              <font>
+                               <family>Segoe UI Light</family>
+                               <pointsize>8</pointsize>
+                              </font>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">color: rgb(255, 255, 255);
+background-color: transparent;
+border:none;
+padding-left: 0.4px;</string>
+                             </property>
+                             <property name="text">
+                              <string> Daniel</string>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QPushButton" name="pushButton_test_20">
+                          <property name="minimumSize">
+                           <size>
+                            <width>36</width>
+                            <height>37</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>36</width>
+                            <height>37</height>
+                           </size>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QPushButton {
+            color: rgb(233, 234, 236);
+            background-color: transparent;;
+            border: none;
+            border-radius: 8px;
+}</string>
+                          </property>
+                          <property name="text">
+                           <string/>
+                          </property>
+                          <property name="icon">
+                           <iconset>
+                            <normaloff>../../../../../../../Downloads/more-horizontal-svgrepo-com.svg</normaloff>../../../../../../../Downloads/more-horizontal-svgrepo-com.svg</iconset>
+                          </property>
+                          <property name="iconSize">
+                           <size>
+                            <width>21</width>
+                            <height>21</height>
+                           </size>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
                       </widget>
                      </widget>
                      <widget class="QWidget" name="page_home">
