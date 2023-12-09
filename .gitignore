@@ -412,3 +412,5 @@ test/exemploTest/*
 examples/
 src/gui/uis/windows/main_window/refatorar_code.py
 src/gui/widgets/py_icon_button/py_icon_button.py
+stockControl/
+ControleFinanceiro/
