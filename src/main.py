@@ -18,6 +18,7 @@ from src.gui.uis.windows.main_window.ui_main_window import Ui_MainWindow
 from src.gui.widgets.py_grips.py_grips import PyGrips
 from src.gui.widgets.py_left_menu.py_left_menu import LeftMenu
 from src.gui.widgets.py_push_button.py_push_button import PyPushButton
+from src.gui.widgets.py_left_column.py_left_column import PyLeftColumn
 
 from src.gui.core.functions import Functions
 from src.gui.core.qss_themes import QssThemes
@@ -34,6 +35,7 @@ class MainWindow(QMainWindow):
 
         self.set_title_bar = False
 
+        SetUpMainWindow.configIconPath(self)
         SetUpMainWindow.addControlWindow(self)
 
         self.configSystem()
@@ -44,91 +46,52 @@ class MainWindow(QMainWindow):
         self.iniLeftMenu()
 
 
-
+        # self.frame_painel = PyPainelButton()
+        # self.ui.horizontalLayout_8.addWidget(self.frame_painel)
         # ////////////////////////////////////////////////////////////////////
         # //////////////////////////////// TESTE ////////////////////////////
         # //////////////////////////////////////////////////////////////////
 
-        def enter(event):
-            self.shadow = QGraphicsDropShadowEffect(self)
-            self.shadow.setBlurRadius(30)
-            self.shadow.setXOffset(0)
-            self.shadow.setYOffset(0)
-            self.shadow.setColor(QColor(233, 234, 236, 80))
-            self.ui.frame_24.setGraphicsEffect(self.shadow)
-        def leave(event):
-            self.shadow = QGraphicsDropShadowEffect(self)
-            self.shadow.setBlurRadius(10)
-            self.shadow.setXOffset(0)
-            self.shadow.setYOffset(0)
-            self.shadow.setColor(QColor(233, 234, 236, 80))
-            self.ui.frame_24.setGraphicsEffect(self.shadow)
-        self.ui.frame_24.enterEvent = enter
-        self.ui.frame_24.leaveEvent = leave
+        self.btn_info_base.clicked.connect(self.resizeLeftColumn)
 
-        def enter2(event):
-            self.shadow = QGraphicsDropShadowEffect(self)
-            self.shadow.setBlurRadius(30)
-            self.shadow.setXOffset(0)
-            self.shadow.setYOffset(0)
-            self.shadow.setColor(QColor(89, 109, 235, 80))
-            self.ui.frame_25.setGraphicsEffect(self.shadow)
-        def leave2(event):
-            self.shadow = QGraphicsDropShadowEffect(self)
-            self.shadow.setBlurRadius(10)
-            self.shadow.setXOffset(0)
-            self.shadow.setYOffset(0)
-            self.shadow.setColor(QColor(89, 109, 235, 80))
-            self.ui.frame_25.setGraphicsEffect(self.shadow)
-        self.ui.frame_25.enterEvent = enter2
-        self.ui.frame_25.leaveEvent = leave2
 
-        def enter3(event):
-            self.shadow = QGraphicsDropShadowEffect(self)
-            self.shadow.setBlurRadius(20)
-            self.shadow.setXOffset(0)
-            self.shadow.setYOffset(0)
-            self.shadow.setColor(QColor(64, 80, 170, 80))
-            self.ui.frame_7.setGraphicsEffect(self.shadow)
-        def leave3(event):
-            self.shadow = QGraphicsDropShadowEffect(self)
-            self.shadow.setBlurRadius(5)
-            self.shadow.setXOffset(0)
-            self.shadow.setYOffset(0)
-            self.shadow.setColor(QColor(64, 80, 170, 80))
-            self.ui.frame_7.setGraphicsEffect(self.shadow)
-        self.ui.frame_7.enterEvent = enter3
-        self.ui.frame_7.leaveEvent = leave3
+    def resizeLeftColumn(self) -> None:
 
-        def enter4(event):
-            self.shadow = QGraphicsDropShadowEffect(self)
-            self.shadow.setBlurRadius(30)
-            self.shadow.setXOffset(0)
-            self.shadow.setYOffset(0)
-            self.shadow.setColor(QColor(47, 54, 100, 80))
-            self.ui.frame_8.setGraphicsEffect(self.shadow)
-        def leave4(event):
-            self.shadow = QGraphicsDropShadowEffect(self)
-            self.shadow.setBlurRadius(10)
-            self.shadow.setXOffset(0)
-            self.shadow.setYOffset(0)
-            self.shadow.setColor(QColor(47, 54, 100, 80))
-            self.ui.frame_8.setGraphicsEffect(self.shadow)
-        self.ui.frame_8.enterEvent = enter4
-        self.ui.frame_8.leaveEvent = leave4
+        width = self.ui.left_column.width()
+
+        width_init = 0
+        width_end = 200
+
+        if width != 0:
+            width_init = 200
+            width_end = 0
+
+        self.animation_left_column = QPropertyAnimation(self.ui.left_column, b'minimumWidth')
+        self.animation_left_column.stop()
+
+        self.animation_left_column.setStartValue(width_init)
+        self.animation_left_column.setDuration(200)
+        self.animation_left_column.setEndValue(width_end)
+        self.animation_left_column.setEasingCurve(QEasingCurve.Type.InOutCubic)
+
+        self.animation_left_column.start()
 
 
     def configSystem(self):
 
         if platform.system() == 'Windows':
+            # ////////////////////////////////////////////////////////////////////////////////
             self.set_title_bar = True
 
+            # ////////////////////////////////////////////////////////////////////////////////
             self.windowsConfiguration()
 
+            # ////////////////////////////////////////////////////////////////////////////////
             self.move((QApplication.primaryScreen().size().width() - self.width()) / 2,
                       (QApplication.primaryScreen().size().height() - self.height()) / 4.8)
 
         else:
+            # ////////////////////////////////////////////////////////////////////////////////
             self.nonWindowConfiguration()
 
     def iniLeftMenu(self):
@@ -143,42 +106,55 @@ class MainWindow(QMainWindow):
         self.btn_back_base = self.left_menu.left_menu_base.btn_back
         self.btn_back_float = self.left_menu.left_menu_float.btn_back
 
+        # ////////////////////////////////////////////////////////////////////////////////
         self.btn_home_base = self.left_menu.left_menu_base.btn_home
         self.btn_home_float = self.left_menu.left_menu_float.btn_home
 
+        # ////////////////////////////////////////////////////////////////////////////////
         self.btn_compra_base = self.left_menu.left_menu_base.btn_compra
         self.btn_compra_float = self.left_menu.left_menu_float.btn_compra
 
+        # ////////////////////////////////////////////////////////////////////////////////
         self.btn_venda_base = self.left_menu.left_menu_base.btn_venda
         self.btn_venda_float = self.left_menu.left_menu_float.btn_venda
 
+        # ////////////////////////////////////////////////////////////////////////////////
         self.btn_relatorio_base = self.left_menu.left_menu_base.btn_relatorio
         self.btn_relatorio_float = self.left_menu.left_menu_float.btn_relatorio
 
+        # ////////////////////////////////////////////////////////////////////////////////
         self.btn_service_base = self.left_menu.left_menu_base.btn_service
         self.btn_service_float = self.left_menu.left_menu_float.btn_service
 
+        # ////////////////////////////////////////////////////////////////////////////////
         self.btn_fornecedor_base = self.left_menu.left_menu_base.btn_fornecedor
         self.btn_fornecedor_float = self.left_menu.left_menu_float.btn_fornecedor
 
+        # ////////////////////////////////////////////////////////////////////////////////
         self.btn_cliente_base = self.left_menu.left_menu_base.btn_cliente
         self.btn_cliente_float = self.left_menu.left_menu_float.btn_cliente
 
+        # ////////////////////////////////////////////////////////////////////////////////
         self.btn_agenda_base = self.left_menu.left_menu_base.btn_agenda
         self.btn_agenda_float = self.left_menu.left_menu_float.btn_agenda
 
+        # ////////////////////////////////////////////////////////////////////////////////
         self.btn_copia_seguranca_base = self.left_menu.left_menu_base.btn_copia_seguranca
         self.btn_copia_seguranca_float = self.left_menu.left_menu_float.btn_copia_seguranca
 
+        # ////////////////////////////////////////////////////////////////////////////////
         self.btn_recibo_base = self.left_menu.left_menu_base.btn_recibo
         self.btn_recibo_float = self.left_menu.left_menu_float.btn_recibo
 
+        # ////////////////////////////////////////////////////////////////////////////////
         self.btn_setting_base = self.left_menu.left_menu_base.btn_setting
         self.btn_setting_float = self.left_menu.left_menu_float.btn_setting
 
+        # ////////////////////////////////////////////////////////////////////////////////
         self.btn_info_base = self.left_menu.left_menu_base.btn_info
         self.btn_info_float = self.left_menu.left_menu_float.btn_info
 
+        # ////////////////////////////////////////////////////////////////////////////////
         self.btn_user_base = self.left_menu.left_menu_base.btn_user
         self.btn_user_float = self.left_menu.left_menu_float.btn_user
 
@@ -309,7 +285,7 @@ class MainWindow(QMainWindow):
         # ////////////////////////////////////////////////////////////////////////////////
         def mouseDoubleClickEvent(event):
             if event.type() == QEvent.MouseButtonDblClick:
-                self.restoreWindow()
+                SetUpMainWindow.restoreWindow(self)
 
         self.ui.title_bar.mouseMoveEvent = moveWindow
         self.ui.title_bar.mouseDoubleClickEvent = mouseDoubleClickEvent

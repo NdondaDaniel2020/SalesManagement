@@ -7,9 +7,12 @@ from src.gui.uis.windows.main_window.ui_main_window import Ui_MainWindow
 from src.gui.widgets.py_grips.py_grips import PyGrips
 from src.gui.widgets.py_left_menu.py_left_menu import LeftMenu
 from src.gui.widgets.py_push_button.py_push_button import PyPushButton
+from src.gui.widgets.py_painel_button.py_painel_button import PyPanelButton
 
 from src.gui.core.functions import Functions
 from src.gui.core.qss_themes import QssThemes
+
+
 
 # from src.main import MainWindow
 
@@ -38,6 +41,39 @@ class SetUpMainWindow:
         # /////////////////////////////////////////////////////////////
 
         # self.iniLeftMenu()
+
+    def configIconPath(self):
+
+        self.ui.logo.setPixmap(QPixmap(Functions().set_svg_image('logo_top_100x22.svg')))
+
+        self.ui.qrcode.setIcon(QIcon(Functions().set_svg_image("SalesManagement.svg")))
+
+        self.ui.widget_1.setIcon("icon_line_chart_down.svg")
+        self.ui.widget_1.setText("Pizza Char")
+        self.ui.widget_1.sinal.clicked.connect(lambda: print("test1"))
+
+
+        self.ui.widget_2.setIcon("icon_inbox.svg")
+        self.ui.widget_2.setText("SMS")
+        self.ui.widget_2.sinal.clicked.connect(lambda: print("test2"))
+
+
+        self.ui.widget_3.setIcon("icon_analytics.svg")
+        self.ui.widget_3.setText("Char")
+        self.ui.widget_3.sinal.clicked.connect(lambda: print("test3"))
+
+        self.ui.frest_user.setPathImage(Functions().set_svg_image('daniel.jpg'))
+
+
+
+
+
+
+
+
+
+
+
 
     def addControlWindow(self):
 
@@ -242,6 +278,8 @@ class SetUpMainWindow:
             self.ui.widget_style_sheet.setStyleSheet(QssThemes().set_qss(file_name='window_maximized.qss',
                                                                             theme='dark'))
 
+            # Hide GRIP'S
+            # ////////////////////////////////////////////////////////////////////////////////
             self.left_grip.hide()
             self.right_grip.hide()
             self.top_grip.hide()
@@ -277,6 +315,8 @@ class SetUpMainWindow:
             # //////////////////////////////////////////////////////////////////////////
             self.ui.widget_style_sheet.setStyleSheet(QssThemes().set_qss(file_name='window_normal.qss', theme='dark'))
 
+            # Hide GRIP'S
+            # ////////////////////////////////////////////////////////////////////////////////
             self.left_grip.show()
             self.right_grip.show()
             self.top_grip.show()

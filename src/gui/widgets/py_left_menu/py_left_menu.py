@@ -605,9 +605,9 @@ class LeftMenu(QWidget):
         self.left_menu_float.btn_recibo.setTooltipText("Recibo", self._app_parent,
                                                        pos_tooltip="right", adjust_x=14, adjust_y=3)
 
-        self.left_menu_base.btn_copia_seguranca.setTooltipText("Recibo", self._app_parent,
-                                                               pos_tooltip="right", adjust_x=14, adjust_y=3)
-        self.left_menu_float.btn_copia_seguranca.setTooltipText("Recibo", self._app_parent,
+        self.left_menu_base.btn_copia_seguranca.setTooltipText("cópia segurança", self._app_parent,
+                                                               pos_tooltip="right", adjust_x=0, adjust_y=3)
+        self.left_menu_float.btn_copia_seguranca.setTooltipText("cópia segurança", self._app_parent,
                                                                 pos_tooltip="right", adjust_x=14, adjust_y=3)
 
 
