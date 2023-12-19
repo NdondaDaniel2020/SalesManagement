@@ -1,25 +1,31 @@
+
+# PACOTES NATIVOS
+# NATIVE PACKAGES
 import sys
 import os
 import pathlib
 
-
-from src.qt_core import *
-from src.gui.uis.windows.main_window.setup_main_window import *
-from src.gui.uis.windows.main_window.ui_main_window import Ui_MainWindow
-from src.gui.core.functions import Functions
-
-
-import platform
-
+# INSTALLED PACKAGES
+# PACOTES INSTALADOS
 from src.qt_core import *
 
-from src.gui.uis.windows.main_window.ui_main_window import Ui_MainWindow
-
+# CUSTOM WIDGETS
+# WIDGETS PERSONALIZADOS
 from src.gui.widgets.py_grips.py_grips import PyGrips
 from src.gui.widgets.py_left_menu.py_left_menu import LeftMenu
 from src.gui.widgets.py_push_button.py_push_button import PyPushButton
-from src.gui.widgets.py_left_column.py_left_column import PyLeftColumn
 
+# MAIN INTERFACE CODE
+# CÓDIGO PRINCIPAL DA INTERFACE
+from src.gui.uis.windows.main_window.ui_main_window import Ui_MainWindow
+from src.gui.function.functions_main_window.function_resize import FunctionResize
+
+# INTERFACE AUXILIARY CODE
+# CÓDIGO AUXILIAR DA INTERFACE
+from src.gui.uis.windows.main_window.setup_main_window import *
+
+# AUXILIARY CODE
+# CÓDIGO AUXILIAR
 from src.gui.core.functions import Functions
 from src.gui.core.qss_themes import QssThemes
 
@@ -38,46 +44,34 @@ class MainWindow(QMainWindow):
         SetUpMainWindow.configIconPath(self)
         SetUpMainWindow.addControlWindow(self)
 
-        self.configSystem()
+        self._configSystem_()
 
         # /////////////////////////////////////////////////////////////
         # /////////////////////////////////////////////////////////////
 
-        self.iniLeftMenu()
+        self._iniLeftMenu_()
 
 
-        # self.frame_painel = PyPainelButton()
-        # self.ui.horizontalLayout_8.addWidget(self.frame_painel)
-        # ////////////////////////////////////////////////////////////////////
-        # //////////////////////////////// TESTE ////////////////////////////
-        # //////////////////////////////////////////////////////////////////
 
-        self.btn_info_base.clicked.connect(self.resizeLeftColumn)
+        self.btn_info_base.clicked.connect(lambda: FunctionResize.resizeLeftColumn(self))
+        self.btn_info_float.clicked.connect(lambda: FunctionResize.resizeLeftColumn(self))
 
-
-    def resizeLeftColumn(self) -> None:
-
-        width = self.ui.left_column.width()
-
-        width_init = 0
-        width_end = 200
-
-        if width != 0:
-            width_init = 200
-            width_end = 0
-
-        self.animation_left_column = QPropertyAnimation(self.ui.left_column, b'minimumWidth')
-        self.animation_left_column.stop()
-
-        self.animation_left_column.setStartValue(width_init)
-        self.animation_left_column.setDuration(200)
-        self.animation_left_column.setEndValue(width_end)
-        self.animation_left_column.setEasingCurve(QEasingCurve.Type.InOutCubic)
-
-        self.animation_left_column.start()
+        self.btn_info_base.clicked.connect(self.left_menu.activeBtbInfo)
+        self.btn_info_float.clicked.connect(self.left_menu.activeBtbInfo)
 
 
-    def configSystem(self):
+
+    def _activeBtbInfo_(self):
+
+        if not self.btn_info_base.is_active:
+            self.btn_info_base.set_style(is_active=True, btn_radius=8, text_padding=6)
+            self.btn_info_float.set_style(is_active=True, btn_radius=8, text_padding=6)
+
+        else:
+            self.btn_info_base.set_style(is_active=False, btn_radius=8, text_padding=6)
+            self.btn_info_float.set_style(is_active=False, btn_radius=8, text_padding=6)
+
+    def _configSystem_(self):
 
         if platform.system() == 'Windows':
             # ////////////////////////////////////////////////////////////////////////////////
@@ -94,7 +88,7 @@ class MainWindow(QMainWindow):
             # ////////////////////////////////////////////////////////////////////////////////
             self.nonWindowConfiguration()
 
-    def iniLeftMenu(self):
+    def _iniLeftMenu_(self):
 
         # ADD LEFT MENU
         # ////////////////////////////////////////////////////////////////////////////////

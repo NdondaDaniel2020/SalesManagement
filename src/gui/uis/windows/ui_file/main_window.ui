@@ -17,7 +17,8 @@
    <property name="styleSheet">
     <string notr="true">#central_widget,
 #line_left_menu,
-#line_title_bar{
+#line_title_bar,
+#frame_base{
 background-color: rgb(32, 33, 37);
 border-radius: 7px}
 
@@ -38,7 +39,8 @@ border-radius: 7px}
     background-color: rgb(32, 33, 37);
     border:none}
 
-#line_left_menu, #line_title_bar{border:none}</string>
+#line_left_menu, #line_title_bar{border:none}
+</string>
    </property>
    <layout class="QHBoxLayout" name="horizontal_layout_widget_style_sheet">
     <property name="spacing">
@@ -258,7 +260,7 @@ border-radius: 7px}
                          <string/>
                         </property>
                         <property name="pixmap">
-                         <pixmap>../../../images/svg_images/logo_top_100x22.svg</pixmap>
+                         <pixmap>../../../../../../../../images/svg_images/logo_top_100x22.svg</pixmap>
                         </property>
                        </widget>
                       </item>
@@ -318,7 +320,7 @@ border-radius: 7px}
                  </widget>
                 </item>
                 <item>
-                 <widget class="QFrame" name="frame">
+                 <widget class="QFrame" name="frame_base">
                   <property name="frameShape">
                    <enum>QFrame::StyledPanel</enum>
                   </property>
@@ -341,17 +343,17 @@ border-radius: 7px}
                    <property name="bottomMargin">
                     <number>0</number>
                    </property>
-                   <item>
+                   <item alignment="Qt::AlignLeft">
                     <widget class="QFrame" name="left_column">
                      <property name="minimumSize">
                       <size>
-                       <width>200</width>
+                       <width>0</width>
                        <height>0</height>
                       </size>
                      </property>
                      <property name="maximumSize">
                       <size>
-                       <width>200</width>
+                       <width>0</width>
                        <height>16777215</height>
                       </size>
                      </property>
@@ -370,12 +372,18 @@ border-radius: 7px}
                       <enum>QFrame::Raised</enum>
                      </property>
                      <layout class="QVBoxLayout" name="verticalLayout_11">
-                      <item>
-                       <widget class="QFrame" name="frame_22">
+                      <item alignment="Qt::AlignLeft">
+                       <widget class="QFrame" name="frame_qrcode">
+                        <property name="minimumSize">
+                         <size>
+                          <width>180</width>
+                          <height>0</height>
+                         </size>
+                        </property>
                         <property name="maximumSize">
                          <size>
                           <width>16777215</width>
-                          <height>119</height>
+                          <height>146</height>
                          </size>
                         </property>
                         <property name="styleSheet">
@@ -393,7 +401,7 @@ border-radius: 7px}
                            <property name="minimumSize">
                             <size>
                              <width>0</width>
-                             <height>99</height>
+                             <height>130</height>
                             </size>
                            </property>
                            <property name="styleSheet">
@@ -407,7 +415,7 @@ QPushButton:pressed {border: none;}
                            </property>
                            <property name="icon">
                             <iconset>
-                             <normaloff>../../../images/svg_images/SalesManagement.svg</normaloff>../../../images/svg_images/SalesManagement.svg</iconset>
+                             <normaloff>../../../images/svg_images/SalesManagement.png</normaloff>../../../images/svg_images/SalesManagement.png</iconset>
                            </property>
                            <property name="iconSize">
                             <size>
@@ -828,7 +836,7 @@ QWidget:focus {
                    <item>
                     <widget class="QStackedWidget" name="stacked_widget">
                      <property name="currentIndex">
-                      <number>0</number>
+                      <number>1</number>
                      </property>
                      <widget class="QWidget" name="page">
                       <widget class="QLabel" name="label_3">
@@ -1184,9 +1192,9 @@ QFrame:focus {
                       <widget class="QFrame" name="frame_36">
                        <property name="geometry">
                         <rect>
-                         <x>80</x>
-                         <y>450</y>
-                         <width>180</width>
+                         <x>20</x>
+                         <y>460</y>
+                         <width>190</width>
                          <height>36</height>
                         </rect>
                        </property>
@@ -1226,7 +1234,7 @@ QFrame:focus {
                         <property name="bottomMargin">
                          <number>0</number>
                         </property>
-                        <item>
+                        <item alignment="Qt::AlignLeft">
                          <widget class="QPushButton" name="pushButton_test_19">
                           <property name="minimumSize">
                            <size>
@@ -1249,7 +1257,7 @@ QFrame:focus {
                           <property name="styleSheet">
                            <string notr="true">QPushButton {
             color: rgb(233, 234, 236);
-            background-color: transparent;
+            background-color: rgb(255, 170, 255);
 			 padding-left: 7px;
             text-align: left;
             border: none;
@@ -1272,7 +1280,7 @@ QFrame:focus {
                           </property>
                          </widget>
                         </item>
-                        <item>
+                        <item alignment="Qt::AlignLeft">
                          <widget class="QFrame" name="frame_37">
                           <property name="styleSheet">
                            <string notr="true">border:none;
@@ -1300,7 +1308,7 @@ background-color: transparent;</string>
                            <property name="bottomMargin">
                             <number>0</number>
                            </property>
-                           <item>
+                           <item alignment="Qt::AlignLeft">
                             <widget class="QLabel" name="label_14">
                              <property name="minimumSize">
                               <size>
@@ -1326,11 +1334,11 @@ background-color: transparent;
 border:none</string>
                              </property>
                              <property name="text">
-                              <string> Daniel</string>
+                              <string>  Daniel</string>
                              </property>
                             </widget>
                            </item>
-                           <item>
+                           <item alignment="Qt::AlignLeft">
                             <widget class="QLabel" name="label_20">
                              <property name="minimumSize">
                               <size>
@@ -1357,12 +1365,25 @@ border:none;
 padding-left: 0.4px;</string>
                              </property>
                              <property name="text">
-                              <string>  Admin</string>
+                              <string>    Admin</string>
                              </property>
                             </widget>
                            </item>
                           </layout>
                          </widget>
+                        </item>
+                        <item>
+                         <spacer name="horizontalSpacer_2">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>40</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
                         </item>
                         <item>
                          <widget class="QPushButton" name="pushButton_test_20">
@@ -1453,8 +1474,8 @@ border-radius:10px</string>
                            <rect>
                             <x>0</x>
                             <y>0</y>
-                            <width>809</width>
-                            <height>139</height>
+                            <width>918</width>
+                            <height>150</height>
                            </rect>
                           </property>
                           <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -1509,7 +1530,7 @@ border-radius:10px</string>
                               </property>
                               <property name="icon">
                                <iconset>
-                                <normaloff>../../../images/svg_icons/icon_sale.svg</normaloff>../../../images/svg_icons/icon_sale.svg</iconset>
+                                <normaloff>../../../../../../../../images/svg_icons/icon_sale.svg</normaloff>../../../../../../../../images/svg_icons/icon_sale.svg</iconset>
                               </property>
                               <property name="iconSize">
                                <size>
@@ -1677,7 +1698,7 @@ color: #e9eaec;</string>
                               </property>
                               <property name="icon">
                                <iconset>
-                                <normaloff>../../../images/svg_icons/icon_box.svg</normaloff>../../../images/svg_icons/icon_box.svg</iconset>
+                                <normaloff>../../../../../../../../images/svg_icons/icon_box.svg</normaloff>../../../../../../../../images/svg_icons/icon_box.svg</iconset>
                               </property>
                               <property name="iconSize">
                                <size>
@@ -1891,7 +1912,7 @@ color: #e9eaec;</string>
                               </property>
                               <property name="icon">
                                <iconset>
-                                <normaloff>../../../images/svg_icons/icon_line_chart_down.svg</normaloff>../../../images/svg_icons/icon_line_chart_down.svg</iconset>
+                                <normaloff>../../../../../../../../images/svg_icons/icon_line_chart_down.svg</normaloff>../../../../../../../../images/svg_icons/icon_line_chart_down.svg</iconset>
                               </property>
                               <property name="iconSize">
                                <size>
@@ -2033,7 +2054,7 @@ color: #e9eaec;</string>
                               </property>
                               <property name="icon">
                                <iconset>
-                                <normaloff>../../../images/svg_icons/Icon_receipt_svgrepo.svg</normaloff>../../../images/svg_icons/Icon_receipt_svgrepo.svg</iconset>
+                                <normaloff>../../../../../../../../images/svg_icons/Icon_receipt_svgrepo.svg</normaloff>../../../../../../../../images/svg_icons/Icon_receipt_svgrepo.svg</iconset>
                               </property>
                               <property name="iconSize">
                                <size>

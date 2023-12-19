@@ -21,4 +21,3 @@ border-radius: 7px}
     background-color: rgb(32, 33, 37);
     border:none}
 
-#line_left_menu, #line_title_bar{border:none}

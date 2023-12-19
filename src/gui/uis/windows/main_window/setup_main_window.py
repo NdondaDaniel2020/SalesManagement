@@ -64,6 +64,7 @@ class SetUpMainWindow:
 
         self.ui.frest_user.setPathImage(Functions().set_svg_image('daniel.jpg'))
 
+        self.ui.frest_user.sinal.clicked.connect(lambda: print("test user"))
 
 
 

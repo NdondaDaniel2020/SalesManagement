@@ -202,6 +202,9 @@ class PyPushButton(QPushButton):
             background-color: {btn_pressed};
         }}
         """
+
+        self.is_active = is_active
+
         if not is_active:
             self.setStyleSheet(style)
         else:
