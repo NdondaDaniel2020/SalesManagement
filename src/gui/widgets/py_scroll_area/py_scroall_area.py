@@ -10,17 +10,21 @@ class PyScrollArea(QScrollArea):
         self.setVerticalScrollBarPolicy
         # self.horizontalScrollBar().valueChanged.connect(self.test)
 
+        self.first_resize = 1
+
         self.next_btn = PyTransitionButton().next(self)
         self.back_btn = PyTransitionButton().back(self)
 
+
+
     def enterEvent(self, event):
-        # self.next_btn.show()
-        # self.back_btn.show()
+        self.next_btn.show()
+        self.back_btn.show()
         ...
 
     def leaveEvent(self, event):
-        # self.next_btn.hide()
-        # self.back_btn.hide()
+        self.next_btn.hide()
+        self.back_btn.hide()
         ...
 
     def wheelEvent(self, event):
@@ -31,11 +35,12 @@ class PyScrollArea(QScrollArea):
 
     def resizeEvent(self, arg__1):
         QScrollArea.resizeEvent(self, arg__1)
-        self.next_btn.setGeometry(self.width()-25, 50, 17, 56)
 
         if self.width() > 1021:
             self.next_btn.hide()
             self.back_btn.hide()
+        else:
+            self.next_btn.setGeometry(self.width() - 25, 50, 17, 56)
 
 class PyTransitionButton(object):
     def __init__(self):
@@ -86,7 +91,7 @@ class PyTransitionButton(object):
         self.shadow_next.setColor(QColor(19, 20, 22, 85))
         self.next_btn.setGraphicsEffect(self.shadow_next)
 
-        # self.next_btn.hide()
+        self.next_btn.hide()
 
         return self.next_btn
 
@@ -105,6 +110,6 @@ class PyTransitionButton(object):
         self.shadow_back.setColor(QColor(19, 20, 22, 80))
         self.back_btn.setGraphicsEffect(self.shadow_back)
 
-        # self.back_btn.hide()
+        self.back_btn.hide()
 
         return self.back_btn
