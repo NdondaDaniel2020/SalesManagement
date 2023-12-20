@@ -50,21 +50,21 @@ class SetUpMainWindow:
 
         self.ui.widget_1.setIcon("icon_line_chart_down.svg")
         self.ui.widget_1.setText("Pizza Char")
-        self.ui.widget_1.sinal.clicked.connect(lambda: print("test1"))
+        self.ui.widget_1.clicked.connect(lambda: print("test1"))
 
 
         self.ui.widget_2.setIcon("icon_inbox.svg")
         self.ui.widget_2.setText("SMS")
-        self.ui.widget_2.sinal.clicked.connect(lambda: print("test2"))
+        self.ui.widget_2.clicked.connect(lambda: print("test2"))
 
 
         self.ui.widget_3.setIcon("icon_analytics.svg")
         self.ui.widget_3.setText("Char")
-        self.ui.widget_3.sinal.clicked.connect(lambda: print("test3"))
+        self.ui.widget_3.clicked.connect(lambda: print("test3"))
 
         self.ui.frest_user.setPathImage(Functions().set_svg_image('daniel.jpg'))
 
-        self.ui.frest_user.sinal.clicked.connect(lambda: print("test user"))
+        self.ui.frest_user.clicked.connect(lambda: print("test user"))
 
 
 
@@ -271,8 +271,8 @@ class SetUpMainWindow:
             # //////////////////////////////////////////////////////////////////////////
             self.btn_maximize.setIcon(QIcon(Functions().set_svg_icon('icon_restore2.svg')))
             self.btn_maximize.setIconSize(QSize(20, 20))
-            self.btn_maximize.set_style(btn_hover="#313237", btn_pressed="#26272b",
-                                        btn_radius=4, text_padding=3)
+            # self.btn_maximize.set_style(btn_hover="#313237", btn_pressed="#26272b",
+            #                             btn_radius=4, text_padding=3)
 
             # REPLACE STYLE OF WINDOW
             # //////////////////////////////////////////////////////////////////////////
@@ -309,8 +309,8 @@ class SetUpMainWindow:
 
             # ADJUST STYLE OF BUTTON MAXIMIZE
             # //////////////////////////////////////////////////////////////////////////
-            self.btn_maximize.set_style(btn_hover="#313237", btn_pressed="#26272b",
-                                        btn_radius=4, text_padding=4)
+            # self.btn_maximize.set_style(btn_hover="#313237", btn_pressed="#26272b",
+            #                             btn_radius=4, text_padding=4)
 
             # REPLACE STYLE OF WINDOW
             # //////////////////////////////////////////////////////////////////////////

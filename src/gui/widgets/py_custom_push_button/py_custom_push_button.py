@@ -13,12 +13,14 @@ from src.gui.core.functions import Functions
 
 class PyCustomPushButton(QFrame):
 
+    clicked = Signal()
+
     def __init__(self, parent=None):
         super().__init__(parent)
 
-        self.icon = QIcon()
+        self.setCursor(Qt.PointingHandCursor)
 
-        self.sinal = CustomSignals()
+        self.icon = QIcon()
 
         self._setupUi_(parent)
 
@@ -87,11 +89,8 @@ class PyCustomPushButton(QFrame):
 
     def mousePressEvent(self, event):
         if event.buttons() == Qt.LeftButton:
-            return self.sinal.clicked.emit()
+            return self.clicked.emit()
 
     def __click__(self):
-        return self.sinal.clicked.emit()
+        return self.clicked.emit()
 
-class CustomSignals(QObject):
-
-    clicked = Signal()

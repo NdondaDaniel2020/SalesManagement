@@ -44,16 +44,18 @@ class PyUserButton(QWidget):
     }
     """}
 
+    clicked = Signal()
+
     def __init__(self, parent=None):
         super().__init__(parent)
+
+        self.setCursor(Qt.PointingHandCursor)
 
         # PROPERTY
         self._image_user = ''
         self._color = (255, 255, 255)
         self._name = 'Daniel'
         self._access = 'Admin'
-
-        self.sinal = CustomSignals()
 
         self.active = True
 
@@ -71,7 +73,7 @@ class PyUserButton(QWidget):
 
     def mousePressEvent(self, event):
         if event.buttons() == Qt.LeftButton:
-            return self.sinal.clicked.emit()
+            return self.clicked.emit()
 
     def setActive(self, active):
         self.actie = active
@@ -228,7 +230,5 @@ class PyUserButton(QWidget):
         self.setLayout(self.vertical_layout)
 
     def __click__(self):
-        return self.sinal.clicked.emit()
+        return self.clicked.emit()
 
-class CustomSignals(QObject):
-    clicked = Signal()
