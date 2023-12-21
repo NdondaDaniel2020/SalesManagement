@@ -59,7 +59,6 @@ class MainWindow(QMainWindow):
         self.btn_info_base.clicked.connect(self.left_menu.activeBtbInfo)
         self.btn_info_float.clicked.connect(self.left_menu.activeBtbInfo)
 
-        # self.ui.scroll_area_home.setPositions(self.ui.frame_continer)
 
 
     def _activeBtbInfo_(self):
