@@ -4,8 +4,8 @@ from PySide6.QtGui import *
 
 
 class PyCircularProgress(QWidget):
-    def __init__(self):
-        QWidget.__init__(self)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         # custom properti
 
@@ -24,6 +24,7 @@ class PyCircularProgress(QWidget):
 
         # set default size without layout
         self.resize(self.width, self.height)
+
 
     # add dropshadow
     def ad_shadow(self, enable):
@@ -80,3 +81,4 @@ class PyCircularProgress(QWidget):
         paint.drawText(rect, Qt.AlignCenter, f"{self.value}{self.suffix}")
         # end
         paint.end()
+

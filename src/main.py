@@ -14,53 +14,75 @@ from src.qt_core import *
 from src.gui.widgets.py_grips.py_grips import PyGrips
 from src.gui.widgets.py_left_menu.py_left_menu import LeftMenu
 from src.gui.widgets.py_push_button.py_push_button import PyPushButton
+# from src.gui.widgets.py_flow_layout.py_flow_layout import PyFlowLayout
 
 # MAIN INTERFACE CODE
 # CÓDIGO PRINCIPAL DA INTERFACE
 from src.gui.uis.windows.main_window.ui_main_window import Ui_MainWindow
-from src.gui.function.functions_main_window.function_resize import FunctionResize
+from src.gui.function.functions_main_window.functions_system import FunctionsSystem
 
 # INTERFACE AUXILIARY CODE
 # CÓDIGO AUXILIAR DA INTERFACE
 from src.gui.uis.windows.main_window.setup_main_window import *
+from src.gui.function.functions_main_window.functions_chart import ChartFunctions
 
 # AUXILIARY CODE
 # CÓDIGO AUXILIAR
-from src.gui.core.functions import Functions
+from src.gui.core.imagepath import ImagePath
 from src.gui.core.qss_themes import QssThemes
 
 
 class MainWindow(QMainWindow):
 
     def __init__(self):
-        # QMainWindow.__init__(self)
         super().__init__()
 
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+        # /////////////////////////////////////////////////////////////
         self.set_title_bar = False
 
+        # /////////////////////////////////////////////////////////////
         SetUpMainWindow.configIconPath(self)
         SetUpMainWindow.addControlWindow(self)
-
-        self._configSystem_()
+        SetUpMainWindow.configSystem(self)
 
         # /////////////////////////////////////////////////////////////
-        # /////////////////////////////////////////////////////////////
+        ChartFunctions.inventoryChart(self)
 
+        # /////////////////////////////////////////////////////////////
         self._iniLeftMenu_()
 
+        # /////////////////////////////////////////////////////////////
+        self._connectingPages_()
 
+        #///////////////////////////////////////////
+        # self.progress = CircularProgress()
+        self.ui.circupar_progress_bar.width = 150
+        self.ui.circupar_progress_bar.height = 150
+        self.ui.circupar_progress_bar.value = 80
+        self.ui.circupar_progress_bar.setFixedSize(215, 172)
+        self.ui.circupar_progress_bar.move(30, 10)
+        self.ui.circupar_progress_bar.font_size = 12
+        self.ui.circupar_progress_bar.progress_width = 6
+        self.ui.circupar_progress_bar.ad_shadow(True)
+        self.ui.circupar_progress_bar.progress_color = 0x596deb
+        self.ui.circupar_progress_bar.text_color = 0xE9EAEC
+        self.ui.circupar_progress_bar.show()
 
-        self.btn_info_base.clicked.connect(lambda: FunctionResize.resizeLeftColumn(self))
-        self.btn_info_float.clicked.connect(lambda: FunctionResize.resizeLeftColumn(self))
+        # /////////////////////////////////////////////////////////////////////////////////
+        self.btn_info_base.clicked.connect(lambda: FunctionsSystem.resizeLeftColumn(self))
+        self.btn_info_float.clicked.connect(lambda: FunctionsSystem.resizeLeftColumn(self))
 
         self.btn_info_base.clicked.connect(self.left_menu.activeBtbInfo)
         self.btn_info_float.clicked.connect(self.left_menu.activeBtbInfo)
 
 
 
+
+
+    # falha na arquitetura
     def _activeBtbInfo_(self):
 
         if not self.btn_info_base.is_active:
@@ -71,23 +93,7 @@ class MainWindow(QMainWindow):
             self.btn_info_base.set_style(is_active=False, btn_radius=8, text_padding=6)
             self.btn_info_float.set_style(is_active=False, btn_radius=8, text_padding=6)
 
-    def _configSystem_(self):
-
-        if platform.system() == 'Windows':
-            # ////////////////////////////////////////////////////////////////////////////////
-            self.set_title_bar = True
-
-            # ////////////////////////////////////////////////////////////////////////////////
-            self.windowsConfiguration()
-
-            # ////////////////////////////////////////////////////////////////////////////////
-            self.move((QApplication.primaryScreen().size().width() - self.width()) / 2,
-                      (QApplication.primaryScreen().size().height() - self.height()) / 4.8)
-
-        else:
-            # ////////////////////////////////////////////////////////////////////////////////
-            self.nonWindowConfiguration()
-
+    # falha na arquitetura
     def _iniLeftMenu_(self):
 
         # ADD LEFT MENU
@@ -111,6 +117,10 @@ class MainWindow(QMainWindow):
         # ////////////////////////////////////////////////////////////////////////////////
         self.btn_venda_base = self.left_menu.left_menu_base.btn_venda
         self.btn_venda_float = self.left_menu.left_menu_float.btn_venda
+
+        # ////////////////////////////////////////////////////////////////////////////////
+        self.btn_inventario_base = self.left_menu.left_menu_base.btn_inventario
+        self.btn_inventario_float = self.left_menu.left_menu_float.btn_inventario
 
         # ////////////////////////////////////////////////////////////////////////////////
         self.btn_relatorio_base = self.left_menu.left_menu_base.btn_relatorio
@@ -152,6 +162,76 @@ class MainWindow(QMainWindow):
         self.btn_user_base = self.left_menu.left_menu_base.btn_user
         self.btn_user_float = self.left_menu.left_menu_float.btn_user
 
+
+
+
+    def _connectingPages_(self):
+
+        # ////////////////////////////////////////////////////////////////////////////////
+        self.btn_home_base.clicked.connect(self.changePage)
+        self.btn_home_float.clicked.connect(self.changePage)
+
+        # ////////////////////////////////////////////////////////////////////////////////
+        self.btn_compra_base.clicked.connect(self.changePage)
+        self.btn_compra_float.clicked.connect(self.changePage)
+
+        # ////////////////////////////////////////////////////////////////////////////////
+        self.btn_venda_base.clicked.connect(self.changePage)
+        self.btn_venda_float.clicked.connect(self.changePage)
+
+        # ////////////////////////////////////////////////////////////////////////////////
+        self.btn_inventario_base.clicked.connect(self.changePage)
+        self.btn_inventario_float.clicked.connect(self.changePage)
+
+        # ////////////////////////////////////////////////////////////////////////////////
+        self.btn_relatorio_base.clicked.connect(self.changePage)
+        self.btn_relatorio_float.clicked.connect(self.changePage)
+
+        # ////////////////////////////////////////////////////////////////////////////////
+        self.btn_service_base.clicked.connect(self.changePage)
+        self.btn_service_float.clicked.connect(self.changePage)
+
+        # ////////////////////////////////////////////////////////////////////////////////
+        self.btn_fornecedor_base.clicked.connect(self.changePage)
+        self.btn_fornecedor_float.clicked.connect(self.changePage)
+
+        # ////////////////////////////////////////////////////////////////////////////////
+        self.btn_cliente_base.clicked.connect(self.changePage)
+        self.btn_cliente_float.clicked.connect(self.changePage)
+
+        # ////////////////////////////////////////////////////////////////////////////////
+        self.btn_agenda_base.clicked.connect(self.changePage)
+        self.btn_agenda_float.clicked.connect(self.changePage)
+
+        # ////////////////////////////////////////////////////////////////////////////////
+        self.btn_copia_seguranca_base.clicked.connect(self.changePage)
+        self.btn_copia_seguranca_float.clicked.connect(self.changePage)
+
+        # ////////////////////////////////////////////////////////////////////////////////
+        self.btn_recibo_base.clicked.connect(self.changePage)
+        self.btn_recibo_float.clicked.connect(self.changePage)
+
+        # ////////////////////////////////////////////////////////////////////////////////
+        self.btn_setting_base.clicked.connect(self.changePage)
+        self.btn_setting_float.clicked.connect(self.changePage)
+
+        # ////////////////////////////////////////////////////////////////////////////////
+        self.btn_info_base.clicked.connect(self.changePage)
+        self.btn_info_float.clicked.connect(self.changePage)
+
+        # ////////////////////////////////////////////////////////////////////////////////
+        self.btn_user_base.clicked.connect(self.changePage)
+        self.btn_user_float.clicked.connect(self.changePage)
+
+    def changePage(self) -> None:
+        name_btn = self.sender().objectName()
+
+        if name_btn == 'btn_home':
+            self.ui.stacked_widget.setCurrentWidget(self.ui.page_home)
+
+        elif name_btn == 'btn_inventario':
+            self.ui.stacked_widget.setCurrentWidget(self.ui.page_inventario)
+
     def addControlWindow(self):
 
         # CREATE AND CONFIG BTN MINIMIZE
@@ -167,7 +247,7 @@ class MainWindow(QMainWindow):
         # ADD ICON
         # ////////////////////////////////////////////////////////////////////////////////
         icon = QIcon()
-        icon.addFile(Functions().set_svg_icon("icon_minimize.svg"), QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(FunctionsSystem().set_svg_icon("icon_minimize.svg"), QSize(), QIcon.Normal, QIcon.Off)
 
         # CONFIG ICON SIZE
         # ////////////////////////////////////////////////////////////////////////////////
@@ -191,7 +271,7 @@ class MainWindow(QMainWindow):
         # ADD ICON
         # ////////////////////////////////////////////////////////////////////////////////
         icon1 = QIcon()
-        icon1.addFile(Functions().set_svg_icon("icon_maximize.svg"), QSize(), QIcon.Normal, QIcon.Off)
+        icon1.addFile(FunctionsSystem().set_svg_icon("icon_maximize.svg"), QSize(), QIcon.Normal, QIcon.Off)
 
         # CONFIG ICON SIZE
         # //////////////////////////////
@@ -215,7 +295,7 @@ class MainWindow(QMainWindow):
         # ADD ICON
         # //////////////////////////////////////////////////////////////////////////////
         icon2 = QIcon()
-        icon2.addFile(Functions().set_svg_icon("icon_close.svg"), QSize(), QIcon.Normal, QIcon.Off)
+        icon2.addFile(FunctionsSystem().set_svg_icon("icon_close.svg"), QSize(), QIcon.Normal, QIcon.Off)
 
         # ICON SIZE
         # //////////////////////////////////////////////////////////////////////////////

@@ -4,7 +4,7 @@ import os
 
 # IMPORT QT CORE
 from src.qt_core import *
-from src.gui.core.functions import Functions
+from src.gui.core.imagepath import ImagePath
 
 class PyPushButton(QPushButton):
     def __init__(
@@ -229,7 +229,7 @@ class PyPushButton(QPushButton):
     def draw_icon(self, qp, image, rect, color):
 
         # Draw icon
-        icon = QPixmap(Functions().set_svg_icon(image))
+        icon = QPixmap(ImagePath().set_svg_icon(image))
 
         painter = QPainter(icon)
         painter.setCompositionMode(QPainter.CompositionMode_SourceIn)

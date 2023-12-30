@@ -9,7 +9,7 @@ from src.gui.widgets.py_left_menu.py_left_menu import LeftMenu
 from src.gui.widgets.py_push_button.py_push_button import PyPushButton
 from src.gui.widgets.py_painel_button.py_painel_button import PyPanelButton
 
-from src.gui.core.functions import Functions
+from src.gui.core.imagepath import ImagePath
 from src.gui.core.qss_themes import QssThemes
 
 
@@ -31,22 +31,16 @@ class SetUpMainWindow:
         self.ui.setupUi(self)
 
         self.set_title_bar = False
-        ...
 
-        # self.addControlWindow()
 
-        # self.configSystem()
-
-        # /////////////////////////////////////////////////////////////
-        # /////////////////////////////////////////////////////////////
-
-        # self.iniLeftMenu()
 
     def configIconPath(self):
 
-        self.ui.logo.setPixmap(QPixmap(Functions().set_svg_image('logo_top_100x22.svg')))
+        self.ui.logo.setPixmap(QPixmap(ImagePath().set_svg_image('logo_top_100x22.svg')))
 
-        self.ui.qrcode.setIcon(QIcon(Functions().set_svg_image("SalesManagement.svg")))
+
+        self.ui.qrcode.setIcon(QIcon(ImagePath().set_svg_image("SalesManagement.svg")))
+
 
         self.ui.widget_1.setIcon("icon_line_chart_down.svg")
         self.ui.widget_1.setText("Pizza Char")
@@ -62,7 +56,9 @@ class SetUpMainWindow:
         self.ui.widget_3.setText("Char")
         self.ui.widget_3.clicked.connect(lambda: print("test3"))
 
-        self.ui.frest_user.setPathImage(Functions().set_svg_image('daniel.jpg'))
+
+        self.ui.frest_user.setPathImage(ImagePath().set_svg_image('daniel.jpg'))
+
 
         self.ui.frest_user.clicked.connect(lambda: print("test user"))
 
@@ -74,7 +70,22 @@ class SetUpMainWindow:
 
 
 
+    def configSystem(self):
 
+        if platform.system() == 'Windows':
+            # ////////////////////////////////////////////////////////////////////////////////
+            self.set_title_bar = True
+
+            # ////////////////////////////////////////////////////////////////////////////////
+            SetUpMainWindow.windowsConfiguration(self)
+
+        else:
+            # ////////////////////////////////////////////////////////////////////////////////
+            SetUpMainWindow.nonWindowConfiguration(self)
+
+        # ////////////////////////////////////////////////////////////////////////////////
+        self.move((QApplication.primaryScreen().size().width() - self.width()) / 2,
+                  (QApplication.primaryScreen().size().height() - self.height()) / 4.8)
 
     def addControlWindow(self):
 
@@ -91,7 +102,7 @@ class SetUpMainWindow:
         # ADD ICON
         # ////////////////////////////////////////////////////////////////////////////////
         icon = QIcon()
-        icon.addFile(Functions().set_svg_icon("icon_minimize.svg"), QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(ImagePath().set_svg_icon("icon_minimize.svg"), QSize(), QIcon.Normal, QIcon.Off)
 
         # CONFIG ICON SIZE
         # ////////////////////////////////////////////////////////////////////////////////
@@ -115,7 +126,7 @@ class SetUpMainWindow:
         # ADD ICON
         # ////////////////////////////////////////////////////////////////////////////////
         icon1 = QIcon()
-        icon1.addFile(Functions().set_svg_icon("icon_maximize.svg"), QSize(), QIcon.Normal, QIcon.Off)
+        icon1.addFile(ImagePath().set_svg_icon("icon_maximize.svg"), QSize(), QIcon.Normal, QIcon.Off)
 
         # CONFIG ICON SIZE
         # //////////////////////////////
@@ -139,7 +150,7 @@ class SetUpMainWindow:
         # ADD ICON
         # //////////////////////////////////////////////////////////////////////////////
         icon2 = QIcon()
-        icon2.addFile(Functions().set_svg_icon("icon_close.svg"), QSize(), QIcon.Normal, QIcon.Off)
+        icon2.addFile(ImagePath().set_svg_icon("icon_close.svg"), QSize(), QIcon.Normal, QIcon.Off)
 
         # ICON SIZE
         # //////////////////////////////////////////////////////////////////////////////
@@ -269,7 +280,7 @@ class SetUpMainWindow:
 
             # ADJUST STYLE OF BUTTON MAXIMIZE
             # //////////////////////////////////////////////////////////////////////////
-            self.btn_maximize.setIcon(QIcon(Functions().set_svg_icon('icon_restore2.svg')))
+            self.btn_maximize.setIcon(QIcon(ImagePath().set_svg_icon('icon_restore2.svg')))
             self.btn_maximize.setIconSize(QSize(20, 20))
             # self.btn_maximize.set_style(btn_hover="#313237", btn_pressed="#26272b",
             #                             btn_radius=4, text_padding=3)
@@ -304,7 +315,7 @@ class SetUpMainWindow:
 
             # REPLACE STYLE BUTTON MAXIMIZE
             # //////////////////////////////////////////////////////////////////////////
-            self.btn_maximize.setIcon(QIcon(Functions().set_svg_icon('icon_maximize.svg')))
+            self.btn_maximize.setIcon(QIcon(ImagePath().set_svg_icon('icon_maximize.svg')))
             self.btn_maximize.setIconSize(QSize(17, 17))
 
             # ADJUST STYLE OF BUTTON MAXIMIZE

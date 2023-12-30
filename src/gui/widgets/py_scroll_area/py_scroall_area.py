@@ -1,5 +1,5 @@
 from src.qt_core import *
-from src.gui.core.functions import Functions
+from src.gui.core.imagepath import ImagePath
 
 class PyScrollArea(QScrollArea):
     def __init__(self, parent=None):
@@ -68,6 +68,7 @@ class PyScrollArea(QScrollArea):
         self.back_btn.hide()
 
 
+
     def wheelEvent(self, event):
 
         delta = event.angleDelta().y()
@@ -99,10 +100,9 @@ class PyScrollArea(QScrollArea):
                 value_end = self.horizontalScrollBar().minimum()
 
 
-        if not ((
-                 self.horizontalScrollBar().value() == self.horizontalScrollBar().maximum() and delta > 0) or
-                (
-                 self.horizontalScrollBar().value() == self.horizontalScrollBar().minimum() and delta < 0)):
+        if not ((self.horizontalScrollBar().value() == self.horizontalScrollBar().maximum() and delta > 0) or
+                (self.horizontalScrollBar().value() == self.horizontalScrollBar().minimum() and delta < 0)):
+
             self.scroll_animation = QPropertyAnimation(self.horizontalScrollBar(), b'value')
             self.scroll_animation.setStartValue(value_start)
             self.scroll_animation.setDuration(200)
@@ -117,7 +117,7 @@ class PyScrollArea(QScrollArea):
             self.next_btn.hide()
             self.back_btn.hide()
         else:
-            self.next_btn.setGeometry(self.width() - 25, 50, 17, 56)
+            self.next_btn.setGeometry(self.width() - 23, 50, 15, 40)
 
 
 class PyTransitionButton(object):
@@ -126,13 +126,13 @@ class PyTransitionButton(object):
         self.style_next = """
                         QPushButton{
                             background-color: rgba(54, 63, 118, 70);
-                            border-radius: 5px;
+                            border-radius: 3px;
                             padding-left:0px;
                         }
                         
                         QPushButton:hover{
                             background-color: rgba(54, 63, 118, 90);
-                            border-radius: 5px;}
+                            border-radius: 3px;}
                         
                         QPushButton:pressed{
                             padding-left:1.5px;}
@@ -140,29 +140,29 @@ class PyTransitionButton(object):
         self.style_back = """
                             QPushButton{
                                 background-color: rgba(54, 63, 118, 70);
-                                border-radius: 5px;
+                                border-radius: 3px;
                                 padding-right:0px;
                             }
                             
                             QPushButton:hover{
                                 background-color: rgba(54, 63, 118, 90);
-                                border-radius: 5px;}
+                                border-radius: 3px;}
                             
                             QPushButton:pressed{
                                 padding-right:1.5px;}
                             """
-        self.size = QSize(17, 48)
+        self.size = QSize(14, 40)
 
 
     def next(self, form):
         self.next_btn = QPushButton(form)
         self.next_btn.setObjectName(u'next_btn')
-        self.next_btn.setGeometry(QRect(488, 50, 17, 46))
+        self.next_btn.setGeometry(QRect(490, 50, 15, 40))
         self.next_btn.setMaximumSize(self.size)
         self.next_btn.setMinimumSize(self.size)
         self.next_btn.setStyleSheet(self.style_next)
         self.next_btn.setIconSize(QSize(13, 13))
-        self.next_btn.setIcon(QIcon(Functions().set_svg_icon('icon_next_btn')))
+        self.next_btn.setIcon(QIcon(ImagePath().set_svg_icon('icon_next_btn')))
 
         self.shadow_next = QGraphicsDropShadowEffect(self.next_btn)
         self.shadow_next.setBlurRadius(30)
@@ -178,12 +178,12 @@ class PyTransitionButton(object):
     def back(self, form):
         self.back_btn = QPushButton(form)
         self.back_btn.setObjectName(u'back_btn')
-        self.back_btn.setGeometry(QRect(7, 50, 17, 46))
+        self.back_btn.setGeometry(QRect(7, 50, 15, 40))
         self.back_btn.setMaximumSize(self.size)
         self.back_btn.setMinimumSize(self.size)
         self.back_btn.setStyleSheet(self.style_back)
         self.back_btn.setIconSize(QSize(17, 17))
-        self.back_btn.setIcon(QIcon(Functions().set_svg_icon('icon_back_btn')))
+        self.back_btn.setIcon(QIcon(ImagePath().set_svg_icon('icon_back_btn')))
 
         self.shadow_back = QGraphicsDropShadowEffect(self.back_btn)
         self.shadow_back.setBlurRadius(30)

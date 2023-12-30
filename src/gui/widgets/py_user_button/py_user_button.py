@@ -9,7 +9,7 @@
 ################################################################################
 
 from src.qt_core import *
-from src.gui.core.functions import Functions
+from src.gui.core.imagepath import ImagePath
 
 class PyUserButton(QWidget):
 
@@ -208,7 +208,7 @@ class PyUserButton(QWidget):
                                 "}")
 
         icon1 = QIcon()
-        icon1.addFile(Functions().set_svg_icon("icon_more.svg"))
+        icon1.addFile(ImagePath().set_svg_icon("icon_more.svg"))
 
         self.more.setIcon(icon1)
         self.more.setIconSize(QSize(21, 21))
