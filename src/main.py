@@ -14,6 +14,7 @@ from src.qt_core import *
 from src.gui.widgets.py_grips.py_grips import PyGrips
 from src.gui.widgets.py_left_menu.py_left_menu import LeftMenu
 from src.gui.widgets.py_push_button.py_push_button import PyPushButton
+from src.gui.widgets.py_product_registration.py_product_registration import PyProductRegistration
 # from src.gui.widgets.py_flow_layout.py_flow_layout import PyFlowLayout
 
 # MAIN INTERFACE CODE
@@ -47,6 +48,7 @@ class MainWindow(QMainWindow):
         SetUpMainWindow.configIconPath(self)
         SetUpMainWindow.addControlWindow(self)
         SetUpMainWindow.configSystem(self)
+        SetUpMainWindow.configCircularProgress(self)
 
         # /////////////////////////////////////////////////////////////
         ChartFunctions.inventoryChart(self)
@@ -57,19 +59,11 @@ class MainWindow(QMainWindow):
         # /////////////////////////////////////////////////////////////
         self._connectingPages_()
 
-        #///////////////////////////////////////////
-        # self.progress = CircularProgress()
-        self.ui.circupar_progress_bar.width = 150
-        self.ui.circupar_progress_bar.height = 150
-        self.ui.circupar_progress_bar.value = 80
-        self.ui.circupar_progress_bar.setFixedSize(215, 172)
-        self.ui.circupar_progress_bar.move(30, 10)
-        self.ui.circupar_progress_bar.font_size = 12
-        self.ui.circupar_progress_bar.progress_width = 6
-        self.ui.circupar_progress_bar.ad_shadow(True)
-        self.ui.circupar_progress_bar.progress_color = 0x596deb
-        self.ui.circupar_progress_bar.text_color = 0xE9EAEC
-        self.ui.circupar_progress_bar.show()
+        # self.test = PyProductRegistration(self.ui.central_widget)
+        # self.test.setStyleSheet('background-color: rgba(19, 20, 22, 255);')
+        #
+        # self.test.setGeometry(0, 0, self.width(), self.height())
+        # self.test.setGeometry(self.width()/10, self.height()/10, self.width()-90, self.height()-90)
 
         # /////////////////////////////////////////////////////////////////////////////////
         self.btn_info_base.clicked.connect(lambda: FunctionsSystem.resizeLeftColumn(self))
@@ -161,8 +155,6 @@ class MainWindow(QMainWindow):
         # ////////////////////////////////////////////////////////////////////////////////
         self.btn_user_base = self.left_menu.left_menu_base.btn_user
         self.btn_user_float = self.left_menu.left_menu_float.btn_user
-
-
 
 
     def _connectingPages_(self):
@@ -421,7 +413,11 @@ class MainWindow(QMainWindow):
         """
         SetUpMainWindow.resizeLeftMenu(self, event)
         SetUpMainWindow.resizeGrips(self)
+        # self.test.autoResize()
 
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_F11:
+            FunctionsSystem.resizeFrameChart(self)
 
 
 if __name__ == "__main__":

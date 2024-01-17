@@ -39,35 +39,47 @@ class SetUpMainWindow:
         self.ui.logo.setPixmap(QPixmap(ImagePath().set_svg_image('logo_top_100x22.svg')))
 
 
-        self.ui.qrcode.setIcon(QIcon(ImagePath().set_svg_image("SalesManagement.svg")))
-
-
+        # ////////////////////////////////////////////////////////////////////////
         self.ui.widget_1.setIcon("icon_line_chart_down.svg")
         self.ui.widget_1.setText("Pizza Char")
         self.ui.widget_1.clicked.connect(lambda: print("test1"))
 
-
         self.ui.widget_2.setIcon("icon_inbox.svg")
         self.ui.widget_2.setText("SMS")
         self.ui.widget_2.clicked.connect(lambda: print("test2"))
-
 
         self.ui.widget_3.setIcon("icon_analytics.svg")
         self.ui.widget_3.setText("Char")
         self.ui.widget_3.clicked.connect(lambda: print("test3"))
 
 
+        # ////////////////////////////////////////////////////////////////////////
         self.ui.frest_user.setPathImage(ImagePath().set_svg_image('daniel.jpg'))
-
-
         self.ui.frest_user.clicked.connect(lambda: print("test user"))
 
+        self.ui.qrcode.setIcon(QIcon(ImagePath().set_svg_image("SalesManagement.svg")))
+
+
+        # ////////////////////////////////////////////////////////////////////////
+        self.ui.btn_pesquisa_produto.setIcon(QIcon(ImagePath().set_svg_icon('icon_search.svg')))
+        self.ui.btn_mais_opcoes.setIcon(QIcon(ImagePath().set_svg_icon('icon_more.svg')))
+        self.ui.btn_adicionar.setIcon(QIcon(ImagePath().set_svg_icon('icon_add.svg')))
 
 
 
 
+    def configCircularProgress(self):
 
-
+        self.ui.circupar_progress_bar.width = 150
+        self.ui.circupar_progress_bar.height = 150
+        self.ui.circupar_progress_bar.value = 80
+        self.ui.circupar_progress_bar.setFixedSize(215, 172)
+        self.ui.circupar_progress_bar.move(30, 10)
+        self.ui.circupar_progress_bar.font_size = 12
+        self.ui.circupar_progress_bar.progress_width = 6
+        self.ui.circupar_progress_bar.ad_shadow(True)
+        self.ui.circupar_progress_bar.progress_color = 0x596deb
+        self.ui.circupar_progress_bar.text_color = 0xE9EAEC
 
 
     def configSystem(self):
