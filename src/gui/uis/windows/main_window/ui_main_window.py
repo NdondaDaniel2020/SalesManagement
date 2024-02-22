@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_windowMJJXWO.ui'
+## Form generated from reading UI file 'main_windowhaFADL.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.4.2
+## Created by: Qt User Interface Compiler version 6.4.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -31,7 +31,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(601, 645)
+        MainWindow.resize(601, 564)
         self.widget_style_sheet = QWidget(MainWindow)
         self.widget_style_sheet.setObjectName(u"widget_style_sheet")
         self.widget_style_sheet.setStyleSheet(u"#central_widget,\n"
@@ -753,7 +753,7 @@ class Ui_MainWindow(object):
 "\n"
 "QPushButton:pressed{background-color: rgb(33, 38, 70);}")
         icon1 = QIcon()
-        icon1.addFile(u"../../../images/svg_icons/icon_edit.svg", QSize(), QIcon.Normal, QIcon.Off)
+        icon1.addFile(u"../../../../../../../../images/svg_icons/icon_edit.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.editar.setIcon(icon1)
         self.editar.setIconSize(QSize(19, 19))
 
@@ -776,7 +776,7 @@ class Ui_MainWindow(object):
 "\n"
 "QPushButton:pressed{background-color: rgb(33, 38, 70);}")
         icon2 = QIcon()
-        icon2.addFile(u"../../../images/svg_icons/icon_delete.svg", QSize(), QIcon.Normal, QIcon.Off)
+        icon2.addFile(u"../../../../../../../../images/svg_icons/icon_delete.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.deletar.setIcon(icon2)
         self.deletar.setIconSize(QSize(21, 21))
 
@@ -1013,7 +1013,7 @@ class Ui_MainWindow(object):
         self.scroll_area_home_bottom.setWidgetResizable(True)
         self.scroll_area_widget_contents_home_bottom = QWidget()
         self.scroll_area_widget_contents_home_bottom.setObjectName(u"scroll_area_widget_contents_home_bottom")
-        self.scroll_area_widget_contents_home_bottom.setGeometry(QRect(0, 0, 517, 405))
+        self.scroll_area_widget_contents_home_bottom.setGeometry(QRect(0, 0, 509, 400))
         self.scroll_area_widget_contents_home_bottom.setStyleSheet(u"background-color: rgb(19, 20, 22);")
         self.verticalLayout_3 = QVBoxLayout(self.scroll_area_widget_contents_home_bottom)
         self.verticalLayout_3.setSpacing(0)
@@ -1312,11 +1312,11 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_12.addWidget(self.btn_mais_opcoes)
 
-        self.btn_adicionar = QPushButton(self.frame_80)
-        self.btn_adicionar.setObjectName(u"btn_adicionar")
-        self.btn_adicionar.setMinimumSize(QSize(37, 37))
-        self.btn_adicionar.setMaximumSize(QSize(37, 37))
-        self.btn_adicionar.setStyleSheet(u"QPushButton {\n"
+        self.btn_adicionar_produto = QPushButton(self.frame_80)
+        self.btn_adicionar_produto.setObjectName(u"btn_adicionar_produto")
+        self.btn_adicionar_produto.setMinimumSize(QSize(37, 37))
+        self.btn_adicionar_produto.setMaximumSize(QSize(37, 37))
+        self.btn_adicionar_produto.setStyleSheet(u"QPushButton {\n"
 "            color: rgb(233, 234, 236);\n"
 "            background-color: rgb(38, 39, 43);\n"
 "            border: none;\n"
@@ -1330,10 +1330,10 @@ class Ui_MainWindow(object):
 "}")
         icon9 = QIcon()
         icon9.addFile(u"../../../images/svg_icons/icon_add.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_adicionar.setIcon(icon9)
-        self.btn_adicionar.setIconSize(QSize(35, 35))
+        self.btn_adicionar_produto.setIcon(icon9)
+        self.btn_adicionar_produto.setIconSize(QSize(35, 35))
 
-        self.horizontalLayout_12.addWidget(self.btn_adicionar)
+        self.horizontalLayout_12.addWidget(self.btn_adicionar_produto)
 
 
         self.verticalLayout_9.addWidget(self.frame_80)
@@ -1595,7 +1595,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stacked_widget.setCurrentIndex(3)
+        self.stacked_widget.setCurrentIndex(2)
         self.stackedWidget_4.setCurrentIndex(1)
 
 
@@ -1654,7 +1654,7 @@ class Ui_MainWindow(object):
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"produto mais vendido", None))
         self.btn_pesquisa_produto.setText("")
         self.btn_mais_opcoes.setText("")
-        self.btn_adicionar.setText("")
+        self.btn_adicionar_produto.setText("")
         self.label_25.setText(QCoreApplication.translate("MainWindow", u"               N\u00ba/Nome", None))
         self.label_23.setText(QCoreApplication.translate("MainWindow", u"Nome", None))
         self.label_24.setText(QCoreApplication.translate("MainWindow", u"Unidade       ", None))

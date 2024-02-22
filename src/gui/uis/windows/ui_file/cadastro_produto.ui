@@ -6,16 +6,40 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>624</width>
-    <height>446</height>
+    <width>573</width>
+    <height>408</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>12345678</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
+   <item alignment="Qt::AlignHCenter">
     <widget class="QFrame" name="frame_center_style">
+     <property name="minimumSize">
+      <size>
+       <width>555</width>
+       <height>390</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>555</width>
+       <height>390</height>
+      </size>
+     </property>
      <property name="styleSheet">
       <string notr="true">QFrame{
 	background-color: rgb(19, 20, 22);
@@ -239,9 +263,6 @@ background-color: rgb(35, 36, 41);}
       </item>
       <item>
        <widget class="QFrame" name="frame_2">
-        <property name="styleSheet">
-         <string notr="true"/>
-        </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
         </property>
@@ -251,10 +272,10 @@ background-color: rgb(35, 36, 41);}
         <widget class="QPushButton" name="image">
          <property name="geometry">
           <rect>
-           <x>10</x>
-           <y>10</y>
-           <width>181</width>
-           <height>171</height>
+           <x>0</x>
+           <y>6</y>
+           <width>166</width>
+           <height>162</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -279,16 +300,16 @@ border: 1px solid rgb(255, 255, 255)</string>
         <widget class="QFrame" name="frame_nave_bar">
          <property name="geometry">
           <rect>
-           <x>200</x>
-           <y>10</y>
-           <width>330</width>
+           <x>176</x>
+           <y>6</y>
+           <width>304</width>
            <height>45</height>
           </rect>
          </property>
          <property name="minimumSize">
           <size>
-           <width>310</width>
-           <height>45</height>
+           <width>290</width>
+           <height>33</height>
           </size>
          </property>
          <property name="maximumSize">
@@ -296,6 +317,17 @@ border: 1px solid rgb(255, 255, 255)</string>
            <width>1234578</width>
            <height>16777215</height>
           </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QFrame{background-color: rgb(30, 31, 34);}
+QPushButton{
+background-color: rgb(19, 20, 22);
+color: rgb(233, 234, 236);
+padding-right: 6px}
+
+QPushButton:hover{background-color: rgb(39, 40, 45);}
+
+QPushButton:pressed{background-color: rgb(35, 36, 41);}</string>
          </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
@@ -305,16 +337,16 @@ border: 1px solid rgb(255, 255, 255)</string>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <property name="spacing">
-           <number>5</number>
+           <number>6</number>
           </property>
           <property name="leftMargin">
-           <number>7</number>
+           <number>5</number>
           </property>
           <property name="topMargin">
            <number>0</number>
           </property>
           <property name="rightMargin">
-           <number>7</number>
+           <number>5</number>
           </property>
           <property name="bottomMargin">
            <number>0</number>
@@ -324,7 +356,7 @@ border: 1px solid rgb(255, 255, 255)</string>
             <property name="minimumSize">
              <size>
               <width>70</width>
-              <height>34</height>
+              <height>33</height>
              </size>
             </property>
             <property name="font">
@@ -341,8 +373,8 @@ border: 1px solid rgb(255, 255, 255)</string>
             </property>
             <property name="iconSize">
              <size>
-              <width>30</width>
-              <height>30</height>
+              <width>28</width>
+              <height>28</height>
              </size>
             </property>
            </widget>
@@ -352,7 +384,7 @@ border: 1px solid rgb(255, 255, 255)</string>
             <property name="minimumSize">
              <size>
               <width>70</width>
-              <height>34</height>
+              <height>33</height>
              </size>
             </property>
             <property name="font">
@@ -361,11 +393,39 @@ border: 1px solid rgb(255, 255, 255)</string>
              </font>
             </property>
             <property name="text">
-             <string> Rotate</string>
+             <string> Rot</string>
             </property>
             <property name="icon">
              <iconset>
               <normaloff>../../../images/svg_icons/icon_rotate.svg</normaloff>../../../images/svg_icons/icon_rotate.svg</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>18</width>
+              <height>18</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_camera_2">
+            <property name="minimumSize">
+             <size>
+              <width>70</width>
+              <height>33</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string> Câm</string>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>../../../images/svg_icons/icon_camera.svg</normaloff>../../../images/svg_icons/icon_camera.svg</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -376,39 +436,11 @@ border: 1px solid rgb(255, 255, 255)</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="btn_camera_2">
-            <property name="minimumSize">
-             <size>
-              <width>70</width>
-              <height>34</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>10</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string> Câmera</string>
-            </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>../../../images/svg_icons/icon_camera.svg</normaloff>../../../images/svg_icons/icon_camera.svg</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>22</width>
-              <height>22</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QPushButton" name="btn_scan">
             <property name="minimumSize">
              <size>
               <width>70</width>
-              <height>34</height>
+              <height>33</height>
              </size>
             </property>
             <property name="font">
@@ -425,8 +457,8 @@ border: 1px solid rgb(255, 255, 255)</string>
             </property>
             <property name="iconSize">
              <size>
-              <width>19</width>
-              <height>19</height>
+              <width>17</width>
+              <height>17</height>
              </size>
             </property>
            </widget>
@@ -436,10 +468,10 @@ border: 1px solid rgb(255, 255, 255)</string>
         <widget class="QFrame" name="frame_btn_edit_image">
          <property name="geometry">
           <rect>
-           <x>10</x>
+           <x>15</x>
            <y>190</y>
-           <width>181</width>
-           <height>50</height>
+           <width>141</width>
+           <height>41</height>
           </rect>
          </property>
          <property name="frameShape">
@@ -450,32 +482,32 @@ border: 1px solid rgb(255, 255, 255)</string>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <property name="spacing">
-           <number>5</number>
+           <number>2</number>
           </property>
           <property name="leftMargin">
-           <number>5</number>
+           <number>2</number>
           </property>
           <property name="topMargin">
-           <number>5</number>
+           <number>2</number>
           </property>
           <property name="rightMargin">
-           <number>5</number>
+           <number>2</number>
           </property>
           <property name="bottomMargin">
-           <number>5</number>
+           <number>2</number>
           </property>
           <item>
            <widget class="QPushButton" name="btn_camera">
             <property name="minimumSize">
              <size>
-              <width>37</width>
-              <height>37</height>
+              <width>33</width>
+              <height>33</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>37</width>
-              <height>37</height>
+              <width>33</width>
+              <height>33</height>
              </size>
             </property>
             <property name="text">
@@ -497,14 +529,14 @@ border: 1px solid rgb(255, 255, 255)</string>
            <widget class="QPushButton" name="btn_galeria">
             <property name="minimumSize">
              <size>
-              <width>37</width>
-              <height>37</height>
+              <width>33</width>
+              <height>33</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>37</width>
-              <height>37</height>
+              <width>33</width>
+              <height>33</height>
              </size>
             </property>
             <property name="text">
@@ -526,14 +558,14 @@ border: 1px solid rgb(255, 255, 255)</string>
            <widget class="QPushButton" name="btn_remove_bg">
             <property name="minimumSize">
              <size>
-              <width>37</width>
-              <height>37</height>
+              <width>33</width>
+              <height>33</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>37</width>
-              <height>37</height>
+              <width>33</width>
+              <height>33</height>
              </size>
             </property>
             <property name="text">
@@ -555,14 +587,14 @@ border: 1px solid rgb(255, 255, 255)</string>
            <widget class="QPushButton" name="btn_deletar">
             <property name="minimumSize">
              <size>
-              <width>37</width>
-              <height>37</height>
+              <width>33</width>
+              <height>33</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>37</width>
-              <height>37</height>
+              <width>33</width>
+              <height>33</height>
              </size>
             </property>
             <property name="text">
@@ -585,187 +617,53 @@ border: 1px solid rgb(255, 255, 255)</string>
         <widget class="QStackedWidget" name="stackedWidget">
          <property name="geometry">
           <rect>
-           <x>200</x>
-           <y>60</y>
-           <width>330</width>
-           <height>363</height>
+           <x>181</x>
+           <y>56</y>
+           <width>300</width>
+           <height>330</height>
           </rect>
          </property>
          <property name="minimumSize">
           <size>
-           <width>330</width>
-           <height>363</height>
+           <width>280</width>
+           <height>330</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>330</height>
           </size>
          </property>
          <property name="styleSheet">
           <string notr="true"/>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="page_edit_image">
           <property name="styleSheet">
            <string notr="true">background-color: rgb(19, 20, 22);</string>
           </property>
-          <widget class="QFrame" name="frame_43">
-           <property name="geometry">
-            <rect>
-             <x>9</x>
-             <y>277</y>
-             <width>309</width>
-             <height>50</height>
-            </rect>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>309</width>
-             <height>50</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>309</width>
-             <height>50</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(23, 24, 26);</string>
-           </property>
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
-           </property>
-           <layout class="QHBoxLayout" name="horizontalLayout_6">
-            <property name="spacing">
-             <number>5</number>
-            </property>
-            <property name="leftMargin">
-             <number>5</number>
-            </property>
-            <property name="topMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>5</number>
-            </property>
-            <property name="bottomMargin">
-             <number>0</number>
-            </property>
-            <item>
-             <widget class="QPushButton" name="pushButton_22">
-              <property name="minimumSize">
-               <size>
-                <width>37</width>
-                <height>39</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>37</width>
-                <height>37</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: rgb(32, 33, 37);
-border-radius:7px;
-color: #ffffff;
-border: 1px solid rgb(255, 255, 255)</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>../../../../../../imagem de modelo/transferir-removebg-preview.png</normaloff>../../../../../../imagem de modelo/transferir-removebg-preview.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>60</width>
-                <height>60</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="SpinBox" name="SpinBox_6">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>37</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">SpinBox {
-    color: white;
-	background-color: rgb(34, 35, 38);
-    border: 1px solid rgba(0, 0, 0, 13);
-    border-radius: 5px;
-    /* font: 14px &quot;Segoe UI&quot;, &quot;Microsoft YaHei&quot;; */
-    padding: 0px 80px 0 10px;
-    selection-background-color: #2f3664;
-    border-bottom: none;
-}
-
-SpinBox:hover{
-    background-color: rgba(34, 35, 38, 0.5);
-    border: 1px solid rgba(0, 0, 0, 13);
-    border-bottom: none;
-}
-
-SpinBox:focus {
-    background-color: rgba(34, 35, 38, 13);
-    border-bottom: 1px solid #2f3664;
-}
-
-SpinBox:disabled {
-    color: rgba(0, 0, 0, 150);
-    background-color: rgba(34, 35, 38, 0.5);
-    border: 1px solid rgba(0, 0, 0, 13);
-    border-bottom: 1px solid #2f3664;
-}
-
-SpinButton {
-    background-color: transparent;
-    border-radius: 4px;
-    margin: 0;
-    border-bottom: none;
-}
-
-SpinButton:hover {
-    background-color: rgba(0, 0, 0, 9);
-    border-bottom: none;
-}
-
-SpinButton:pressed {
-    background-color: rgb(85, 170, 255);
-    border-bottom: 1px solid #2f3664;
-}</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
           <widget class="QFrame" name="frame_45">
            <property name="geometry">
             <rect>
-             <x>10</x>
-             <y>18</y>
-             <width>309</width>
-             <height>50</height>
+             <x>6</x>
+             <y>12</y>
+             <width>280</width>
+             <height>55</height>
             </rect>
            </property>
            <property name="minimumSize">
             <size>
-             <width>309</width>
-             <height>50</height>
+             <width>242</width>
+             <height>45</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>309</width>
-             <height>50</height>
+             <width>280</width>
+             <height>69</height>
             </size>
            </property>
            <property name="styleSheet">
@@ -778,17 +676,32 @@ SpinButton:pressed {
             <enum>QFrame::Raised</enum>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_7">
+            <property name="spacing">
+             <number>6</number>
+            </property>
+            <property name="leftMargin">
+             <number>9</number>
+            </property>
+            <property name="topMargin">
+             <number>9</number>
+            </property>
+            <property name="rightMargin">
+             <number>9</number>
+            </property>
+            <property name="bottomMargin">
+             <number>9</number>
+            </property>
             <item>
              <widget class="QPushButton" name="btn_remove_bg_3">
               <property name="minimumSize">
                <size>
-                <width>80</width>
+                <width>84</width>
                 <height>37</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
-                <width>80</width>
+                <width>65</width>
                 <height>37</height>
                </size>
               </property>
@@ -817,6 +730,12 @@ color: #ffffff</string>
               <property name="minimumSize">
                <size>
                 <width>0</width>
+                <height>37</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
                 <height>37</height>
                </size>
               </property>
@@ -874,22 +793,22 @@ SpinButton:pressed {
           <widget class="QFrame" name="frame_46">
            <property name="geometry">
             <rect>
-             <x>9</x>
-             <y>100</y>
-             <width>309</width>
-             <height>50</height>
+             <x>6</x>
+             <y>90</y>
+             <width>280</width>
+             <height>55</height>
             </rect>
            </property>
            <property name="minimumSize">
             <size>
-             <width>309</width>
-             <height>50</height>
+             <width>230</width>
+             <height>45</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>309</width>
-             <height>50</height>
+             <width>280</width>
+             <height>63</height>
             </size>
            </property>
            <property name="styleSheet">
@@ -902,17 +821,32 @@ SpinButton:pressed {
             <enum>QFrame::Raised</enum>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_8">
+            <property name="spacing">
+             <number>6</number>
+            </property>
+            <property name="leftMargin">
+             <number>9</number>
+            </property>
+            <property name="topMargin">
+             <number>9</number>
+            </property>
+            <property name="rightMargin">
+             <number>9</number>
+            </property>
+            <property name="bottomMargin">
+             <number>9</number>
+            </property>
             <item>
              <widget class="QPushButton" name="btn_remove_bg_4">
               <property name="minimumSize">
                <size>
-                <width>80</width>
+                <width>84</width>
                 <height>37</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
-                <width>80</width>
+                <width>65</width>
                 <height>37</height>
                </size>
               </property>
@@ -941,6 +875,12 @@ color: #ffffff</string>
               <property name="minimumSize">
                <size>
                 <width>0</width>
+                <height>37</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
                 <height>37</height>
                </size>
               </property>
@@ -998,22 +938,22 @@ SpinButton:pressed {
           <widget class="QFrame" name="frame_48">
            <property name="geometry">
             <rect>
-             <x>9</x>
-             <y>190</y>
-             <width>309</width>
-             <height>50</height>
+             <x>6</x>
+             <y>170</y>
+             <width>280</width>
+             <height>55</height>
             </rect>
            </property>
            <property name="minimumSize">
             <size>
-             <width>309</width>
-             <height>50</height>
+             <width>230</width>
+             <height>45</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>309</width>
-             <height>50</height>
+             <width>280</width>
+             <height>63</height>
             </size>
            </property>
            <property name="styleSheet">
@@ -1026,17 +966,32 @@ SpinButton:pressed {
             <enum>QFrame::Raised</enum>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_10">
+            <property name="spacing">
+             <number>6</number>
+            </property>
+            <property name="leftMargin">
+             <number>9</number>
+            </property>
+            <property name="topMargin">
+             <number>9</number>
+            </property>
+            <property name="rightMargin">
+             <number>9</number>
+            </property>
+            <property name="bottomMargin">
+             <number>9</number>
+            </property>
             <item>
              <widget class="QPushButton" name="btn_remove_bg_2">
               <property name="minimumSize">
                <size>
-                <width>80</width>
+                <width>84</width>
                 <height>37</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
-                <width>80</width>
+                <width>65</width>
                 <height>37</height>
                </size>
               </property>
@@ -1065,6 +1020,158 @@ color: #ffffff</string>
               <property name="minimumSize">
                <size>
                 <width>0</width>
+                <height>37</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>37</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">SpinBox {
+    color: white;
+	background-color: rgb(34, 35, 38);
+    border: 1px solid rgba(0, 0, 0, 13);
+    border-radius: 5px;
+    /* font: 14px &quot;Segoe UI&quot;, &quot;Microsoft YaHei&quot;; */
+    padding: 0px 80px 0 10px;
+    selection-background-color: #2f3664;
+    border-bottom: none;
+}
+
+SpinBox:hover{
+    background-color: rgba(34, 35, 38, 0.5);
+    border: 1px solid rgba(0, 0, 0, 13);
+    border-bottom: none;
+}
+
+SpinBox:focus {
+    background-color: rgba(34, 35, 38, 13);
+    border-bottom: 1px solid #2f3664;
+}
+
+SpinBox:disabled {
+    color: rgba(0, 0, 0, 150);
+    background-color: rgba(34, 35, 38, 0.5);
+    border: 1px solid rgba(0, 0, 0, 13);
+    border-bottom: 1px solid #2f3664;
+}
+
+SpinButton {
+    background-color: transparent;
+    border-radius: 4px;
+    margin: 0;
+    border-bottom: none;
+}
+
+SpinButton:hover {
+    background-color: rgba(0, 0, 0, 9);
+    border-bottom: none;
+}
+
+SpinButton:pressed {
+    background-color: rgb(85, 170, 255);
+    border-bottom: 1px solid #2f3664;
+}</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QFrame" name="frame_43">
+           <property name="geometry">
+            <rect>
+             <x>6</x>
+             <y>250</y>
+             <width>280</width>
+             <height>55</height>
+            </rect>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>230</width>
+             <height>45</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>280</width>
+             <height>60</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(23, 24, 26);</string>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_6">
+            <property name="spacing">
+             <number>6</number>
+            </property>
+            <property name="leftMargin">
+             <number>9</number>
+            </property>
+            <property name="topMargin">
+             <number>9</number>
+            </property>
+            <property name="rightMargin">
+             <number>9</number>
+            </property>
+            <property name="bottomMargin">
+             <number>9</number>
+            </property>
+            <item>
+             <widget class="QPushButton" name="pushButton_22">
+              <property name="minimumSize">
+               <size>
+                <width>37</width>
+                <height>37</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>37</width>
+                <height>37</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(32, 33, 37);
+border-radius:7px;
+color: #ffffff;
+border: 1px solid rgb(255, 255, 255)</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>../../../../../../imagem de modelo/transferir-removebg-preview.png</normaloff>../../../../../../imagem de modelo/transferir-removebg-preview.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>60</width>
+                <height>60</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="SpinBox" name="SpinBox_6">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>37</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
                 <height>37</height>
                </size>
               </property>
@@ -1122,9 +1229,24 @@ SpinButton:pressed {
          </widget>
          <widget class="QWidget" name="page_camera">
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(19, 20, 22);</string>
+           <string notr="true">background-color: rgb(19, 20, 22)</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_5">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
            <item>
             <widget class="QLabel" name="lbl_camera">
              <property name="text">
@@ -1141,9 +1263,9 @@ SpinButton:pressed {
           <widget class="QFrame" name="frame_qr_code">
            <property name="geometry">
             <rect>
-             <x>10</x>
-             <y>18</y>
-             <width>313</width>
+             <x>6</x>
+             <y>12</y>
+             <width>281</width>
              <height>55</height>
             </rect>
            </property>
@@ -1224,9 +1346,9 @@ color: #ffffff</string>
           <widget class="QFrame" name="frame_continer_info">
            <property name="geometry">
             <rect>
-             <x>10</x>
-             <y>80</y>
-             <width>311</width>
+             <x>6</x>
+             <y>79</y>
+             <width>279</width>
              <height>160</height>
             </rect>
            </property>
@@ -1332,9 +1454,9 @@ QLineEdit:focus{background-color: rgb(34, 35, 38);}</string>
           <widget class="QFrame" name="frame_quantidade">
            <property name="geometry">
             <rect>
-             <x>10</x>
+             <x>6</x>
              <y>250</y>
-             <width>312</width>
+             <width>280</width>
              <height>55</height>
             </rect>
            </property>
@@ -1420,9 +1542,9 @@ QLineEdit:focus{background-color: rgb(34, 35, 38);}</string>
           <widget class="QFrame" name="frame_continer_preco">
            <property name="geometry">
             <rect>
-             <x>9</x>
-             <y>18</y>
-             <width>312</width>
+             <x>6</x>
+             <y>12</y>
+             <width>281</width>
              <height>55</height>
             </rect>
            </property>
@@ -1503,14 +1625,20 @@ QLineEdit:focus{background-color: rgb(34, 35, 38);}</string>
           <widget class="QFrame" name="frame_continer_information_adicionais">
            <property name="geometry">
             <rect>
-             <x>10</x>
-             <y>80</y>
-             <width>311</width>
-             <height>271</height>
+             <x>6</x>
+             <y>79</y>
+             <width>281</width>
+             <height>241</height>
             </rect>
            </property>
+           <property name="maximumSize">
+            <size>
+             <width>286</width>
+             <height>262</height>
+            </size>
+           </property>
            <property name="styleSheet">
-            <string notr="true">background-color: rgb(23, 24, 26);</string>
+            <string notr="true">QFrame{background-color: rgb(23, 24, 26);}</string>
            </property>
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
@@ -1521,10 +1649,16 @@ QLineEdit:focus{background-color: rgb(34, 35, 38);}</string>
            <layout class="QVBoxLayout" name="verticalLayout_4">
             <item>
              <widget class="QFrame" name="frame_preco_adicional">
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>80</height>
+               </size>
+              </property>
               <property name="styleSheet">
                <string notr="true">border:none;
 background-color: rgb(34, 35, 38);
-border-radius: 5px;
+border-radius: 6px;
 color: rgb(233, 234, 236);
 padding-left:5px;</string>
               </property>
@@ -1558,10 +1692,10 @@ padding-left:5px;</string>
               <widget class="QPushButton" name="btn_add_preco">
                <property name="geometry">
                 <rect>
-                 <x>248</x>
-                 <y>45</y>
-                 <width>39</width>
-                 <height>39</height>
+                 <x>223</x>
+                 <y>40</y>
+                 <width>35</width>
+                 <height>35</height>
                 </rect>
                </property>
                <property name="layoutDirection">
@@ -1570,7 +1704,7 @@ padding-left:5px;</string>
                <property name="styleSheet">
                 <string notr="true">QPushButton{
 background-color: rgb(24, 25, 27);
-border-radius:19px;
+border-radius:17px;
 color: rgb(233, 234, 236);
 padding-right: 6px}
 
@@ -1587,8 +1721,8 @@ QPushButton:pressed{background-color: rgb(35, 36, 41);}</string>
                </property>
                <property name="iconSize">
                 <size>
-                 <width>34</width>
-                 <height>34</height>
+                 <width>33</width>
+                 <height>33</height>
                 </size>
                </property>
               </widget>
@@ -1619,10 +1753,16 @@ QPushButton:pressed{background-color: rgb(35, 36, 41);}</string>
             </item>
             <item>
              <widget class="QFrame" name="frame_calendario">
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>80</height>
+               </size>
+              </property>
               <property name="styleSheet">
                <string notr="true">border:none;
 background-color: rgb(34, 35, 38);
-border-radius: 5px;
+border-radius: 6px;
 color: rgb(233, 234, 236);
 padding-left:5px;</string>
               </property>
@@ -1638,7 +1778,7 @@ padding-left:5px;</string>
                  <x>20</x>
                  <y>7</y>
                  <width>260</width>
-                 <height>20</height>
+                 <height>16</height>
                 </rect>
                </property>
                <property name="font">
@@ -1656,10 +1796,10 @@ padding-left:5px;</string>
               <widget class="QPushButton" name="btn_add_data">
                <property name="geometry">
                 <rect>
-                 <x>248</x>
-                 <y>45</y>
-                 <width>39</width>
-                 <height>39</height>
+                 <x>223</x>
+                 <y>40</y>
+                 <width>35</width>
+                 <height>35</height>
                 </rect>
                </property>
                <property name="layoutDirection">
@@ -1668,7 +1808,7 @@ padding-left:5px;</string>
                <property name="styleSheet">
                 <string notr="true">QPushButton{
 background-color: rgb(24, 25, 27);
-border-radius:19px;
+border-radius:17px;
 color: rgb(233, 234, 236);
 padding-right: 6px}
 
@@ -1685,8 +1825,8 @@ QPushButton:pressed{background-color: rgb(35, 36, 41);}</string>
                </property>
                <property name="iconSize">
                 <size>
-                 <width>37</width>
-                 <height>37</height>
+                 <width>31</width>
+                 <height>31</height>
                 </size>
                </property>
               </widget>
@@ -1720,7 +1860,7 @@ QPushButton:pressed{background-color: rgb(35, 36, 41);}</string>
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
-                <height>60</height>
+                <height>55</height>
                </size>
               </property>
               <property name="font">
@@ -1730,7 +1870,7 @@ QPushButton:pressed{background-color: rgb(35, 36, 41);}</string>
               </property>
               <property name="styleSheet">
                <string notr="true">QPlainTextEdit{
-border:none;border-radius: 5px;
+border:none;border-radius: 6px;
 background-color: rgb(32, 33, 36);
 color: rgb(233, 234, 236);}
 
@@ -1746,30 +1886,6 @@ QPlainTextEdit:focus{background-color: rgb(34, 35, 38);}</string>
            </layout>
           </widget>
          </widget>
-        </widget>
-        <widget class="QPushButton" name="pushButton_16">
-         <property name="geometry">
-          <rect>
-           <x>40</x>
-           <y>330</y>
-           <width>120</width>
-           <height>37</height>
-          </rect>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>37</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(32, 33, 37);
-border-radius:7px;
-color: #ffffff</string>
-         </property>
-         <property name="text">
-          <string>Next</string>
-         </property>
         </widget>
        </widget>
       </item>

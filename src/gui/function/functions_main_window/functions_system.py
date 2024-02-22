@@ -1,14 +1,14 @@
 from src.qt_core import *
 from src.gui.uis.windows.main_window.ui_main_window import Ui_MainWindow
+from src.gui.widgets.py_product_registration.py_product_registration import PyProductRegistration
 
 class FunctionsSystem:
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-
 
     @Slot(None)
     def resizeLeftColumn(self) -> None:
@@ -76,7 +76,7 @@ class FunctionsSystem:
         self.parallel_animation_chart.finished.connect(lambda: FunctionsSystem.finishedChart(self))
         self.parallel_animation_chart.start()
 
-    def finishedChart(self):
+    def finishedChart(self) -> None:
         if self.ui.frame_char.height() == 0:
             self.ui.frame_char.hide()
 

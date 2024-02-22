@@ -16,7 +16,7 @@ class ImagePath:
 
         if '\gui' in str(self.app_path):
             while '\gui' not in str(self.app_path)[-4::]:
-                app_path = self.app_path.parent
+                self.app_path = self.app_path.parent
         else:
             self.app_path = os.path.abspath(os.getcwd())
 

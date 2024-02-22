@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>601</width>
-    <height>645</height>
+    <height>564</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -929,7 +929,7 @@ QWidget:focus {
                    <item>
                     <widget class="QStackedWidget" name="stacked_widget">
                      <property name="currentIndex">
-                      <number>3</number>
+                      <number>2</number>
                      </property>
                      <widget class="QWidget" name="page">
                       <widget class="QLabel" name="label_3">
@@ -2366,8 +2366,8 @@ color: #e9eaec;</string>
                            <rect>
                             <x>0</x>
                             <y>0</y>
-                            <width>517</width>
-                            <height>405</height>
+                            <width>509</width>
+                            <height>400</height>
                            </rect>
                           </property>
                           <property name="styleSheet">
@@ -3095,7 +3095,7 @@ QPushButton:pressed {
                            </widget>
                           </item>
                           <item>
-                           <widget class="QPushButton" name="btn_adicionar">
+                           <widget class="QPushButton" name="btn_adicionar_produto">
                             <property name="minimumSize">
                              <size>
                               <width>37</width>

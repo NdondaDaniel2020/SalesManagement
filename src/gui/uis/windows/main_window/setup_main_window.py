@@ -59,11 +59,10 @@ class SetUpMainWindow:
 
         self.ui.qrcode.setIcon(QIcon(ImagePath().set_svg_image("SalesManagement.svg")))
 
-
         # ////////////////////////////////////////////////////////////////////////
         self.ui.btn_pesquisa_produto.setIcon(QIcon(ImagePath().set_svg_icon('icon_search.svg')))
         self.ui.btn_mais_opcoes.setIcon(QIcon(ImagePath().set_svg_icon('icon_more.svg')))
-        self.ui.btn_adicionar.setIcon(QIcon(ImagePath().set_svg_icon('icon_add.svg')))
+        self.ui.btn_adicionar_produto.setIcon(QIcon(ImagePath().set_svg_icon('icon_add.svg')))
 
 
 
