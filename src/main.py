@@ -60,12 +60,6 @@ class MainWindow(QMainWindow):
         # /////////////////////////////////////////////////////////////
         self._connectingPages_()
 
-        # self.test = PyProductRegistration(self.ui.central_widget)
-        # self.test.setStyleSheet(u"background-color: rgba(255, 255, 255, 255);")
-        #
-        # self.test.setGeometry(0, 0, self.width(), self.height())
-#
-
         # //////////////////////////////// LEFT MENU /////////////////////////////////////
         self.btn_info_base.clicked.connect(lambda: FunctionsSystem.resizeLeftColumn(self))
         self.btn_info_float.clicked.connect(lambda: FunctionsSystem.resizeLeftColumn(self))
@@ -226,13 +220,36 @@ class MainWindow(QMainWindow):
         elif name_btn == 'btn_inventario':
             self.ui.stacked_widget.setCurrentWidget(self.ui.page_inventario)
 
+
+
     @Slot(None)
     def showProductRegistration(self) -> None:
-        self.product_registration = PyProductRegistration(self.ui.central_widget)
+        """
+        ESTE MÉTODO É REPONSAVEL POR CENTRALIZAR MOSTRAR E AJUSTAR O PAINEL DE REGISTRO
+        :return:
+        """
+        if not self.product_registration:
+            self.product_registration = PyProductRegistration(self.ui.central_widget)
+
+        # ///////////////////////////////////////////////////////////////////////////////////////
         self.product_registration.move((self.width() - self.product_registration.width()) / 2,
                                        (self.height() - self.product_registration.height()) / 2)
+
+        # ///////////////////////////////////////////////////////////////////////////////////////
         if self.product_registration.isHidden():
+            self.product_registration.setGeometry(0, 0, self.width(), self.height())
+
+            # ///////////////////////////////////////////////////////////////////////////////////
+            def moveWindow(event):
+                if event.buttons() == Qt.LeftButton:
+                    self.move(self.pos() + event.globalPos() - self._dragPos)
+                    self._dragPos = event.globalPos()  ## event.globalPos() deprecated
+                    event.accept()
+
+            # //////////////////////////////////////////////////////////////////////////////////
             self.product_registration.show()
+            self.product_registration.frame.mouseMoveEvent = moveWindow
+
 
 
 
@@ -246,9 +263,18 @@ class MainWindow(QMainWindow):
         :param event:
         :return:
         """
+        # //////////////////////////////////////////////////////////////////////////////////
         SetUpMainWindow.resizeLeftMenu(self, event)
         SetUpMainWindow.resizeGrips(self)
+
+        # //////////////////////////////////////////////////////////////////////////////////
         if self.product_registration:
+            self.product_registration.setGeometry(
+                self.product_registration.x(),
+                self.product_registration.y(),
+                self.width(), self.height()
+            )
+            # //////////////////////////////////////////////////////////////////////////////////////
             self.product_registration.move((self.width() - self.product_registration.width()) / 2,
                                            (self.height() - self.product_registration.height()) / 2)
 
