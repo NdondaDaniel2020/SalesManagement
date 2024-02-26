@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>573</width>
-    <height>408</height>
+    <width>656</width>
+    <height>498</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -25,23 +25,65 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <item alignment="Qt::AlignHCenter">
-    <widget class="QFrame" name="frame_center_style">
-     <property name="minimumSize">
-      <size>
-       <width>555</width>
-       <height>390</height>
-      </size>
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QFrame" name="frame">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
      </property>
-     <property name="maximumSize">
-      <size>
-       <width>555</width>
-       <height>390</height>
-      </size>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
      </property>
-     <property name="styleSheet">
-      <string notr="true">QFrame{
+     <layout class="QVBoxLayout" name="verticalLayout_6">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item alignment="Qt::AlignHCenter">
+       <widget class="QFrame" name="frame_center_style">
+        <property name="minimumSize">
+         <size>
+          <width>555</width>
+          <height>390</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>555</width>
+          <height>390</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QFrame{
 	background-color: rgb(19, 20, 22);
 	border-radius:10px;}
 
@@ -100,33 +142,6 @@ background-color: rgb(35, 36, 41);}
 #lineEdit_chave,
 
 </string>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <property name="leftMargin">
-       <number>6</number>
-      </property>
-      <property name="topMargin">
-       <number>6</number>
-      </property>
-      <property name="rightMargin">
-       <number>6</number>
-      </property>
-      <property name="bottomMargin">
-       <number>6</number>
-      </property>
-      <item>
-       <widget class="QFrame" name="frame_navigation">
-        <property name="maximumSize">
-         <size>
-          <width>50</width>
-          <height>16777215</height>
-         </size>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -134,192 +149,219 @@ background-color: rgb(35, 36, 41);}
         <property name="frameShadow">
          <enum>QFrame::Raised</enum>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
-         <property name="spacing">
-          <number>5</number>
-         </property>
+        <layout class="QHBoxLayout" name="horizontalLayout">
          <property name="leftMargin">
-          <number>5</number>
+          <number>6</number>
          </property>
          <property name="topMargin">
-          <number>5</number>
+          <number>6</number>
          </property>
          <property name="rightMargin">
-          <number>5</number>
+          <number>6</number>
          </property>
          <property name="bottomMargin">
-          <number>5</number>
+          <number>6</number>
          </property>
          <item>
-          <widget class="QPushButton" name="btn_nav_camera">
-           <property name="minimumSize">
+          <widget class="QFrame" name="frame_navigation">
+           <property name="maximumSize">
             <size>
-             <width>40</width>
-             <height>40</height>
+             <width>50</width>
+             <height>16777215</height>
             </size>
            </property>
-           <property name="styleSheet">
-            <string notr="true"/>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
            </property>
-           <property name="text">
-            <string/>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
            </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>../../../images/svg_icons/icon_camera.svg</normaloff>../../../images/svg_icons/icon_camera.svg</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>27</width>
-             <height>27</height>
-            </size>
-           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <property name="spacing">
+             <number>5</number>
+            </property>
+            <property name="leftMargin">
+             <number>5</number>
+            </property>
+            <property name="topMargin">
+             <number>5</number>
+            </property>
+            <property name="rightMargin">
+             <number>5</number>
+            </property>
+            <property name="bottomMargin">
+             <number>5</number>
+            </property>
+            <item>
+             <widget class="QPushButton" name="btn_nav_camera">
+              <property name="minimumSize">
+               <size>
+                <width>40</width>
+                <height>40</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>../../../images/svg_icons/icon_camera.svg</normaloff>../../../images/svg_icons/icon_camera.svg</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>27</width>
+                <height>27</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btn_nav_edit">
+              <property name="minimumSize">
+               <size>
+                <width>40</width>
+                <height>40</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>../../../images/svg_icons/icon_edit_text.svg</normaloff>../../../images/svg_icons/icon_edit_text.svg</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>27</width>
+                <height>27</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btn_nav_key">
+              <property name="minimumSize">
+               <size>
+                <width>40</width>
+                <height>40</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>../../../images/svg_icons/icon_key.svg</normaloff>../../../images/svg_icons/icon_key.svg</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>27</width>
+                <height>27</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btn_nav_info">
+              <property name="minimumSize">
+               <size>
+                <width>40</width>
+                <height>40</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>../../../images/svg_icons/icon_info_2.svg</normaloff>../../../images/svg_icons/icon_info_2.svg</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>28</width>
+                <height>28</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>250</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="btn_nav_edit">
-           <property name="minimumSize">
-            <size>
-             <width>40</width>
-             <height>40</height>
-            </size>
+          <widget class="QFrame" name="frame_2">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
            </property>
-           <property name="text">
-            <string/>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
            </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>../../../images/svg_icons/icon_edit_text.svg</normaloff>../../../images/svg_icons/icon_edit_text.svg</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>27</width>
-             <height>27</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btn_nav_key">
-           <property name="minimumSize">
-            <size>
-             <width>40</width>
-             <height>40</height>
-            </size>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>../../../images/svg_icons/icon_key.svg</normaloff>../../../images/svg_icons/icon_key.svg</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>27</width>
-             <height>27</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btn_nav_info">
-           <property name="minimumSize">
-            <size>
-             <width>40</width>
-             <height>40</height>
-            </size>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>../../../images/svg_icons/icon_info_2.svg</normaloff>../../../images/svg_icons/icon_info_2.svg</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>28</width>
-             <height>28</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="verticalSpacer">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>250</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QFrame" name="frame_2">
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <widget class="QPushButton" name="image">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>6</y>
-           <width>166</width>
-           <height>162</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(24, 25, 27);
+           <widget class="QPushButton" name="image">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>6</y>
+              <width>166</width>
+              <height>162</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(24, 25, 27);
 border-radius: 12px;
 border: 1px solid rgb(255, 255, 255)</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>../../../../../../imagem de modelo/transferir-removebg-preview.png</normaloff>../../../../../../imagem de modelo/transferir-removebg-preview.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>250</width>
-           <height>250</height>
-          </size>
-         </property>
-        </widget>
-        <widget class="QFrame" name="frame_nave_bar">
-         <property name="geometry">
-          <rect>
-           <x>176</x>
-           <y>6</y>
-           <width>304</width>
-           <height>45</height>
-          </rect>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>290</width>
-           <height>33</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>1234578</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QFrame{background-color: rgb(30, 31, 34);}
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>../../../../../../imagem de modelo/transferir-removebg-preview.png</normaloff>../../../../../../imagem de modelo/transferir-removebg-preview.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>250</width>
+              <height>250</height>
+             </size>
+            </property>
+           </widget>
+           <widget class="QFrame" name="frame_nave_bar">
+            <property name="geometry">
+             <rect>
+              <x>176</x>
+              <y>6</y>
+              <width>304</width>
+              <height>45</height>
+             </rect>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>290</width>
+              <height>33</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>1234578</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QFrame{background-color: rgb(30, 31, 34);}
 QPushButton{
 background-color: rgb(19, 20, 22);
 color: rgb(233, 234, 236);
@@ -328,1392 +370,44 @@ padding-right: 6px}
 QPushButton:hover{background-color: rgb(39, 40, 45);}
 
 QPushButton:pressed{background-color: rgb(35, 36, 41);}</string>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
-          <property name="spacing">
-           <number>6</number>
-          </property>
-          <property name="leftMargin">
-           <number>5</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>5</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <item>
-           <widget class="QPushButton" name="btn_add">
-            <property name="minimumSize">
-             <size>
-              <width>70</width>
-              <height>33</height>
-             </size>
             </property>
-            <property name="font">
-             <font>
-              <pointsize>10</pointsize>
-             </font>
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
             </property>
-            <property name="text">
-             <string>Add</string>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
             </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>../../../images/svg_icons/icon_add.svg</normaloff>../../../images/svg_icons/icon_add.svg</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>28</width>
-              <height>28</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="btn_rotate">
-            <property name="minimumSize">
-             <size>
-              <width>70</width>
-              <height>33</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>10</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string> Rot</string>
-            </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>../../../images/svg_icons/icon_rotate.svg</normaloff>../../../images/svg_icons/icon_rotate.svg</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>18</width>
-              <height>18</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="btn_camera_2">
-            <property name="minimumSize">
-             <size>
-              <width>70</width>
-              <height>33</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>10</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string> Câm</string>
-            </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>../../../images/svg_icons/icon_camera.svg</normaloff>../../../images/svg_icons/icon_camera.svg</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>20</width>
-              <height>20</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="btn_scan">
-            <property name="minimumSize">
-             <size>
-              <width>70</width>
-              <height>33</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>10</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string> Scan</string>
-            </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>../../../images/svg_icons/icon_qr_code.svg</normaloff>../../../images/svg_icons/icon_qr_code.svg</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>17</width>
-              <height>17</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-        <widget class="QFrame" name="frame_btn_edit_image">
-         <property name="geometry">
-          <rect>
-           <x>15</x>
-           <y>190</y>
-           <width>141</width>
-           <height>41</height>
-          </rect>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <property name="spacing">
-           <number>2</number>
-          </property>
-          <property name="leftMargin">
-           <number>2</number>
-          </property>
-          <property name="topMargin">
-           <number>2</number>
-          </property>
-          <property name="rightMargin">
-           <number>2</number>
-          </property>
-          <property name="bottomMargin">
-           <number>2</number>
-          </property>
-          <item>
-           <widget class="QPushButton" name="btn_camera">
-            <property name="minimumSize">
-             <size>
-              <width>33</width>
-              <height>33</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>33</width>
-              <height>33</height>
-             </size>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>../../../images/svg_icons/icon_camera.svg</normaloff>../../../images/svg_icons/icon_camera.svg</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>20</width>
-              <height>20</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="btn_galeria">
-            <property name="minimumSize">
-             <size>
-              <width>33</width>
-              <height>33</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>33</width>
-              <height>33</height>
-             </size>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>../../../images/svg_icons/icon_gallery.svg</normaloff>../../../images/svg_icons/icon_gallery.svg</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>20</width>
-              <height>20</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="btn_remove_bg">
-            <property name="minimumSize">
-             <size>
-              <width>33</width>
-              <height>33</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>33</width>
-              <height>33</height>
-             </size>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>../../../images/svg_icons/icon_gallery_remove.svg</normaloff>../../../images/svg_icons/icon_gallery_remove.svg</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>20</width>
-              <height>20</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="btn_deletar">
-            <property name="minimumSize">
-             <size>
-              <width>33</width>
-              <height>33</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>33</width>
-              <height>33</height>
-             </size>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>../../../images/svg_icons/icon_close.svg</normaloff>../../../images/svg_icons/icon_close.svg</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>17</width>
-              <height>17</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-        <widget class="QStackedWidget" name="stackedWidget">
-         <property name="geometry">
-          <rect>
-           <x>181</x>
-           <y>56</y>
-           <width>300</width>
-           <height>330</height>
-          </rect>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>280</width>
-           <height>330</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>330</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <property name="currentIndex">
-          <number>2</number>
-         </property>
-         <widget class="QWidget" name="page_edit_image">
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(19, 20, 22);</string>
-          </property>
-          <widget class="QFrame" name="frame_45">
-           <property name="geometry">
-            <rect>
-             <x>6</x>
-             <y>12</y>
-             <width>280</width>
-             <height>55</height>
-            </rect>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>242</width>
-             <height>45</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>280</width>
-             <height>69</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(23, 24, 26);</string>
-           </property>
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
-           </property>
-           <layout class="QHBoxLayout" name="horizontalLayout_7">
-            <property name="spacing">
-             <number>6</number>
-            </property>
-            <property name="leftMargin">
-             <number>9</number>
-            </property>
-            <property name="topMargin">
-             <number>9</number>
-            </property>
-            <property name="rightMargin">
-             <number>9</number>
-            </property>
-            <property name="bottomMargin">
-             <number>9</number>
-            </property>
-            <item>
-             <widget class="QPushButton" name="btn_remove_bg_3">
-              <property name="minimumSize">
-               <size>
-                <width>84</width>
-                <height>37</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>65</width>
-                <height>37</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: rgb(32, 33, 37);
-border-radius:7px;
-color: #ffffff</string>
-              </property>
-              <property name="text">
-               <string>Size in</string>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>../../../images/svg_icons/icon_minimize_size.svg</normaloff>../../../images/svg_icons/icon_minimize_size.svg</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>23</width>
-                <height>23</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="SpinBox" name="SpinBox_7">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>37</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>37</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">SpinBox {
-    color: white;
-	background-color: rgb(34, 35, 38);
-    border: 1px solid rgba(0, 0, 0, 13);
-    border-radius: 5px;
-    /* font: 14px &quot;Segoe UI&quot;, &quot;Microsoft YaHei&quot;; */
-    padding: 0px 80px 0 10px;
-    selection-background-color: #2f3664;
-    border-bottom: none;
-}
-
-SpinBox:hover{
-    background-color: rgba(34, 35, 38, 0.5);
-    border: 1px solid rgba(0, 0, 0, 13);
-    border-bottom: none;
-}
-
-SpinBox:focus {
-    background-color: rgba(34, 35, 38, 13);
-    border-bottom: 1px solid #2f3664;
-}
-
-SpinBox:disabled {
-    color: rgba(0, 0, 0, 150);
-    background-color: rgba(34, 35, 38, 0.5);
-    border: 1px solid rgba(0, 0, 0, 13);
-    border-bottom: 1px solid #2f3664;
-}
-
-SpinButton {
-    background-color: transparent;
-    border-radius: 4px;
-    margin: 0;
-    border-bottom: none;
-}
-
-SpinButton:hover {
-    background-color: rgba(0, 0, 0, 9);
-    border-bottom: none;
-}
-
-SpinButton:pressed {
-    background-color: rgb(85, 170, 255);
-    border-bottom: 1px solid #2f3664;
-}</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QFrame" name="frame_46">
-           <property name="geometry">
-            <rect>
-             <x>6</x>
-             <y>90</y>
-             <width>280</width>
-             <height>55</height>
-            </rect>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>230</width>
-             <height>45</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>280</width>
-             <height>63</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(23, 24, 26);</string>
-           </property>
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
-           </property>
-           <layout class="QHBoxLayout" name="horizontalLayout_8">
-            <property name="spacing">
-             <number>6</number>
-            </property>
-            <property name="leftMargin">
-             <number>9</number>
-            </property>
-            <property name="topMargin">
-             <number>9</number>
-            </property>
-            <property name="rightMargin">
-             <number>9</number>
-            </property>
-            <property name="bottomMargin">
-             <number>9</number>
-            </property>
-            <item>
-             <widget class="QPushButton" name="btn_remove_bg_4">
-              <property name="minimumSize">
-               <size>
-                <width>84</width>
-                <height>37</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>65</width>
-                <height>37</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: rgb(32, 33, 37);
-border-radius:7px;
-color: #ffffff</string>
-              </property>
-              <property name="text">
-               <string>Size out</string>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>../../../images/svg_icons/icon_maximize_size.svg</normaloff>../../../images/svg_icons/icon_maximize_size.svg</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>23</width>
-                <height>23</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="SpinBox" name="SpinBox_8">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>37</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>37</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">SpinBox {
-    color: white;
-	background-color: rgb(34, 35, 38);
-    border: 1px solid rgba(0, 0, 0, 13);
-    border-radius: 5px;
-    /* font: 14px &quot;Segoe UI&quot;, &quot;Microsoft YaHei&quot;; */
-    padding: 0px 80px 0 10px;
-    selection-background-color: #2f3664;
-    border-bottom: none;
-}
-
-SpinBox:hover{
-    background-color: rgba(34, 35, 38, 0.5);
-    border: 1px solid rgba(0, 0, 0, 13);
-    border-bottom: none;
-}
-
-SpinBox:focus {
-    background-color: rgba(34, 35, 38, 13);
-    border-bottom: 1px solid #2f3664;
-}
-
-SpinBox:disabled {
-    color: rgba(0, 0, 0, 150);
-    background-color: rgba(34, 35, 38, 0.5);
-    border: 1px solid rgba(0, 0, 0, 13);
-    border-bottom: 1px solid #2f3664;
-}
-
-SpinButton {
-    background-color: transparent;
-    border-radius: 4px;
-    margin: 0;
-    border-bottom: none;
-}
-
-SpinButton:hover {
-    background-color: rgba(0, 0, 0, 9);
-    border-bottom: none;
-}
-
-SpinButton:pressed {
-    background-color: rgb(85, 170, 255);
-    border-bottom: 1px solid #2f3664;
-}</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QFrame" name="frame_48">
-           <property name="geometry">
-            <rect>
-             <x>6</x>
-             <y>170</y>
-             <width>280</width>
-             <height>55</height>
-            </rect>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>230</width>
-             <height>45</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>280</width>
-             <height>63</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(23, 24, 26);</string>
-           </property>
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
-           </property>
-           <layout class="QHBoxLayout" name="horizontalLayout_10">
-            <property name="spacing">
-             <number>6</number>
-            </property>
-            <property name="leftMargin">
-             <number>9</number>
-            </property>
-            <property name="topMargin">
-             <number>9</number>
-            </property>
-            <property name="rightMargin">
-             <number>9</number>
-            </property>
-            <property name="bottomMargin">
-             <number>9</number>
-            </property>
-            <item>
-             <widget class="QPushButton" name="btn_remove_bg_2">
-              <property name="minimumSize">
-               <size>
-                <width>84</width>
-                <height>37</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>65</width>
-                <height>37</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: rgb(32, 33, 37);
-border-radius:7px;
-color: #ffffff</string>
-              </property>
-              <property name="text">
-               <string>Border</string>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>../../../images/svg_icons/icon_border_radius.svg</normaloff>../../../images/svg_icons/icon_border_radius.svg</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>25</width>
-                <height>25</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="SpinBox" name="SpinBox_9">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>37</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>37</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">SpinBox {
-    color: white;
-	background-color: rgb(34, 35, 38);
-    border: 1px solid rgba(0, 0, 0, 13);
-    border-radius: 5px;
-    /* font: 14px &quot;Segoe UI&quot;, &quot;Microsoft YaHei&quot;; */
-    padding: 0px 80px 0 10px;
-    selection-background-color: #2f3664;
-    border-bottom: none;
-}
-
-SpinBox:hover{
-    background-color: rgba(34, 35, 38, 0.5);
-    border: 1px solid rgba(0, 0, 0, 13);
-    border-bottom: none;
-}
-
-SpinBox:focus {
-    background-color: rgba(34, 35, 38, 13);
-    border-bottom: 1px solid #2f3664;
-}
-
-SpinBox:disabled {
-    color: rgba(0, 0, 0, 150);
-    background-color: rgba(34, 35, 38, 0.5);
-    border: 1px solid rgba(0, 0, 0, 13);
-    border-bottom: 1px solid #2f3664;
-}
-
-SpinButton {
-    background-color: transparent;
-    border-radius: 4px;
-    margin: 0;
-    border-bottom: none;
-}
-
-SpinButton:hover {
-    background-color: rgba(0, 0, 0, 9);
-    border-bottom: none;
-}
-
-SpinButton:pressed {
-    background-color: rgb(85, 170, 255);
-    border-bottom: 1px solid #2f3664;
-}</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QFrame" name="frame_43">
-           <property name="geometry">
-            <rect>
-             <x>6</x>
-             <y>250</y>
-             <width>280</width>
-             <height>55</height>
-            </rect>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>230</width>
-             <height>45</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>280</width>
-             <height>60</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(23, 24, 26);</string>
-           </property>
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
-           </property>
-           <layout class="QHBoxLayout" name="horizontalLayout_6">
-            <property name="spacing">
-             <number>6</number>
-            </property>
-            <property name="leftMargin">
-             <number>9</number>
-            </property>
-            <property name="topMargin">
-             <number>9</number>
-            </property>
-            <property name="rightMargin">
-             <number>9</number>
-            </property>
-            <property name="bottomMargin">
-             <number>9</number>
-            </property>
-            <item>
-             <widget class="QPushButton" name="pushButton_22">
-              <property name="minimumSize">
-               <size>
-                <width>37</width>
-                <height>37</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>37</width>
-                <height>37</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: rgb(32, 33, 37);
-border-radius:7px;
-color: #ffffff;
-border: 1px solid rgb(255, 255, 255)</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>../../../../../../imagem de modelo/transferir-removebg-preview.png</normaloff>../../../../../../imagem de modelo/transferir-removebg-preview.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>60</width>
-                <height>60</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="SpinBox" name="SpinBox_6">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>37</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>37</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">SpinBox {
-    color: white;
-	background-color: rgb(34, 35, 38);
-    border: 1px solid rgba(0, 0, 0, 13);
-    border-radius: 5px;
-    /* font: 14px &quot;Segoe UI&quot;, &quot;Microsoft YaHei&quot;; */
-    padding: 0px 80px 0 10px;
-    selection-background-color: #2f3664;
-    border-bottom: none;
-}
-
-SpinBox:hover{
-    background-color: rgba(34, 35, 38, 0.5);
-    border: 1px solid rgba(0, 0, 0, 13);
-    border-bottom: none;
-}
-
-SpinBox:focus {
-    background-color: rgba(34, 35, 38, 13);
-    border-bottom: 1px solid #2f3664;
-}
-
-SpinBox:disabled {
-    color: rgba(0, 0, 0, 150);
-    background-color: rgba(34, 35, 38, 0.5);
-    border: 1px solid rgba(0, 0, 0, 13);
-    border-bottom: 1px solid #2f3664;
-}
-
-SpinButton {
-    background-color: transparent;
-    border-radius: 4px;
-    margin: 0;
-    border-bottom: none;
-}
-
-SpinButton:hover {
-    background-color: rgba(0, 0, 0, 9);
-    border-bottom: none;
-}
-
-SpinButton:pressed {
-    background-color: rgb(85, 170, 255);
-    border-bottom: 1px solid #2f3664;
-}</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="page_camera">
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(19, 20, 22)</string>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_5">
-           <property name="spacing">
-            <number>0</number>
-           </property>
-           <property name="leftMargin">
-            <number>0</number>
-           </property>
-           <property name="topMargin">
-            <number>0</number>
-           </property>
-           <property name="rightMargin">
-            <number>0</number>
-           </property>
-           <property name="bottomMargin">
-            <number>0</number>
-           </property>
-           <item>
-            <widget class="QLabel" name="lbl_camera">
-             <property name="text">
-              <string/>
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <property name="spacing">
+              <number>6</number>
              </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="page_information_chave">
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(19, 20, 22);</string>
-          </property>
-          <widget class="QFrame" name="frame_qr_code">
-           <property name="geometry">
-            <rect>
-             <x>6</x>
-             <y>12</y>
-             <width>281</width>
-             <height>55</height>
-            </rect>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(23, 24, 26);</string>
-           </property>
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
-           </property>
-           <layout class="QHBoxLayout" name="horizontalLayout_5">
-            <item>
-             <widget class="QLineEdit" name="lineEdit_chave">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>37</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>10</pointsize>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QLineEdit{
-border:none;border-radius: 5px;
-background-color: rgb(32, 33, 36);
-color: rgb(233, 234, 236);padding-left:5px;}
-
-QLineEdit:hover{background-color: rgb(30, 31, 34);}
-
-QLineEdit:focus{background-color: rgb(34, 35, 38);}</string>
-              </property>
-              <property name="placeholderText">
-               <string>Chave</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="btn_chave_qr_code">
-              <property name="minimumSize">
-               <size>
-                <width>37</width>
-                <height>37</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>37</width>
-                <height>37</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: rgb(32, 33, 37);
-border-radius:7px;
-color: #ffffff</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>../../../images/svg_icons/icon_qr_code.svg</normaloff>../../../images/svg_icons/icon_qr_code.svg</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>22</width>
-                <height>22</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QFrame" name="frame_continer_info">
-           <property name="geometry">
-            <rect>
-             <x>6</x>
-             <y>79</y>
-             <width>279</width>
-             <height>160</height>
-            </rect>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(23, 24, 26);</string>
-           </property>
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_3">
-            <item>
-             <widget class="QLineEdit" name="lineEdit_unidade">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>37</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>10</pointsize>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QLineEdit{
-border:none;border-radius: 5px;
-background-color: rgb(32, 33, 36);
-color: rgb(233, 234, 236);padding-left:5px;}
-
-QLineEdit:hover{background-color: rgb(30, 31, 34);}
-
-QLineEdit:focus{background-color: rgb(34, 35, 38);}</string>
-              </property>
-              <property name="placeholderText">
-               <string>Unidade</string>
-              </property>
-              <property name="clearButtonEnabled">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="lineEdit_categoria">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>37</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>10</pointsize>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QLineEdit{
-border:none;border-radius: 5px;
-background-color: rgb(32, 33, 36);
-color: rgb(233, 234, 236);padding-left:5px;}
-
-QLineEdit:hover{background-color: rgb(30, 31, 34);}
-
-QLineEdit:focus{background-color: rgb(34, 35, 38);}</string>
-              </property>
-              <property name="placeholderText">
-               <string>Categoria</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="lineEdit_nome_produto">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>37</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>10</pointsize>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QLineEdit{
-border:none;border-radius: 5px;
-background-color: rgb(32, 33, 36);
-color: rgb(233, 234, 236);padding-left:5px;}
-
-QLineEdit:hover{background-color: rgb(30, 31, 34);}
-
-QLineEdit:focus{background-color: rgb(34, 35, 38);}</string>
-              </property>
-              <property name="placeholderText">
-               <string>Nome do produto</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QFrame" name="frame_quantidade">
-           <property name="geometry">
-            <rect>
-             <x>6</x>
-             <y>250</y>
-             <width>280</width>
-             <height>55</height>
-            </rect>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(23, 24, 26);</string>
-           </property>
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
-           </property>
-           <layout class="QHBoxLayout" name="horizontalLayout_12">
-            <item>
-             <widget class="QLineEdit" name="lineEdit_quantidade">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>37</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>10</pointsize>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QLineEdit{
-border:none;border-radius: 5px;
-background-color: rgb(32, 33, 36);
-color: rgb(233, 234, 236);}
-
-QLineEdit:hover{background-color: rgb(30, 31, 34);}
-
-QLineEdit:focus{background-color: rgb(34, 35, 38);}</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-              <property name="placeholderText">
-               <string>Quantidade</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="lineEdit_quantidade_reserva">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>37</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>10</pointsize>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QLineEdit{
-border:none;border-radius: 5px;
-background-color: rgb(32, 33, 36);
-color: rgb(233, 234, 236);}
-
-QLineEdit:hover{background-color: rgb(30, 31, 34);}
-
-QLineEdit:focus{background-color: rgb(34, 35, 38);}</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-              <property name="placeholderText">
-               <string>Quantidade Reserva</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="page_information_adicional">
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(19, 20, 22);</string>
-          </property>
-          <widget class="QFrame" name="frame_continer_preco">
-           <property name="geometry">
-            <rect>
-             <x>6</x>
-             <y>12</y>
-             <width>281</width>
-             <height>55</height>
-            </rect>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(23, 24, 26);</string>
-           </property>
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
-           </property>
-           <layout class="QHBoxLayout" name="horizontalLayout_9">
-            <item>
-             <widget class="QLineEdit" name="lineEdit_preco_compra">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>37</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>10</pointsize>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QLineEdit{
-border:none;border-radius: 5px;
-background-color: rgb(32, 33, 36);
-color: rgb(233, 234, 236);}
-
-QLineEdit:hover{background-color: rgb(30, 31, 34);}
-
-QLineEdit:focus{background-color: rgb(34, 35, 38);}</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-              <property name="placeholderText">
-               <string>Preço de compra</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="lineEdit_preco_venda">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>37</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>10</pointsize>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QLineEdit{
-border:none;border-radius: 5px;
-background-color: rgb(32, 33, 36);
-color: rgb(233, 234, 236);}
-
-QLineEdit:hover{background-color: rgb(30, 31, 34);}
-
-QLineEdit:focus{background-color: rgb(34, 35, 38);}</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-              <property name="placeholderText">
-               <string>Preço de venda</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QFrame" name="frame_continer_information_adicionais">
-           <property name="geometry">
-            <rect>
-             <x>6</x>
-             <y>79</y>
-             <width>281</width>
-             <height>241</height>
-            </rect>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>286</width>
-             <height>262</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QFrame{background-color: rgb(23, 24, 26);}</string>
-           </property>
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_4">
-            <item>
-             <widget class="QFrame" name="frame_preco_adicional">
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>80</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">border:none;
-background-color: rgb(34, 35, 38);
-border-radius: 6px;
-color: rgb(233, 234, 236);
-padding-left:5px;</string>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
-              </property>
-              <widget class="QLabel" name="lbl_tag">
-               <property name="geometry">
-                <rect>
-                 <x>20</x>
-                 <y>7</y>
-                 <width>250</width>
-                 <height>20</height>
-                </rect>
+             <property name="leftMargin">
+              <number>5</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>5</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QPushButton" name="btn_add">
+               <property name="minimumSize">
+                <size>
+                 <width>70</width>
+                 <height>33</height>
+                </size>
                </property>
                <property name="font">
                 <font>
                  <pointsize>10</pointsize>
                 </font>
                </property>
-               <property name="styleSheet">
-                <string notr="true">color: rgb(134, 134, 137)</string>
-               </property>
                <property name="text">
-                <string>Preços adicional de venda (opcional)</string>
-               </property>
-              </widget>
-              <widget class="QPushButton" name="btn_add_preco">
-               <property name="geometry">
-                <rect>
-                 <x>223</x>
-                 <y>40</y>
-                 <width>35</width>
-                 <height>35</height>
-                </rect>
-               </property>
-               <property name="layoutDirection">
-                <enum>Qt::RightToLeft</enum>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QPushButton{
-background-color: rgb(24, 25, 27);
-border-radius:17px;
-color: rgb(233, 234, 236);
-padding-right: 6px}
-
-QPushButton:hover{background-color: rgb(39, 40, 45);}
-
-QPushButton:pressed{background-color: rgb(35, 36, 41);}</string>
-               </property>
-               <property name="text">
-                <string/>
+                <string>Add</string>
                </property>
                <property name="icon">
                 <iconset>
@@ -1721,26 +415,87 @@ QPushButton:pressed{background-color: rgb(35, 36, 41);}</string>
                </property>
                <property name="iconSize">
                 <size>
-                 <width>33</width>
-                 <height>33</height>
+                 <width>28</width>
+                 <height>28</height>
                 </size>
                </property>
               </widget>
-              <widget class="QPushButton" name="icon_tag">
-               <property name="geometry">
-                <rect>
-                 <x>3</x>
-                 <y>6</y>
-                 <width>20</width>
-                 <height>24</height>
-                </rect>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_rotate">
+               <property name="minimumSize">
+                <size>
+                 <width>70</width>
+                 <height>33</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                </font>
                </property>
                <property name="text">
-                <string/>
+                <string> Rot</string>
                </property>
                <property name="icon">
                 <iconset>
-                 <normaloff>../../../images/svg_icons/icon_tag.svg</normaloff>../../../images/svg_icons/icon_tag.svg</iconset>
+                 <normaloff>../../../images/svg_icons/icon_rotate.svg</normaloff>../../../images/svg_icons/icon_rotate.svg</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>18</width>
+                 <height>18</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_camera_2">
+               <property name="minimumSize">
+                <size>
+                 <width>70</width>
+                 <height>33</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string> Câm</string>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normaloff>../../../images/svg_icons/icon_camera.svg</normaloff>../../../images/svg_icons/icon_camera.svg</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_scan">
+               <property name="minimumSize">
+                <size>
+                 <width>70</width>
+                 <height>33</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string> Scan</string>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normaloff>../../../images/svg_icons/icon_qr_code.svg</normaloff>../../../images/svg_icons/icon_qr_code.svg</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -1749,22 +504,212 @@ QPushButton:pressed{background-color: rgb(35, 36, 41);}</string>
                 </size>
                </property>
               </widget>
-             </widget>
-            </item>
-            <item>
-             <widget class="QFrame" name="frame_calendario">
+             </item>
+            </layout>
+           </widget>
+           <widget class="QFrame" name="frame_btn_edit_image">
+            <property name="geometry">
+             <rect>
+              <x>15</x>
+              <y>190</y>
+              <width>141</width>
+              <height>41</height>
+             </rect>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <property name="spacing">
+              <number>2</number>
+             </property>
+             <property name="leftMargin">
+              <number>2</number>
+             </property>
+             <property name="topMargin">
+              <number>2</number>
+             </property>
+             <property name="rightMargin">
+              <number>2</number>
+             </property>
+             <property name="bottomMargin">
+              <number>2</number>
+             </property>
+             <item>
+              <widget class="QPushButton" name="btn_camera">
+               <property name="minimumSize">
+                <size>
+                 <width>33</width>
+                 <height>33</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>33</width>
+                 <height>33</height>
+                </size>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normaloff>../../../images/svg_icons/icon_camera.svg</normaloff>../../../images/svg_icons/icon_camera.svg</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_galeria">
+               <property name="minimumSize">
+                <size>
+                 <width>33</width>
+                 <height>33</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>33</width>
+                 <height>33</height>
+                </size>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normaloff>../../../images/svg_icons/icon_gallery.svg</normaloff>../../../images/svg_icons/icon_gallery.svg</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_remove_bg">
+               <property name="minimumSize">
+                <size>
+                 <width>33</width>
+                 <height>33</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>33</width>
+                 <height>33</height>
+                </size>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normaloff>../../../images/svg_icons/icon_gallery_remove.svg</normaloff>../../../images/svg_icons/icon_gallery_remove.svg</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_deletar">
+               <property name="minimumSize">
+                <size>
+                 <width>33</width>
+                 <height>33</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>33</width>
+                 <height>33</height>
+                </size>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normaloff>../../../images/svg_icons/icon_close.svg</normaloff>../../../images/svg_icons/icon_close.svg</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>17</width>
+                 <height>17</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QStackedWidget" name="stackedWidget">
+            <property name="geometry">
+             <rect>
+              <x>181</x>
+              <y>56</y>
+              <width>300</width>
+              <height>330</height>
+             </rect>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>280</width>
+              <height>330</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>330</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="currentIndex">
+             <number>2</number>
+            </property>
+            <widget class="QWidget" name="page_edit_image">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(19, 20, 22);</string>
+             </property>
+             <widget class="QFrame" name="frame_45">
+              <property name="geometry">
+               <rect>
+                <x>6</x>
+                <y>12</y>
+                <width>280</width>
+                <height>55</height>
+               </rect>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>242</width>
+                <height>45</height>
+               </size>
+              </property>
               <property name="maximumSize">
                <size>
-                <width>16777215</width>
-                <height>80</height>
+                <width>280</width>
+                <height>69</height>
                </size>
               </property>
               <property name="styleSheet">
-               <string notr="true">border:none;
-background-color: rgb(34, 35, 38);
-border-radius: 6px;
-color: rgb(233, 234, 236);
-padding-left:5px;</string>
+               <string notr="true">background-color: rgb(23, 24, 26);</string>
               </property>
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
@@ -1772,41 +717,1034 @@ padding-left:5px;</string>
               <property name="frameShadow">
                <enum>QFrame::Raised</enum>
               </property>
-              <widget class="QLabel" name="lbl_calendario">
-               <property name="geometry">
-                <rect>
-                 <x>20</x>
-                 <y>7</y>
-                 <width>260</width>
-                 <height>16</height>
-                </rect>
+              <layout class="QHBoxLayout" name="horizontalLayout_7">
+               <property name="spacing">
+                <number>6</number>
                </property>
-               <property name="font">
-                <font>
-                 <pointsize>10</pointsize>
-                </font>
+               <property name="leftMargin">
+                <number>9</number>
                </property>
-               <property name="styleSheet">
-                <string notr="true">color: rgb(134, 134, 137)</string>
+               <property name="topMargin">
+                <number>9</number>
                </property>
-               <property name="text">
-                <string>Data de expiração do produto (opcional)</string>
+               <property name="rightMargin">
+                <number>9</number>
                </property>
-              </widget>
-              <widget class="QPushButton" name="btn_add_data">
-               <property name="geometry">
-                <rect>
-                 <x>223</x>
-                 <y>40</y>
-                 <width>35</width>
-                 <height>35</height>
-                </rect>
+               <property name="bottomMargin">
+                <number>9</number>
                </property>
-               <property name="layoutDirection">
-                <enum>Qt::RightToLeft</enum>
+               <item>
+                <widget class="QPushButton" name="btn_remove_bg_3">
+                 <property name="minimumSize">
+                  <size>
+                   <width>84</width>
+                   <height>37</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>65</width>
+                   <height>37</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgb(32, 33, 37);
+border-radius:7px;
+color: #ffffff</string>
+                 </property>
+                 <property name="text">
+                  <string>Size in</string>
+                 </property>
+                 <property name="icon">
+                  <iconset>
+                   <normaloff>../../../images/svg_icons/icon_minimize_size.svg</normaloff>../../../images/svg_icons/icon_minimize_size.svg</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>23</width>
+                   <height>23</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="SpinBox" name="SpinBox_7">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>37</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>37</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">SpinBox {
+    color: white;
+	background-color: rgb(34, 35, 38);
+    border: 1px solid rgba(0, 0, 0, 13);
+    border-radius: 5px;
+    /* font: 14px &quot;Segoe UI&quot;, &quot;Microsoft YaHei&quot;; */
+    padding: 0px 80px 0 10px;
+    selection-background-color: #2f3664;
+    border-bottom: none;
+}
+
+SpinBox:hover{
+    background-color: rgba(34, 35, 38, 0.5);
+    border: 1px solid rgba(0, 0, 0, 13);
+    border-bottom: none;
+}
+
+SpinBox:focus {
+    background-color: rgba(34, 35, 38, 13);
+    border-bottom: 1px solid #2f3664;
+}
+
+SpinBox:disabled {
+    color: rgba(0, 0, 0, 150);
+    background-color: rgba(34, 35, 38, 0.5);
+    border: 1px solid rgba(0, 0, 0, 13);
+    border-bottom: 1px solid #2f3664;
+}
+
+SpinButton {
+    background-color: transparent;
+    border-radius: 4px;
+    margin: 0;
+    border-bottom: none;
+}
+
+SpinButton:hover {
+    background-color: rgba(0, 0, 0, 9);
+    border-bottom: none;
+}
+
+SpinButton:pressed {
+    background-color: rgb(85, 170, 255);
+    border-bottom: 1px solid #2f3664;
+}</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QFrame" name="frame_46">
+              <property name="geometry">
+               <rect>
+                <x>6</x>
+                <y>90</y>
+                <width>280</width>
+                <height>55</height>
+               </rect>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>230</width>
+                <height>45</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>280</width>
+                <height>63</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(23, 24, 26);</string>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_8">
+               <property name="spacing">
+                <number>6</number>
                </property>
-               <property name="styleSheet">
-                <string notr="true">QPushButton{
+               <property name="leftMargin">
+                <number>9</number>
+               </property>
+               <property name="topMargin">
+                <number>9</number>
+               </property>
+               <property name="rightMargin">
+                <number>9</number>
+               </property>
+               <property name="bottomMargin">
+                <number>9</number>
+               </property>
+               <item>
+                <widget class="QPushButton" name="btn_remove_bg_4">
+                 <property name="minimumSize">
+                  <size>
+                   <width>84</width>
+                   <height>37</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>65</width>
+                   <height>37</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgb(32, 33, 37);
+border-radius:7px;
+color: #ffffff</string>
+                 </property>
+                 <property name="text">
+                  <string>Size out</string>
+                 </property>
+                 <property name="icon">
+                  <iconset>
+                   <normaloff>../../../images/svg_icons/icon_maximize_size.svg</normaloff>../../../images/svg_icons/icon_maximize_size.svg</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>23</width>
+                   <height>23</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="SpinBox" name="SpinBox_8">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>37</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>37</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">SpinBox {
+    color: white;
+	background-color: rgb(34, 35, 38);
+    border: 1px solid rgba(0, 0, 0, 13);
+    border-radius: 5px;
+    /* font: 14px &quot;Segoe UI&quot;, &quot;Microsoft YaHei&quot;; */
+    padding: 0px 80px 0 10px;
+    selection-background-color: #2f3664;
+    border-bottom: none;
+}
+
+SpinBox:hover{
+    background-color: rgba(34, 35, 38, 0.5);
+    border: 1px solid rgba(0, 0, 0, 13);
+    border-bottom: none;
+}
+
+SpinBox:focus {
+    background-color: rgba(34, 35, 38, 13);
+    border-bottom: 1px solid #2f3664;
+}
+
+SpinBox:disabled {
+    color: rgba(0, 0, 0, 150);
+    background-color: rgba(34, 35, 38, 0.5);
+    border: 1px solid rgba(0, 0, 0, 13);
+    border-bottom: 1px solid #2f3664;
+}
+
+SpinButton {
+    background-color: transparent;
+    border-radius: 4px;
+    margin: 0;
+    border-bottom: none;
+}
+
+SpinButton:hover {
+    background-color: rgba(0, 0, 0, 9);
+    border-bottom: none;
+}
+
+SpinButton:pressed {
+    background-color: rgb(85, 170, 255);
+    border-bottom: 1px solid #2f3664;
+}</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QFrame" name="frame_48">
+              <property name="geometry">
+               <rect>
+                <x>6</x>
+                <y>170</y>
+                <width>280</width>
+                <height>55</height>
+               </rect>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>230</width>
+                <height>45</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>280</width>
+                <height>63</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(23, 24, 26);</string>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_10">
+               <property name="spacing">
+                <number>6</number>
+               </property>
+               <property name="leftMargin">
+                <number>9</number>
+               </property>
+               <property name="topMargin">
+                <number>9</number>
+               </property>
+               <property name="rightMargin">
+                <number>9</number>
+               </property>
+               <property name="bottomMargin">
+                <number>9</number>
+               </property>
+               <item>
+                <widget class="QPushButton" name="btn_remove_bg_2">
+                 <property name="minimumSize">
+                  <size>
+                   <width>84</width>
+                   <height>37</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>65</width>
+                   <height>37</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgb(32, 33, 37);
+border-radius:7px;
+color: #ffffff</string>
+                 </property>
+                 <property name="text">
+                  <string>Border</string>
+                 </property>
+                 <property name="icon">
+                  <iconset>
+                   <normaloff>../../../images/svg_icons/icon_border_radius.svg</normaloff>../../../images/svg_icons/icon_border_radius.svg</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>25</width>
+                   <height>25</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="SpinBox" name="SpinBox_9">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>37</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>37</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">SpinBox {
+    color: white;
+	background-color: rgb(34, 35, 38);
+    border: 1px solid rgba(0, 0, 0, 13);
+    border-radius: 5px;
+    /* font: 14px &quot;Segoe UI&quot;, &quot;Microsoft YaHei&quot;; */
+    padding: 0px 80px 0 10px;
+    selection-background-color: #2f3664;
+    border-bottom: none;
+}
+
+SpinBox:hover{
+    background-color: rgba(34, 35, 38, 0.5);
+    border: 1px solid rgba(0, 0, 0, 13);
+    border-bottom: none;
+}
+
+SpinBox:focus {
+    background-color: rgba(34, 35, 38, 13);
+    border-bottom: 1px solid #2f3664;
+}
+
+SpinBox:disabled {
+    color: rgba(0, 0, 0, 150);
+    background-color: rgba(34, 35, 38, 0.5);
+    border: 1px solid rgba(0, 0, 0, 13);
+    border-bottom: 1px solid #2f3664;
+}
+
+SpinButton {
+    background-color: transparent;
+    border-radius: 4px;
+    margin: 0;
+    border-bottom: none;
+}
+
+SpinButton:hover {
+    background-color: rgba(0, 0, 0, 9);
+    border-bottom: none;
+}
+
+SpinButton:pressed {
+    background-color: rgb(85, 170, 255);
+    border-bottom: 1px solid #2f3664;
+}</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QFrame" name="frame_43">
+              <property name="geometry">
+               <rect>
+                <x>6</x>
+                <y>250</y>
+                <width>280</width>
+                <height>55</height>
+               </rect>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>230</width>
+                <height>45</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>280</width>
+                <height>60</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(23, 24, 26);</string>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_6">
+               <property name="spacing">
+                <number>6</number>
+               </property>
+               <property name="leftMargin">
+                <number>9</number>
+               </property>
+               <property name="topMargin">
+                <number>9</number>
+               </property>
+               <property name="rightMargin">
+                <number>9</number>
+               </property>
+               <property name="bottomMargin">
+                <number>9</number>
+               </property>
+               <item>
+                <widget class="QPushButton" name="pushButton_22">
+                 <property name="minimumSize">
+                  <size>
+                   <width>37</width>
+                   <height>37</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>37</width>
+                   <height>37</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgb(32, 33, 37);
+border-radius:7px;
+color: #ffffff;
+border: 1px solid rgb(255, 255, 255)</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="icon">
+                  <iconset>
+                   <normaloff>../../../../../../imagem de modelo/transferir-removebg-preview.png</normaloff>../../../../../../imagem de modelo/transferir-removebg-preview.png</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>60</width>
+                   <height>60</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="SpinBox" name="SpinBox_6">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>37</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>37</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">SpinBox {
+    color: white;
+	background-color: rgb(34, 35, 38);
+    border: 1px solid rgba(0, 0, 0, 13);
+    border-radius: 5px;
+    /* font: 14px &quot;Segoe UI&quot;, &quot;Microsoft YaHei&quot;; */
+    padding: 0px 80px 0 10px;
+    selection-background-color: #2f3664;
+    border-bottom: none;
+}
+
+SpinBox:hover{
+    background-color: rgba(34, 35, 38, 0.5);
+    border: 1px solid rgba(0, 0, 0, 13);
+    border-bottom: none;
+}
+
+SpinBox:focus {
+    background-color: rgba(34, 35, 38, 13);
+    border-bottom: 1px solid #2f3664;
+}
+
+SpinBox:disabled {
+    color: rgba(0, 0, 0, 150);
+    background-color: rgba(34, 35, 38, 0.5);
+    border: 1px solid rgba(0, 0, 0, 13);
+    border-bottom: 1px solid #2f3664;
+}
+
+SpinButton {
+    background-color: transparent;
+    border-radius: 4px;
+    margin: 0;
+    border-bottom: none;
+}
+
+SpinButton:hover {
+    background-color: rgba(0, 0, 0, 9);
+    border-bottom: none;
+}
+
+SpinButton:pressed {
+    background-color: rgb(85, 170, 255);
+    border-bottom: 1px solid #2f3664;
+}</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </widget>
+            <widget class="QWidget" name="page_camera">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(19, 20, 22)</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_5">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="lbl_camera">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="page_information_chave">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(19, 20, 22);</string>
+             </property>
+             <widget class="QFrame" name="frame_qr_code">
+              <property name="geometry">
+               <rect>
+                <x>6</x>
+                <y>12</y>
+                <width>281</width>
+                <height>55</height>
+               </rect>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(23, 24, 26);</string>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_5">
+               <item>
+                <widget class="QLineEdit" name="lineEdit_chave">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>37</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLineEdit{
+border:none;border-radius: 5px;
+background-color: rgb(32, 33, 36);
+color: rgb(233, 234, 236);padding-left:5px;}
+
+QLineEdit:hover{background-color: rgb(30, 31, 34);}
+
+QLineEdit:focus{background-color: rgb(34, 35, 38);}</string>
+                 </property>
+                 <property name="placeholderText">
+                  <string>Chave</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="btn_chave_qr_code">
+                 <property name="minimumSize">
+                  <size>
+                   <width>37</width>
+                   <height>37</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>37</width>
+                   <height>37</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgb(32, 33, 37);
+border-radius:7px;
+color: #ffffff</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="icon">
+                  <iconset>
+                   <normaloff>../../../images/svg_icons/icon_qr_code.svg</normaloff>../../../images/svg_icons/icon_qr_code.svg</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>22</width>
+                   <height>22</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QFrame" name="frame_continer_info">
+              <property name="geometry">
+               <rect>
+                <x>6</x>
+                <y>79</y>
+                <width>279</width>
+                <height>160</height>
+               </rect>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(23, 24, 26);</string>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_3">
+               <item>
+                <widget class="QLineEdit" name="lineEdit_unidade">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>37</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLineEdit{
+border:none;border-radius: 5px;
+background-color: rgb(32, 33, 36);
+color: rgb(233, 234, 236);padding-left:5px;}
+
+QLineEdit:hover{background-color: rgb(30, 31, 34);}
+
+QLineEdit:focus{background-color: rgb(34, 35, 38);}</string>
+                 </property>
+                 <property name="placeholderText">
+                  <string>Unidade</string>
+                 </property>
+                 <property name="clearButtonEnabled">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="lineEdit_categoria">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>37</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLineEdit{
+border:none;border-radius: 5px;
+background-color: rgb(32, 33, 36);
+color: rgb(233, 234, 236);padding-left:5px;}
+
+QLineEdit:hover{background-color: rgb(30, 31, 34);}
+
+QLineEdit:focus{background-color: rgb(34, 35, 38);}</string>
+                 </property>
+                 <property name="placeholderText">
+                  <string>Categoria</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="lineEdit_nome_produto">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>37</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLineEdit{
+border:none;border-radius: 5px;
+background-color: rgb(32, 33, 36);
+color: rgb(233, 234, 236);padding-left:5px;}
+
+QLineEdit:hover{background-color: rgb(30, 31, 34);}
+
+QLineEdit:focus{background-color: rgb(34, 35, 38);}</string>
+                 </property>
+                 <property name="placeholderText">
+                  <string>Nome do produto</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QFrame" name="frame_quantidade">
+              <property name="geometry">
+               <rect>
+                <x>6</x>
+                <y>250</y>
+                <width>280</width>
+                <height>55</height>
+               </rect>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(23, 24, 26);</string>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_12">
+               <item>
+                <widget class="QLineEdit" name="lineEdit_quantidade">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>37</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLineEdit{
+border:none;border-radius: 5px;
+background-color: rgb(32, 33, 36);
+color: rgb(233, 234, 236);}
+
+QLineEdit:hover{background-color: rgb(30, 31, 34);}
+
+QLineEdit:focus{background-color: rgb(34, 35, 38);}</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                 <property name="placeholderText">
+                  <string>Quantidade</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="lineEdit_quantidade_reserva">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>37</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLineEdit{
+border:none;border-radius: 5px;
+background-color: rgb(32, 33, 36);
+color: rgb(233, 234, 236);}
+
+QLineEdit:hover{background-color: rgb(30, 31, 34);}
+
+QLineEdit:focus{background-color: rgb(34, 35, 38);}</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                 <property name="placeholderText">
+                  <string>Quantidade Reserva</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </widget>
+            <widget class="QWidget" name="page_information_adicional">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(19, 20, 22);</string>
+             </property>
+             <widget class="QFrame" name="frame_continer_preco">
+              <property name="geometry">
+               <rect>
+                <x>6</x>
+                <y>12</y>
+                <width>281</width>
+                <height>55</height>
+               </rect>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(23, 24, 26);</string>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_9">
+               <item>
+                <widget class="QLineEdit" name="lineEdit_preco_compra">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>37</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLineEdit{
+border:none;border-radius: 5px;
+background-color: rgb(32, 33, 36);
+color: rgb(233, 234, 236);}
+
+QLineEdit:hover{background-color: rgb(30, 31, 34);}
+
+QLineEdit:focus{background-color: rgb(34, 35, 38);}</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                 <property name="placeholderText">
+                  <string>Preço de compra</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="lineEdit_preco_venda">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>37</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLineEdit{
+border:none;border-radius: 5px;
+background-color: rgb(32, 33, 36);
+color: rgb(233, 234, 236);}
+
+QLineEdit:hover{background-color: rgb(30, 31, 34);}
+
+QLineEdit:focus{background-color: rgb(34, 35, 38);}</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                 <property name="placeholderText">
+                  <string>Preço de venda</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QFrame" name="frame_continer_information_adicionais">
+              <property name="geometry">
+               <rect>
+                <x>6</x>
+                <y>79</y>
+                <width>281</width>
+                <height>241</height>
+               </rect>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>286</width>
+                <height>262</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QFrame{background-color: rgb(23, 24, 26);}</string>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_4">
+               <item>
+                <widget class="QFrame" name="frame_preco_adicional">
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>80</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">border:none;
+background-color: rgb(34, 35, 38);
+border-radius: 6px;
+color: rgb(233, 234, 236);
+padding-left:5px;</string>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <widget class="QLabel" name="lbl_tag">
+                  <property name="geometry">
+                   <rect>
+                    <x>20</x>
+                    <y>7</y>
+                    <width>250</width>
+                    <height>20</height>
+                   </rect>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>10</pointsize>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(134, 134, 137)</string>
+                  </property>
+                  <property name="text">
+                   <string>Preços adicional de venda (opcional)</string>
+                  </property>
+                 </widget>
+                 <widget class="QPushButton" name="btn_add_preco">
+                  <property name="geometry">
+                   <rect>
+                    <x>223</x>
+                    <y>40</y>
+                    <width>35</width>
+                    <height>35</height>
+                   </rect>
+                  </property>
+                  <property name="layoutDirection">
+                   <enum>Qt::RightToLeft</enum>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton{
 background-color: rgb(24, 25, 27);
 border-radius:17px;
 color: rgb(233, 234, 236);
@@ -1815,61 +1753,165 @@ padding-right: 6px}
 QPushButton:hover{background-color: rgb(39, 40, 45);}
 
 QPushButton:pressed{background-color: rgb(35, 36, 41);}</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>../../../images/svg_icons/icon_add.svg</normaloff>../../../images/svg_icons/icon_add.svg</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>31</width>
-                 <height>31</height>
-                </size>
-               </property>
-              </widget>
-              <widget class="QPushButton" name="btn_calendario">
-               <property name="geometry">
-                <rect>
-                 <x>3</x>
-                 <y>6</y>
-                 <width>20</width>
-                 <height>20</height>
-                </rect>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>../../../images/svg_icons/icon_service.svg</normaloff>../../../images/svg_icons/icon_service.svg</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>25</width>
-                 <height>25</height>
-                </size>
-               </property>
-              </widget>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPlainTextEdit" name="informacoes_adicionais">
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>55</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>10</pointsize>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QPlainTextEdit{
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset>
+                    <normaloff>../../../images/svg_icons/icon_add.svg</normaloff>../../../images/svg_icons/icon_add.svg</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>33</width>
+                    <height>33</height>
+                   </size>
+                  </property>
+                 </widget>
+                 <widget class="QPushButton" name="icon_tag">
+                  <property name="geometry">
+                   <rect>
+                    <x>3</x>
+                    <y>6</y>
+                    <width>20</width>
+                    <height>24</height>
+                   </rect>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset>
+                    <normaloff>../../../images/svg_icons/icon_tag.svg</normaloff>../../../images/svg_icons/icon_tag.svg</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>17</width>
+                    <height>17</height>
+                   </size>
+                  </property>
+                 </widget>
+                </widget>
+               </item>
+               <item>
+                <widget class="QFrame" name="frame_calendario">
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>80</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">border:none;
+background-color: rgb(34, 35, 38);
+border-radius: 6px;
+color: rgb(233, 234, 236);
+padding-left:5px;</string>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <widget class="QLabel" name="lbl_calendario">
+                  <property name="geometry">
+                   <rect>
+                    <x>20</x>
+                    <y>7</y>
+                    <width>260</width>
+                    <height>16</height>
+                   </rect>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>10</pointsize>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(134, 134, 137)</string>
+                  </property>
+                  <property name="text">
+                   <string>Data de expiração do produto (opcional)</string>
+                  </property>
+                 </widget>
+                 <widget class="QPushButton" name="btn_add_data">
+                  <property name="geometry">
+                   <rect>
+                    <x>223</x>
+                    <y>40</y>
+                    <width>35</width>
+                    <height>35</height>
+                   </rect>
+                  </property>
+                  <property name="layoutDirection">
+                   <enum>Qt::RightToLeft</enum>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton{
+background-color: rgb(24, 25, 27);
+border-radius:17px;
+color: rgb(233, 234, 236);
+padding-right: 6px}
+
+QPushButton:hover{background-color: rgb(39, 40, 45);}
+
+QPushButton:pressed{background-color: rgb(35, 36, 41);}</string>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset>
+                    <normaloff>../../../images/svg_icons/icon_add.svg</normaloff>../../../images/svg_icons/icon_add.svg</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>31</width>
+                    <height>31</height>
+                   </size>
+                  </property>
+                 </widget>
+                 <widget class="QPushButton" name="btn_calendario">
+                  <property name="geometry">
+                   <rect>
+                    <x>3</x>
+                    <y>6</y>
+                    <width>20</width>
+                    <height>20</height>
+                   </rect>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset>
+                    <normaloff>../../../images/svg_icons/icon_service.svg</normaloff>../../../images/svg_icons/icon_service.svg</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>25</width>
+                    <height>25</height>
+                   </size>
+                  </property>
+                 </widget>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPlainTextEdit" name="informacoes_adicionais">
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>55</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QPlainTextEdit{
 border:none;border-radius: 6px;
 background-color: rgb(32, 33, 36);
 color: rgb(233, 234, 236);}
@@ -1877,16 +1919,19 @@ color: rgb(233, 234, 236);}
 QPlainTextEdit:hover{background-color: rgb(30, 31, 34);}
 
 QPlainTextEdit:focus{background-color: rgb(34, 35, 38);}</string>
-              </property>
-              <property name="placeholderText">
-               <string>Informações adicionais sobre o produto (opcional)</string>
-              </property>
+                 </property>
+                 <property name="placeholderText">
+                  <string>Informações adicionais sobre o produto (opcional)</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </widget>
-            </item>
-           </layout>
+            </widget>
+           </widget>
           </widget>
-         </widget>
-        </widget>
+         </item>
+        </layout>
        </widget>
       </item>
      </layout>
