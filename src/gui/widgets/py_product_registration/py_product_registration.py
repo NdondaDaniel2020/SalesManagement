@@ -10,6 +10,7 @@
 from src.qt_core import *
 from qfluentwidgets import SpinBox
 from src.gui.core.imagepath import ImagePath
+from src.gui.widgets.py_editable_comboBox.editable_combo_box import EditableComboBox
 
 class PyProductRegistration(QWidget):
     def __init__(self, widget=None) -> None:
@@ -20,6 +21,19 @@ class PyProductRegistration(QWidget):
         self.setupUi(self)
         self.validator()
 
+        self.editable = EditableComboBox(self.frame_2)
+        self.editable.setGeometry(30, 280, 113, 37)
+        self.editable.setStyleSheet(u"QLineEdit{\n"
+"border:none;border-radius: 5px;\n"
+"background-color: rgb(32, 33, 36);\n"
+"padding: 2px 23px 2px 2px;\n"                                
+"color: rgb(233, 234, 236);padding-left:5px;}\n"
+"\n"
+"QLineEdit:hover{background-color: rgb(30, 31, 34);}\n"
+"\n"
+"QLineEdit:focus{background-color: rgb(34, 35, 38);}")
+        self.editable.addbtn()
+
     def validator(self) -> None:
         """
         método de validação usando Expressões regulares
@@ -27,81 +41,98 @@ class PyProductRegistration(QWidget):
         """
         regex_nu = QRegularExpressionValidator(QRegularExpression("^[0-9]*$"), self)
         self.lineEdit_chave.setValidator(regex_nu)
+        self.lineEdit_unidade.setValidator(regex_nu)
+        self.lineEdit_quantidade.setValidator(regex_nu)
+        self.lineEdit_preco_venda.setValidator(regex_nu)
+        self.lineEdit_preco_compra.setValidator(regex_nu)
+        self.lineEdit_quantidade_reserva.setValidator(regex_nu)
 
-    def setupUi(self, Form) -> None:
+    def setupUi(self, Form):
         if not Form.objectName():
-            Form.setObjectName(u"Form")
-        Form.resize(573, 416)
+                Form.setObjectName(u"Form")
+        Form.resize(656, 498)
         Form.setMinimumSize(QSize(0, 0))
-        Form.setMaximumSize(QSize(12345678, 12345678))
+        Form.setMaximumSize(QSize(16777215, 12345678))
+        Form.setStyleSheet(u"")
         self.verticalLayout = QVBoxLayout(Form)
+        self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.frame_center_style = QFrame(Form)
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.frame = QFrame(Form)
+        self.frame.setObjectName(u"frame")
+        self.frame.setFrameShape(QFrame.StyledPanel)
+        self.frame.setFrameShadow(QFrame.Raised)
+        self.frame.setStyleSheet("background-color: rgba(19, 20, 22, 100); border-radius: 10px")
+        self.verticalLayout_6 = QVBoxLayout(self.frame)
+        self.verticalLayout_6.setSpacing(0)
+        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
+        self.verticalLayout_6.setContentsMargins(0, 0, 0, 0)
+        self.frame_center_style = QFrame(self.frame)
         self.frame_center_style.setObjectName(u"frame_center_style")
-        self.frame_center_style.setStyleSheet(u"QFrame{\n"
-"	background-color: rgb(19, 20, 22);\n"
-"	border-radius:10px;}\n"
-"\n"
-"\n"
-"\n"
-"#frame_navigation > QPushButton{\n"
-"	background-color: rgb(19, 20, 22);\n"
-"	border-radius:7px;}\n"
-"\n"
-"#frame_navigation>QPushButton:hover{\n"
-"	background-color: rgb(28, 29, 32)}\n"
-"\n"
-"#frame_navigation>QPushButton:pressed{\n"
-"	background-color: rgb(19, 20, 22)}\n"
-"\n"
-"\n"
-"\n"
-"#frame_btn_edit_image{\n"
-"background-color: rgb(24, 25, 27);}\n"
-"\n"
-"#frame_btn_edit_image>QPushButton{\n"
-"	background-color: rgb(24, 25, 27);\n"
-"	border-radius:7px;color: rgb(233, 234, 236);}\n"
-"\n"
-"#frame_btn_edit_image>QPushButton:hover{\n"
-"	background-color: rgb(39, 40, 45);}\n"
-"\n"
-"#frame_btn_edit_image>QPushButton:pressed{\n"
-"	background-color: rgb(35, 36, 41);}\n"
-"\n"
-"\n"
-"#image{background-color: rgb(24, 25, 27);border-radius: 12px;}\n"
-"\n"
-"\n"
-"#frame_nave_bar{background-color: rgb(24, 25, 27);border-radiu: 12px;}\n"
-"\n"
-"#frame_nave_bar>QPushButton{\n"
-"background-color: rgb(32, 33, 37);\n"
-"border-radius:7p"
-                        "x;\n"
-"color: rgb(233, 234, 236);}\n"
-"\n"
-"#frame_nave_bar>QPushButton:hover{\n"
-"background-color: rgb(39, 40, 45);}\n"
-"\n"
-"#frame_nave_bar>QPushButton:pressed{\n"
-"background-color: rgb(35, 36, 41);}\n"
-"\n"
-"\n"
-"#frame_qr_code,\n"
-"#frame_quantidade,\n"
-"#frame_continer_info\n"
-"{\n"
-"	background-color: rgb(23, 24, 26);\n"
-"}\n"
-"\n"
-"#lineEdit_chave,\n"
-"\n"
-"")
-        self.frame_center_style.setFrameShape(QFrame.StyledPanel)
-        self.frame_center_style.setFrameShadow(QFrame.Raised)
         self.frame_center_style.setMinimumSize(QSize(555, 390))
         self.frame_center_style.setMaximumSize(QSize(555, 390))
+        self.frame_center_style.setStyleSheet(u"QFrame{\n"
+                                              "	background-color: rgb(19, 20, 22);\n"
+                                              "	border-radius:10px;}\n"
+                                              "\n"
+                                              "\n"
+                                              "\n"
+                                              "#frame_navigation > QPushButton{\n"
+                                              "	background-color: rgb(19, 20, 22);\n"
+                                              "	border-radius:7px;}\n"
+                                              "\n"
+                                              "#frame_navigation>QPushButton:hover{\n"
+                                              "	background-color: rgb(28, 29, 32)}\n"
+                                              "\n"
+                                              "#frame_navigation>QPushButton:pressed{\n"
+                                              "	background-color: rgb(19, 20, 22)}\n"
+                                              "\n"
+                                              "\n"
+                                              "\n"
+                                              "#frame_btn_edit_image{\n"
+                                              "background-color: rgb(24, 25, 27);}\n"
+                                              "\n"
+                                              "#frame_btn_edit_image>QPushButton{\n"
+                                              "	background-color: rgb(24, 25, 27);\n"
+                                              "	border-radius:7px;color: rgb(233, 234, 236);}\n"
+                                              "\n"
+                                              "#frame_btn_edit_image>QPushButton:hover{\n"
+                                              "	background-color: rgb(39, 40, 45);}\n"
+                                              "\n"
+                                              "#frame_btn_edit_image>QPushButton:pressed{\n"
+                                              "	background-color: rgb(35, 36, 41);}\n"
+                                              "\n"
+                                              "\n"
+                                              "#image{background-color: rgb(24, 25, 27);border-radius: 12px;}\n"
+                                              "\n"
+                                              "\n"
+                                              "#frame_nave_bar{background-color: rgb(24, 25, 27);border-radiu: 12px;}\n"
+                                              "\n"
+                                              "#frame_nave_bar>QPushButton{\n"
+                                              "background-color: rgb(32, 33, 37);\n"
+                                              "border-radius:7p"
+                                              "x;\n"
+                                              "color: rgb(233, 234, 236);}\n"
+                                              "\n"
+                                              "#frame_nave_bar>QPushButton:hover{\n"
+                                              "background-color: rgb(39, 40, 45);}\n"
+                                              "\n"
+                                              "#frame_nave_bar>QPushButton:pressed{\n"
+                                              "background-color: rgb(35, 36, 41);}\n"
+                                              "\n"
+                                              "\n"
+                                              "#frame_qr_code,\n"
+                                              "#frame_quantidade,\n"
+                                              "#frame_continer_info\n"
+                                              "{\n"
+                                              "	background-color: rgb(23, 24, 26);\n"
+                                              "}\n"
+                                              "\n"
+                                              "#lineEdit_chave,\n"
+                                              "\n"
+                                              "")
+        self.frame_center_style.setFrameShape(QFrame.StyledPanel)
+        self.frame_center_style.setFrameShadow(QFrame.Raised)
         self.horizontalLayout = QHBoxLayout(self.frame_center_style)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.horizontalLayout.setContentsMargins(6, 6, 6, 6)
@@ -242,7 +273,7 @@ class PyProductRegistration(QWidget):
 
         self.frame_btn_edit_image = QFrame(self.frame_2)
         self.frame_btn_edit_image.setObjectName(u"frame_btn_edit_image")
-        self.frame_btn_edit_image.setGeometry(QRect(15, 190, 141, 41))
+        self.frame_btn_edit_image.setGeometry(QRect(15, 190, 142, 37))
         self.frame_btn_edit_image.setFrameShape(QFrame.StyledPanel)
         self.frame_btn_edit_image.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_3 = QHBoxLayout(self.frame_btn_edit_image)
@@ -690,11 +721,11 @@ class PyProductRegistration(QWidget):
 
         self.verticalLayout_3.addWidget(self.lineEdit_unidade)
 
-        self.lineEdit_categoria = QLineEdit(self.frame_continer_info)
-        self.lineEdit_categoria.setObjectName(u"lineEdit_categoria")
-        self.lineEdit_categoria.setMinimumSize(QSize(0, 37))
-        self.lineEdit_categoria.setFont(font)
-        self.lineEdit_categoria.setStyleSheet(u"QLineEdit{\n"
+        self.editable_combo_box_categoria = EditableComboBox(self.frame_continer_info)
+        self.editable_combo_box_categoria.setObjectName(u"editable_combo_box_categoria")
+        self.editable_combo_box_categoria.setMinimumSize(QSize(0, 37))
+        self.editable_combo_box_categoria.setFont(font)
+        self.editable_combo_box_categoria.setStyleSheet(u"QLineEdit{\n"
 "border:none;border-radius: 5px;\n"
 "background-color: rgb(32, 33, 36);\n"
 "color: rgb(233, 234, 236);padding-left:5px;}\n"
@@ -702,8 +733,9 @@ class PyProductRegistration(QWidget):
 "QLineEdit:hover{background-color: rgb(30, 31, 34);}\n"
 "\n"
 "QLineEdit:focus{background-color: rgb(34, 35, 38);}")
+        self.editable_combo_box_categoria.addbtn()
 
-        self.verticalLayout_3.addWidget(self.lineEdit_categoria)
+        self.verticalLayout_3.addWidget(self.editable_combo_box_categoria)
 
         self.lineEdit_nome_produto = QLineEdit(self.frame_continer_info)
         self.lineEdit_nome_produto.setObjectName(u"lineEdit_nome_produto")
@@ -898,13 +930,13 @@ class PyProductRegistration(QWidget):
         self.informacoes_adicionais.setMaximumSize(QSize(16777215, 55))
         self.informacoes_adicionais.setFont(font)
         self.informacoes_adicionais.setStyleSheet(u"QPlainTextEdit{\n"
-"border:none;border-radius: 6px;\n"
-"background-color: rgb(32, 33, 36);\n"
-"color: rgb(233, 234, 236);}\n"
-"\n"
-"QPlainTextEdit:hover{background-color: rgb(30, 31, 34);}\n"
-"\n"
-"QPlainTextEdit:focus{background-color: rgb(34, 35, 38);}")
+                                                  "border:none;border-radius: 6px;\n"
+                                                  "background-color: rgb(32, 33, 36);\n"
+                                                  "color: rgb(233, 234, 236);}\n"
+                                                  "\n"
+                                                  "QPlainTextEdit:hover{background-color: rgb(30, 31, 34);}\n"
+                                                  "\n"
+                                                  "QPlainTextEdit:focus{background-color: rgb(34, 35, 38);}")
 
         self.verticalLayout_4.addWidget(self.informacoes_adicionais)
 
@@ -912,17 +944,15 @@ class PyProductRegistration(QWidget):
 
         self.horizontalLayout.addWidget(self.frame_2)
 
+        self.verticalLayout_6.addWidget(self.frame_center_style, 0, Qt.AlignHCenter)
 
-        self.verticalLayout.addWidget(self.frame_center_style, 0, Qt.AlignHCenter)
-
+        self.verticalLayout.addWidget(self.frame)
 
         self.retranslateUi(Form)
 
         self.stackedWidget.setCurrentIndex(2)
 
-
         QMetaObject.connectSlotsByName(Form)
-    # setupUi
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
@@ -947,7 +977,7 @@ class PyProductRegistration(QWidget):
         self.lineEdit_chave.setPlaceholderText(QCoreApplication.translate("Form", u"Chave", None))
         self.btn_chave_qr_code.setText("")
         self.lineEdit_unidade.setPlaceholderText(QCoreApplication.translate("Form", u"Unidade", None))
-        self.lineEdit_categoria.setPlaceholderText(QCoreApplication.translate("Form", u"Categoria", None))
+        self.editable_combo_box_categoria.setPlaceholderText(QCoreApplication.translate("Form", u"Categoria", None))
         self.lineEdit_nome_produto.setPlaceholderText(QCoreApplication.translate("Form", u"Nome do produto", None))
         self.lineEdit_quantidade.setPlaceholderText(QCoreApplication.translate("Form", u"Quantidade", None))
         self.lineEdit_quantidade_reserva.setPlaceholderText(QCoreApplication.translate("Form", u"Quantidade Reserva", None))
