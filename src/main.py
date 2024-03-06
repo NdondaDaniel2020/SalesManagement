@@ -248,7 +248,7 @@ class MainWindow(QMainWindow):
 
             # //////////////////////////////////////////////////////////////////////////////////
             self.product_registration.show()
-            self.product_registration.frame.mouseMoveEvent = moveWindow
+            self.product_registration.frame_style.mouseMoveEvent = moveWindow
 
 
 
