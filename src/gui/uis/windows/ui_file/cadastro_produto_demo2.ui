@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>578</width>
-    <height>526</height>
+    <width>296</width>
+    <height>462</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -127,13 +127,13 @@ color: rgb(233, 234, 236);}
         <property name="minimumSize">
          <size>
           <width>296</width>
-          <height>452</height>
+          <height>462</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
           <width>296</width>
-          <height>452</height>
+          <height>462</height>
          </size>
         </property>
         <property name="frameShape">
@@ -164,14 +164,14 @@ color: rgb(233, 234, 236);}
             <string notr="true"/>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>1</number>
            </property>
            <widget class="QWidget" name="page_foto">
             <widget class="QPushButton" name="image">
              <property name="geometry">
               <rect>
                <x>40</x>
-               <y>30</y>
+               <y>40</y>
                <width>220</width>
                <height>390</height>
               </rect>
@@ -235,7 +235,7 @@ border: 1px solid rgb(255, 255, 255)</string>
               </size>
              </property>
             </widget>
-            <widget class="QFrame" name="frame_nave_bar_2">
+            <widget class="QFrame" name="frame_segmented_nav">
              <property name="geometry">
               <rect>
                <x>60</x>
@@ -301,9 +301,6 @@ QPushButton:pressed{background-color: rgb(35, 36, 41);}</string>
                   <width>40</width>
                   <height>40</height>
                  </size>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true"/>
                 </property>
                 <property name="text">
                  <string/>
@@ -397,7 +394,7 @@ QPushButton:pressed{background-color: rgb(35, 36, 41);}</string>
                 </property>
                 <property name="icon">
                  <iconset>
-                  <normaloff>../../../images/svg_icons/icon_info_2.svg</normaloff>../../../images/svg_icons/icon_info_2.svg</iconset>
+                  <normaloff>../../../images/svg_icons/icon_setting.svg</normaloff>../../../images/svg_icons/icon_setting.svg</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -412,8 +409,68 @@ QPushButton:pressed{background-color: rgb(35, 36, 41);}</string>
             <widget class="QPushButton" name="btn_activate">
              <property name="geometry">
               <rect>
-               <x>60</x>
-               <y>340</y>
+               <x>20</x>
+               <y>390</y>
+               <width>40</width>
+               <height>40</height>
+              </rect>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>40</width>
+               <height>40</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton{
+background-color: rgb(47, 54, 100);
+color: rgb(233, 234, 236);}
+
+QPushButton:hover{background-color: rgb(50, 57, 106);}
+
+QPushButton:pressed{background-color: rgb(48, 55, 102);}
+</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>../../../images/svg_icons/icon_camera.svg</normaloff>../../../images/svg_icons/icon_camera.svg</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>27</width>
+               <height>27</height>
+              </size>
+             </property>
+            </widget>
+           </widget>
+           <widget class="QWidget" name="page_camera">
+            <widget class="QLabel" name="lbl_camera">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>10</y>
+               <width>280</width>
+               <height>400</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="btn_activate_2">
+             <property name="geometry">
+              <rect>
+               <x>130</x>
+               <y>410</y>
                <width>40</width>
                <height>40</height>
               </rect>
@@ -456,7 +513,7 @@ QPushButton:pressed{background-color: rgb(48, 55, 102);}
             </widget>
            </widget>
            <widget class="QWidget" name="page_3">
-            <widget class="QFrame" name="frame_nave_bar">
+            <widget class="QFrame" name="frame_nav_bar">
              <property name="geometry">
               <rect>
                <x>10</x>
@@ -690,7 +747,7 @@ QPushButton:pressed{background-color: rgb(35, 36, 41);}</string>
               </rect>
              </property>
              <property name="currentIndex">
-              <number>0</number>
+              <number>1</number>
              </property>
              <widget class="QWidget" name="page">
               <widget class="QFrame" name="frame_quantidade">
@@ -962,6 +1019,317 @@ QComboBox QAbstractItemView {
                   </property>
                   <property name="placeholderText">
                    <string>Nome do produto</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </widget>
+             <widget class="QWidget" name="page_4">
+              <widget class="QFrame" name="frame_continer_prima_info_2">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>100</y>
+                 <width>272</width>
+                 <height>160</height>
+                </rect>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_8">
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_unidade_2">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>37</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>10</pointsize>
+                   </font>
+                  </property>
+                  <property name="placeholderText">
+                   <string>Unidade</string>
+                  </property>
+                  <property name="clearButtonEnabled">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="PyEditableComboBox" name="combo_box_categoria_2">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>37</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>10</pointsize>
+                   </font>
+                  </property>
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QComboBox , QLineEdit{
+    border: 1px solid rgb(47, 54, 100);
+    border-radius: 5px;
+    padding-left: 5px;
+    padding-right: -187px;
+	color: rgb(133, 133, 136);
+    background-color: rgb(32, 33, 36);
+    text-align: left;
+}
+
+QComboBox:hover {
+	background-color: rgb(30, 31, 34);
+}
+
+QComboBox:pressed , QComboBox:focus{
+    background-color: rgb(37, 39, 42);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.073);
+	color: rgb(133, 133, 136);
+}
+
+QComboBox:disabled {
+	color: rgb(133, 133, 136);
+    background: rgba(249, 249, 249, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+                        
+QComboBox::drop-down {
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	width: 34px; }
+
+QComboBox QAbstractItemView {
+	color: rgb(133, 133, 136);
+	background-color: rgb(23, 24, 26);
+	padding: 10px;
+	selection-background-color: rgb(195, 155, 255);
+	border: 2px solid  rgb(47, 54, 100);
+	border-radius:5px;}</string>
+                  </property>
+                  <property name="editable">
+                   <bool>false</bool>
+                  </property>
+                  <property name="currentText">
+                   <string/>
+                  </property>
+                  <property name="currentIndex">
+                   <number>-1</number>
+                  </property>
+                  <property name="minimumContentsLength">
+                   <number>0</number>
+                  </property>
+                  <property name="placeholderText">
+                   <string>Categoria</string>
+                  </property>
+                  <property name="duplicatesEnabled">
+                   <bool>false</bool>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>New Item</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>New Item</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>New Item</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_nome_produto_2">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>37</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>10</pointsize>
+                   </font>
+                  </property>
+                  <property name="placeholderText">
+                   <string>Nome do produto</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+              <widget class="QFrame" name="frame_quantidade_2">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>260</y>
+                 <width>272</width>
+                 <height>55</height>
+                </rect>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <layout class="QHBoxLayout" name="horizontalLayout_15">
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_quantidade_2">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>37</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>10</pointsize>
+                   </font>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="placeholderText">
+                   <string>Quantidade</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_quantidade_reserva_2">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>37</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>10</pointsize>
+                   </font>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="placeholderText">
+                   <string>Quantidade Reserva</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+              <widget class="QFrame" name="frame_chave_qrcode_2">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>20</y>
+                 <width>272</width>
+                 <height>55</height>
+                </rect>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <layout class="QHBoxLayout" name="horizontalLayout_12">
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_chave_2">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>37</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>10</pointsize>
+                   </font>
+                  </property>
+                  <property name="placeholderText">
+                   <string>Chave</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="icon_img_2">
+                  <property name="minimumSize">
+                   <size>
+                    <width>37</width>
+                    <height>37</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>37</width>
+                    <height>37</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(32, 33, 37);
+border-radius:7px;
+color: #ffffff;
+border: 1px solid rgb(255, 255, 255)</string>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset>
+                    <normaloff>../../../images/svg_icons/icon_gallery.svg</normaloff>../../../images/svg_icons/icon_gallery.svg</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>18</width>
+                    <height>18</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="btn_chave_qrcode_2">
+                  <property name="minimumSize">
+                   <size>
+                    <width>37</width>
+                    <height>37</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>37</width>
+                    <height>37</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset>
+                    <normaloff>../../../images/svg_icons/icon_qr_code.svg</normaloff>../../../images/svg_icons/icon_qr_code.svg</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>22</width>
+                    <height>22</height>
+                   </size>
                   </property>
                  </widget>
                 </item>
