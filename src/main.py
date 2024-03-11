@@ -235,20 +235,14 @@ class MainWindow(QMainWindow):
         self.product_registration.move((self.width() - self.product_registration.width()) / 2,
                                        (self.height() - self.product_registration.height()) / 2)
 
+
         # ///////////////////////////////////////////////////////////////////////////////////////
         if self.product_registration.isHidden():
             self.product_registration.setGeometry(0, 0, self.width(), self.height())
 
-            # ///////////////////////////////////////////////////////////////////////////////////
-            def moveWindow(event):
-                if event.buttons() == Qt.LeftButton:
-                    self.move(self.pos() + event.globalPos() - self._dragPos)
-                    self._dragPos = event.globalPos()  ## event.globalPos() deprecated
-                    event.accept()
-
             # //////////////////////////////////////////////////////////////////////////////////
             self.product_registration.show()
-            self.product_registration.frame_style.mouseMoveEvent = moveWindow
+
 
 
 

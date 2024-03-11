@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>601</width>
-    <height>564</height>
+    <height>565</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -810,6 +810,19 @@ QWidget:focus {
                              </widget>
                             </item>
                             <item>
+                             <spacer name="verticalSpacer_3">
+                              <property name="orientation">
+                               <enum>Qt::Vertical</enum>
+                              </property>
+                              <property name="sizeHint" stdset="0">
+                               <size>
+                                <width>20</width>
+                                <height>40</height>
+                               </size>
+                              </property>
+                             </spacer>
+                            </item>
+                            <item>
                              <widget class="QLabel" name="label_15">
                               <property name="maximumSize">
                                <size>
@@ -900,19 +913,6 @@ QWidget:focus {
                                   </property>
                                  </layout>
                                 </widget>
-                               </item>
-                               <item>
-                                <spacer name="verticalSpacer">
-                                 <property name="orientation">
-                                  <enum>Qt::Vertical</enum>
-                                 </property>
-                                 <property name="sizeHint" stdset="0">
-                                  <size>
-                                   <width>20</width>
-                                   <height>228</height>
-                                  </size>
-                                 </property>
-                                </spacer>
                                </item>
                               </layout>
                              </widget>
@@ -1755,7 +1755,7 @@ QPushButton:pressed{background-color: rgb(33, 38, 70);}</string>
                                <x>0</x>
                                <y>0</y>
                                <width>1021</width>
-                               <height>148</height>
+                               <height>144</height>
                               </rect>
                              </property>
                              <property name="styleSheet">
@@ -2366,7 +2366,7 @@ color: #e9eaec;</string>
                            <rect>
                             <x>0</x>
                             <y>0</y>
-                            <width>509</width>
+                            <width>325</width>
                             <height>400</height>
                            </rect>
                           </property>
