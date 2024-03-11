@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_windowhaFADL.ui'
+## Form generated from reading UI file 'main_windowoowpJF.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.4.3
 ##
@@ -31,7 +31,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(601, 564)
+        MainWindow.resize(601, 565)
         self.widget_style_sheet = QWidget(MainWindow)
         self.widget_style_sheet.setObjectName(u"widget_style_sheet")
         self.widget_style_sheet.setStyleSheet(u"#central_widget,\n"
@@ -438,6 +438,10 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_15.addWidget(self.frame_31)
 
+        self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.verticalLayout_15.addItem(self.verticalSpacer_3)
+
         self.label_15 = QLabel(self.frame_28)
         self.label_15.setObjectName(u"label_15")
         self.label_15.setMaximumSize(QSize(16777215, 20))
@@ -478,10 +482,6 @@ class Ui_MainWindow(object):
         self.horizontalLayout_20.setContentsMargins(2, 0, 2, 0)
 
         self.verticalLayout_16.addWidget(self.frest_user)
-
-        self.verticalSpacer = QSpacerItem(20, 228, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.verticalLayout_16.addItem(self.verticalSpacer)
 
 
         self.verticalLayout_15.addWidget(self.frame_29)
@@ -818,7 +818,7 @@ class Ui_MainWindow(object):
         self.scroll_area_home.setWidgetResizable(True)
         self.scroll_area_widget_contents_home = QWidget()
         self.scroll_area_widget_contents_home.setObjectName(u"scroll_area_widget_contents_home")
-        self.scroll_area_widget_contents_home.setGeometry(QRect(0, 0, 1021, 148))
+        self.scroll_area_widget_contents_home.setGeometry(QRect(0, 0, 1021, 144))
         self.scroll_area_widget_contents_home.setStyleSheet(u"#scroll_area_home, #scroll_area_widget_contents_home{\n"
 "background-color:rgb(32, 33, 37);\n"
 "border-radius:10px}")
@@ -1013,7 +1013,7 @@ class Ui_MainWindow(object):
         self.scroll_area_home_bottom.setWidgetResizable(True)
         self.scroll_area_widget_contents_home_bottom = QWidget()
         self.scroll_area_widget_contents_home_bottom.setObjectName(u"scroll_area_widget_contents_home_bottom")
-        self.scroll_area_widget_contents_home_bottom.setGeometry(QRect(0, 0, 509, 400))
+        self.scroll_area_widget_contents_home_bottom.setGeometry(QRect(0, 0, 325, 400))
         self.scroll_area_widget_contents_home_bottom.setStyleSheet(u"background-color: rgb(19, 20, 22);")
         self.verticalLayout_3 = QVBoxLayout(self.scroll_area_widget_contents_home_bottom)
         self.verticalLayout_3.setSpacing(0)
