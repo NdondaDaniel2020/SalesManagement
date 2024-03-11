@@ -8,38 +8,64 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 import os
+import cv2
 import locale
-import platform
+import traceback
+from rembg import remove
 from src.qt_core import *
-from qfluentwidgets import SpinBox
+from qfluentwidgets import Slider
 from src.gui.core.imagepath import ImagePath
 from src.gui.widgets.py_editable_comboBox.editable_combo_box import PyEditableComboBox
 from src.gui.widgets.py_slide_stacked_widgets.py_slide_stacked_widgets import PySlidingStackedWidget
+
 
 class PyProductRegistration(QWidget):
     def __init__(self, widget=None) -> None:
         super().__init__(widget)
 
+        # /////////////////////////////////////////////////////////////////
         self.setupUi(self)
         self.validator()
 
-        # self.frame_style.mousePressEvent = lambda e: self.close()
-        # clia um algoritmo que resolve o probema so cera deletado se estiver fora do quadrado
+        # ////////////////////////////////////////////////////////////////
+        self.shadow_window = QGraphicsDropShadowEffect(self)
+        self.shadow_window.setBlurRadius(30)
+        self.shadow_window.setXOffset(0)
+        self.shadow_window.setYOffset(0)
+        self.shadow_window.setColor(QColor(47, 54, 100, 40))
+        self.frame_central.setGraphicsEffect(self.shadow_window)
 
-        self.btn_activate.setGeometry(
-            self.btn_nav_camera.x() + self.frame_segmented_nave.x() + 3,
-            self.btn_nav_camera.y() + self.frame_segmented_nave.y() + 3,
-            40, 40
-        )
+        # ////////////////////////////////////////////////////////////////
+        self.thread_pool = QThreadPool()
+        self.cap = cv2.VideoCapture(0)  # 'http://192.168.0.120:8080/video'
 
-        self.image.clicked.connect(self.openfile)
+        # Create a QTimer to update the image every 100ms
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.updateImage)
+        # ////////////////////////////////////////////////////////////////
+        self.can_close = False
+        self.first_exe = False
+        self.render_file = None
+        self.btn_sender = self.btn_nav_camera
+        self.file_path = ImagePath().set_svg_icon("icon_gallery.svg")
+
+        self.stackedWidget.enterEvent = self.stacked_Widget_enter_event
+        self.stackedWidget.leaveEvent = self.stacked_Widget_leave_event
+        self.frame_style.mousePressEvent = self.close_window_pressed_frame_style
+        self.image.mousePressEvent = self.mouse_press_event_menu_image
+
+        # ////////////////////////////////////////////////////////////////
+
+        self.btn_del.clicked.connect(self.close)
 
         self.btn_nav_key.clicked.connect(self.changePosition)
-        self.btn_nav_info.clicked.connect(self.changePosition)
-        self.btn_nav_camera.clicked.connect(self.changePosition)
+        self.btn_nav_setting.clicked.connect(self.changePosition)
         self.btn_nav_edit.clicked.connect(self.changePosition)
+        self.btn_nav_camera.clicked.connect(self.changePosition)
 
-    def openfile(self):
+    # VALIDAÇÃO E CÓDIGO DO PAINEL
+    # /////////////////////////////////////////////////////
+    def addImage(self):
 
         languege = str(locale.getlocale()[0].lower())
         path = '~\Imagens'
@@ -50,21 +76,31 @@ class PyProductRegistration(QWidget):
         path = os.path.expanduser(path)
         path = os.path.normpath(path)
 
-        file = QFileDialog.getOpenFileName(
+        self.file_path = QFileDialog.getOpenFileName(
             parent=self,
             dir=path,
             filter=self.tr('img file (*.png *.jpeg *.jpg *.PNG *.JPG) ')
-        )
+        )[0]
 
-        if file[0]:
+        if self.file_path:
             icon = QIcon()
-            icon.addFile(file[0])
+            icon.addFile(self.file_path)
 
             self.image.setIconSize(QSize(250, 250))
             self.icon_img.setIconSize(QSize(30, 30))
 
             self.image.setIcon(icon)
             self.icon_img.setIcon(icon)
+
+    def closeImage(self):
+        icon = QIcon()
+        icon.addFile(ImagePath().set_svg_icon("icon_gallery.svg"))
+
+        self.image.setIconSize(QSize(25, 25))
+        self.icon_img.setIconSize(QSize(18, 18))
+
+        self.image.setIcon(icon)
+        self.icon_img.setIcon(icon)
 
     def validator(self) -> None:
         """
@@ -82,15 +118,185 @@ class PyProductRegistration(QWidget):
     def changePosition(self):
         btn = self.sender()
 
-        btn.repaint()
+        self.btn_sender = btn
+
         self.posAnimation = QPropertyAnimation(self.btn_activate, b'pos')
         self.posAnimation.setStartValue(QPoint(self.btn_activate.x(), self.btn_activate.y()))
         self.posAnimation.setDuration(400)
-        self.posAnimation.setEndValue(QPoint(btn.x() + self.frame_segmented_nave.x(), btn.y() + self.frame_segmented_nave.y()))
+        self.posAnimation.setEndValue(
+            QPoint(btn.x() + self.frame_segmented_nav.x(), btn.y() + self.frame_segmented_nav.y()))
         self.posAnimation.setEasingCurve(QEasingCurve.Type.InOutExpo)
         self.posAnimation.finished.connect(self.btn_activate.setIcon(btn.icon()))
         self.posAnimation.start()
 
+        i1 = 0
+        i2 = 0
+        if btn.objectName() == 'btn_nav_camera':
+            i1 = 0
+        elif btn.objectName() == 'btn_nav_key':
+            i1 = 1
+            i2 = 0
+        elif btn.objectName() == 'btn_nav_edit':
+            i1 = 1
+            i2 = 1
+
+        self.stackedWidget.slideInIdx(i1)
+        self.stackedWidget_2.slideInIdx(i2)
+
+    def removeBackgroundImage(self):
+
+        if not 'icon_gallery' in self.file_path:
+
+            self.render_file = cv2.imread(self.file_path)
+            try:
+                self.render_file = remove(self.render_file)
+                cv2.imwrite(self.file_path, self.render_file)
+                return True
+            except:
+                return False
+
+        return False
+
+    def rotateImage(self):
+
+        if not 'icon_gallery' in self.file_path:
+            imagem = cv2.imread(self.file_path)
+
+            height, width = imagem.shape[:2]
+            center = (height / 2, width / 2)
+
+            rotation_matrix = cv2.getRotationMatrix2D(center, 45, 1.0)
+            rotated_image = cv2.warpAffine(imagem, rotation_matrix, (width, height))
+
+            cv2.imwrite(self.file_path, rotated_image)
+            return True
+
+        return False
+
+    def updateImage(self, is_true):
+
+        if is_true:
+            icon = QIcon(self.file_path)
+
+            self.image.setIconSize(QSize(250, 250))
+            self.icon_img.setIconSize(QSize(30, 30))
+
+            self.image.setIcon(icon)
+            self.icon_img.setIcon(icon)
+
+    def startBackgroundTask(self):
+        btn = self.sender()
+
+        worker = None
+
+        if btn.objectName() == 'rembg':
+            worker = Worker(self.removeBackgroundImage)  # Any other args, kwargs are passed to the run function
+
+        elif btn.objectName() == 'rotate':
+            worker = Worker(self.rotateImage)  # Any other args, kwargs are passed to the run function
+
+        if worker:
+            worker.signals.result.connect(lambda is_true: self.updateImage(is_true))
+            # worker.signals.finished.connect(lambda: print("finish"))
+            worker.signals.error.connect(lambda a: print("Error", a))
+
+            # Execute
+            self.thread_pool.start(worker)
+
+    def makePhoto(self):
+        # ///////////////////////////////////////////////////////////
+        self.btn_nav_key.hide()
+        self.btn_nav_setting.hide()
+        self.btn_nav_edit.hide()
+
+        # ///////////////////////////////////////////////////////////
+        self.frame_segmented_nav.setGeometry(60, 405, 47, 47)
+        self.frame_segmented_nav.setMinimumSize(47, 47)
+        self.frame_segmented_nav.setMaximumSize(47, 47)
+
+        # /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        self.segmented_navigation_animation = QPropertyAnimation(self.frame_segmented_nav, b'pos')
+        self.segmented_navigation_animation.setStartValue(QPoint(60, 405))
+        self.segmented_navigation_animation.setDuration(500)
+        self.segmented_navigation_animation.setEndValue(QPoint(127, 405))
+        self.segmented_navigation_animation.setEasingCurve(QEasingCurve.Type.InOutExpo)
+        self.segmented_navigation_animation.start()
+
+        self.btn_pos_animation = QPropertyAnimation(self.btn_activate, b'pos')
+        self.btn_pos_animation.setStartValue(QPoint(63, 408))
+        self.btn_pos_animation.setDuration(500)
+        self.btn_pos_animation.setEndValue(QPoint(130, 408))
+        self.btn_pos_animation.setEasingCurve(QEasingCurve.Type.InOutExpo)
+        self.btn_pos_animation.start()
+
+        # ///////////////////////////////////////////////////////////////////////
+        self.btn_activate.clicked.connect(self.saveImage)
+        self.lbl_camera.mouseReleaseEvent = self.saveImage
+        self.stackedWidget.slideInIdx(2)
+        QTimer().singleShot(500, lambda: self.timer.start(100))
+
+    def updateImage(self):
+        # Read the frame from the video capture object
+        ret, frame = self.cap.read()
+
+        # Convert the frame to QImage
+        height, width, channels = frame.shape
+        bytes_per_line = channels * width
+        qimg = QImage(frame.data, width, height, bytes_per_line, QImage.Format_RGB888).rgbSwapped()
+
+        # Convert the QImage to QPixmap
+        pixmap = QPixmap.fromImage(qimg)
+
+        # Set the pixmap to the label
+        self.lbl_camera.setPixmap(pixmap)
+
+    def saveImage(self, event):
+        # Get the current frame
+        ret, frame = self.cap.read()
+
+        # Convert the frame to QImage
+        height, width, channels = frame.shape
+        bytes_per_line = channels * width
+        qimg = QImage(frame.data, width, height, bytes_per_line, QImage.Format_RGB888)
+
+        # Convert the QImage to a bytes object
+        qimg.save("photo.png")
+        print("foto")
+
+
+
+    # /////////////////////////////////////////////////////
+    def stacked_Widget_enter_event(self, event):
+        self.can_close = False
+
+    def stacked_Widget_leave_event(self, event):
+        self.can_close = True
+
+    def close_window_pressed_frame_style(self, event):
+        if self.can_close:
+            self.close()
+
+    def mouse_press_event_menu_image(self, event: QMouseEvent):
+        if event.buttons() == Qt.LeftButton:
+            self.addImage()
+
+        if event.buttons() == Qt.RightButton:
+            self.menu = Menu(self.page_foto)
+            self.menu.move(event.position().x() - 50, event.position().y() + 20)
+
+            self.menu.add.clicked.connect(self.addImage)
+            self.menu.deletar.clicked.connect(self.closeImage)
+            self.menu.rembg.clicked.connect(self.startBackgroundTask)
+            self.menu.rotate.clicked.connect(self.startBackgroundTask)
+            self.menu.foto.clicked.connect(self.makePhoto)
+
+            self.menu.showMethod()
+
+
+
+
+    # MONTAGEM DO WIDGET
+    # /////////////////////////////////////////////////////
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
@@ -103,8 +309,8 @@ class PyProductRegistration(QWidget):
         self.frame_style = QFrame(Form)
         self.frame_style.setObjectName(u"frame_style")
         self.frame_style.setStyleSheet(u"#frame_style{\n"
-                                        "   border-radius: 10px;\n"
-                                        "   background-color: rgba(19, 20, 22, 50);}\n"
+                                       "   border-radius: 10px;\n"
+                                       "   background-color: rgba(19, 20, 22, 50);}\n"
                                        "QStackedWidget, #btn_calendario, #icon_tag{\n"
                                        "	background-color: transparent;}\n"
                                        "\n"
@@ -174,8 +380,8 @@ class PyProductRegistration(QWidget):
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.frame_central = QFrame(self.frame_style)
         self.frame_central.setObjectName(u"frame_central")
-        self.frame_central.setMinimumSize(QSize(296, 452))
-        self.frame_central.setMaximumSize(QSize(296, 452))
+        self.frame_central.setMinimumSize(QSize(296, 464))
+        self.frame_central.setMaximumSize(QSize(296, 464))
         self.frame_central.setFrameShape(QFrame.StyledPanel)
         self.frame_central.setFrameShadow(QFrame.Raised)
         self.verticalLayout_6 = QVBoxLayout(self.frame_central)
@@ -207,30 +413,37 @@ class PyProductRegistration(QWidget):
                                     "border: 1px solid rgb(255, 255, 255)")
         self.icon_img.setIcon(icon)
         self.icon_img.setIconSize(QSize(18, 18))
-        self.frame_segmented_nave = QFrame(self.page_foto)
-        self.frame_segmented_nave.setObjectName(u"frame_nave_bar_2")
-        self.frame_segmented_nave.setGeometry(QRect(60, 390, 182, 47))
-        self.frame_segmented_nave.setMinimumSize(QSize(100, 30))
-        self.frame_segmented_nave.setMaximumSize(QSize(1234578, 16777215))
-        self.frame_segmented_nave.setStyleSheet(u"QFrame{background-color: rgb(19, 20, 22);}\n"
-                                            "QPushButton{\n"
-                                            "background-color: rgb(19, 20, 22);\n"
-                                            "color: rgb(233, 234, 236);}\n"
-                                            "\n"
-                                            "QPushButton:hover{background-color: rgb(39, 40, 45);}\n"
-                                            "\n"
-                                            "QPushButton:pressed{background-color: rgb(35, 36, 41);}")
-        self.frame_segmented_nave.setFrameShape(QFrame.StyledPanel)
-        self.frame_segmented_nave.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_3 = QHBoxLayout(self.frame_segmented_nave)
+        self.frame_segmented_nav = QFrame(self.frame_central)
+        self.frame_segmented_nav.setObjectName(u"frame_segmented_nav")
+        self.frame_segmented_nav.setGeometry(QRect(60, 405, 182, 47))
+        self.frame_segmented_nav.setMinimumSize(QSize(100, 30))
+        self.frame_segmented_nav.setMaximumSize(QSize(1234578, 16777215))
+        self.frame_segmented_nav.setStyleSheet(u"QFrame{background-color: rgb(19, 20, 22);"
+                                                "border-radius: 10px}\n"
+                                                "QPushButton{\n"
+                                                "border-radius: 10px;\n"
+                                                "background-color: rgb(19, 20, 22);\n"
+                                                "color: rgb(233, 234, 236);}\n"
+                                                "\n"
+                                                "QPushButton:hover{background-color: rgb(39, 40, 45);}\n"
+                                                "\n"
+                                                "QPushButton:pressed{background-color: rgb(35, 36, 41);}")
+        self.frame_segmented_nav.setFrameShape(QFrame.StyledPanel)
+        self.frame_segmented_nav.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_3 = QHBoxLayout(self.frame_segmented_nav)
         self.horizontalLayout_3.setSpacing(5)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.horizontalLayout_3.setContentsMargins(4, 0, 5, 0)
-        self.btn_nav_camera = QPushButton(self.frame_segmented_nave)
+        self.btn_nav_camera = QPushButton(self.frame_segmented_nav)
         self.btn_nav_camera.setObjectName(u"btn_nav_camera")
         self.btn_nav_camera.setMinimumSize(QSize(40, 40))
         self.btn_nav_camera.setMaximumSize(QSize(40, 40))
-        self.btn_nav_camera.setStyleSheet(u"")
+        self.btn_nav_camera.setStyleSheet("""
+        QPushButton{
+                background-color: rgb(19, 20, 22);
+                color: rgb(233, 234, 236);}
+        QPushButton:hover{background-color: rgb(39, 40, 45);}
+        QPushButton:pressed{background-color: rgb(35, 36, 41);}""")
         icon1 = QIcon()
         icon1.addFile(ImagePath().set_svg_icon("icon_camera.svg"))
         self.btn_nav_camera.setIcon(icon1)
@@ -238,7 +451,7 @@ class PyProductRegistration(QWidget):
 
         self.horizontalLayout_3.addWidget(self.btn_nav_camera)
 
-        self.btn_nav_key = QPushButton(self.frame_segmented_nave)
+        self.btn_nav_key = QPushButton(self.frame_segmented_nav)
         self.btn_nav_key.setObjectName(u"btn_nav_key")
         self.btn_nav_key.setMinimumSize(QSize(40, 40))
         self.btn_nav_key.setMaximumSize(QSize(40, 40))
@@ -249,7 +462,7 @@ class PyProductRegistration(QWidget):
 
         self.horizontalLayout_3.addWidget(self.btn_nav_key)
 
-        self.btn_nav_edit = QPushButton(self.frame_segmented_nave)
+        self.btn_nav_edit = QPushButton(self.frame_segmented_nav)
         self.btn_nav_edit.setObjectName(u"btn_nav_edit")
         self.btn_nav_edit.setMinimumSize(QSize(40, 40))
         self.btn_nav_edit.setMaximumSize(QSize(40, 40))
@@ -260,24 +473,25 @@ class PyProductRegistration(QWidget):
 
         self.horizontalLayout_3.addWidget(self.btn_nav_edit)
 
-        self.btn_nav_info = QPushButton(self.frame_segmented_nave)
-        self.btn_nav_info.setObjectName(u"btn_nav_info")
-        self.btn_nav_info.setMinimumSize(QSize(40, 40))
-        self.btn_nav_info.setMaximumSize(QSize(40, 40))
+        self.btn_nav_setting = QPushButton(self.frame_segmented_nav)
+        self.btn_nav_setting.setObjectName(u"btn_nav_setting")
+        self.btn_nav_setting.setMinimumSize(QSize(40, 40))
+        self.btn_nav_setting.setMaximumSize(QSize(40, 40))
         icon4 = QIcon()
-        icon4.addFile(ImagePath().set_svg_icon("icon_info_2.svg"))
-        self.btn_nav_info.setIcon(icon4)
-        self.btn_nav_info.setIconSize(QSize(28, 28))
+        icon4.addFile(ImagePath().set_svg_icon("icon_setting.svg"))
+        self.btn_nav_setting.setIcon(icon4)
+        self.btn_nav_setting.setIconSize(QSize(28, 28))
 
-        self.horizontalLayout_3.addWidget(self.btn_nav_info)
+        self.horizontalLayout_3.addWidget(self.btn_nav_setting)
 
-        self.btn_activate = QPushButton(self.page_foto)
+        self.btn_activate = QPushButton(self.frame_central)
         self.btn_activate.setObjectName(u"btn_activate")
-        self.btn_activate.setGeometry(QRect(60, 340, 40, 40))
+        self.btn_activate.setGeometry(QRect(63, 408, 40, 40))
         self.btn_activate.setMinimumSize(QSize(40, 40))
         self.btn_activate.setMaximumSize(QSize(40, 40))
         self.btn_activate.setStyleSheet(u"QPushButton{\n"
                                         "background-color: rgb(47, 54, 100);\n"
+                                        "border-radius: 10px;\n"
                                         "color: rgb(233, 234, 236);}\n"
                                         "\n"
                                         "QPushButton:hover{background-color: rgb(50, 57, 106);}\n"
@@ -289,12 +503,12 @@ class PyProductRegistration(QWidget):
         self.stackedWidget.addWidget(self.page_foto)
         self.page_3 = QWidget()
         self.page_3.setObjectName(u"page_3")
-        self.frame_nave_bar = QFrame(self.page_3)
-        self.frame_nave_bar.setObjectName(u"frame_nave_bar")
-        self.frame_nave_bar.setGeometry(QRect(10, 10, 278, 45))
-        self.frame_nave_bar.setMinimumSize(QSize(0, 33))
-        self.frame_nave_bar.setMaximumSize(QSize(1234578, 16777215))
-        self.frame_nave_bar.setStyleSheet(u"QFrame{background-color: rgb(47, 54, 100); border-radius: 7px}\n"
+        self.frame_nav_bar = QFrame(self.page_3)
+        self.frame_nav_bar.setObjectName(u"frame_nave_bar")
+        self.frame_nav_bar.setGeometry(QRect(10, 10, 278, 45))
+        self.frame_nav_bar.setMinimumSize(QSize(0, 33))
+        self.frame_nav_bar.setMaximumSize(QSize(1234578, 16777215))
+        self.frame_nav_bar.setStyleSheet(u"QFrame{background-color: rgb(47, 54, 100); border-radius: 7px}\n"
                                           "\n"
                                           "QPushButton{\n"
                                           "background-color: rgb(19, 20, 22);\n"
@@ -303,13 +517,13 @@ class PyProductRegistration(QWidget):
                                           "QPushButton:hover{background-color: rgb(39, 40, 45);}\n"
                                           "\n"
                                           "QPushButton:pressed{background-color: rgb(35, 36, 41);}")
-        self.frame_nave_bar.setFrameShape(QFrame.StyledPanel)
-        self.frame_nave_bar.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_2 = QHBoxLayout(self.frame_nave_bar)
+        self.frame_nav_bar.setFrameShape(QFrame.StyledPanel)
+        self.frame_nav_bar.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_2 = QHBoxLayout(self.frame_nav_bar)
         self.horizontalLayout_2.setSpacing(6)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.horizontalLayout_2.setContentsMargins(5, 0, 5, 0)
-        self.btn_ok = QPushButton(self.frame_nave_bar)
+        self.btn_ok = QPushButton(self.frame_nav_bar)
         self.btn_ok.setObjectName(u"btn_ok")
         self.btn_ok.setMinimumSize(QSize(10, 33))
         font = QFont()
@@ -322,7 +536,7 @@ class PyProductRegistration(QWidget):
 
         self.horizontalLayout_2.addWidget(self.btn_ok)
 
-        self.btn_scan = QPushButton(self.frame_nave_bar)
+        self.btn_scan = QPushButton(self.frame_nav_bar)
         self.btn_scan.setObjectName(u"btn_scan")
         self.btn_scan.setMinimumSize(QSize(10, 33))
         self.btn_scan.setFont(font)
@@ -333,7 +547,7 @@ class PyProductRegistration(QWidget):
 
         self.horizontalLayout_2.addWidget(self.btn_scan)
 
-        self.btn_add = QPushButton(self.frame_nave_bar)
+        self.btn_add = QPushButton(self.frame_nav_bar)
         self.btn_add.setObjectName(u"btn_add")
         self.btn_add.setMinimumSize(QSize(10, 33))
         self.btn_add.setFont(font)
@@ -344,7 +558,7 @@ class PyProductRegistration(QWidget):
 
         self.horizontalLayout_2.addWidget(self.btn_add)
 
-        self.btn_camera = QPushButton(self.frame_nave_bar)
+        self.btn_camera = QPushButton(self.frame_nav_bar)
         self.btn_camera.setObjectName(u"btn_camera")
         self.btn_camera.setMinimumSize(QSize(10, 33))
         self.btn_camera.setFont(font)
@@ -353,7 +567,7 @@ class PyProductRegistration(QWidget):
 
         self.horizontalLayout_2.addWidget(self.btn_camera)
 
-        self.btn_setting = QPushButton(self.frame_nave_bar)
+        self.btn_setting = QPushButton(self.frame_nav_bar)
         self.btn_setting.setObjectName(u"btn_setting")
         self.btn_setting.setMinimumSize(QSize(10, 33))
         self.btn_setting.setFont(font)
@@ -364,7 +578,7 @@ class PyProductRegistration(QWidget):
 
         self.horizontalLayout_2.addWidget(self.btn_setting)
 
-        self.btn_del = QPushButton(self.frame_nave_bar)
+        self.btn_del = QPushButton(self.frame_nav_bar)
         self.btn_del.setObjectName(u"btn_del")
         self.btn_del.setMinimumSize(QSize(10, 33))
         self.btn_del.setFont(font)
@@ -601,6 +815,13 @@ class PyProductRegistration(QWidget):
 
         self.verticalLayout_6.addWidget(self.stackedWidget)
 
+        self.page_camera = QWidget()
+        self.page_camera.setObjectName(u"page_camera")
+        self.lbl_camera = QLabel(self.page_camera)
+        self.lbl_camera.setObjectName(u"lbl_camera")
+        self.lbl_camera.setGeometry(QRect(5, 5, 286, 454))
+        self.stackedWidget.addWidget(self.page_camera)
+
         self.verticalLayout_2.addWidget(self.frame_central, 0, Qt.AlignHCenter)
 
         self.verticalLayout.addWidget(self.frame_style)
@@ -621,7 +842,7 @@ class PyProductRegistration(QWidget):
         self.btn_nav_camera.setText("")
         self.btn_nav_key.setText("")
         self.btn_nav_edit.setText("")
-        self.btn_nav_info.setText("")
+        self.btn_nav_setting.setText("")
         self.btn_activate.setText("")
         self.btn_ok.setText("")
         self.btn_scan.setText("")
@@ -656,9 +877,312 @@ class PyProductRegistration(QWidget):
     # retranslateUi
 
 
+class Menu(QFrame):
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        self.__setUp__()
+
+    def showMethod(self):
+        self.show()
+
+        self.animation_menu = QPropertyAnimation(self, b'minimumHeight')
+        self.animation_menu.setStartValue(0)
+        self.animation_menu.setDuration(300)
+        self.animation_menu.setEndValue(172)
+        self.animation_menu.setEasingCurve(QEasingCurve.Type.InOutExpo)
+        self.animation_menu.start()
+
+    def leaveEvent(self, event):
+        self.animation_menu_min = QPropertyAnimation(self, b'minimumHeight')
+        self.animation_menu_min.setStartValue(172)
+        self.animation_menu_min.setDuration(400)
+        self.animation_menu_min.setEndValue(0)
+        self.animation_menu_min.setEasingCurve(QEasingCurve.Type.InOutExpo)
+
+        self.animation_menu_max = QPropertyAnimation(self, b'maximumHeight')
+        self.animation_menu_max.setStartValue(172)
+        self.animation_menu_max.setDuration(400)
+        self.animation_menu_max.setEndValue(0)
+        self.animation_menu_max.setEasingCurve(QEasingCurve.Type.InOutExpo)
+
+        self.parallel_animation = QParallelAnimationGroup()
+        self.parallel_animation.addAnimation(self.animation_menu_max)
+        self.parallel_animation.addAnimation(self.animation_menu_min)
+        self.parallel_animation.finished.connect(lambda: self.close())
+        self.parallel_animation.start()
+
+    def __setUp__(self):
+        self.setStyleSheet(u"background-color: rgba(32, 33, 37, 255); border-radius: 10px;")
+        self.setGeometry(0, 0, 127, 0)
+
+        self.verticalLayout_27 = QVBoxLayout(self)
+        self.verticalLayout_27.setSpacing(0)
+        self.verticalLayout_27.setObjectName(u"verticalLayout_27")
+        self.verticalLayout_27.setContentsMargins(2, 2, 2, 2)
+
+        self.frame_line = QFrame(self)
+        self.frame_line.setObjectName(u"frame_line")
+        self.frame_line.setStyleSheet(u"background-color: rgba(64, 80, 170, 255);\n"
+                                      "border-radius: 8px")
+        self.frame_line.setFrameShape(QFrame.StyledPanel)
+        self.frame_line.setFrameShadow(QFrame.Raised)
+
+        self.verticalLayout_28 = QVBoxLayout(self.frame_line)
+        self.verticalLayout_28.setSpacing(0)
+        self.verticalLayout_28.setObjectName(u"verticalLayout_28")
+        self.verticalLayout_28.setContentsMargins(0, 0, 0, 0)
+
+        self.frame_center = QFrame(self.frame_line)
+        self.frame_center.setObjectName(u"frame_center")
+        self.frame_center.setStyleSheet(u"background-color: rgba(32, 33, 37, 190);")
+        self.frame_center.setFrameShape(QFrame.StyledPanel)
+        self.frame_center.setFrameShadow(QFrame.Raised)
+
+        self.verticalLayout_29 = QVBoxLayout(self.frame_center)
+        self.verticalLayout_29.setSpacing(0)
+        self.verticalLayout_29.setObjectName(u"verticalLayout_29")
+        self.verticalLayout_29.setContentsMargins(1, 1, 1, 1)
+
+        self.frame_continer = QFrame(self.frame_center)
+        self.frame_continer.setObjectName(u"frame_continer")
+        self.frame_continer.setMinimumSize(QSize(70, 10))
+        self.frame_continer.setStyleSheet(u"background-color:  rgb(19, 20, 22);\n"
+                                          "border-radius:6px;")
+        self.frame_continer.setFrameShape(QFrame.StyledPanel)
+        self.frame_continer.setFrameShadow(QFrame.Raised)
+
+        self.verticalLayout_30 = QVBoxLayout(self.frame_continer)
+        self.verticalLayout_30.setSpacing(3)
+        self.verticalLayout_30.setObjectName(u"verticalLayout_30")
+        self.verticalLayout_30.setContentsMargins(2, 2, 2, 3)
+
+        self.add = QPushButton(self.frame_continer)
+        self.add.setObjectName(u"add")
+        self.add.setMinimumSize(QSize(0, 25))
+        self.add.setSizeIncrement(QSize(0, 0))
+
+        font1 = QFont()
+        font1.setFamilies([u"Segoe UI Light"])
+        font1.setPointSize(11)
+
+        self.add.setFont(font1)
+        self.add.setCursor(QCursor(Qt.PointingHandCursor))
+        self.add.setStyleSheet(u"QPushButton{\n"
+                               "background-color: rgb(19, 20, 22);\n"
+                               "border-radius: 5px;\n"
+                               "color: rgb(255, 255, 255);\n"
+                               "text-align: left;\n"
+                               "padding-left: 0px;}\n"
+                               "\n"
+                               "QPushButton:hover{background-color: rgb(47, 54, 100)}\n"
+                               "\n"
+                               "QPushButton:pressed{background-color: rgb(33, 38, 70);}")
+        self.add.setIcon(QIcon(ImagePath().set_svg_icon('icon_add.svg')))
+        self.add.setIconSize(QSize(32, 32))
+
+        self.verticalLayout_30.addWidget(self.add)
+
+        self.foto = QPushButton(self.frame_continer)
+        self.foto.setObjectName(u"deletar")
+        self.foto.setMinimumSize(QSize(0, 25))
+        self.foto.setSizeIncrement(QSize(0, 0))
+        self.foto.setFont(font1)
+        self.foto.setCursor(QCursor(Qt.PointingHandCursor))
+        self.foto.setStyleSheet(u"QPushButton{\n"
+                                "background-color: rgb(19, 20, 22);\n"
+                                "border-radius: 5px;\n"
+                                "color: rgb(255, 255, 255);\n"
+                                "text-align: left;\n"
+                                "padding-left: 6px;}\n"
+                                "\n"
+                                "QPushButton:hover{background-color: rgb(47, 54, 100)}\n"
+                                "\n"
+                                "QPushButton:pressed{background-color: rgb(33, 38, 70);}")
+
+        self.foto.setIcon(QIcon(ImagePath().set_svg_icon('icon_camera.svg')))
+        self.foto.setIconSize(QSize(21, 21))
+
+        self.verticalLayout_30.addWidget(self.foto)
+
+        self.rembg = QPushButton(self.frame_continer)
+        self.rembg.setObjectName(u"rembg")
+        self.rembg.setMinimumSize(QSize(0, 25))
+        self.rembg.setSizeIncrement(QSize(0, 0))
+        self.rembg.setFont(font1)
+        self.rembg.setCursor(QCursor(Qt.PointingHandCursor))
+        self.rembg.setStyleSheet(u"QPushButton{\n"
+                                 "background-color: rgb(19, 20, 22);\n"
+                                 "border-radius: 5px;\n"
+                                 "color: rgb(255, 255, 255);\n"
+                                 "text-align: left;\n"
+                                 "padding-left: 6px;}\n"
+                                 "\n"
+                                 "QPushButton:hover{background-color: rgb(47, 54, 100)}\n"
+                                 "\n"
+                                 "QPushButton:pressed{background-color: rgb(33, 38, 70);}")
+
+        self.rembg.setIcon(QIcon(ImagePath().set_svg_icon('icon_gallery_remove.svg')))
+        self.rembg.setIconSize(QSize(20, 20))
+
+        self.verticalLayout_30.addWidget(self.rembg)
+
+        self.rotate = QPushButton(self.frame_continer)
+        self.rotate.setObjectName(u"rotate")
+        self.rotate.setMinimumSize(QSize(0, 25))
+        self.rotate.setSizeIncrement(QSize(0, 0))
+        self.rotate.setFont(font1)
+        self.rotate.setCursor(QCursor(Qt.PointingHandCursor))
+        self.rotate.setStyleSheet(u"QPushButton{\n"
+                                  "background-color: rgb(19, 20, 22);\n"
+                                  "border-radius: 5px;\n"
+                                  "color: rgb(255, 255, 255);\n"
+                                  "text-align: left;\n"
+                                  "padding-left: 7px;}\n"
+                                  "\n"
+                                  "QPushButton:hover{background-color: rgb(47, 54, 100)}\n"
+                                  "\n"
+                                  "QPushButton:pressed{background-color: rgb(33, 38, 70);}")
+
+        self.rotate.setIcon(QIcon(ImagePath().set_svg_icon('icon_rotate.svg')))
+        self.rotate.setIconSize(QSize(18, 18))
+
+        self.verticalLayout_30.addWidget(self.rotate)
+
+        self.resize_img = QPushButton(self.frame_continer)
+        self.resize_img.setObjectName(u"resize_img")
+        self.resize_img.setMinimumSize(QSize(0, 25))
+        self.resize_img.setSizeIncrement(QSize(0, 0))
+        self.resize_img.setFont(font1)
+        self.resize_img.setCursor(QCursor(Qt.PointingHandCursor))
+        self.resize_img.setStyleSheet(u"QPushButton{\n"
+                                      "background-color: rgb(19, 20, 22);\n"
+                                      "border-radius: 5px;\n"
+                                      "color: rgb(255, 255, 255);\n"
+                                      "text-align: left;\n"
+                                      "padding-left: 5px;}\n"
+                                      "\n"
+                                      "QPushButton:hover{background-color: rgb(47, 54, 100)}\n"
+                                      "\n"
+                                      "QPushButton:pressed{background-color: rgb(33, 38, 70);}")
+
+        self.resize_img.setIcon(QIcon(ImagePath().set_svg_icon('icon_size_svgrepo.svg')))
+        self.resize_img.setIconSize(QSize(23, 23))
+
+        self.verticalLayout_30.addWidget(self.resize_img)
+
+        self.deletar = QPushButton(self.frame_continer)
+        self.deletar.setObjectName(u"deletar")
+        self.deletar.setMinimumSize(QSize(0, 25))
+        self.deletar.setSizeIncrement(QSize(0, 0))
+        self.deletar.setFont(font1)
+        self.deletar.setCursor(QCursor(Qt.PointingHandCursor))
+        self.deletar.setStyleSheet(u"QPushButton{\n"
+                                   "background-color: rgb(19, 20, 22);\n"
+                                   "border-radius: 5px;\n"
+                                   "color: rgb(255, 255, 255);\n"
+                                   "text-align: left;\n"
+                                   "padding-left: 5px;}\n"
+                                   "\n"
+                                   "QPushButton:hover{background-color: rgb(47, 54, 100)}\n"
+                                   "\n"
+                                   "QPushButton:pressed{background-color: rgb(33, 38, 70);}")
+
+        self.deletar.setIcon(QIcon(ImagePath().set_svg_icon('icon_delete.svg')))
+        self.deletar.setIconSize(QSize(25, 21))
+
+        self.verticalLayout_30.addWidget(self.deletar)
+
+        self.verticalLayout_29.addWidget(self.frame_continer)
+
+        self.verticalLayout_28.addWidget(self.frame_center)
+
+        self.verticalLayout_27.addWidget(self.frame_line)
+
+        self.add.setText(QCoreApplication.translate("MainWindow", u" Adicionar", None))
+        self.foto.setText(QCoreApplication.translate("MainWindow", u"  Fotografia", None))
+        self.rembg.setText(QCoreApplication.translate("MainWindow", u"  Remover bg", None))
+        self.rotate.setText(QCoreApplication.translate("MainWindow", u"  Rotacionar", None))
+        self.resize_img.setText(QCoreApplication.translate("MainWindow", u" Tamanho", None))
+        self.deletar.setText(QCoreApplication.translate("MainWindow", u"  Deletar", None))
+
+
+# //////////////////////
+
+class WorkerSignals(QObject):
+    '''
+    Defines the signals available from a running worker thread.
+
+    Supported signals are:
+
+    finished
+        No data
+
+    error
+        tuple (exctype, value, traceback.format_exc() )
+
+    result
+        object data returned from processing, anything
+
+    progress
+        int indicating % progress
+
+    '''
+    finished = Signal()
+    error = Signal(tuple)
+    result = Signal(object)
+    progress = Signal(int)
+
+
+class Worker(QRunnable):
+    '''
+    Worker thread
+
+    Inherits from QRunnable to handler worker thread setup, signals and wrap-up.
+
+    :param callback: The function callback to run on this worker thread. Supplied args and
+                     kwargs will be passed through to the runner.
+    :type callback: function
+    :param args: Arguments to pass to the callback function
+    :param kwargs: Keywords to pass to the callback function
+
+    '''
+
+    def __init__(self, fn, *args, **kwargs):
+        super(Worker, self).__init__()
+
+        # Store constructor arguments (re-used for processing)
+        self.fn = fn
+        self.args = args
+        self.kwargs = kwargs
+        self.signals = WorkerSignals()
+
+        # Add the callback to our kwargs
+        self.kwargs['progress_callback'] = self.signals.progress
+
+    @Slot()
+    def run(self):
+        '''
+        Initialise the runner function with passed args, kwargs.
+        '''
+
+        # Retrieve args/kwargs here; and fire processing using them
+        try:
+            result = self.fn()
+        except:
+            traceback.print_exc()
+            exctype, value = sys.exc_info()[:2]
+            self.signals.error.emit((exctype, value, traceback.format_exc()))
+        else:
+            self.signals.result.emit(result)  # Return the result of the processing
+        finally:
+            self.signals.finished.emit()  # Done
+
 
 if __name__ == '__main__':
     import sys
+
     app = QApplication([])
     window = PyProductRegistration()
     window.show()
