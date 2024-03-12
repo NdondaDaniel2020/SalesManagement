@@ -37,7 +37,7 @@ class PyProductRegistration(QWidget):
 
         # ////////////////////////////////////////////////////////////////
         self.thread_pool = QThreadPool()
-        self.cap = cv2.VideoCapture(0)  # 'http://192.168.0.120:8080/video'
+        self.cap = cv2.VideoCapture(0)  #'http://192.168.0.120:8080/video'
 
         # Create a QTimer to update the image every 100ms
         self.timer = QTimer()
@@ -59,9 +59,11 @@ class PyProductRegistration(QWidget):
         self.btn_del.clicked.connect(self.close)
 
         self.btn_nav_key.clicked.connect(self.changePosition)
-        self.btn_nav_setting.clicked.connect(self.changePosition)
         self.btn_nav_edit.clicked.connect(self.changePosition)
         self.btn_nav_camera.clicked.connect(self.changePosition)
+        self.btn_nav_setting.clicked.connect(self.changePosition)
+
+        self.btn_foto_back.clicked.connect(self.backToMainPage)
 
     # VALIDAÇÃO E CÓDIGO DO PAINEL
     # /////////////////////////////////////////////////////
@@ -203,6 +205,75 @@ class PyProductRegistration(QWidget):
             # Execute
             self.thread_pool.start(worker)
 
+
+    def backToMainPage(self):
+        ### ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        self.group_sequential_animation = QSequentialAnimationGroup()
+
+        ## ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        self.group_animation_pos = QParallelAnimationGroup()
+        self.group_animation_pos.finished.connect(lambda: self.btn_nav_key.show())
+        self.group_animation_pos.finished.connect(lambda: self.btn_nav_setting.show())
+        self.group_animation_pos.finished.connect(lambda: self.btn_nav_edit.show())
+
+        # /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        self.segmented_navigation_animation = QPropertyAnimation(self.frame_segmented_nav, b'pos')
+        self.segmented_navigation_animation.setStartValue(QPoint(127, 405))
+        self.segmented_navigation_animation.setDuration(500)
+        self.segmented_navigation_animation.setEndValue(QPoint(60, 405))
+        self.segmented_navigation_animation.setEasingCurve(QEasingCurve.Type.InOutExpo)
+
+        ## ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        self.group_animation_pos.addAnimation(self.segmented_navigation_animation)
+
+        # ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        self.btn_pos_animation = QPropertyAnimation(self.btn_activate, b'pos')
+        self.btn_pos_animation.setStartValue(QPoint(130, 408))
+        self.btn_pos_animation.setDuration(500)
+        self.btn_pos_animation.setEndValue(QPoint(63, 408))
+        self.btn_pos_animation.setEasingCurve(QEasingCurve.Type.InOutExpo)
+        self.group_animation_pos.addAnimation(self.btn_pos_animation)
+
+        ### ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        self.group_sequential_animation.addAnimation(self.group_animation_pos)
+
+        ## ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        self.group_animation_width = QParallelAnimationGroup()
+
+        # /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        self.segmented_navigation_animation2 = QPropertyAnimation(self.frame_segmented_nav, b'minimumWidth')
+        self.segmented_navigation_animation2.setStartValue(47)
+        self.segmented_navigation_animation2.setDuration(500)
+        self.segmented_navigation_animation2.setEndValue(182)
+        self.segmented_navigation_animation2.setEasingCurve(QEasingCurve.Type.InOutExpo)
+
+        ## ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        self.group_animation_width.addAnimation(self.segmented_navigation_animation2)
+
+        # /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        self.segmented_navigation_animation2 = QPropertyAnimation(self.frame_segmented_nav, b'maximumWidth')
+        self.segmented_navigation_animation2.setStartValue(47)
+        self.segmented_navigation_animation2.setDuration(500)
+        self.segmented_navigation_animation2.setEndValue(182)
+        self.segmented_navigation_animation2.setEasingCurve(QEasingCurve.Type.InOutExpo)
+
+        ## ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        self.group_animation_width.addAnimation(self.segmented_navigation_animation2)
+
+        ### ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        self.group_sequential_animation.addAnimation(self.group_animation_width)
+
+        ### ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        self.group_sequential_animation.start()
+        self.stackedWidget.slideInIdx(0)
+        self.timer.stop()
+        print(self.cap.isOpened())
+        if self.cap.isOpened():
+            self.cap.release()
+        self.lbl_camera.setPixmap(QPixmap())
+
+
+
     def makePhoto(self):
         # ///////////////////////////////////////////////////////////
         self.btn_nav_key.hide()
@@ -210,7 +281,7 @@ class PyProductRegistration(QWidget):
         self.btn_nav_edit.hide()
 
         # ///////////////////////////////////////////////////////////
-        self.frame_segmented_nav.setGeometry(60, 405, 47, 47)
+        # self.frame_segmented_nav.setGeometry(60, 405, 47, 47)
         self.frame_segmented_nav.setMinimumSize(47, 47)
         self.frame_segmented_nav.setMaximumSize(47, 47)
 
@@ -233,22 +304,36 @@ class PyProductRegistration(QWidget):
         self.btn_activate.clicked.connect(self.saveImage)
         self.lbl_camera.mouseReleaseEvent = self.saveImage
         self.stackedWidget.slideInIdx(2)
+        if self.cap.isOpened():
+            QTimer().singleShot(500, lambda: self.startRecording())  # 'http://192.168.0.120:8080/video'
         QTimer().singleShot(500, lambda: self.timer.start(100))
+
+    def startRecording(self):
+        self.cap = cv2.VideoCapture(0)
 
     def updateImage(self):
         # Read the frame from the video capture object
         ret, frame = self.cap.read()
 
         # Convert the frame to QImage
-        height, width, channels = frame.shape
-        bytes_per_line = channels * width
-        qimg = QImage(frame.data, width, height, bytes_per_line, QImage.Format_RGB888).rgbSwapped()
+        try:
+            height, width, channels = frame.shape
+            bytes_per_line = channels * width
+            qimg = QImage(frame.data, width, height, bytes_per_line, QImage.Format_RGB888).rgbSwapped()
 
-        # Convert the QImage to QPixmap
-        pixmap = QPixmap.fromImage(qimg)
+            # centralizando 286
+            rest = 0
+            if width > self.lbl_camera.width():
+                rest = (width - self.lbl_camera.width()) / 2
+                width = width - rest
 
-        # Set the pixmap to the label
-        self.lbl_camera.setPixmap(pixmap)
+            # Convert the QImage to QPixmap
+            pixmap = QPixmap.fromImage(qimg.copy(rest, 0, width, height))
+
+            # Set the pixmap to the label
+            self.lbl_camera.setPixmap(pixmap)
+        except:
+            pass
 
     def saveImage(self, event):
         # Get the current frame
@@ -257,13 +342,27 @@ class PyProductRegistration(QWidget):
         # Convert the frame to QImage
         height, width, channels = frame.shape
         bytes_per_line = channels * width
-        qimg = QImage(frame.data, width, height, bytes_per_line, QImage.Format_RGB888)
+        qimg = QImage(frame.data, width, height, bytes_per_line, QImage.Format_RGB888).rgbSwapped()
 
         # Convert the QImage to a bytes object
-        qimg.save("photo.png")
+        qimg.save("photo1.png")
+
+        self.file_path = "photo1.png"
+
+        if self.file_path:
+            icon = QIcon()
+            icon.addFile(self.file_path)
+
+            self.image.setIconSize(QSize(250, 250))
+            self.icon_img.setIconSize(QSize(30, 30))
+
+            self.image.setIcon(icon)
+            self.icon_img.setIcon(icon)
+
         print("foto")
 
-
+        #### levar a imagem na principal
+        #### salvar o caminho da img na bd
 
     # /////////////////////////////////////////////////////
     def stacked_Widget_enter_event(self, event):
@@ -285,15 +384,12 @@ class PyProductRegistration(QWidget):
             self.menu.move(event.position().x() - 50, event.position().y() + 20)
 
             self.menu.add.clicked.connect(self.addImage)
+            self.menu.foto.clicked.connect(self.makePhoto)
             self.menu.deletar.clicked.connect(self.closeImage)
             self.menu.rembg.clicked.connect(self.startBackgroundTask)
             self.menu.rotate.clicked.connect(self.startBackgroundTask)
-            self.menu.foto.clicked.connect(self.makePhoto)
 
             self.menu.showMethod()
-
-
-
 
     # MONTAGEM DO WIDGET
     # /////////////////////////////////////////////////////
@@ -419,15 +515,15 @@ class PyProductRegistration(QWidget):
         self.frame_segmented_nav.setMinimumSize(QSize(100, 30))
         self.frame_segmented_nav.setMaximumSize(QSize(1234578, 16777215))
         self.frame_segmented_nav.setStyleSheet(u"QFrame{background-color: rgb(19, 20, 22);"
-                                                "border-radius: 10px}\n"
-                                                "QPushButton{\n"
-                                                "border-radius: 10px;\n"
-                                                "background-color: rgb(19, 20, 22);\n"
-                                                "color: rgb(233, 234, 236);}\n"
-                                                "\n"
-                                                "QPushButton:hover{background-color: rgb(39, 40, 45);}\n"
-                                                "\n"
-                                                "QPushButton:pressed{background-color: rgb(35, 36, 41);}")
+                                               "border-radius: 10px}\n"
+                                               "QPushButton{\n"
+                                               "border-radius: 10px;\n"
+                                               "background-color: rgb(19, 20, 22);\n"
+                                               "color: rgb(233, 234, 236);}\n"
+                                               "\n"
+                                               "QPushButton:hover{background-color: rgb(39, 40, 45);}\n"
+                                               "\n"
+                                               "QPushButton:pressed{background-color: rgb(35, 36, 41);}")
         self.frame_segmented_nav.setFrameShape(QFrame.StyledPanel)
         self.frame_segmented_nav.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_3 = QHBoxLayout(self.frame_segmented_nav)
@@ -509,14 +605,14 @@ class PyProductRegistration(QWidget):
         self.frame_nav_bar.setMinimumSize(QSize(0, 33))
         self.frame_nav_bar.setMaximumSize(QSize(1234578, 16777215))
         self.frame_nav_bar.setStyleSheet(u"QFrame{background-color: rgb(47, 54, 100); border-radius: 7px}\n"
-                                          "\n"
-                                          "QPushButton{\n"
-                                          "background-color: rgb(19, 20, 22);\n"
-                                          "color: rgb(233, 234, 236);}\n"
-                                          "\n"
-                                          "QPushButton:hover{background-color: rgb(39, 40, 45);}\n"
-                                          "\n"
-                                          "QPushButton:pressed{background-color: rgb(35, 36, 41);}")
+                                         "\n"
+                                         "QPushButton{\n"
+                                         "background-color: rgb(19, 20, 22);\n"
+                                         "color: rgb(233, 234, 236);}\n"
+                                         "\n"
+                                         "QPushButton:hover{background-color: rgb(39, 40, 45);}\n"
+                                         "\n"
+                                         "QPushButton:pressed{background-color: rgb(35, 36, 41);}")
         self.frame_nav_bar.setFrameShape(QFrame.StyledPanel)
         self.frame_nav_bar.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_2 = QHBoxLayout(self.frame_nav_bar)
@@ -820,13 +916,27 @@ class PyProductRegistration(QWidget):
         self.lbl_camera = QLabel(self.page_camera)
         self.lbl_camera.setObjectName(u"lbl_camera")
         self.lbl_camera.setGeometry(QRect(5, 5, 286, 454))
+
+        self.btn_foto_back = QPushButton(self.page_camera)
+        self.btn_foto_back.setObjectName(u"btn_foto_back")
+        self.btn_foto_back.setGeometry(QRect(5, 5, 40, 40))
+        self.btn_foto_back.setMinimumSize(QSize(40, 40))
+        self.btn_foto_back.setMaximumSize(QSize(40, 40))
+        self.btn_foto_back.setStyleSheet("""QPushButton{
+                                            background-color: rgba(19, 20, 22, 0);
+                                            color: rgb(233, 234, 236);}
+                                            QPushButton:hover{background-color: rgba(39, 40, 45, 40);}
+                                            QPushButton:pressed{background-color: rgba(35, 36, 41, 20);}""")
+        icon12 = QIcon()
+        icon12.addFile(ImagePath().set_svg_icon('icon_back.svg'))
+        self.btn_foto_back.setIcon(icon12)
+        self.btn_foto_back.setIconSize(QSize(27, 27))
+
         self.stackedWidget.addWidget(self.page_camera)
 
         self.verticalLayout_2.addWidget(self.frame_central, 0, Qt.AlignHCenter)
 
         self.verticalLayout.addWidget(self.frame_style)
-
-        self.retranslateUi(Form)
 
         self.stackedWidget.setCurrentIndex(0)
         self.stackedWidget_2.setCurrentIndex(0)
@@ -834,47 +944,6 @@ class PyProductRegistration(QWidget):
 
         QMetaObject.connectSlotsByName(Form)
         # setupUi
-
-    def retranslateUi(self, Form):
-        Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
-        self.image.setText("")
-        self.icon_img.setText("")
-        self.btn_nav_camera.setText("")
-        self.btn_nav_key.setText("")
-        self.btn_nav_edit.setText("")
-        self.btn_nav_setting.setText("")
-        self.btn_activate.setText("")
-        self.btn_ok.setText("")
-        self.btn_scan.setText("")
-        self.btn_add.setText("")
-        self.btn_camera.setText("")
-        self.btn_setting.setText("")
-        self.btn_del.setText("")
-        self.lineEdit_quantidade.setPlaceholderText(QCoreApplication.translate("Form", u"Quantidade", None))
-        self.lineEdit_quantidade_reserva.setPlaceholderText(
-            QCoreApplication.translate("Form", u"Quantidade Reserva", None))
-        self.lineEdit_chave.setPlaceholderText(QCoreApplication.translate("Form", u"Chave", None))
-        self.btn_chave_qrcode.setText("")
-        self.lineEdit_unidade.setPlaceholderText(QCoreApplication.translate("Form", u"Unidade", None))
-        self.combo_box_categoria.setItemText(0, QCoreApplication.translate("Form", u"New Item", None))
-        self.combo_box_categoria.setItemText(1, QCoreApplication.translate("Form", u"New Item", None))
-        self.combo_box_categoria.setItemText(2, QCoreApplication.translate("Form", u"New Item", None))
-
-        self.combo_box_categoria.setCurrentText("")
-        self.combo_box_categoria.setPlaceholderText(QCoreApplication.translate("Form", u"Categoria", None))
-        self.lineEdit_nome_produto.setPlaceholderText(QCoreApplication.translate("Form", u"Nome do produto", None))
-        self.lineEdit_preco_compra.setPlaceholderText(QCoreApplication.translate("Form", u"Pre\u00e7o de compra", None))
-        self.lineEdit_preco_venda.setPlaceholderText(QCoreApplication.translate("Form", u"Pre\u00e7o de venda", None))
-        self.lbl_tag.setText(QCoreApplication.translate("Form", u"Pre\u00e7os adicional de venda(opcional)", None))
-        self.btn_add_preco.setText("")
-        self.icon_tag.setText("")
-        self.lbl_calendario.setText(
-            QCoreApplication.translate("Form", u"Data de expira\u00e7\u00e3o do produto(opcional)", None))
-        self.btn_add_data.setText("")
-        self.btn_calendario.setText("")
-        self.informacoes_adicionais.setPlaceholderText(
-            QCoreApplication.translate("Form", u"Informa\u00e7\u00f5es adicionais sobre o produto (opcional)", None))
-    # retranslateUi
 
 
 class Menu(QFrame):
@@ -1107,8 +1176,6 @@ class Menu(QFrame):
         self.resize_img.setText(QCoreApplication.translate("MainWindow", u" Tamanho", None))
         self.deletar.setText(QCoreApplication.translate("MainWindow", u"  Deletar", None))
 
-
-# //////////////////////
 
 class WorkerSignals(QObject):
     '''
