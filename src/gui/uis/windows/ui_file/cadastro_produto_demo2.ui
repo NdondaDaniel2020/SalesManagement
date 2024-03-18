@@ -164,7 +164,7 @@ color: rgb(233, 234, 236);}
             <string notr="true"/>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>2</number>
            </property>
            <widget class="QWidget" name="page_foto">
             <widget class="QPushButton" name="image">
@@ -456,10 +456,10 @@ QPushButton:pressed{background-color: rgb(48, 55, 102);}
             <widget class="QLabel" name="lbl_camera">
              <property name="geometry">
               <rect>
-               <x>10</x>
-               <y>10</y>
-               <width>280</width>
-               <height>400</height>
+               <x>5</x>
+               <y>5</y>
+               <width>286</width>
+               <height>454</height>
               </rect>
              </property>
              <property name="text">
@@ -913,7 +913,7 @@ QPushButton:pressed{background-color: rgb(35, 36, 41);}</string>
                  </widget>
                 </item>
                 <item>
-                 <widget class="PyEditableComboBox" name="combo_box_categoria">
+                 <widget class="QComboBox" name="combo_box_categoria">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -1030,9 +1030,9 @@ QComboBox QAbstractItemView {
                <property name="geometry">
                 <rect>
                  <x>10</x>
-                 <y>100</y>
+                 <y>240</y>
                  <width>272</width>
-                 <height>160</height>
+                 <height>91</height>
                 </rect>
                </property>
                <property name="frameShape">
@@ -1042,27 +1042,6 @@ QComboBox QAbstractItemView {
                 <enum>QFrame::Raised</enum>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_8">
-                <item>
-                 <widget class="QLineEdit" name="lineEdit_unidade_2">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>37</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>10</pointsize>
-                   </font>
-                  </property>
-                  <property name="placeholderText">
-                   <string>Unidade</string>
-                  </property>
-                  <property name="clearButtonEnabled">
-                   <bool>false</bool>
-                  </property>
-                 </widget>
-                </item>
                 <item>
                  <widget class="PyEditableComboBox" name="combo_box_categoria_2">
                   <property name="minimumSize">
@@ -1179,7 +1158,7 @@ QComboBox QAbstractItemView {
                <property name="geometry">
                 <rect>
                  <x>10</x>
-                 <y>260</y>
+                 <y>300</y>
                  <width>272</width>
                  <height>55</height>
                 </rect>
@@ -1238,11 +1217,15 @@ QComboBox QAbstractItemView {
               <widget class="QFrame" name="frame_chave_qrcode_2">
                <property name="geometry">
                 <rect>
-                 <x>10</x>
+                 <x>20</x>
                  <y>20</y>
-                 <width>272</width>
-                 <height>55</height>
+                 <width>261</width>
+                 <height>57</height>
                 </rect>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(32, 33, 37);
+border-radius:7px;</string>
                </property>
                <property name="frameShape">
                 <enum>QFrame::StyledPanel</enum>
@@ -1252,20 +1235,12 @@ QComboBox QAbstractItemView {
                </property>
                <layout class="QHBoxLayout" name="horizontalLayout_12">
                 <item>
-                 <widget class="QLineEdit" name="lineEdit_chave_2">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>37</height>
-                   </size>
+                 <widget class="QCheckBox" name="checkBox">
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(255, 255, 255);</string>
                   </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>10</pointsize>
-                   </font>
-                  </property>
-                  <property name="placeholderText">
-                   <string>Chave</string>
+                  <property name="text">
+                   <string>CheckBox</string>
                   </property>
                  </widget>
                 </item>
@@ -1304,8 +1279,40 @@ border: 1px solid rgb(255, 255, 255)</string>
                   </property>
                  </widget>
                 </item>
+               </layout>
+              </widget>
+              <widget class="QFrame" name="frame_chave_qrcode_3">
+               <property name="geometry">
+                <rect>
+                 <x>20</x>
+                 <y>90</y>
+                 <width>261</width>
+                 <height>57</height>
+                </rect>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(32, 33, 37);
+border-radius:7px;</string>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <layout class="QHBoxLayout" name="horizontalLayout_16">
                 <item>
-                 <widget class="QPushButton" name="btn_chave_qrcode_2">
+                 <widget class="QLabel" name="label_2">
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(255, 255, 255);</string>
+                  </property>
+                  <property name="text">
+                   <string>C:\Users\Daniel\Videos\cartão vagner\Music</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="icon_img_3">
                   <property name="minimumSize">
                    <size>
                     <width>37</width>
@@ -1318,17 +1325,134 @@ border: 1px solid rgb(255, 255, 255)</string>
                     <height>37</height>
                    </size>
                   </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(32, 33, 37);
+border-radius:7px;
+color: #ffffff;
+border: 1px solid rgb(255, 255, 255)</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
                   <property name="icon">
                    <iconset>
-                    <normaloff>../../../images/svg_icons/icon_qr_code.svg</normaloff>../../../images/svg_icons/icon_qr_code.svg</iconset>
+                    <normaloff>../../../images/svg_icons/icon_gallery.svg</normaloff>../../../images/svg_icons/icon_gallery.svg</iconset>
                   </property>
                   <property name="iconSize">
                    <size>
-                    <width>22</width>
-                    <height>22</height>
+                    <width>18</width>
+                    <height>18</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+              <widget class="QFrame" name="frame_chave_qrcode_4">
+               <property name="geometry">
+                <rect>
+                 <x>20</x>
+                 <y>160</y>
+                 <width>261</width>
+                 <height>57</height>
+                </rect>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(32, 33, 37);
+border-radius:7px;</string>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <layout class="QHBoxLayout" name="horizontalLayout_17">
+                <item>
+                 <widget class="QComboBox" name="comboBox">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>41</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QComboBox , QLineEdit{
+    border: 1px solid rgb(47, 54, 100);
+    border-radius: 5px;
+    padding-left: 5px;
+    padding-right: -187px;
+	color: rgb(133, 133, 136);
+    background-color: rgb(32, 33, 36);
+    text-align: left;
+}
+
+QComboBox:hover {
+	background-color: rgb(30, 31, 34);
+}
+
+QComboBox:pressed , QComboBox:focus{
+    background-color: rgb(37, 39, 42);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.073);
+	color: rgb(133, 133, 136);
+}
+
+QComboBox:disabled {
+	color: rgb(133, 133, 136);
+    background: rgba(249, 249, 249, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+                        
+QComboBox::drop-down {
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	width: 34px; }
+
+QComboBox QAbstractItemView {
+	color: rgb(133, 133, 136);
+	background-color: rgb(23, 24, 26);
+	padding: 10px;
+	selection-background-color: rgb(195, 155, 255);
+	border: 2px solid  rgb(47, 54, 100);
+	border-radius:5px;}</string>
+                  </property>
+                  <property name="placeholderText">
+                   <string>ipwebcam</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="icon_img_4">
+                  <property name="minimumSize">
+                   <size>
+                    <width>37</width>
+                    <height>37</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>37</width>
+                    <height>37</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(32, 33, 37);
+border-radius:7px;
+color: #ffffff;
+border: 1px solid rgb(255, 255, 255)</string>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset>
+                    <normaloff>../../../images/svg_icons/icon_gallery.svg</normaloff>../../../images/svg_icons/icon_gallery.svg</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>18</width>
+                    <height>18</height>
                    </size>
                   </property>
                  </widget>
