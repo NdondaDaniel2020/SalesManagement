@@ -52,7 +52,9 @@ class MainWindow(QMainWindow):
         SetUpMainWindow.configCircularProgress(self)
 
         # /////////////////////////////////////////////////////////////
-        ChartFunctions.inventoryChart(self)
+        ChartFunctions.addInventoryChart(self)
+        ChartFunctions.addBarChartOnHomepage(self)
+        ChartFunctions.addDynamicLineChart(self)
 
         # /////////////////////////////////////////////////////////////
         self._iniLeftMenu_()

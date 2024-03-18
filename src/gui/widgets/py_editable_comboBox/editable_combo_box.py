@@ -20,11 +20,14 @@ class PyEditableComboBox(QComboBox):
                                         background-color: rgb(19, 20, 22)}""")
         self.button.setIcon(icon)
         self.button.clicked.connect(self.__click_button__)
-
+        self.button.setCursor(QCursor(Qt.PointingHandCursor))
 
     def __click_button__(self):
         self.showPopup()
 
+    def mousePressEvent(self, e):
+        self.setEditable(True)
+        self.button.setCursor(QCursor(Qt.PointingHandCursor))
 
     def resizeEvent(self, event):
 
