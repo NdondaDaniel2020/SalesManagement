@@ -36,12 +36,12 @@ class PyProductRegistration(QWidget):
         self.frame_central.setGraphicsEffect(self.shadow_window)
 
         # ////////////////////////////////////////////////////////////////
-        self.thread_pool = QThreadPool()
         self.cap = cv2.VideoCapture(0)  #'http://192.168.0.120:8080/video'
+        self.countAvailableCameras()
 
         # Create a QTimer to update the image every 100ms
         self.timer = QTimer()
-        self.timer.timeout.connect(self.updateImage)
+        self.timer.timeout.connect(self.continuousImageUpdate)
         # ////////////////////////////////////////////////////////////////
         self.can_close = False
         self.first_exe = False
@@ -67,6 +67,17 @@ class PyProductRegistration(QWidget):
 
     # VALIDAÇÃO E CÓDIGO DO PAINEL
     # /////////////////////////////////////////////////////
+    def countAvailableCameras(self):
+        # Inicializa a contagem de câmeras disponíveis
+        contador = 0
+        for i in range(1000):
+            if cv2.VideoCapture(i).read()[0]:
+                contador += 1
+                cv2.VideoCapture(i).release()
+            else:
+                self.combo_box_categoria.addItem(f"{contador-2}")
+                break
+
     def addImage(self):
 
         languege = str(locale.getlocale()[0].lower())
@@ -111,7 +122,7 @@ class PyProductRegistration(QWidget):
         """
         regex_nu = QRegularExpressionValidator(QRegularExpression("^[0-9]*$"), self)
         self.lineEdit_chave.setValidator(regex_nu)
-        self.lineEdit_unidade.setValidator(regex_nu)
+        self.combo_box_unidade.setValidator(regex_nu)
         self.lineEdit_quantidade.setValidator(regex_nu)
         self.lineEdit_preco_venda.setValidator(regex_nu)
         self.lineEdit_preco_compra.setValidator(regex_nu)
@@ -153,58 +164,38 @@ class PyProductRegistration(QWidget):
             try:
                 self.render_file = remove(self.render_file)
                 cv2.imwrite(self.file_path, self.render_file)
-                return True
             except:
-                return False
-
-        return False
+                pass
+            else:
+                self.updateProductImage()
 
     def rotateImage(self):
 
         if not 'icon_gallery' in self.file_path:
-            imagem = cv2.imread(self.file_path)
+            try:
+                imagem = cv2.imread(self.file_path)
 
-            height, width = imagem.shape[:2]
-            center = (height / 2, width / 2)
+                height, width = imagem.shape[:2]
+                center = (height / 2, width / 2)
 
-            rotation_matrix = cv2.getRotationMatrix2D(center, 45, 1.0)
-            rotated_image = cv2.warpAffine(imagem, rotation_matrix, (width, height))
+                rotation_matrix = cv2.getRotationMatrix2D(center, 45, 1.0)
+                rotated_image = cv2.warpAffine(imagem, rotation_matrix, (width, height))
 
-            cv2.imwrite(self.file_path, rotated_image)
-            return True
+                cv2.imwrite(self.file_path, rotated_image)
+            except:
+                pass
+            else:
+                self.updateProductImage()
 
-        return False
+    def updateProductImage(self):
 
-    def updateImage(self, is_true):
+        icon = QIcon(self.file_path)
 
-        if is_true:
-            icon = QIcon(self.file_path)
+        self.image.setIconSize(QSize(250, 250))
+        self.icon_img.setIconSize(QSize(30, 30))
 
-            self.image.setIconSize(QSize(250, 250))
-            self.icon_img.setIconSize(QSize(30, 30))
-
-            self.image.setIcon(icon)
-            self.icon_img.setIcon(icon)
-
-    def startBackgroundTask(self):
-        btn = self.sender()
-
-        worker = None
-
-        if btn.objectName() == 'rembg':
-            worker = Worker(self.removeBackgroundImage)  # Any other args, kwargs are passed to the run function
-
-        elif btn.objectName() == 'rotate':
-            worker = Worker(self.rotateImage)  # Any other args, kwargs are passed to the run function
-
-        if worker:
-            worker.signals.result.connect(lambda is_true: self.updateImage(is_true))
-            # worker.signals.finished.connect(lambda: print("finish"))
-            worker.signals.error.connect(lambda a: print("Error", a))
-
-            # Execute
-            self.thread_pool.start(worker)
-
+        self.image.setIcon(icon)
+        self.icon_img.setIcon(icon)
 
     def backToMainPage(self):
         ### ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -267,12 +258,9 @@ class PyProductRegistration(QWidget):
         self.group_sequential_animation.start()
         self.stackedWidget.slideInIdx(0)
         self.timer.stop()
-        print(self.cap.isOpened())
         if self.cap.isOpened():
             self.cap.release()
         self.lbl_camera.setPixmap(QPixmap())
-
-
 
     def makePhoto(self):
         # ///////////////////////////////////////////////////////////
@@ -304,14 +292,14 @@ class PyProductRegistration(QWidget):
         self.btn_activate.clicked.connect(self.saveImage)
         self.lbl_camera.mouseReleaseEvent = self.saveImage
         self.stackedWidget.slideInIdx(2)
-        if self.cap.isOpened():
-            QTimer().singleShot(500, lambda: self.startRecording())  # 'http://192.168.0.120:8080/video'
-        QTimer().singleShot(500, lambda: self.timer.start(100))
+        if not self.cap.isOpened():
+            QTimer().singleShot(400, lambda: self.startRecording())  # 'http://192.168.0.120:8080/video'
+        QTimer().singleShot(400, lambda: self.timer.start())
 
     def startRecording(self):
         self.cap = cv2.VideoCapture(0)
 
-    def updateImage(self):
+    def continuousImageUpdate(self):
         # Read the frame from the video capture object
         ret, frame = self.cap.read()
 
@@ -321,14 +309,13 @@ class PyProductRegistration(QWidget):
             bytes_per_line = channels * width
             qimg = QImage(frame.data, width, height, bytes_per_line, QImage.Format_RGB888).rgbSwapped()
 
-            # centralizando 286
             rest = 0
             if width > self.lbl_camera.width():
                 rest = (width - self.lbl_camera.width()) / 2
                 width = width - rest
 
             # Convert the QImage to QPixmap
-            pixmap = QPixmap.fromImage(qimg.copy(rest, 0, width, height))
+            pixmap = QPixmap.fromImage(qimg.copy(rest, 0, width - rest, height))
 
             # Set the pixmap to the label
             self.lbl_camera.setPixmap(pixmap)
@@ -344,10 +331,24 @@ class PyProductRegistration(QWidget):
         bytes_per_line = channels * width
         qimg = QImage(frame.data, width, height, bytes_per_line, QImage.Format_RGB888).rgbSwapped()
 
-        # Convert the QImage to a bytes object
-        qimg.save("photo1.png")
+        rest = 0
+        if width > self.lbl_camera.width():
+            rest = (width - self.lbl_camera.width()) / 2
+            width = width - rest
 
-        self.file_path = "photo1.png"
+        # Convert the QImage to QPixmap
+        qimg = QPixmap.fromImage(qimg.copy(rest, 0, width - rest, height))
+
+        # Convert the QImage to a bytes object
+        self.file_path = "photo.JPEG"
+        self.file_path = os.path.abspath(self.file_path)
+        if os.path.exists(self.file_path):
+            for i in range(1, 100_000_000):
+                if not os.path.exists(self.file_path.replace('.', f'{i}.')):
+                    self.file_path = self.file_path.replace('.', f'{i}.')
+                    break
+
+        qimg.save(self.file_path)
 
         if self.file_path:
             icon = QIcon()
@@ -359,9 +360,6 @@ class PyProductRegistration(QWidget):
             self.image.setIcon(icon)
             self.icon_img.setIcon(icon)
 
-        print("foto")
-
-        #### levar a imagem na principal
         #### salvar o caminho da img na bd
 
     # /////////////////////////////////////////////////////
@@ -385,11 +383,11 @@ class PyProductRegistration(QWidget):
 
             self.menu.add.clicked.connect(self.addImage)
             self.menu.foto.clicked.connect(self.makePhoto)
+            self.menu.rotate.clicked.connect(self.rotateImage)
             self.menu.deletar.clicked.connect(self.closeImage)
-            self.menu.rembg.clicked.connect(self.startBackgroundTask)
-            self.menu.rotate.clicked.connect(self.startBackgroundTask)
-
+            self.menu.rembg.clicked.connect(lambda: QTimer().singleShot(700, lambda: self.removeBackgroundImage()))
             self.menu.showMethod()
+
 
     # MONTAGEM DO WIDGET
     # /////////////////////////////////////////////////////
@@ -743,18 +741,14 @@ class PyProductRegistration(QWidget):
         self.frame_continer_prima_info.setFrameShadow(QFrame.Raised)
         self.verticalLayout_7 = QVBoxLayout(self.frame_continer_prima_info)
         self.verticalLayout_7.setObjectName(u"verticalLayout_7")
-        self.lineEdit_unidade = QLineEdit(self.frame_continer_prima_info)
-        self.lineEdit_unidade.setObjectName(u"lineEdit_unidade")
-        self.lineEdit_unidade.setMinimumSize(QSize(0, 37))
-        self.lineEdit_unidade.setFont(font)
-        self.lineEdit_unidade.setClearButtonEnabled(False)
+        self.combo_box_unidade = QComboBox(self.frame_continer_prima_info)
+        self.combo_box_unidade.setObjectName(u"combo_box_unidade")
+        self.combo_box_unidade.setMinimumSize(QSize(0, 37))
+        self.combo_box_unidade.setFont(font)
 
-        self.verticalLayout_7.addWidget(self.lineEdit_unidade)
+        self.verticalLayout_7.addWidget(self.combo_box_unidade)
 
-        self.combo_box_categoria = PyEditableComboBox(self.frame_continer_prima_info)
-        self.combo_box_categoria.addItem("")
-        self.combo_box_categoria.addItem("")
-        self.combo_box_categoria.addItem("")
+        self.combo_box_categoria = QComboBox(self.frame_continer_prima_info)
         self.combo_box_categoria.setObjectName(u"combo_box_categoria")
         self.combo_box_categoria.setMinimumSize(QSize(0, 37))
         self.combo_box_categoria.setFont(font)
@@ -942,8 +936,36 @@ class PyProductRegistration(QWidget):
         self.stackedWidget_2.setCurrentIndex(0)
         self.combo_box_categoria.setCurrentIndex(-1)
 
+        self.retranslateUi(Form)
+
         QMetaObject.connectSlotsByName(Form)
         # setupUi
+
+    def retranslateUi(self, Form):
+        Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
+        self.lineEdit_quantidade.setPlaceholderText(QCoreApplication.translate("Form", u"Quantidade", None))
+        self.lineEdit_quantidade_reserva.setPlaceholderText(
+            QCoreApplication.translate("Form", u"Quantidade Reserva", None))
+        self.lineEdit_chave.setPlaceholderText(QCoreApplication.translate("Form", u"Chave", None))
+        self.combo_box_unidade.setPlaceholderText(QCoreApplication.translate("Form", u"Unidade", None))
+        self.combo_box_categoria.setItemText(0, QCoreApplication.translate("Form", u"New Item", None))
+        self.combo_box_categoria.setItemText(1, QCoreApplication.translate("Form", u"New Item", None))
+        self.combo_box_categoria.setItemText(2, QCoreApplication.translate("Form", u"New Item", None))
+
+        self.combo_box_categoria.setPlaceholderText(QCoreApplication.translate("Form", u"Categoria", None))
+        self.lineEdit_nome_produto.setPlaceholderText(QCoreApplication.translate("Form", u"Nome do produto", None))
+        self.lineEdit_preco_compra.setPlaceholderText(QCoreApplication.translate("Form", u"Pre\u00e7o de compra", None))
+        self.lineEdit_preco_venda.setPlaceholderText(QCoreApplication.translate("Form", u"Pre\u00e7o de venda", None))
+        self.lbl_tag.setText(QCoreApplication.translate("Form", u"Pre\u00e7os adicional de venda(opcional)", None))
+        self.btn_add_preco.setText("")
+        self.icon_tag.setText("")
+        self.lbl_calendario.setText(
+            QCoreApplication.translate("Form", u"Data de expira\u00e7\u00e3o do produto(opcional)", None))
+        self.btn_add_data.setText("")
+        self.btn_calendario.setText("")
+        self.informacoes_adicionais.setPlaceholderText(
+            QCoreApplication.translate("Form", u"Informa\u00e7\u00f5es adicionais sobre o produto (opcional)", None))
+    # retranslateUi
 
 
 class Menu(QFrame):
@@ -1175,77 +1197,6 @@ class Menu(QFrame):
         self.rotate.setText(QCoreApplication.translate("MainWindow", u"  Rotacionar", None))
         self.resize_img.setText(QCoreApplication.translate("MainWindow", u" Tamanho", None))
         self.deletar.setText(QCoreApplication.translate("MainWindow", u"  Deletar", None))
-
-
-class WorkerSignals(QObject):
-    '''
-    Defines the signals available from a running worker thread.
-
-    Supported signals are:
-
-    finished
-        No data
-
-    error
-        tuple (exctype, value, traceback.format_exc() )
-
-    result
-        object data returned from processing, anything
-
-    progress
-        int indicating % progress
-
-    '''
-    finished = Signal()
-    error = Signal(tuple)
-    result = Signal(object)
-    progress = Signal(int)
-
-
-class Worker(QRunnable):
-    '''
-    Worker thread
-
-    Inherits from QRunnable to handler worker thread setup, signals and wrap-up.
-
-    :param callback: The function callback to run on this worker thread. Supplied args and
-                     kwargs will be passed through to the runner.
-    :type callback: function
-    :param args: Arguments to pass to the callback function
-    :param kwargs: Keywords to pass to the callback function
-
-    '''
-
-    def __init__(self, fn, *args, **kwargs):
-        super(Worker, self).__init__()
-
-        # Store constructor arguments (re-used for processing)
-        self.fn = fn
-        self.args = args
-        self.kwargs = kwargs
-        self.signals = WorkerSignals()
-
-        # Add the callback to our kwargs
-        self.kwargs['progress_callback'] = self.signals.progress
-
-    @Slot()
-    def run(self):
-        '''
-        Initialise the runner function with passed args, kwargs.
-        '''
-
-        # Retrieve args/kwargs here; and fire processing using them
-        try:
-            result = self.fn()
-        except:
-            traceback.print_exc()
-            exctype, value = sys.exc_info()[:2]
-            self.signals.error.emit((exctype, value, traceback.format_exc()))
-        else:
-            self.signals.result.emit(result)  # Return the result of the processing
-        finally:
-            self.signals.finished.emit()  # Done
-
 
 if __name__ == '__main__':
     import sys
