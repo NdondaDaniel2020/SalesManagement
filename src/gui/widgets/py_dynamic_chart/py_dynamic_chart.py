@@ -6,7 +6,7 @@ from PySide6.QtCore import Qt, QTimer, Slot
 from PySide6.QtGui import QPen, QColor
 
 
-class Chart(QChart):
+class PyDynamicChart(QChart):
     def __init__(self, parent=None):
         super().__init__(QChart.ChartTypeCartesian, parent, Qt.WindowFlags())
         self._timer = QTimer()
@@ -21,8 +21,8 @@ class Chart(QChart):
         self._timer.timeout.connect(self.handleTimeout)
         self._timer.setInterval(1000)
 
-        green = QPen(QColor(170, 85, 255))
-        green.setWidth(3)
+        green = QPen(QColor(255, 255, 255))
+        green.setWidth(1)
         # green.setColor()
         self._series.setPen(green)
         self._series.append(self._x, self._y)
