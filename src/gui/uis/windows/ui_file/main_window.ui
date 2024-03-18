@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>724</width>
-    <height>568</height>
+    <height>630</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -4130,7 +4130,7 @@ border: 1px solid rgb(255, 255, 255)</string>
                      <widget class="QWidget" name="page_4">
                       <layout class="QVBoxLayout" name="verticalLayout_12">
                        <item>
-                        <widget class="QFrame" name="frame_continer_4">
+                        <widget class="QFrame" name="frame_nav_continer">
                          <property name="minimumSize">
                           <size>
                            <width>0</width>
@@ -4154,7 +4154,7 @@ border: 1px solid rgb(255, 255, 255)</string>
                          </property>
                          <layout class="QHBoxLayout" name="horizontalLayout_21">
                           <item>
-                           <widget class="QFrame" name="frame_61">
+                           <widget class="QFrame" name="frame_inventario">
                             <property name="minimumSize">
                              <size>
                               <width>151</width>
@@ -4181,7 +4181,7 @@ QFrame:hover
                             <property name="frameShadow">
                              <enum>QFrame::Raised</enum>
                             </property>
-                            <widget class="QPushButton" name="pushButton_10">
+                            <widget class="QPushButton" name="btn_logo_inventario">
                              <property name="geometry">
                               <rect>
                                <x>20</x>
@@ -4207,7 +4207,7 @@ QFrame:hover
                               </size>
                              </property>
                             </widget>
-                            <widget class="QLabel" name="label_106">
+                            <widget class="QLabel" name="lbl_inventario">
                              <property name="geometry">
                               <rect>
                                <x>20</x>
@@ -4232,7 +4232,7 @@ background-color: transparent;</string>
                               <string>Inventario</string>
                              </property>
                             </widget>
-                            <widget class="QLabel" name="label_107">
+                            <widget class="QLabel" name="lbl_info_inventario_1">
                              <property name="geometry">
                               <rect>
                                <x>22</x>
@@ -4244,7 +4244,7 @@ background-color: transparent;</string>
                              <property name="font">
                               <font>
                                <family>Segoe UI Light</family>
-                               <pointsize>6</pointsize>
+                               <pointsize>7</pointsize>
                               </font>
                              </property>
                              <property name="styleSheet">
@@ -4253,13 +4253,13 @@ color: rgb(255, 255, 255);
 background-color: transparent</string>
                              </property>
                              <property name="text">
-                              <string>Esse é um prototipo</string>
+                              <string>Gerencie eficientemente </string>
                              </property>
                              <property name="scaledContents">
                               <bool>false</bool>
                              </property>
                             </widget>
-                            <widget class="QPushButton" name="pushButton_11">
+                            <widget class="QPushButton" name="btn_log_extra_inventario">
                              <property name="geometry">
                               <rect>
                                <x>128</x>
@@ -4282,7 +4282,7 @@ background-color: transparent</string>
                               </size>
                              </property>
                             </widget>
-                            <widget class="QLabel" name="label_108">
+                            <widget class="QLabel" name="lbl_info_inventario_2">
                              <property name="geometry">
                               <rect>
                                <x>22</x>
@@ -4294,7 +4294,7 @@ background-color: transparent</string>
                              <property name="font">
                               <font>
                                <family>Segoe UI Light</family>
-                               <pointsize>6</pointsize>
+                               <pointsize>7</pointsize>
                               </font>
                              </property>
                              <property name="styleSheet">
@@ -4303,34 +4303,7 @@ color: rgb(255, 255, 255);
 background-color: transparent</string>
                              </property>
                              <property name="text">
-                              <string>de um home page feito</string>
-                             </property>
-                             <property name="scaledContents">
-                              <bool>false</bool>
-                             </property>
-                            </widget>
-                            <widget class="QLabel" name="label_109">
-                             <property name="geometry">
-                              <rect>
-                               <x>22</x>
-                               <y>140</y>
-                               <width>50</width>
-                               <height>10</height>
-                              </rect>
-                             </property>
-                             <property name="font">
-                              <font>
-                               <family>Segoe UI Light</family>
-                               <pointsize>6</pointsize>
-                              </font>
-                             </property>
-                             <property name="styleSheet">
-                              <string notr="true">border:none;
-color: rgb(255, 255, 255);
-background-color: transparent</string>
-                             </property>
-                             <property name="text">
-                              <string>com python</string>
+                              <string>o seu Inventario</string>
                              </property>
                              <property name="scaledContents">
                               <bool>false</bool>
@@ -4339,7 +4312,7 @@ background-color: transparent</string>
                            </widget>
                           </item>
                           <item>
-                           <widget class="QFrame" name="frame_62">
+                           <widget class="QFrame" name="frame_venda">
                             <property name="minimumSize">
                              <size>
                               <width>151</width>
@@ -4366,7 +4339,7 @@ QFrame:hover
                             <property name="frameShadow">
                              <enum>QFrame::Raised</enum>
                             </property>
-                            <widget class="QPushButton" name="pushButton_14">
+                            <widget class="QPushButton" name="btn_logo_venda">
                              <property name="geometry">
                               <rect>
                                <x>18</x>
@@ -4392,7 +4365,7 @@ QFrame:hover
                               </size>
                              </property>
                             </widget>
-                            <widget class="QLabel" name="label_98">
+                            <widget class="QLabel" name="lbl_venda">
                              <property name="geometry">
                               <rect>
                                <x>20</x>
@@ -4417,7 +4390,7 @@ border:none;</string>
                               <string>Venda</string>
                              </property>
                             </widget>
-                            <widget class="QPushButton" name="pushButton_15">
+                            <widget class="QPushButton" name="btn_log_extra_venda">
                              <property name="geometry">
                               <rect>
                                <x>128</x>
@@ -4440,7 +4413,7 @@ border:none;</string>
                               </size>
                              </property>
                             </widget>
-                            <widget class="QLabel" name="label_110">
+                            <widget class="QLabel" name="lbl_info_venda_3">
                              <property name="geometry">
                               <rect>
                                <x>22</x>
@@ -4452,7 +4425,7 @@ border:none;</string>
                              <property name="font">
                               <font>
                                <family>Segoe UI Light</family>
-                               <pointsize>6</pointsize>
+                               <pointsize>7</pointsize>
                               </font>
                              </property>
                              <property name="styleSheet">
@@ -4461,25 +4434,25 @@ color: rgb(255, 255, 255);
 background-color: transparent</string>
                              </property>
                              <property name="text">
-                              <string>com python</string>
+                              <string>clientes fiéis</string>
                              </property>
                              <property name="scaledContents">
                               <bool>false</bool>
                              </property>
                             </widget>
-                            <widget class="QLabel" name="label_111">
+                            <widget class="QLabel" name="lbl_info_venda_1">
                              <property name="geometry">
                               <rect>
                                <x>22</x>
                                <y>112</y>
-                               <width>70</width>
+                               <width>90</width>
                                <height>10</height>
                               </rect>
                              </property>
                              <property name="font">
                               <font>
                                <family>Segoe UI Light</family>
-                               <pointsize>6</pointsize>
+                               <pointsize>7</pointsize>
                               </font>
                              </property>
                              <property name="styleSheet">
@@ -4488,25 +4461,25 @@ color: rgb(255, 255, 255);
 background-color: transparent</string>
                              </property>
                              <property name="text">
-                              <string>Esse é um prototipo</string>
+                              <string>Aprimore a experiência</string>
                              </property>
                              <property name="scaledContents">
                               <bool>false</bool>
                              </property>
                             </widget>
-                            <widget class="QLabel" name="label_112">
+                            <widget class="QLabel" name="lbl_info_venda_2">
                              <property name="geometry">
                               <rect>
                                <x>22</x>
                                <y>126</y>
-                               <width>80</width>
+                               <width>110</width>
                                <height>10</height>
                               </rect>
                              </property>
                              <property name="font">
                               <font>
                                <family>Segoe UI Light</family>
-                               <pointsize>6</pointsize>
+                               <pointsize>7</pointsize>
                               </font>
                              </property>
                              <property name="styleSheet">
@@ -4515,7 +4488,7 @@ color: rgb(255, 255, 255);
 background-color: transparent</string>
                              </property>
                              <property name="text">
-                              <string>de um home page feito</string>
+                              <string>de compra para garantir</string>
                              </property>
                              <property name="scaledContents">
                               <bool>false</bool>
@@ -4524,7 +4497,7 @@ background-color: transparent</string>
                            </widget>
                           </item>
                           <item>
-                           <widget class="QFrame" name="frame_60">
+                           <widget class="QFrame" name="frame_perda">
                             <property name="minimumSize">
                              <size>
                               <width>151</width>
@@ -4551,7 +4524,7 @@ QFrame:hover
                             <property name="frameShadow">
                              <enum>QFrame::Raised</enum>
                             </property>
-                            <widget class="QPushButton" name="pushButton_3">
+                            <widget class="QPushButton" name="btn_logo_perda">
                              <property name="geometry">
                               <rect>
                                <x>19</x>
@@ -4577,7 +4550,7 @@ QFrame:hover
                               </size>
                              </property>
                             </widget>
-                            <widget class="QLabel" name="label_102">
+                            <widget class="QLabel" name="lbl_perda">
                              <property name="geometry">
                               <rect>
                                <x>20</x>
@@ -4602,19 +4575,19 @@ background-color: transparent</string>
                               <string>Perda</string>
                              </property>
                             </widget>
-                            <widget class="QLabel" name="label_103">
+                            <widget class="QLabel" name="lbl_info_perda_1">
                              <property name="geometry">
                               <rect>
                                <x>22</x>
                                <y>112</y>
-                               <width>70</width>
+                               <width>101</width>
                                <height>10</height>
                               </rect>
                              </property>
                              <property name="font">
                               <font>
                                <family>Segoe UI Light</family>
-                               <pointsize>6</pointsize>
+                               <pointsize>7</pointsize>
                               </font>
                              </property>
                              <property name="styleSheet">
@@ -4623,13 +4596,13 @@ color: rgb(255, 255, 255);
 background-color: transparent</string>
                              </property>
                              <property name="text">
-                              <string>Esse é um prototipo</string>
+                              <string>Gerencie efetivamente</string>
                              </property>
                              <property name="scaledContents">
                               <bool>false</bool>
                              </property>
                             </widget>
-                            <widget class="QPushButton" name="pushButton_8">
+                            <widget class="QPushButton" name="btn_log_extra_perda">
                              <property name="geometry">
                               <rect>
                                <x>128</x>
@@ -4652,19 +4625,19 @@ background-color: transparent</string>
                               </size>
                              </property>
                             </widget>
-                            <widget class="QLabel" name="label_104">
+                            <widget class="QLabel" name="lbl_info_perda_2">
                              <property name="geometry">
                               <rect>
                                <x>22</x>
                                <y>126</y>
-                               <width>80</width>
+                               <width>111</width>
                                <height>10</height>
                               </rect>
                              </property>
                              <property name="font">
                               <font>
                                <family>Segoe UI Light</family>
-                               <pointsize>6</pointsize>
+                               <pointsize>7</pointsize>
                               </font>
                              </property>
                              <property name="styleSheet">
@@ -4673,13 +4646,13 @@ color: rgb(255, 255, 255);
 background-color: transparent</string>
                              </property>
                              <property name="text">
-                              <string>de um home page feito</string>
+                              <string>as perdas para maximizar</string>
                              </property>
                              <property name="scaledContents">
                               <bool>false</bool>
                              </property>
                             </widget>
-                            <widget class="QLabel" name="label_105">
+                            <widget class="QLabel" name="lbl_info_perda_3">
                              <property name="geometry">
                               <rect>
                                <x>22</x>
@@ -4691,7 +4664,7 @@ background-color: transparent</string>
                              <property name="font">
                               <font>
                                <family>Segoe UI Light</family>
-                               <pointsize>6</pointsize>
+                               <pointsize>7</pointsize>
                               </font>
                              </property>
                              <property name="styleSheet">
@@ -4700,7 +4673,7 @@ color: rgb(255, 255, 255);
 background-color: transparent</string>
                              </property>
                              <property name="text">
-                              <string>com python</string>
+                              <string>os lucros</string>
                              </property>
                              <property name="scaledContents">
                               <bool>false</bool>
@@ -4709,7 +4682,7 @@ background-color: transparent</string>
                            </widget>
                           </item>
                           <item>
-                           <widget class="QFrame" name="frame_59">
+                           <widget class="QFrame" name="frame_recibo">
                             <property name="minimumSize">
                              <size>
                               <width>151</width>
@@ -4736,7 +4709,7 @@ QFrame:hover
                             <property name="frameShadow">
                              <enum>QFrame::Raised</enum>
                             </property>
-                            <widget class="QPushButton" name="pushButton">
+                            <widget class="QPushButton" name="btn_logo_recibo">
                              <property name="geometry">
                               <rect>
                                <x>18</x>
@@ -4762,7 +4735,7 @@ QFrame:hover
                               </size>
                              </property>
                             </widget>
-                            <widget class="QLabel" name="label_77">
+                            <widget class="QLabel" name="lbl_recibo">
                              <property name="geometry">
                               <rect>
                                <x>20</x>
@@ -4787,19 +4760,19 @@ background-color: transparent</string>
                               <string>Recibo</string>
                              </property>
                             </widget>
-                            <widget class="QLabel" name="label_95">
+                            <widget class="QLabel" name="lbl_info_extra_recibo_1">
                              <property name="geometry">
                               <rect>
                                <x>22</x>
                                <y>112</y>
-                               <width>70</width>
+                               <width>110</width>
                                <height>10</height>
                               </rect>
                              </property>
                              <property name="font">
                               <font>
                                <family>Segoe UI Light</family>
-                               <pointsize>6</pointsize>
+                               <pointsize>7</pointsize>
                               </font>
                              </property>
                              <property name="styleSheet">
@@ -4808,13 +4781,13 @@ color: rgb(255, 255, 255);
 background-color: transparent</string>
                              </property>
                              <property name="text">
-                              <string>Esse é um prototipo</string>
+                              <string>Crie recibos personalizados</string>
                              </property>
                              <property name="scaledContents">
                               <bool>false</bool>
                              </property>
                             </widget>
-                            <widget class="QPushButton" name="pushButton_2">
+                            <widget class="QPushButton" name="btn_logo_extra_perda">
                              <property name="geometry">
                               <rect>
                                <x>128</x>
@@ -4837,19 +4810,19 @@ background-color: transparent</string>
                               </size>
                              </property>
                             </widget>
-                            <widget class="QLabel" name="label_96">
+                            <widget class="QLabel" name="lbl_info_extra_recibo_2">
                              <property name="geometry">
                               <rect>
                                <x>22</x>
                                <y>126</y>
-                               <width>80</width>
+                               <width>110</width>
                                <height>10</height>
                               </rect>
                              </property>
                              <property name="font">
                               <font>
                                <family>Segoe UI Light</family>
-                               <pointsize>6</pointsize>
+                               <pointsize>7</pointsize>
                               </font>
                              </property>
                              <property name="styleSheet">
@@ -4858,25 +4831,25 @@ color: rgb(255, 255, 255);
 background-color: transparent</string>
                              </property>
                              <property name="text">
-                              <string>de um home page feito</string>
+                              <string>para uma experiência do</string>
                              </property>
                              <property name="scaledContents">
                               <bool>false</bool>
                              </property>
                             </widget>
-                            <widget class="QLabel" name="label_97">
+                            <widget class="QLabel" name="lbl_info_extra_recibo_3">
                              <property name="geometry">
                               <rect>
                                <x>22</x>
                                <y>140</y>
-                               <width>50</width>
+                               <width>90</width>
                                <height>10</height>
                               </rect>
                              </property>
                              <property name="font">
                               <font>
                                <family>Segoe UI Light</family>
-                               <pointsize>6</pointsize>
+                               <pointsize>7</pointsize>
                               </font>
                              </property>
                              <property name="styleSheet">
@@ -4885,7 +4858,7 @@ color: rgb(255, 255, 255);
 background-color: transparent</string>
                              </property>
                              <property name="text">
-                              <string>com python</string>
+                              <string>cliente excepcional</string>
                              </property>
                              <property name="scaledContents">
                               <bool>false</bool>
@@ -5635,7 +5608,7 @@ Nos países de língua inglesa o texto apresenta-se em forma um pouco diferente,
                                <x>0</x>
                                <y>0</y>
                                <width>1021</width>
-                               <height>144</height>
+                               <height>148</height>
                               </rect>
                              </property>
                              <property name="styleSheet">
@@ -7189,7 +7162,7 @@ border-radius: 10px;</string>
                                  <rect>
                                   <x>0</x>
                                   <y>0</y>
-                                  <width>100</width>
+                                  <width>56</width>
                                   <height>678</height>
                                  </rect>
                                 </property>
