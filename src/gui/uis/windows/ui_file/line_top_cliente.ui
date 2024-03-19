@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>446</width>
+    <height>56</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QFrame" name="frame_42">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>429</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>16777215</width>
+     <height>40</height>
+    </size>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_14">
+    <property name="leftMargin">
+     <number>9</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>9</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QFrame" name="frame_56">
+      <property name="minimumSize">
+       <size>
+        <width>140</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QPushButton" name="icon_img_29">
+       <property name="geometry">
+        <rect>
+         <x>1</x>
+         <y>1</y>
+         <width>37</width>
+         <height>37</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>37</width>
+         <height>37</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>37</width>
+         <height>37</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(32, 33, 37);
+border-radius:7px;
+color: #ffffff;
+border: 1px solid rgb(255, 255, 255)</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../../../images/svg_images/daniel.jpg</normaloff>../../../images/svg_images/daniel.jpg</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QLabel" name="nome_produto_32">
+       <property name="geometry">
+        <rect>
+         <x>49</x>
+         <y>24</y>
+         <width>130</width>
+         <height>10</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Zilla Slab Medium</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(233, 234, 236);</string>
+       </property>
+       <property name="text">
+        <string>Nd Daniel</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="chave_33">
+       <property name="geometry">
+        <rect>
+         <x>50</x>
+         <y>5</y>
+         <width>30</width>
+         <height>10</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Segoe UI Semibold</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(233, 234, 236);</string>
+       </property>
+       <property name="text">
+        <string>6</string>
+       </property>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QProgressBar" name="progressBar_9">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>12</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QProgressBar {
+	background-color: rgb( 255, 255, 255);
+	color: rgb(200, 200, 200);
+	border-radius: 5px;
+	text-align: center;
+}
+QProgressBar::chunk{
+	border-radius: 5px;
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(54, 63, 118, 255), stop:1 rgba(64, 80, 170, 255));
+}</string>
+      </property>
+      <property name="value">
+       <number>90</number>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
