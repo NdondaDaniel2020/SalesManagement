@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>587</width>
+    <height>489</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">border-radius: 10px;</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QFrame" name="frame_2">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QFrame" name="frame">
+         <property name="maximumSize">
+          <size>
+           <width>318</width>
+           <height>453</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(54, 63, 118)</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QPushButton" name="pushButton">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>../../../../../../../DriverTerabox/ajutes/objetos-removebg-preview-ajustu2.png</normaloff>../../../../../../../DriverTerabox/ajutes/objetos-removebg-preview-ajustu2.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>260</width>
+              <height>260</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frame_3">
+         <property name="maximumSize">
+          <size>
+           <width>292</width>
+           <height>435</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#frame_3{background-color: rgb(23, 24, 26);
+border-top-left-radius: 0px;
+border-bottom-left-radius: 0px;
+}
+
+#btn_chave_qrcode{
+	background-color: rgb(32, 33, 37);
+	border-radius:7px;
+	border: 1px solid rgb(47, 54, 100)}
+
+QPushButton{
+	background-color:  rgb(19, 20, 22);
+	border-radius:7px;}
+
+QPushButton:hover{
+	background-color: rgb(28, 29, 32)}
+
+QPushButton:pressed{
+	background-color: rgb(19, 20, 22)}
+
+QLineEdit, QPlainTextEdit{
+border: 1px solid rgb(47, 54, 100);
+border-radius: 5px;
+background-color: rgb(32, 33, 36);
+color: white;padding-left:5px;}
+
+QLineEdit:hover, QPlainTextEdit:hover{background-color: rgb(30, 31, 34);}
+
+QLineEdit:focus, QPlainTextEdit:focus{background-color: rgb(37, 39, 42);}
+</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <widget class="QLineEdit" name="lineEdit_2">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>120</y>
+            <width>210</width>
+            <height>35</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="placeholderText">
+           <string>Digite seu nome</string>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="lineEdit_3">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>200</y>
+            <width>210</width>
+            <height>35</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="placeholderText">
+           <string>Digite sua senha</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>102</y>
+            <width>100</width>
+            <height>17</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);</string>
+          </property>
+          <property name="text">
+           <string>Nome de usario *</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_2">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>180</y>
+            <width>49</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);</string>
+          </property>
+          <property name="text">
+           <string>Senha *</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_2">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>280</y>
+            <width>210</width>
+            <height>35</height>
+           </rect>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-radius:7px;
+color: rgb(255, 255, 255);
+background-color: rgb(32, 33, 37);</string>
+          </property>
+          <property name="text">
+           <string>Login</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_3">
+          <property name="geometry">
+           <rect>
+            <x>205</x>
+            <y>5</y>
+            <width>27</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgba(54, 63, 118, 120);
+border-radius: 4px;</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>../../../images/svg_icons/icon_minimize.svg</normaloff>../../../images/svg_icons/icon_minimize.svg</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>18</width>
+            <height>18</height>
+           </size>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_4">
+          <property name="geometry">
+           <rect>
+            <x>237</x>
+            <y>5</y>
+            <width>27</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgba(54, 63, 118, 120);
+border-radius: 4px;</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>../../../images/svg_icons/icon_close.svg</normaloff>../../../images/svg_icons/icon_close.svg</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_6">
+          <property name="geometry">
+           <rect>
+            <x>80</x>
+            <y>360</y>
+            <width>40</width>
+            <height>40</height>
+           </rect>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(54, 63, 118);</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>../../../../../../../Downloads/fingerprint-svgrepo-com.svg</normaloff>../../../../../../../Downloads/fingerprint-svgrepo-com.svg</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>32</width>
+            <height>30</height>
+           </size>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_3">
+          <property name="geometry">
+           <rect>
+            <x>122</x>
+            <y>330</y>
+            <width>25</width>
+            <height>17</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);</string>
+          </property>
+          <property name="text">
+           <string>OU</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_4">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>30</y>
+            <width>100</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>16</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);</string>
+          </property>
+          <property name="text">
+           <string>OlÁ</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_5">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>60</y>
+            <width>131</width>
+            <height>19</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);</string>
+          </property>
+          <property name="text">
+           <string>Benvido de Volta!</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_7">
+          <property name="geometry">
+           <rect>
+            <x>150</x>
+            <y>360</y>
+            <width>40</width>
+            <height>40</height>
+           </rect>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(54, 63, 118);</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>../../../../../../../Downloads/user-scan-svgrepo-com.svg</normaloff>../../../../../../../Downloads/user-scan-svgrepo-com.svg</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>35</width>
+            <height>35</height>
+           </size>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_6">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>260</y>
+            <width>81</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);</string>
+          </property>
+          <property name="text">
+           <string>Entrar *</string>
+          </property>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
