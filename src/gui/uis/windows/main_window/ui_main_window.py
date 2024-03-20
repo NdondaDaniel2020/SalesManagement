@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_windowjSceJI.ui'
+## Form generated from reading UI file 'main_windowdMxHrc.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.4.2
 ##
@@ -17,8 +17,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGridLayout,
     QHBoxLayout, QLabel, QLineEdit, QMainWindow,
-    QPushButton, QScrollArea, QSizePolicy, QSpacerItem,
-    QStackedWidget, QVBoxLayout, QWidget)
+    QProgressBar, QPushButton, QScrollArea, QSizePolicy,
+    QSpacerItem, QStackedWidget, QVBoxLayout, QWidget)
 
 from src.gui.widgets.py_circular_progress.py_circular_progress import PyCircularProgress
 from src.gui.widgets.py_custom_push_button.py_custom_push_button import PyCustomPushButton
@@ -31,7 +31,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(724, 568)
+        MainWindow.resize(724, 622)
         self.widget_style_sheet = QWidget(MainWindow)
         self.widget_style_sheet.setObjectName(u"widget_style_sheet")
         self.widget_style_sheet.setStyleSheet(u"#central_widget,\n"
@@ -224,9 +224,15 @@ class Ui_MainWindow(object):
         self.horizontalLayout_6.setSpacing(0)
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
         self.horizontalLayout_6.setContentsMargins(0, 0, 0, 0)
-        self.logo = QLabel(self.frame_logo)
+        self.logo = QPushButton(self.frame_logo)
         self.logo.setObjectName(u"logo")
-        self.logo.setPixmap(QPixmap(u"../../../../../../../../../images/svg_images/logo_top_100x22.svg"))
+        self.logo.setLayoutDirection(Qt.LeftToRight)
+        self.logo.setStyleSheet(u"background-color: transparent;\n"
+"text-align: left;")
+        icon = QIcon()
+        icon.addFile(u"../../../images/svg_images/img-removebg-preview.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.logo.setIcon(icon)
+        self.logo.setIconSize(QSize(115, 115))
 
         self.horizontalLayout_6.addWidget(self.logo)
 
@@ -289,9 +295,9 @@ class Ui_MainWindow(object):
 "QPushButton:hover{border: none;}\n"
 "QPushButton:pressed {border: none;}\n"
 "")
-        icon = QIcon()
-        icon.addFile(u"../../../../../../../../../images/svg_images/SalesManagement.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.qrcode.setIcon(icon)
+        icon1 = QIcon()
+        icon1.addFile(u"../../../../../../../../../images/svg_images/SalesManagement.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.qrcode.setIcon(icon1)
         self.qrcode.setIconSize(QSize(130, 130))
 
         self.verticalLayout_13.addWidget(self.qrcode)
@@ -752,9 +758,9 @@ class Ui_MainWindow(object):
 "QPushButton:hover{background-color: rgb(47, 54, 100)}\n"
 "\n"
 "QPushButton:pressed{background-color: rgb(33, 38, 70);}")
-        icon1 = QIcon()
-        icon1.addFile(u"../../../../../../../../images/svg_icons/icon_edit.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.editar.setIcon(icon1)
+        icon2 = QIcon()
+        icon2.addFile(u"../../../../../../../../images/svg_icons/icon_edit.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.editar.setIcon(icon2)
         self.editar.setIconSize(QSize(19, 19))
 
         self.verticalLayout_34.addWidget(self.editar)
@@ -775,9 +781,9 @@ class Ui_MainWindow(object):
 "QPushButton:hover{background-color: rgb(47, 54, 100)}\n"
 "\n"
 "QPushButton:pressed{background-color: rgb(33, 38, 70);}")
-        icon2 = QIcon()
-        icon2.addFile(u"../../../../../../../../images/svg_icons/icon_delete.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.deletar.setIcon(icon2)
+        icon3 = QIcon()
+        icon3.addFile(u"../../../../../../../../images/svg_icons/icon_delete.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.deletar.setIcon(icon3)
         self.deletar.setIconSize(QSize(21, 21))
 
         self.verticalLayout_34.addWidget(self.deletar)
@@ -806,9 +812,9 @@ class Ui_MainWindow(object):
 "border-radius:7px;\n"
 "color: #ffffff;\n"
 "border: 1px solid rgb(255, 255, 255)")
-        icon3 = QIcon()
-        icon3.addFile(u"../../../../../../imagem de modelo/transferir-removebg-preview.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.icon_img.setIcon(icon3)
+        icon4 = QIcon()
+        icon4.addFile(u"../../../../../../imagem de modelo/transferir-removebg-preview.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.icon_img.setIcon(icon4)
         self.icon_img.setIconSize(QSize(50, 50))
         self.nome_produto = QLabel(self.frame_18)
         self.nome_produto.setObjectName(u"nome_produto")
@@ -887,9 +893,9 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {\n"
 " 	background-color: rgb(38, 39, 43);\n"
 "}")
-        icon4 = QIcon()
-        icon4.addFile(u"../../../images/svg_icons/icon_search.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_pesquisa_produto_2.setIcon(icon4)
+        icon5 = QIcon()
+        icon5.addFile(u"../../../images/svg_icons/icon_search.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_pesquisa_produto_2.setIcon(icon5)
         self.btn_pesquisa_produto_2.setIconSize(QSize(25, 25))
 
         self.horizontalLayout_17.addWidget(self.btn_pesquisa_produto_2)
@@ -929,9 +935,9 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {\n"
 " 	background-color: rgb(38, 39, 43);\n"
 "}")
-        icon5 = QIcon()
-        icon5.addFile(u"../../../images/svg_icons/icon_more.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_mais_opcoes_27.setIcon(icon5)
+        icon6 = QIcon()
+        icon6.addFile(u"../../../images/svg_icons/icon_more.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_mais_opcoes_27.setIcon(icon6)
         self.btn_mais_opcoes_27.setIconSize(QSize(25, 25))
 
         self.horizontalLayout_17.addWidget(self.btn_mais_opcoes_27)
@@ -952,9 +958,9 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {\n"
 " 	background-color: rgb(38, 39, 43);\n"
 "}")
-        icon6 = QIcon()
-        icon6.addFile(u"../../../images/svg_icons/icon_add.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_adicionar_produto_2.setIcon(icon6)
+        icon7 = QIcon()
+        icon7.addFile(u"../../../images/svg_icons/icon_add.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_adicionar_produto_2.setIcon(icon7)
         self.btn_adicionar_produto_2.setIconSize(QSize(35, 35))
 
         self.horizontalLayout_17.addWidget(self.btn_adicionar_produto_2)
@@ -1005,7 +1011,7 @@ class Ui_MainWindow(object):
 "border-radius:7px;\n"
 "color: #ffffff;\n"
 "border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_22.setIcon(icon3)
+        self.icon_img_22.setIcon(icon4)
         self.icon_img_22.setIconSize(QSize(50, 50))
         self.nome_produto_22 = QLabel(self.frame_21)
         self.nome_produto_22.setObjectName(u"nome_produto_22")
@@ -1036,7 +1042,7 @@ class Ui_MainWindow(object):
 "border-radius:7px;\n"
 "color: #ffffff;\n"
 "border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_50.setIcon(icon3)
+        self.icon_img_50.setIcon(icon4)
         self.icon_img_50.setIconSize(QSize(50, 50))
         self.nome_produto_50 = QLabel(self.frame_79)
         self.nome_produto_50.setObjectName(u"nome_produto_50")
@@ -1075,7 +1081,7 @@ class Ui_MainWindow(object):
 "border-radius:7px;\n"
 "color: #ffffff;\n"
 "border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_44.setIcon(icon3)
+        self.icon_img_44.setIcon(icon4)
         self.icon_img_44.setIconSize(QSize(50, 50))
         self.nome_produto_44 = QLabel(self.frame_73)
         self.nome_produto_44.setObjectName(u"nome_produto_44")
@@ -1106,7 +1112,7 @@ class Ui_MainWindow(object):
 "border-radius:7px;\n"
 "color: #ffffff;\n"
 "border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_52.setIcon(icon3)
+        self.icon_img_52.setIcon(icon4)
         self.icon_img_52.setIconSize(QSize(50, 50))
         self.nome_produto_52 = QLabel(self.frame_83)
         self.nome_produto_52.setObjectName(u"nome_produto_52")
@@ -1137,7 +1143,7 @@ class Ui_MainWindow(object):
 "border-radius:7px;\n"
 "color: #ffffff;\n"
 "border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_25.setIcon(icon3)
+        self.icon_img_25.setIcon(icon4)
         self.icon_img_25.setIconSize(QSize(50, 50))
         self.nome_produto_25 = QLabel(self.frame_25)
         self.nome_produto_25.setObjectName(u"nome_produto_25")
@@ -1168,7 +1174,7 @@ class Ui_MainWindow(object):
 "border-radius:7px;\n"
 "color: #ffffff;\n"
 "border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_43.setIcon(icon3)
+        self.icon_img_43.setIcon(icon4)
         self.icon_img_43.setIconSize(QSize(50, 50))
         self.nome_produto_43 = QLabel(self.frame_72)
         self.nome_produto_43.setObjectName(u"nome_produto_43")
@@ -1199,7 +1205,7 @@ class Ui_MainWindow(object):
 "border-radius:7px;\n"
 "color: #ffffff;\n"
 "border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_51.setIcon(icon3)
+        self.icon_img_51.setIcon(icon4)
         self.icon_img_51.setIconSize(QSize(50, 50))
         self.nome_produto_51 = QLabel(self.frame_82)
         self.nome_produto_51.setObjectName(u"nome_produto_51")
@@ -1230,7 +1236,7 @@ class Ui_MainWindow(object):
 "border-radius:7px;\n"
 "color: #ffffff;\n"
 "border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_53.setIcon(icon3)
+        self.icon_img_53.setIcon(icon4)
         self.icon_img_53.setIconSize(QSize(50, 50))
         self.nome_produto_53 = QLabel(self.frame_85)
         self.nome_produto_53.setObjectName(u"nome_produto_53")
@@ -1261,7 +1267,7 @@ class Ui_MainWindow(object):
 "border-radius:7px;\n"
 "color: #ffffff;\n"
 "border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_2.setIcon(icon3)
+        self.icon_img_2.setIcon(icon4)
         self.icon_img_2.setIconSize(QSize(50, 50))
         self.nome_produto_2 = QLabel(self.frame_19)
         self.nome_produto_2.setObjectName(u"nome_produto_2")
@@ -1292,7 +1298,7 @@ class Ui_MainWindow(object):
 "border-radius:7px;\n"
 "color: #ffffff;\n"
 "border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_42.setIcon(icon3)
+        self.icon_img_42.setIcon(icon4)
         self.icon_img_42.setIconSize(QSize(50, 50))
         self.nome_produto_42 = QLabel(self.frame_71)
         self.nome_produto_42.setObjectName(u"nome_produto_42")
@@ -1323,7 +1329,7 @@ class Ui_MainWindow(object):
 "border-radius:7px;\n"
 "color: #ffffff;\n"
 "border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_55.setIcon(icon3)
+        self.icon_img_55.setIcon(icon4)
         self.icon_img_55.setIconSize(QSize(50, 50))
         self.nome_produto_55 = QLabel(self.frame_87)
         self.nome_produto_55.setObjectName(u"nome_produto_55")
@@ -1354,7 +1360,7 @@ class Ui_MainWindow(object):
 "border-radius:7px;\n"
 "color: #ffffff;\n"
 "border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_46.setIcon(icon3)
+        self.icon_img_46.setIcon(icon4)
         self.icon_img_46.setIconSize(QSize(50, 50))
         self.nome_produto_46 = QLabel(self.frame_75)
         self.nome_produto_46.setObjectName(u"nome_produto_46")
@@ -1385,7 +1391,7 @@ class Ui_MainWindow(object):
 "border-radius:7px;\n"
 "color: #ffffff;\n"
 "border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_45.setIcon(icon3)
+        self.icon_img_45.setIcon(icon4)
         self.icon_img_45.setIconSize(QSize(50, 50))
         self.nome_produto_45 = QLabel(self.frame_74)
         self.nome_produto_45.setObjectName(u"nome_produto_45")
@@ -1416,7 +1422,7 @@ class Ui_MainWindow(object):
 "border-radius:7px;\n"
 "color: #ffffff;\n"
 "border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_41.setIcon(icon3)
+        self.icon_img_41.setIcon(icon4)
         self.icon_img_41.setIconSize(QSize(50, 50))
         self.nome_produto_41 = QLabel(self.frame_70)
         self.nome_produto_41.setObjectName(u"nome_produto_41")
@@ -1447,7 +1453,7 @@ class Ui_MainWindow(object):
 "border-radius:7px;\n"
 "color: #ffffff;\n"
 "border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_54.setIcon(icon3)
+        self.icon_img_54.setIcon(icon4)
         self.icon_img_54.setIconSize(QSize(50, 50))
         self.nome_produto_54 = QLabel(self.frame_86)
         self.nome_produto_54.setObjectName(u"nome_produto_54")
@@ -1478,7 +1484,7 @@ class Ui_MainWindow(object):
 "border-radius:7px;\n"
 "color: #ffffff;\n"
 "border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_49.setIcon(icon3)
+        self.icon_img_49.setIcon(icon4)
         self.icon_img_49.setIconSize(QSize(50, 50))
         self.nome_produto_49 = QLabel(self.frame_78)
         self.nome_produto_49.setObjectName(u"nome_produto_49")
@@ -1509,7 +1515,7 @@ class Ui_MainWindow(object):
 "border-radius:7px;\n"
 "color: #ffffff;\n"
 "border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_48.setIcon(icon3)
+        self.icon_img_48.setIcon(icon4)
         self.icon_img_48.setIconSize(QSize(50, 50))
         self.nome_produto_48 = QLabel(self.frame_77)
         self.nome_produto_48.setObjectName(u"nome_produto_48")
@@ -1540,7 +1546,7 @@ class Ui_MainWindow(object):
 "border-radius:7px;\n"
 "color: #ffffff;\n"
 "border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_47.setIcon(icon3)
+        self.icon_img_47.setIcon(icon4)
         self.icon_img_47.setIconSize(QSize(50, 50))
         self.nome_produto_47 = QLabel(self.frame_76)
         self.nome_produto_47.setObjectName(u"nome_produto_47")
@@ -1563,262 +1569,264 @@ class Ui_MainWindow(object):
         self.verticalLayout_36.addWidget(self.scrollArea_2)
 
         self.stacked_widget.addWidget(self.page_5)
-        self.page_4 = QWidget()
-        self.page_4.setObjectName(u"page_4")
-        self.verticalLayout_12 = QVBoxLayout(self.page_4)
+        self.page_home = QWidget()
+        self.page_home.setObjectName(u"page_home")
+        self.verticalLayout_12 = QVBoxLayout(self.page_home)
         self.verticalLayout_12.setObjectName(u"verticalLayout_12")
-        self.frame_continer_4 = QFrame(self.page_4)
-        self.frame_continer_4.setObjectName(u"frame_continer_4")
-        self.frame_continer_4.setMinimumSize(QSize(0, 179))
-        self.frame_continer_4.setMaximumSize(QSize(16777215, 179))
-        self.frame_continer_4.setStyleSheet(u"background-color: rgb(54, 63, 118);")
-        self.frame_continer_4.setFrameShape(QFrame.StyledPanel)
-        self.frame_continer_4.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_21 = QHBoxLayout(self.frame_continer_4)
+        self.frame_nav_continer = QFrame(self.page_home)
+        self.frame_nav_continer.setObjectName(u"frame_nav_continer")
+        self.frame_nav_continer.setMinimumSize(QSize(0, 179))
+        self.frame_nav_continer.setMaximumSize(QSize(16777215, 179))
+        self.frame_nav_continer.setStyleSheet(u"background-color: rgb(54, 63, 118);")
+        self.frame_nav_continer.setFrameShape(QFrame.StyledPanel)
+        self.frame_nav_continer.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_21 = QHBoxLayout(self.frame_nav_continer)
         self.horizontalLayout_21.setObjectName(u"horizontalLayout_21")
-        self.frame_61 = QFrame(self.frame_continer_4)
-        self.frame_61.setObjectName(u"frame_61")
-        self.frame_61.setMinimumSize(QSize(151, 161))
-        self.frame_61.setMaximumSize(QSize(123456, 123456))
-        self.frame_61.setStyleSheet(u"QFrame{\n"
+        self.frame_inventario = QFrame(self.frame_nav_continer)
+        self.frame_inventario.setObjectName(u"frame_inventario")
+        self.frame_inventario.setMinimumSize(QSize(151, 161))
+        self.frame_inventario.setMaximumSize(QSize(123456, 123456))
+        self.frame_inventario.setStyleSheet(u"QFrame{\n"
 "	background-color: rgba(32, 33, 37, 200);\n"
 "	background-image: url(none);}\n"
 "\n"
 "QFrame:hover\n"
 "{border: 0.5px solid rgba(255, 255, 255, 80)}")
-        self.frame_61.setFrameShape(QFrame.StyledPanel)
-        self.frame_61.setFrameShadow(QFrame.Raised)
-        self.pushButton_10 = QPushButton(self.frame_61)
-        self.pushButton_10.setObjectName(u"pushButton_10")
-        self.pushButton_10.setGeometry(QRect(20, 25, 52, 55))
-        self.pushButton_10.setStyleSheet(u"background-color: transparent")
-        icon7 = QIcon()
-        icon7.addFile(u"../../../images/svg_icons/icon_box.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.pushButton_10.setIcon(icon7)
-        self.pushButton_10.setIconSize(QSize(58, 58))
-        self.label_106 = QLabel(self.frame_61)
-        self.label_106.setObjectName(u"label_106")
-        self.label_106.setGeometry(QRect(20, 90, 71, 16))
+        self.frame_inventario.setFrameShape(QFrame.StyledPanel)
+        self.frame_inventario.setFrameShadow(QFrame.Raised)
+        self.btn_logo_inventario = QPushButton(self.frame_inventario)
+        self.btn_logo_inventario.setObjectName(u"btn_logo_inventario")
+        self.btn_logo_inventario.setGeometry(QRect(20, 25, 52, 55))
+        self.btn_logo_inventario.setStyleSheet(u"background-color: transparent")
+        icon8 = QIcon()
+        icon8.addFile(u"../../../images/svg_icons/icon_box.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_logo_inventario.setIcon(icon8)
+        self.btn_logo_inventario.setIconSize(QSize(58, 58))
+        self.lbl_inventario = QLabel(self.frame_inventario)
+        self.lbl_inventario.setObjectName(u"lbl_inventario")
+        self.lbl_inventario.setGeometry(QRect(20, 90, 71, 16))
         font7 = QFont()
         font7.setFamilies([u"Segoe UI Semilight"])
         font7.setPointSize(11)
         font7.setBold(True)
-        self.label_106.setFont(font7)
-        self.label_106.setStyleSheet(u"border:none;\n"
+        self.lbl_inventario.setFont(font7)
+        self.lbl_inventario.setStyleSheet(u"border:none;\n"
 "color: rgb(255, 255, 255);\n"
 "background-color: transparent;")
-        self.label_107 = QLabel(self.frame_61)
-        self.label_107.setObjectName(u"label_107")
-        self.label_107.setGeometry(QRect(22, 112, 70, 10))
+        self.lbl_info_inventario_1 = QLabel(self.frame_inventario)
+        self.lbl_info_inventario_1.setObjectName(u"lbl_info_inventario_1")
+        self.lbl_info_inventario_1.setGeometry(QRect(22, 112, 70, 10))
         font8 = QFont()
         font8.setFamilies([u"Segoe UI Light"])
-        font8.setPointSize(6)
-        self.label_107.setFont(font8)
-        self.label_107.setStyleSheet(u"border:none;\n"
+        font8.setPointSize(7)
+        self.lbl_info_inventario_1.setFont(font8)
+        self.lbl_info_inventario_1.setStyleSheet(u"border:none;\n"
 "color: rgb(255, 255, 255);\n"
 "background-color: transparent")
-        self.label_107.setScaledContents(False)
-        self.pushButton_11 = QPushButton(self.frame_61)
-        self.pushButton_11.setObjectName(u"pushButton_11")
-        self.pushButton_11.setGeometry(QRect(128, 137, 20, 20))
-        self.pushButton_11.setStyleSheet(u"background-color: transparent")
-        icon8 = QIcon()
-        icon8.addFile(u"../../../../../../../Downloads/Imagens/push-notification-svgrepo-com.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.pushButton_11.setIcon(icon8)
-        self.pushButton_11.setIconSize(QSize(20, 20))
-        self.label_108 = QLabel(self.frame_61)
-        self.label_108.setObjectName(u"label_108")
-        self.label_108.setGeometry(QRect(22, 126, 90, 10))
-        self.label_108.setFont(font8)
-        self.label_108.setStyleSheet(u"border:none;\n"
-"color: rgb(255, 255, 255);\n"
-"background-color: transparent")
-        self.label_108.setScaledContents(False)
-        self.label_109 = QLabel(self.frame_61)
-        self.label_109.setObjectName(u"label_109")
-        self.label_109.setGeometry(QRect(22, 140, 50, 10))
-        self.label_109.setFont(font8)
-        self.label_109.setStyleSheet(u"border:none;\n"
-"color: rgb(255, 255, 255);\n"
-"background-color: transparent")
-        self.label_109.setScaledContents(False)
-
-        self.horizontalLayout_21.addWidget(self.frame_61)
-
-        self.frame_62 = QFrame(self.frame_continer_4)
-        self.frame_62.setObjectName(u"frame_62")
-        self.frame_62.setMinimumSize(QSize(151, 161))
-        self.frame_62.setMaximumSize(QSize(123456, 123456))
-        self.frame_62.setStyleSheet(u"QFrame{\n"
-"	background-color: rgba(32, 33, 37, 200);\n"
-"	background-image: url(none);}\n"
-"\n"
-"QFrame:hover\n"
-"{border: 0.5px solid rgba(255, 255, 255, 80)}")
-        self.frame_62.setFrameShape(QFrame.StyledPanel)
-        self.frame_62.setFrameShadow(QFrame.Raised)
-        self.pushButton_14 = QPushButton(self.frame_62)
-        self.pushButton_14.setObjectName(u"pushButton_14")
-        self.pushButton_14.setGeometry(QRect(18, 25, 51, 51))
-        self.pushButton_14.setStyleSheet(u"background-color: transparent")
+        self.lbl_info_inventario_1.setScaledContents(False)
+        self.btn_log_extra_inventario = QPushButton(self.frame_inventario)
+        self.btn_log_extra_inventario.setObjectName(u"btn_log_extra_inventario")
+        self.btn_log_extra_inventario.setGeometry(QRect(128, 137, 20, 20))
+        self.btn_log_extra_inventario.setStyleSheet(u"background-color: transparent")
         icon9 = QIcon()
-        icon9.addFile(u"../../../images/svg_icons/icon_coin.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.pushButton_14.setIcon(icon9)
-        self.pushButton_14.setIconSize(QSize(49, 49))
-        self.label_98 = QLabel(self.frame_62)
-        self.label_98.setObjectName(u"label_98")
-        self.label_98.setGeometry(QRect(20, 90, 50, 16))
-        self.label_98.setFont(font7)
-        self.label_98.setStyleSheet(u"color: rgb(255, 255, 255);\n"
-"background-color: transparent;\n"
-"border:none;")
-        self.label_99 = QLabel(self.frame_62)
-        self.label_99.setObjectName(u"label_99")
-        self.label_99.setGeometry(QRect(22, 112, 71, 41))
-        self.label_99.setFont(font8)
-        self.label_99.setStyleSheet(u"color: rgb(255, 255, 255);\n"
-"background-color: transparent;\n"
-"border:none;")
-        self.label_99.setScaledContents(False)
-        self.label_99.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignTop)
-        self.label_99.setWordWrap(True)
-        self.label_99.setMargin(0)
-        self.label_99.setIndent(-1)
-        self.label_99.setOpenExternalLinks(False)
-        self.label_99.setTextInteractionFlags(Qt.LinksAccessibleByMouse)
-        self.pushButton_15 = QPushButton(self.frame_62)
-        self.pushButton_15.setObjectName(u"pushButton_15")
-        self.pushButton_15.setGeometry(QRect(128, 137, 20, 20))
-        self.pushButton_15.setStyleSheet(u"background-color: transparent")
-        self.pushButton_15.setIcon(icon8)
-        self.pushButton_15.setIconSize(QSize(20, 20))
+        icon9.addFile(u"../../../images/svg_icons/icon_push_notification.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_log_extra_inventario.setIcon(icon9)
+        self.btn_log_extra_inventario.setIconSize(QSize(20, 20))
+        self.lbl_info_inventario_2 = QLabel(self.frame_inventario)
+        self.lbl_info_inventario_2.setObjectName(u"lbl_info_inventario_2")
+        self.lbl_info_inventario_2.setGeometry(QRect(22, 126, 90, 10))
+        self.lbl_info_inventario_2.setFont(font8)
+        self.lbl_info_inventario_2.setStyleSheet(u"border:none;\n"
+"color: rgb(255, 255, 255);\n"
+"background-color: transparent")
+        self.lbl_info_inventario_2.setScaledContents(False)
 
-        self.horizontalLayout_21.addWidget(self.frame_62)
+        self.horizontalLayout_21.addWidget(self.frame_inventario)
 
-        self.frame_60 = QFrame(self.frame_continer_4)
-        self.frame_60.setObjectName(u"frame_60")
-        self.frame_60.setMinimumSize(QSize(151, 161))
-        self.frame_60.setMaximumSize(QSize(123456, 123456))
-        self.frame_60.setStyleSheet(u"QFrame{\n"
+        self.frame_venda = QFrame(self.frame_nav_continer)
+        self.frame_venda.setObjectName(u"frame_venda")
+        self.frame_venda.setMinimumSize(QSize(151, 161))
+        self.frame_venda.setMaximumSize(QSize(123456, 123456))
+        self.frame_venda.setStyleSheet(u"QFrame{\n"
 "	background-color: rgba(32, 33, 37, 200);\n"
 "	background-image: url(none);}\n"
 "\n"
 "QFrame:hover\n"
 "{border: 0.5px solid rgba(255, 255, 255, 80)}")
-        self.frame_60.setFrameShape(QFrame.StyledPanel)
-        self.frame_60.setFrameShadow(QFrame.Raised)
-        self.pushButton_3 = QPushButton(self.frame_60)
-        self.pushButton_3.setObjectName(u"pushButton_3")
-        self.pushButton_3.setGeometry(QRect(19, 25, 50, 51))
-        self.pushButton_3.setStyleSheet(u"background-color: transparent")
+        self.frame_venda.setFrameShape(QFrame.StyledPanel)
+        self.frame_venda.setFrameShadow(QFrame.Raised)
+        self.btn_logo_venda = QPushButton(self.frame_venda)
+        self.btn_logo_venda.setObjectName(u"btn_logo_venda")
+        self.btn_logo_venda.setGeometry(QRect(18, 25, 51, 51))
+        self.btn_logo_venda.setStyleSheet(u"background-color: transparent")
         icon10 = QIcon()
-        icon10.addFile(u"../../../images/svg_icons/icon_line_chart_down.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.pushButton_3.setIcon(icon10)
-        self.pushButton_3.setIconSize(QSize(57, 57))
-        self.label_102 = QLabel(self.frame_60)
-        self.label_102.setObjectName(u"label_102")
-        self.label_102.setGeometry(QRect(20, 90, 50, 16))
-        self.label_102.setFont(font7)
-        self.label_102.setStyleSheet(u"border:none;\n"
+        icon10.addFile(u"../../../images/svg_icons/icon_coin.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_logo_venda.setIcon(icon10)
+        self.btn_logo_venda.setIconSize(QSize(49, 49))
+        self.lbl_venda = QLabel(self.frame_venda)
+        self.lbl_venda.setObjectName(u"lbl_venda")
+        self.lbl_venda.setGeometry(QRect(20, 90, 50, 16))
+        self.lbl_venda.setFont(font7)
+        self.lbl_venda.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"background-color: transparent;\n"
+"border:none;")
+        self.btn_log_extra_venda = QPushButton(self.frame_venda)
+        self.btn_log_extra_venda.setObjectName(u"btn_log_extra_venda")
+        self.btn_log_extra_venda.setGeometry(QRect(128, 137, 20, 20))
+        self.btn_log_extra_venda.setStyleSheet(u"background-color: transparent")
+        self.btn_log_extra_venda.setIcon(icon9)
+        self.btn_log_extra_venda.setIconSize(QSize(20, 20))
+        self.lbl_info_venda_3 = QLabel(self.frame_venda)
+        self.lbl_info_venda_3.setObjectName(u"lbl_info_venda_3")
+        self.lbl_info_venda_3.setGeometry(QRect(22, 140, 50, 10))
+        self.lbl_info_venda_3.setFont(font8)
+        self.lbl_info_venda_3.setStyleSheet(u"border:none;\n"
 "color: rgb(255, 255, 255);\n"
 "background-color: transparent")
-        self.label_103 = QLabel(self.frame_60)
-        self.label_103.setObjectName(u"label_103")
-        self.label_103.setGeometry(QRect(22, 112, 70, 10))
-        self.label_103.setFont(font8)
-        self.label_103.setStyleSheet(u"border:none;\n"
+        self.lbl_info_venda_3.setScaledContents(False)
+        self.lbl_info_venda_1 = QLabel(self.frame_venda)
+        self.lbl_info_venda_1.setObjectName(u"lbl_info_venda_1")
+        self.lbl_info_venda_1.setGeometry(QRect(22, 112, 90, 10))
+        self.lbl_info_venda_1.setFont(font8)
+        self.lbl_info_venda_1.setStyleSheet(u"border:none;\n"
 "color: rgb(255, 255, 255);\n"
 "background-color: transparent")
-        self.label_103.setScaledContents(False)
-        self.pushButton_8 = QPushButton(self.frame_60)
-        self.pushButton_8.setObjectName(u"pushButton_8")
-        self.pushButton_8.setGeometry(QRect(128, 137, 20, 20))
-        self.pushButton_8.setStyleSheet(u"background-color: transparent")
-        self.pushButton_8.setIcon(icon8)
-        self.pushButton_8.setIconSize(QSize(20, 20))
-        self.label_104 = QLabel(self.frame_60)
-        self.label_104.setObjectName(u"label_104")
-        self.label_104.setGeometry(QRect(22, 126, 80, 10))
-        self.label_104.setFont(font8)
-        self.label_104.setStyleSheet(u"border:none;\n"
+        self.lbl_info_venda_1.setScaledContents(False)
+        self.lbl_info_venda_2 = QLabel(self.frame_venda)
+        self.lbl_info_venda_2.setObjectName(u"lbl_info_venda_2")
+        self.lbl_info_venda_2.setGeometry(QRect(22, 126, 110, 10))
+        self.lbl_info_venda_2.setFont(font8)
+        self.lbl_info_venda_2.setStyleSheet(u"border:none;\n"
 "color: rgb(255, 255, 255);\n"
 "background-color: transparent")
-        self.label_104.setScaledContents(False)
-        self.label_105 = QLabel(self.frame_60)
-        self.label_105.setObjectName(u"label_105")
-        self.label_105.setGeometry(QRect(22, 140, 50, 10))
-        self.label_105.setFont(font8)
-        self.label_105.setStyleSheet(u"border:none;\n"
-"color: rgb(255, 255, 255);\n"
-"background-color: transparent")
-        self.label_105.setScaledContents(False)
+        self.lbl_info_venda_2.setScaledContents(False)
 
-        self.horizontalLayout_21.addWidget(self.frame_60)
+        self.horizontalLayout_21.addWidget(self.frame_venda)
 
-        self.frame_59 = QFrame(self.frame_continer_4)
-        self.frame_59.setObjectName(u"frame_59")
-        self.frame_59.setMinimumSize(QSize(151, 161))
-        self.frame_59.setMaximumSize(QSize(123456, 123456))
-        self.frame_59.setStyleSheet(u"QFrame{\n"
+        self.frame_perda = QFrame(self.frame_nav_continer)
+        self.frame_perda.setObjectName(u"frame_perda")
+        self.frame_perda.setMinimumSize(QSize(151, 161))
+        self.frame_perda.setMaximumSize(QSize(123456, 123456))
+        self.frame_perda.setStyleSheet(u"QFrame{\n"
 "	background-color: rgba(32, 33, 37, 200);\n"
 "	background-image: url(none);}\n"
 "\n"
 "QFrame:hover\n"
 "{border: 0.5px solid rgba(255, 255, 255, 80)}")
-        self.frame_59.setFrameShape(QFrame.StyledPanel)
-        self.frame_59.setFrameShadow(QFrame.Raised)
-        self.pushButton = QPushButton(self.frame_59)
-        self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.setGeometry(QRect(18, 26, 50, 48))
-        self.pushButton.setStyleSheet(u"background-color: transparent")
+        self.frame_perda.setFrameShape(QFrame.StyledPanel)
+        self.frame_perda.setFrameShadow(QFrame.Raised)
+        self.btn_logo_perda = QPushButton(self.frame_perda)
+        self.btn_logo_perda.setObjectName(u"btn_logo_perda")
+        self.btn_logo_perda.setGeometry(QRect(19, 25, 50, 51))
+        self.btn_logo_perda.setStyleSheet(u"background-color: transparent")
         icon11 = QIcon()
-        icon11.addFile(u"../../../images/svg_icons/icon_inventory.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.pushButton.setIcon(icon11)
-        self.pushButton.setIconSize(QSize(75, 75))
-        self.label_77 = QLabel(self.frame_59)
-        self.label_77.setObjectName(u"label_77")
-        self.label_77.setGeometry(QRect(20, 90, 50, 16))
-        self.label_77.setFont(font7)
-        self.label_77.setStyleSheet(u"border:none;\n"
+        icon11.addFile(u"../../../images/svg_icons/icon_line_chart_down.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_logo_perda.setIcon(icon11)
+        self.btn_logo_perda.setIconSize(QSize(57, 57))
+        self.lbl_perda = QLabel(self.frame_perda)
+        self.lbl_perda.setObjectName(u"lbl_perda")
+        self.lbl_perda.setGeometry(QRect(20, 90, 50, 16))
+        self.lbl_perda.setFont(font7)
+        self.lbl_perda.setStyleSheet(u"border:none;\n"
 "color: rgb(255, 255, 255);\n"
 "background-color: transparent")
-        self.label_95 = QLabel(self.frame_59)
-        self.label_95.setObjectName(u"label_95")
-        self.label_95.setGeometry(QRect(22, 112, 70, 10))
-        self.label_95.setFont(font8)
-        self.label_95.setStyleSheet(u"border:none;\n"
+        self.lbl_info_perda_1 = QLabel(self.frame_perda)
+        self.lbl_info_perda_1.setObjectName(u"lbl_info_perda_1")
+        self.lbl_info_perda_1.setGeometry(QRect(22, 112, 101, 10))
+        self.lbl_info_perda_1.setFont(font8)
+        self.lbl_info_perda_1.setStyleSheet(u"border:none;\n"
 "color: rgb(255, 255, 255);\n"
 "background-color: transparent")
-        self.label_95.setScaledContents(False)
-        self.pushButton_2 = QPushButton(self.frame_59)
-        self.pushButton_2.setObjectName(u"pushButton_2")
-        self.pushButton_2.setGeometry(QRect(128, 137, 20, 20))
-        self.pushButton_2.setStyleSheet(u"background-color: transparent")
-        self.pushButton_2.setIcon(icon8)
-        self.pushButton_2.setIconSize(QSize(20, 20))
-        self.label_96 = QLabel(self.frame_59)
-        self.label_96.setObjectName(u"label_96")
-        self.label_96.setGeometry(QRect(22, 126, 80, 10))
-        self.label_96.setFont(font8)
-        self.label_96.setStyleSheet(u"border:none;\n"
+        self.lbl_info_perda_1.setScaledContents(False)
+        self.btn_log_extra_perda = QPushButton(self.frame_perda)
+        self.btn_log_extra_perda.setObjectName(u"btn_log_extra_perda")
+        self.btn_log_extra_perda.setGeometry(QRect(128, 137, 20, 20))
+        self.btn_log_extra_perda.setStyleSheet(u"background-color: transparent")
+        self.btn_log_extra_perda.setIcon(icon9)
+        self.btn_log_extra_perda.setIconSize(QSize(20, 20))
+        self.lbl_info_perda_2 = QLabel(self.frame_perda)
+        self.lbl_info_perda_2.setObjectName(u"lbl_info_perda_2")
+        self.lbl_info_perda_2.setGeometry(QRect(22, 126, 111, 10))
+        self.lbl_info_perda_2.setFont(font8)
+        self.lbl_info_perda_2.setStyleSheet(u"border:none;\n"
 "color: rgb(255, 255, 255);\n"
 "background-color: transparent")
-        self.label_96.setScaledContents(False)
-        self.label_97 = QLabel(self.frame_59)
-        self.label_97.setObjectName(u"label_97")
-        self.label_97.setGeometry(QRect(22, 140, 50, 10))
-        self.label_97.setFont(font8)
-        self.label_97.setStyleSheet(u"border:none;\n"
+        self.lbl_info_perda_2.setScaledContents(False)
+        self.lbl_info_perda_3 = QLabel(self.frame_perda)
+        self.lbl_info_perda_3.setObjectName(u"lbl_info_perda_3")
+        self.lbl_info_perda_3.setGeometry(QRect(22, 140, 50, 10))
+        self.lbl_info_perda_3.setFont(font8)
+        self.lbl_info_perda_3.setStyleSheet(u"border:none;\n"
 "color: rgb(255, 255, 255);\n"
 "background-color: transparent")
-        self.label_97.setScaledContents(False)
+        self.lbl_info_perda_3.setScaledContents(False)
 
-        self.horizontalLayout_21.addWidget(self.frame_59)
+        self.horizontalLayout_21.addWidget(self.frame_perda)
+
+        self.frame_recibo = QFrame(self.frame_nav_continer)
+        self.frame_recibo.setObjectName(u"frame_recibo")
+        self.frame_recibo.setMinimumSize(QSize(151, 161))
+        self.frame_recibo.setMaximumSize(QSize(123456, 123456))
+        self.frame_recibo.setStyleSheet(u"QFrame{\n"
+"	background-color: rgba(32, 33, 37, 200);\n"
+"	background-image: url(none);}\n"
+"\n"
+"QFrame:hover\n"
+"{border: 0.5px solid rgba(255, 255, 255, 80)}")
+        self.frame_recibo.setFrameShape(QFrame.StyledPanel)
+        self.frame_recibo.setFrameShadow(QFrame.Raised)
+        self.btn_logo_recibo = QPushButton(self.frame_recibo)
+        self.btn_logo_recibo.setObjectName(u"btn_logo_recibo")
+        self.btn_logo_recibo.setGeometry(QRect(18, 26, 50, 48))
+        self.btn_logo_recibo.setStyleSheet(u"background-color: transparent")
+        icon12 = QIcon()
+        icon12.addFile(u"../../../images/svg_icons/icon_inventory.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_logo_recibo.setIcon(icon12)
+        self.btn_logo_recibo.setIconSize(QSize(75, 75))
+        self.lbl_recibo = QLabel(self.frame_recibo)
+        self.lbl_recibo.setObjectName(u"lbl_recibo")
+        self.lbl_recibo.setGeometry(QRect(20, 90, 50, 16))
+        self.lbl_recibo.setFont(font7)
+        self.lbl_recibo.setStyleSheet(u"border:none;\n"
+"color: rgb(255, 255, 255);\n"
+"background-color: transparent")
+        self.lbl_info_extra_recibo_1 = QLabel(self.frame_recibo)
+        self.lbl_info_extra_recibo_1.setObjectName(u"lbl_info_extra_recibo_1")
+        self.lbl_info_extra_recibo_1.setGeometry(QRect(22, 112, 110, 10))
+        self.lbl_info_extra_recibo_1.setFont(font8)
+        self.lbl_info_extra_recibo_1.setStyleSheet(u"border:none;\n"
+"color: rgb(255, 255, 255);\n"
+"background-color: transparent")
+        self.lbl_info_extra_recibo_1.setScaledContents(False)
+        self.btn_logo_extra_perda = QPushButton(self.frame_recibo)
+        self.btn_logo_extra_perda.setObjectName(u"btn_logo_extra_perda")
+        self.btn_logo_extra_perda.setGeometry(QRect(128, 137, 20, 20))
+        self.btn_logo_extra_perda.setStyleSheet(u"background-color: transparent")
+        self.btn_logo_extra_perda.setIcon(icon9)
+        self.btn_logo_extra_perda.setIconSize(QSize(20, 20))
+        self.lbl_info_extra_recibo_2 = QLabel(self.frame_recibo)
+        self.lbl_info_extra_recibo_2.setObjectName(u"lbl_info_extra_recibo_2")
+        self.lbl_info_extra_recibo_2.setGeometry(QRect(22, 126, 110, 10))
+        self.lbl_info_extra_recibo_2.setFont(font8)
+        self.lbl_info_extra_recibo_2.setStyleSheet(u"border:none;\n"
+"color: rgb(255, 255, 255);\n"
+"background-color: transparent")
+        self.lbl_info_extra_recibo_2.setScaledContents(False)
+        self.lbl_info_extra_recibo_3 = QLabel(self.frame_recibo)
+        self.lbl_info_extra_recibo_3.setObjectName(u"lbl_info_extra_recibo_3")
+        self.lbl_info_extra_recibo_3.setGeometry(QRect(22, 140, 90, 10))
+        self.lbl_info_extra_recibo_3.setFont(font8)
+        self.lbl_info_extra_recibo_3.setStyleSheet(u"border:none;\n"
+"color: rgb(255, 255, 255);\n"
+"background-color: transparent")
+        self.lbl_info_extra_recibo_3.setScaledContents(False)
+
+        self.horizontalLayout_21.addWidget(self.frame_recibo)
 
 
-        self.verticalLayout_12.addWidget(self.frame_continer_4)
+        self.verticalLayout_12.addWidget(self.frame_nav_continer)
 
-        self.frame_20 = QFrame(self.page_4)
+        self.frame_20 = QFrame(self.page_home)
         self.frame_20.setObjectName(u"frame_20")
         self.frame_20.setStyleSheet(u"background-color: rgb(19, 20, 22);")
         self.frame_20.setFrameShape(QFrame.StyledPanel)
@@ -1829,6 +1837,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_21.setContentsMargins(0, 0, 0, 0)
         self.frame_23 = QFrame(self.frame_20)
         self.frame_23.setObjectName(u"frame_23")
+        self.frame_23.setMinimumSize(QSize(0, 150))
         self.frame_23.setStyleSheet(u"")
         self.frame_23.setFrameShape(QFrame.StyledPanel)
         self.frame_23.setFrameShadow(QFrame.Raised)
@@ -1849,6 +1858,7 @@ class Ui_MainWindow(object):
 
         self.frame_chart_bar = QFrame(self.frame_23)
         self.frame_chart_bar.setObjectName(u"frame_chart_bar")
+        self.frame_chart_bar.setMinimumSize(QSize(200, 0))
         self.frame_chart_bar.setMaximumSize(QSize(200, 16777215))
         self.frame_chart_bar.setStyleSheet(u"background-color: rgb(32, 33, 37);")
         self.frame_chart_bar.setFrameShape(QFrame.StyledPanel)
@@ -1865,17 +1875,201 @@ class Ui_MainWindow(object):
 
         self.frame_33 = QFrame(self.frame_20)
         self.frame_33.setObjectName(u"frame_33")
-        self.frame_33.setMinimumSize(QSize(0, 153))
-        self.frame_33.setStyleSheet(u"background-color: rgb(32, 33, 37);")
+        self.frame_33.setMinimumSize(QSize(0, 150))
+        self.frame_33.setStyleSheet(u"background-color: rgb(32, 33, 37)")
         self.frame_33.setFrameShape(QFrame.StyledPanel)
         self.frame_33.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_22 = QVBoxLayout(self.frame_33)
+        self.verticalLayout_22.setSpacing(5)
+        self.verticalLayout_22.setObjectName(u"verticalLayout_22")
+        self.verticalLayout_22.setContentsMargins(0, 10, 5, 5)
+        self.frame_42 = QFrame(self.frame_33)
+        self.frame_42.setObjectName(u"frame_42")
+        self.frame_42.setMaximumSize(QSize(16777215, 40))
+        self.frame_42.setFrameShape(QFrame.StyledPanel)
+        self.frame_42.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_14 = QHBoxLayout(self.frame_42)
+        self.horizontalLayout_14.setObjectName(u"horizontalLayout_14")
+        self.horizontalLayout_14.setContentsMargins(9, 0, 9, 0)
+        self.frame_56 = QFrame(self.frame_42)
+        self.frame_56.setObjectName(u"frame_56")
+        self.frame_56.setMinimumSize(QSize(140, 40))
+        self.frame_56.setMaximumSize(QSize(16777215, 40))
+        self.frame_56.setFrameShape(QFrame.StyledPanel)
+        self.frame_56.setFrameShadow(QFrame.Raised)
+        self.icon_img_29 = QPushButton(self.frame_56)
+        self.icon_img_29.setObjectName(u"icon_img_29")
+        self.icon_img_29.setGeometry(QRect(1, 1, 37, 37))
+        self.icon_img_29.setMinimumSize(QSize(37, 37))
+        self.icon_img_29.setMaximumSize(QSize(37, 37))
+        self.icon_img_29.setStyleSheet(u"background-color: rgb(32, 33, 37);\n"
+"border-radius:7px;\n"
+"color: #ffffff;\n"
+"border: 1px solid rgb(255, 255, 255)")
+        icon13 = QIcon()
+        icon13.addFile(u"../../../images/svg_images/daniel-removebg-preview.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.icon_img_29.setIcon(icon13)
+        self.icon_img_29.setIconSize(QSize(32, 32))
+        self.nome_produto_32 = QLabel(self.frame_56)
+        self.nome_produto_32.setObjectName(u"nome_produto_32")
+        self.nome_produto_32.setGeometry(QRect(49, 24, 130, 10))
+        self.nome_produto_32.setFont(font4)
+        self.nome_produto_32.setStyleSheet(u"color: rgb(233, 234, 236);")
+        self.chave_33 = QLabel(self.frame_56)
+        self.chave_33.setObjectName(u"chave_33")
+        self.chave_33.setGeometry(QRect(50, 5, 30, 10))
+        self.chave_33.setFont(font5)
+        self.chave_33.setStyleSheet(u"color: rgb(233, 234, 236);")
+
+        self.horizontalLayout_14.addWidget(self.frame_56)
+
+        self.progressBar_9 = QProgressBar(self.frame_42)
+        self.progressBar_9.setObjectName(u"progressBar_9")
+        self.progressBar_9.setMaximumSize(QSize(16777215, 12))
+        self.progressBar_9.setStyleSheet(u"QProgressBar {\n"
+"	background-color: rgb( 255, 255, 255);\n"
+"	color: rgb(200, 200, 200);\n"
+"	border-radius: 5px;\n"
+"	text-align: center;\n"
+"}\n"
+"QProgressBar::chunk{\n"
+"	border-radius: 5px;\n"
+"	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(54, 63, 118, 255), stop:1 rgba(64, 80, 170, 255));\n"
+"}")
+        self.progressBar_9.setValue(90)
+
+        self.horizontalLayout_14.addWidget(self.progressBar_9)
+
+
+        self.verticalLayout_22.addWidget(self.frame_42)
+
+        self.frame_32 = QFrame(self.frame_33)
+        self.frame_32.setObjectName(u"frame_32")
+        self.frame_32.setMaximumSize(QSize(16777215, 40))
+        self.frame_32.setFrameShape(QFrame.StyledPanel)
+        self.frame_32.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_22 = QHBoxLayout(self.frame_32)
+        self.horizontalLayout_22.setObjectName(u"horizontalLayout_22")
+        self.horizontalLayout_22.setContentsMargins(-1, 0, -1, 0)
+        self.frame_55 = QFrame(self.frame_32)
+        self.frame_55.setObjectName(u"frame_55")
+        self.frame_55.setMinimumSize(QSize(140, 40))
+        self.frame_55.setMaximumSize(QSize(16777215, 40))
+        self.frame_55.setFrameShape(QFrame.StyledPanel)
+        self.frame_55.setFrameShadow(QFrame.Raised)
+        self.icon_img_28 = QPushButton(self.frame_55)
+        self.icon_img_28.setObjectName(u"icon_img_28")
+        self.icon_img_28.setGeometry(QRect(1, 1, 37, 37))
+        self.icon_img_28.setMinimumSize(QSize(37, 37))
+        self.icon_img_28.setMaximumSize(QSize(37, 37))
+        self.icon_img_28.setStyleSheet(u"background-color: rgb(32, 33, 37);\n"
+"border-radius:7px;\n"
+"color: #ffffff;\n"
+"border: 1px solid rgb(255, 255, 255)")
+        icon14 = QIcon()
+        icon14.addFile(u"../../../images/svg_images/tatiana-removebg-preview.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.icon_img_28.setIcon(icon14)
+        self.icon_img_28.setIconSize(QSize(32, 32))
+        self.nome_produto_31 = QLabel(self.frame_55)
+        self.nome_produto_31.setObjectName(u"nome_produto_31")
+        self.nome_produto_31.setGeometry(QRect(49, 24, 130, 10))
+        self.nome_produto_31.setFont(font4)
+        self.nome_produto_31.setStyleSheet(u"color: rgb(233, 234, 236);")
+        self.chave_32 = QLabel(self.frame_55)
+        self.chave_32.setObjectName(u"chave_32")
+        self.chave_32.setGeometry(QRect(50, 5, 30, 10))
+        self.chave_32.setFont(font5)
+        self.chave_32.setStyleSheet(u"color: rgb(233, 234, 236);")
+
+        self.horizontalLayout_22.addWidget(self.frame_55)
+
+        self.progressBar_7 = QProgressBar(self.frame_32)
+        self.progressBar_7.setObjectName(u"progressBar_7")
+        self.progressBar_7.setMaximumSize(QSize(16777215, 12))
+        self.progressBar_7.setStyleSheet(u"QProgressBar {\n"
+"	background-color: rgb( 255, 255, 255);\n"
+"	color: rgb(200, 200, 200);\n"
+"	border-radius: 5px;\n"
+"	text-align: center;\n"
+"}\n"
+"QProgressBar::chunk{\n"
+"	border-radius: 5px;\n"
+"	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(54, 63, 118, 255), stop:1 rgba(64, 80, 170, 255));\n"
+"}")
+        self.progressBar_7.setValue(70)
+
+        self.horizontalLayout_22.addWidget(self.progressBar_7)
+
+
+        self.verticalLayout_22.addWidget(self.frame_32)
+
+        self.frame_24 = QFrame(self.frame_33)
+        self.frame_24.setObjectName(u"frame_24")
+        self.frame_24.setMaximumSize(QSize(16777215, 40))
+        self.frame_24.setFrameShape(QFrame.StyledPanel)
+        self.frame_24.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_15 = QHBoxLayout(self.frame_24)
+        self.horizontalLayout_15.setObjectName(u"horizontalLayout_15")
+        self.horizontalLayout_15.setContentsMargins(-1, 0, -1, 0)
+        self.frame_54 = QFrame(self.frame_24)
+        self.frame_54.setObjectName(u"frame_54")
+        self.frame_54.setMinimumSize(QSize(140, 40))
+        self.frame_54.setMaximumSize(QSize(16777215, 40))
+        self.frame_54.setFrameShape(QFrame.StyledPanel)
+        self.frame_54.setFrameShadow(QFrame.Raised)
+        self.icon_img_30 = QPushButton(self.frame_54)
+        self.icon_img_30.setObjectName(u"icon_img_30")
+        self.icon_img_30.setGeometry(QRect(1, 1, 37, 37))
+        self.icon_img_30.setMinimumSize(QSize(37, 37))
+        self.icon_img_30.setMaximumSize(QSize(37, 37))
+        self.icon_img_30.setStyleSheet(u"background-color: rgb(32, 33, 37);\n"
+"border-radius:7px;\n"
+"color: #ffffff;\n"
+"border: 1px solid rgb(255, 255, 255)")
+        icon15 = QIcon()
+        icon15.addFile(u"../../../images/svg_images/john-removebg-preview.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.icon_img_30.setIcon(icon15)
+        self.icon_img_30.setIconSize(QSize(32, 32))
+        self.nome_produto_28 = QLabel(self.frame_54)
+        self.nome_produto_28.setObjectName(u"nome_produto_28")
+        self.nome_produto_28.setGeometry(QRect(49, 24, 130, 10))
+        self.nome_produto_28.setFont(font4)
+        self.nome_produto_28.setStyleSheet(u"color: rgb(233, 234, 236);")
+        self.chave_34 = QLabel(self.frame_54)
+        self.chave_34.setObjectName(u"chave_34")
+        self.chave_34.setGeometry(QRect(50, 5, 30, 10))
+        self.chave_34.setFont(font5)
+        self.chave_34.setStyleSheet(u"color: rgb(233, 234, 236);")
+
+        self.horizontalLayout_15.addWidget(self.frame_54)
+
+        self.progressBar_8 = QProgressBar(self.frame_24)
+        self.progressBar_8.setObjectName(u"progressBar_8")
+        self.progressBar_8.setMaximumSize(QSize(16777215, 12))
+        self.progressBar_8.setStyleSheet(u"QProgressBar {\n"
+"	background-color: rgb( 255, 255, 255);\n"
+"	color: rgb(200, 200, 200);\n"
+"	border-radius: 5px;\n"
+"	text-align: center;\n"
+"}\n"
+"QProgressBar::chunk{\n"
+"	border-radius: 5px;\n"
+"	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(54, 63, 118, 255), stop:1 rgba(64, 80, 170, 255));\n"
+"}")
+        self.progressBar_8.setValue(40)
+
+        self.horizontalLayout_15.addWidget(self.progressBar_8)
+
+
+        self.verticalLayout_22.addWidget(self.frame_24)
+
 
         self.verticalLayout_21.addWidget(self.frame_33)
 
 
         self.verticalLayout_12.addWidget(self.frame_20)
 
-        self.stacked_widget.addWidget(self.page_4)
+        self.stacked_widget.addWidget(self.page_home)
         self.page_6 = QWidget()
         self.page_6.setObjectName(u"page_6")
         self.verticalLayout_38 = QVBoxLayout(self.page_6)
@@ -1895,7 +2089,7 @@ class Ui_MainWindow(object):
         font9 = QFont()
         font9.setFamilies([u"Segoe Script"])
         self.pushButton_7.setFont(font9)
-        self.pushButton_7.setIcon(icon3)
+        self.pushButton_7.setIcon(icon4)
         self.pushButton_7.setIconSize(QSize(100, 100))
 
         self.horizontalLayout_19.addWidget(self.pushButton_7)
@@ -2157,13 +2351,13 @@ class Ui_MainWindow(object):
         self.verticalLayout_38.addWidget(self.frame_38)
 
         self.stacked_widget.addWidget(self.page_6)
-        self.page_home = QWidget()
-        self.page_home.setObjectName(u"page_home")
-        self.verticalLayout_2 = QVBoxLayout(self.page_home)
+        self.page_home_ = QWidget()
+        self.page_home_.setObjectName(u"page_home_")
+        self.verticalLayout_2 = QVBoxLayout(self.page_home_)
         self.verticalLayout_2.setSpacing(9)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.verticalLayout_2.setContentsMargins(9, 9, 9, 9)
-        self.frame_continer = QFrame(self.page_home)
+        self.frame_continer = QFrame(self.page_home_)
         self.frame_continer.setObjectName(u"frame_continer")
         self.frame_continer.setMinimumSize(QSize(0, 160))
         self.frame_continer.setMaximumSize(QSize(16777215, 160))
@@ -2183,7 +2377,7 @@ class Ui_MainWindow(object):
         self.scroll_area_home.setWidgetResizable(True)
         self.scroll_area_widget_contents_home = QWidget()
         self.scroll_area_widget_contents_home.setObjectName(u"scroll_area_widget_contents_home")
-        self.scroll_area_widget_contents_home.setGeometry(QRect(0, 0, 1021, 144))
+        self.scroll_area_widget_contents_home.setGeometry(QRect(0, 0, 1021, 148))
         self.scroll_area_widget_contents_home.setStyleSheet(u"#scroll_area_home, #scroll_area_widget_contents_home{\n"
 "background-color:rgb(32, 33, 37);\n"
 "border-radius:10px}")
@@ -2201,9 +2395,9 @@ class Ui_MainWindow(object):
         font13.setPointSize(8)
         self.pushButton_4.setFont(font13)
         self.pushButton_4.setStyleSheet(u"border:none")
-        icon12 = QIcon()
-        icon12.addFile(u"../../../images/svg_icons/icon_sale.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.pushButton_4.setIcon(icon12)
+        icon16 = QIcon()
+        icon16.addFile(u"../../../images/svg_icons/icon_sale.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.pushButton_4.setIcon(icon16)
         self.pushButton_4.setIconSize(QSize(60, 57))
         self.label_41 = QLabel(self.frame_1)
         self.label_41.setObjectName(u"label_41")
@@ -2254,7 +2448,7 @@ class Ui_MainWindow(object):
         self.pushButton_6.setGeometry(QRect(6, 10, 61, 61))
         self.pushButton_6.setFont(font13)
         self.pushButton_6.setStyleSheet(u"border:none")
-        self.pushButton_6.setIcon(icon7)
+        self.pushButton_6.setIcon(icon8)
         self.pushButton_6.setIconSize(QSize(65, 65))
         self.label_46 = QLabel(self.frame_7)
         self.label_46.setObjectName(u"label_46")
@@ -2311,7 +2505,7 @@ class Ui_MainWindow(object):
         self.pushButton_17.setGeometry(QRect(7, 12, 61, 61))
         self.pushButton_17.setFont(font13)
         self.pushButton_17.setStyleSheet(u"border:none")
-        self.pushButton_17.setIcon(icon10)
+        self.pushButton_17.setIcon(icon11)
         self.pushButton_17.setIconSize(QSize(63, 63))
         self.label_53 = QLabel(self.frame_8)
         self.label_53.setObjectName(u"label_53")
@@ -2349,9 +2543,9 @@ class Ui_MainWindow(object):
         self.pushButton_18.setGeometry(QRect(8, 13, 61, 61))
         self.pushButton_18.setFont(font13)
         self.pushButton_18.setStyleSheet(u"border:none")
-        icon13 = QIcon()
-        icon13.addFile(u"../../../images/svg_icons/Icon_receipt_svgrepo.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.pushButton_18.setIcon(icon13)
+        icon17 = QIcon()
+        icon17.addFile(u"../../../images/svg_icons/Icon_receipt_svgrepo.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.pushButton_18.setIcon(icon17)
         self.pushButton_18.setIconSize(QSize(53, 54))
         self.label_57 = QLabel(self.frame_22)
         self.label_57.setObjectName(u"label_57")
@@ -2369,12 +2563,12 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_2.addWidget(self.frame_continer)
 
-        self.scroll_area_home_bottom = QScrollArea(self.page_home)
+        self.scroll_area_home_bottom = QScrollArea(self.page_home_)
         self.scroll_area_home_bottom.setObjectName(u"scroll_area_home_bottom")
         self.scroll_area_home_bottom.setWidgetResizable(True)
         self.scroll_area_widget_contents_home_bottom = QWidget()
         self.scroll_area_widget_contents_home_bottom.setObjectName(u"scroll_area_widget_contents_home_bottom")
-        self.scroll_area_widget_contents_home_bottom.setGeometry(QRect(0, 0, 325, 400))
+        self.scroll_area_widget_contents_home_bottom.setGeometry(QRect(0, 0, 640, 425))
         self.scroll_area_widget_contents_home_bottom.setStyleSheet(u"background-color: rgb(19, 20, 22);")
         self.verticalLayout_3 = QVBoxLayout(self.scroll_area_widget_contents_home_bottom)
         self.verticalLayout_3.setSpacing(0)
@@ -2535,7 +2729,7 @@ class Ui_MainWindow(object):
         self.frame_9.setFrameShadow(QFrame.Raised)
         self.label_10 = QLabel(self.frame_9)
         self.label_10.setObjectName(u"label_10")
-        self.label_10.setGeometry(QRect(20, 70, 261, 71))
+        self.label_10.setGeometry(QRect(10, 60, 271, 71))
         self.label_10.setFont(font16)
         self.label_10.setStyleSheet(u"color: rgb(0, 0, 0);")
 
@@ -2551,7 +2745,7 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_2.addWidget(self.scroll_area_home_bottom)
 
-        self.stacked_widget.addWidget(self.page_home)
+        self.stacked_widget.addWidget(self.page_home_)
         self.page_inventario = QWidget()
         self.page_inventario.setObjectName(u"page_inventario")
         self.verticalLayout_9 = QVBoxLayout(self.page_inventario)
@@ -2624,7 +2818,7 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {\n"
 " 	background-color: rgb(38, 39, 43);\n"
 "}")
-        self.btn_pesquisa_produto.setIcon(icon4)
+        self.btn_pesquisa_produto.setIcon(icon5)
         self.btn_pesquisa_produto.setIconSize(QSize(25, 25))
 
         self.horizontalLayout_12.addWidget(self.btn_pesquisa_produto)
@@ -2664,7 +2858,7 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {\n"
 " 	background-color: rgb(38, 39, 43);\n"
 "}")
-        self.btn_mais_opcoes.setIcon(icon5)
+        self.btn_mais_opcoes.setIcon(icon6)
         self.btn_mais_opcoes.setIconSize(QSize(25, 25))
 
         self.horizontalLayout_12.addWidget(self.btn_mais_opcoes)
@@ -2685,7 +2879,7 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {\n"
 " 	background-color: rgb(38, 39, 43);\n"
 "}")
-        self.btn_adicionar_produto.setIcon(icon6)
+        self.btn_adicionar_produto.setIcon(icon7)
         self.btn_adicionar_produto.setIconSize(QSize(35, 35))
 
         self.horizontalLayout_12.addWidget(self.btn_adicionar_produto)
@@ -2763,7 +2957,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 100, 678))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, -60, 614, 678))
         self.verticalLayout_204 = QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_204.setObjectName(u"verticalLayout_204")
         self.verticalLayout_204.setContentsMargins(2, 3, 2, 3)
@@ -2951,7 +3145,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         self.stacked_widget.setCurrentIndex(2)
-        self.stackedWidget_4.setCurrentIndex(0)
+        self.stackedWidget_4.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -3041,24 +3235,34 @@ class Ui_MainWindow(object):
         self.icon_img_47.setText("")
         self.nome_produto_47.setText(QCoreApplication.translate("MainWindow", u"Coca Cola", None))
         self.chave_47.setText(QCoreApplication.translate("MainWindow", u"333", None))
-        self.pushButton_10.setText("")
-        self.label_106.setText(QCoreApplication.translate("MainWindow", u"Inventario", None))
-        self.label_107.setText(QCoreApplication.translate("MainWindow", u"Esse \u00e9 um prototipo", None))
-        self.label_108.setText(QCoreApplication.translate("MainWindow", u"de um home page feito", None))
-        self.label_109.setText(QCoreApplication.translate("MainWindow", u"com python", None))
-        self.pushButton_14.setText("")
-        self.label_98.setText(QCoreApplication.translate("MainWindow", u"Venda", None))
-        self.label_99.setText(QCoreApplication.translate("MainWindow", u"Esse \u00e9 um prototipo  de um home page feito com python", None))
-        self.pushButton_3.setText("")
-        self.label_102.setText(QCoreApplication.translate("MainWindow", u"Perda", None))
-        self.label_103.setText(QCoreApplication.translate("MainWindow", u"Esse \u00e9 um prototipo", None))
-        self.label_104.setText(QCoreApplication.translate("MainWindow", u"de um home page feito", None))
-        self.label_105.setText(QCoreApplication.translate("MainWindow", u"com python", None))
-        self.pushButton.setText("")
-        self.label_77.setText(QCoreApplication.translate("MainWindow", u"Recibo", None))
-        self.label_95.setText(QCoreApplication.translate("MainWindow", u"Esse \u00e9 um prototipo", None))
-        self.label_96.setText(QCoreApplication.translate("MainWindow", u"de um home page feito", None))
-        self.label_97.setText(QCoreApplication.translate("MainWindow", u"com python", None))
+        self.btn_logo_inventario.setText("")
+        self.lbl_inventario.setText(QCoreApplication.translate("MainWindow", u"Inventario", None))
+        self.lbl_info_inventario_1.setText(QCoreApplication.translate("MainWindow", u"Gerencie eficientemente ", None))
+        self.lbl_info_inventario_2.setText(QCoreApplication.translate("MainWindow", u"o seu Inventario", None))
+        self.btn_logo_venda.setText("")
+        self.lbl_venda.setText(QCoreApplication.translate("MainWindow", u"Venda", None))
+        self.lbl_info_venda_3.setText(QCoreApplication.translate("MainWindow", u"clientes fi\u00e9is", None))
+        self.lbl_info_venda_1.setText(QCoreApplication.translate("MainWindow", u"Aprimore a experi\u00eancia", None))
+        self.lbl_info_venda_2.setText(QCoreApplication.translate("MainWindow", u"de compra para garantir", None))
+        self.btn_logo_perda.setText("")
+        self.lbl_perda.setText(QCoreApplication.translate("MainWindow", u"Perda", None))
+        self.lbl_info_perda_1.setText(QCoreApplication.translate("MainWindow", u"Gerencie efetivamente", None))
+        self.lbl_info_perda_2.setText(QCoreApplication.translate("MainWindow", u"as perdas para maximizar", None))
+        self.lbl_info_perda_3.setText(QCoreApplication.translate("MainWindow", u"os lucros", None))
+        self.btn_logo_recibo.setText("")
+        self.lbl_recibo.setText(QCoreApplication.translate("MainWindow", u"Recibo", None))
+        self.lbl_info_extra_recibo_1.setText(QCoreApplication.translate("MainWindow", u"Crie recibos personalizados", None))
+        self.lbl_info_extra_recibo_2.setText(QCoreApplication.translate("MainWindow", u"para uma experi\u00eancia do", None))
+        self.lbl_info_extra_recibo_3.setText(QCoreApplication.translate("MainWindow", u"cliente excepcional", None))
+        self.icon_img_29.setText("")
+        self.nome_produto_32.setText(QCoreApplication.translate("MainWindow", u"Nd Daniel", None))
+        self.chave_33.setText(QCoreApplication.translate("MainWindow", u"6", None))
+        self.icon_img_28.setText("")
+        self.nome_produto_31.setText(QCoreApplication.translate("MainWindow", u"Tati", None))
+        self.chave_32.setText(QCoreApplication.translate("MainWindow", u"9", None))
+        self.icon_img_30.setText("")
+        self.nome_produto_28.setText(QCoreApplication.translate("MainWindow", u"Jo\u00e3o", None))
+        self.chave_34.setText(QCoreApplication.translate("MainWindow", u"12", None))
         self.pushButton_7.setText("")
         self.label_62.setText(QCoreApplication.translate("MainWindow", u"A express\u00e3o Lorem ipsum", None))
         self.label_61.setText(QCoreApplication.translate("MainWindow", u"A express\u00e3o Lorem ipsum em design gr\u00e1fico e editora\u00e7\u00e3o \u00e9 um texto padr\u00e3o em latim utilizado na produ\u00e7\u00e3o gr\u00e1fica para preencher os espa\u00e7os de texto em publica\u00e7\u00f5es.", None))

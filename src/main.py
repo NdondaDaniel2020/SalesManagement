@@ -33,6 +33,15 @@ from src.gui.core.imagepath import ImagePath
 from src.gui.core.qss_themes import QssThemes
 
 
+#
+try:
+    from ctypes import windll  # Only exists on Windows.
+    myappid = 'mycompany.myproduct.subproduct.version'
+    windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
+except ImportError:
+    pass
+
+
 class MainWindow(QMainWindow):
 
     def __init__(self):
@@ -41,7 +50,61 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        # /////////////////////////////////////////////////////////////
+        # ////////////////////////////////////////////////////////////////////////
+        self.setWindowIcon(QIcon(ImagePath().set_svg_image('icon_resimido.png')))
+        self.setWindowTitle("Sales Management MX")
+
+        # ////////////////////////////////////////////////////////////////////////
+        self.ui.frame_registro.setImage(r'C:\Users\Daniel\Downloads\mist.png')
+        self.ui.frame_registro.setImageSize(40, 40)
+        self.ui.frame_registro.setCode('123')
+        self.ui.frame_registro.setName('Silking Mist')
+        self.ui.frame_registro.setUnidade(12)
+        self.ui.frame_registro.setValorDeVenda(11_450)
+
+        self.ui.frame_registro_10.setImage(r'C:\Users\Daniel\Downloads\mascara.png')
+        self.ui.frame_registro_10.setImageSize(28, 28)
+        self.ui.frame_registro_10.setCode('323')
+        self.ui.frame_registro_10.setName('Mascara Hidratante')
+        self.ui.frame_registro_10.setUnidade(30)
+        self.ui.frame_registro_10.setValorDeVenda(8_500)
+
+        self.ui.frame_registro_11.setImage(r'C:\Users\Daniel\Downloads\tint_spray.png')
+        self.ui.frame_registro_11.setImageSize(37, 37)
+        self.ui.frame_registro_11.setCode('233')
+        self.ui.frame_registro_11.setName('Tint Spray')
+        self.ui.frame_registro_11.setUnidade(20)
+        self.ui.frame_registro_11.setValorDeVenda(16_000)
+
+        self.ui.frame_registro_12.setImage(r'C:\Users\Daniel\Downloads\barra_de_cera.png')
+        self.ui.frame_registro_12.setImageSize(43, 43)
+        self.ui.frame_registro_12.setCode('234')
+        self.ui.frame_registro_12.setName('Barra de Cera')
+        self.ui.frame_registro_12.setUnidade(22)
+        self.ui.frame_registro_12.setValorDeVenda(7_450)
+
+        self.ui.frame_registro_9.setImage(r'C:\Users\Daniel\Downloads\spray.png')
+        self.ui.frame_registro_9.setImageSize(40, 40)
+        self.ui.frame_registro_9.setCode('235')
+        self.ui.frame_registro_9.setName('Spray')
+        self.ui.frame_registro_9.setUnidade(21)
+        self.ui.frame_registro_9.setValorDeVenda(11_500)
+
+        self.ui.frame_registro_8.setImage(r'C:\Users\Daniel\Downloads\mousse.png')
+        self.ui.frame_registro_8.setImageSize(37, 37)
+        self.ui.frame_registro_8.setCode('236')
+        self.ui.frame_registro_8.setName('Mousse')
+        self.ui.frame_registro_8.setUnidade(26)
+        self.ui.frame_registro_8.setValorDeVenda(13_500)
+
+        self.ui.frame_registro_7.setImage(r'C:\Users\Daniel\Downloads\shampoo.png')
+        self.ui.frame_registro_7.setImageSize(30, 30)
+        self.ui.frame_registro_9.setCode('237')
+        self.ui.frame_registro_9.setName('Shampoo')
+        self.ui.frame_registro.setUnidade(40)
+        self.ui.frame_registro.setValorDeVenda(18_450)
+
+        # ////////////////////////////////////////////////////////////////////////
         self.set_title_bar = False
         self.product_registration = None
 
@@ -59,7 +122,7 @@ class MainWindow(QMainWindow):
         # /////////////////////////////////////////////////////////////
         self._iniLeftMenu_()
 
-        # /////////////////////////////////////////////////////////////
+        # /////////////////////////////////////////////////////////////                 QSize(724, 622) QSize(724, 616)
         self._connectingPages_()
 
         # //////////////////////////////// LEFT MENU /////////////////////////////////////
@@ -69,6 +132,7 @@ class MainWindow(QMainWindow):
         self.btn_info_base.clicked.connect(self.left_menu.activeBtbInfo)
         self.btn_info_float.clicked.connect(self.left_menu.activeBtbInfo)
 
+        self.btn_back_base.clicked.connect(lambda: print(self.size()))
         # ///////////////////////////////////////////// INVENTORY ///////////////////////////////////////////
         self.ui.btn_adicionar_produto.clicked.connect(lambda: self.showProductRegistration())
 

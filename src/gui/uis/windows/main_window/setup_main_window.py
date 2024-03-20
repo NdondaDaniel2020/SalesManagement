@@ -36,10 +36,21 @@ class SetUpMainWindow:
 
     def configIconPath(self):
 
-        self.ui.logo.setPixmap(QPixmap(ImagePath().set_svg_image('logo_top_100x22.svg')))
+        self.ui.logo.setIcon(QIcon(ImagePath().set_svg_image('img-removebg-preview.png')))
 
+        # //////////////////////////////////////////////////////////////////////////////////////////////////////
+        self.ui.btn_log_extra_venda.setIcon(QIcon(ImagePath().set_svg_icon('icon_push_notification.svg')))
+        self.ui.btn_log_extra_perda.setIcon(QIcon(ImagePath().set_svg_icon('icon_push_notification.svg')))
+        self.ui.btn_logo_extra_perda.setIcon(QIcon(ImagePath().set_svg_icon('icon_push_notification.svg')))
+        self.ui.btn_log_extra_inventario.setIcon(QIcon(ImagePath().set_svg_icon('icon_push_notification.svg')))
 
-        # ////////////////////////////////////////////////////////////////////////
+        # ////////////////////////////////////////////////////////////////////////////////////////////
+        self.ui.btn_logo_venda.setIcon(QIcon(ImagePath().set_svg_icon('icon_coin.svg')))
+        self.ui.btn_logo_inventario.setIcon(QIcon(ImagePath().set_svg_icon('icon_box.svg')))
+        self.ui.btn_logo_recibo.setIcon(QIcon(ImagePath().set_svg_icon('icon_inventory.svg')))
+        self.ui.btn_logo_perda.setIcon(QIcon(ImagePath().set_svg_icon('icon_line_chart_down.svg')))
+
+        # //////////////////////////////////////////////////////////////////////////////////////////
         self.ui.widget_1.setIcon("icon_line_chart_down.svg")
         self.ui.widget_1.setText("Pizza Char")
         self.ui.widget_1.clicked.connect(lambda: print("test1"))
@@ -52,6 +63,10 @@ class SetUpMainWindow:
         self.ui.widget_3.setText("Char")
         self.ui.widget_3.clicked.connect(lambda: print("test3"))
 
+        # ////////////////////////////////////////////////////////////////////////
+        self.ui.icon_img_28.setIcon(QIcon(ImagePath().set_svg_image('tatiana-removebg-preview.png')))
+        self.ui.icon_img_29.setIcon(QIcon(ImagePath().set_svg_image('daniel-removebg-preview.png')))
+        self.ui.icon_img_30.setIcon(QIcon(ImagePath().set_svg_image('john-removebg-preview.png')))
 
         # ////////////////////////////////////////////////////////////////////////
         self.ui.frest_user.setPathImage(ImagePath().set_svg_image('daniel.jpg'))
