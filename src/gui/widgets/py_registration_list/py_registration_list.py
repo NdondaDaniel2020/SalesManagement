@@ -15,6 +15,35 @@ class PyRegistrationList(QFrame):
         self.deletar = None
         self.editar = None
 
+
+    def setCode(self, code):
+        self.chave.setText(code)
+
+
+    def setName(self, name):
+        self.nome_produto.setText(name)
+
+
+    def setUnidade(self, value=0):
+        self.lbl_unidade_valor.setText(str(value))
+
+    def setValorDeVenda(self, value=0):
+        self.lbl_venda_valor.setText(f'Kz {value:,}'.replace(',', '.'))
+        unidade = int(self.lbl_unidade_valor.text())
+        self.lbl_valor_total.setText(f'Kz {(value * unidade):,}'.replace(',', '.'))
+
+        self.lbl_percentual.setText(f'{(unidade / 367) * 100:.1f}')
+
+    def setImage(self, path):
+        icon = QIcon()
+        icon.addFile(path)
+        self.icon_img.setIcon(icon)
+
+
+    def setImageSize(self, width, heith):
+        self.icon_img.setIconSize(QSize(width, heith))
+
+
     def showMenu(self):
 
         parent = self.parent().parent().parent().parent().parent().parent()
@@ -27,7 +56,6 @@ class PyRegistrationList(QFrame):
         self.editar = self.menu.btn_editar()
 
         self.menu.showMethod()
-
 
 
     def __setUp__(self):
@@ -45,18 +73,17 @@ class PyRegistrationList(QFrame):
         self.horizontalLayout_8.setSpacing(0)
         self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
         self.horizontalLayout_8.setContentsMargins(6, 0, 10, 0)
-        self.icon = QPushButton(self.frame_registro)
-        self.icon.setObjectName(u"icon")
-        self.icon.setMinimumSize(QSize(35, 39))
-        self.icon.setMaximumSize(QSize(35, 39))
-        self.icon.setStyleSheet(u"QPushButton{border: 1px solid rgb(230, 230, 230);border-radius:5px;}")
-        icon1 = QIcon()
-        icon1.addFile(u"../../imagem de modelo/transferir-removebg-preview.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.icon_img = QPushButton(self.frame_registro)
+        self.icon_img.setObjectName(u"icon")
+        self.icon_img.setMinimumSize(QSize(35, 39))
+        self.icon_img.setMaximumSize(QSize(35, 39))
+        self.icon_img.setStyleSheet(u"QPushButton{border: 1px solid rgb(230, 230, 230);border-radius:5px;}")
+        icon = QIcon()
 
-        self.icon.setIcon(icon1)
-        self.icon.setIconSize(QSize(60, 60))
+        self.icon_img.setIcon(icon)
+        self.icon_img.setIconSize(QSize(60, 60))
 
-        self.horizontalLayout_8.addWidget(self.icon)
+        self.horizontalLayout_8.addWidget(self.icon_img)
 
         self.frame_chave_nome = QFrame(self.frame_registro)
         self.frame_chave_nome.setObjectName(u"frame_chave_nome")
@@ -240,10 +267,11 @@ class PyRegistrationList(QFrame):
 
         self.__retranslateUi__()
 
+
     def __retranslateUi__(self):
         self.chave.setText(QCoreApplication.translate("return_busca", u"333", None))
         self.nome_produto.setText(QCoreApplication.translate("return_busca", u"Coca Cola", None))
-        self.lbl_valor_percentual.setText(QCoreApplication.translate("return_busca", u"Valor/percent", None))
+        self.lbl_valor_percentual.setText(QCoreApplication.translate("return_busca", u"Valor Total/percent", None))
         self.lbl_valor_total.setText(QCoreApplication.translate("return_busca", u"Kz 5000", None))
         self.lbl_percentual.setText(QCoreApplication.translate("return_busca", u"60%", None))
         self.lbl_unidade.setText(QCoreApplication.translate("return_busca", u"Unidade", None))
