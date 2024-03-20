@@ -74,7 +74,7 @@ class ChartFunctions:
         self.set_1 = QBarSet("Entrada")
 
         # COR DAS BARRAS
-        self.set_0.setColor(QColor(233, 0, 0))
+        self.set_0.setColor(QColor(241, 2, 121))
         self.set_1.setColor(QColor(233, 234, 236))
 
         # ADICIONAR DADOS DAS BARRAS
@@ -94,7 +94,7 @@ class ChartFunctions:
         self.chart = QChart()
         self.chart.addSeries(self.series)
         self.chart.setBackgroundBrush(QColor(32, 33, 37))
-        self.chart.setAnimationOptions(QChart.AllAnimations)
+        # self.chart.setAnimationOptions(QChart.AllAnimations)
         self.chart.setContentsMargins(-7, -7, -7, -7)
         self.chart.setMargins(QMargins(-2, 3, 10, 0))
 
