@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>LoginWindow</class>
+ <widget class="QMainWindow" name="LoginWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>587</width>
+    <width>586</width>
     <height>489</height>
    </rect>
   </property>
@@ -72,7 +72,7 @@
         <widget class="QFrame" name="frame_3">
          <property name="maximumSize">
           <size>
-           <width>292</width>
+           <width>269</width>
            <height>435</height>
           </size>
          </property>
@@ -279,7 +279,7 @@ border-radius: 4px;</string>
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>../../../../../../../Downloads/fingerprint-svgrepo-com.svg</normaloff>../../../../../../../Downloads/fingerprint-svgrepo-com.svg</iconset>
+            <normaloff>../../../images/svg_icons/icon_fingerprint.svg</normaloff>../../../images/svg_icons/icon_fingerprint.svg</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -374,12 +374,12 @@ border-radius: 4px;</string>
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>../../../../../../../Downloads/user-scan-svgrepo-com.svg</normaloff>../../../../../../../Downloads/user-scan-svgrepo-com.svg</iconset>
+            <normaloff>../../../images/svg_icons/icon_user_scan.svg</normaloff>../../../images/svg_icons/icon_user_scan.svg</iconset>
           </property>
           <property name="iconSize">
            <size>
-            <width>35</width>
-            <height>35</height>
+            <width>38</width>
+            <height>38</height>
            </size>
           </property>
          </widget>
