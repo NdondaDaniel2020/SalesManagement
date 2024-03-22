@@ -280,7 +280,7 @@ QLabel{color:#ffffff}
             <string notr="true"/>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="page_foto">
             <widget class="QPushButton" name="image">
@@ -760,7 +760,7 @@ QPushButton:pressed{background-color: rgb(48, 55, 102);}
               </rect>
              </property>
              <property name="currentIndex">
-              <number>0</number>
+              <number>2</number>
              </property>
              <widget class="QWidget" name="page">
               <widget class="QFrame" name="frame_quantidade">
