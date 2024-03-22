@@ -9,11 +9,13 @@
 ################################################################################
 import os
 import cv2
-import locale
+import json
+import pathlib
 from rembg import remove
 from src.qt_core import *
 from qfluentwidgets import Slider
 from src.gui.core.imagepath import ImagePath
+from src.gui.core.json_settings import JsonSetting
 from src.gui.widgets.py_editable_comboBox.editable_combo_box import PyEditableComboBox
 from src.gui.widgets.py_slide_stacked_widgets.py_slide_stacked_widgets import PySlidingStackedWidget
 
@@ -25,6 +27,7 @@ class PyProductRegistration(QWidget):
         # /////////////////////////////////////////////////////////////////
         self.setupUi(self)
         self.validator()
+        self.getSettings()
 
         # ////////////////////////////////////////////////////////////////
         self.shadow_window = QGraphicsDropShadowEffect(self)
@@ -62,6 +65,8 @@ class PyProductRegistration(QWidget):
         self.btn_nav_camera.clicked.connect(self.changePosition)
         self.btn_nav_setting.clicked.connect(self.changePosition)
 
+        self.btn_setting.clicked.connect(lambda: self.btn_nav_setting.click())
+
         self.btn_foto_back.clicked.connect(self.backToMainPage)
 
         self.btn_show_categoria.clicked.connect(self.showPopupCategoria)
@@ -71,9 +76,14 @@ class PyProductRegistration(QWidget):
         self.combo_box_unidade.currentTextChanged.connect(self.itemUnidadeSelected)
         self.combo_box_ipwebcam.currentTextChanged.connect(self.itemIpwebcamSelected)
 
+        self.checkBox.clicked.connect(self.showExep)
+
+        self.btn_buscar_caminho.clicked.connect(self.setPhotoPath)
+        self.lbl_url_diretory.mousePressEvent = lambda a: self.setPhotoPath()
+
     # VALIDAÇÃO E CÓDIGO DO PAINEL
     # /////////////////////////////////////////////////////
-
+    ################### NAO TERMINDAS #############
     def showPopupCategoria(self):
         self.combo_box_categoria.showPopup()
 
@@ -88,6 +98,63 @@ class PyProductRegistration(QWidget):
 
     def showPopupIpwebcam(self):
         self.combo_box_ipwebcam.showPopup()
+
+    ################### TERMINDAS #############
+
+    def showExep(self):
+        if self.checkBox.isChecked():
+            self.icon_img.hide()
+            self.show_exem = False
+        else:
+            self.icon_img.show()
+            self.show_exem = True
+
+        json_file = JsonSetting().getPathJson()
+        with open(json_file, 'r') as file:
+            dados = json.load(file)
+
+        dados['registration_panel']['show_exem'] = self.show_exem
+        with open(json_file, "w") as file:
+            json.dump(dados, file)
+
+    def reduceUrl(self, url: str):
+        if len(url) > 24:
+            url = os.path.normpath(url).split('\\')
+            url = (*url[:4], '....', url[-1])
+            url = '\\'.join(url)
+            return url
+        return url
+
+    def setPhotoPath(self):
+        photo_path = QFileDialog().getExistingDirectory()
+        if photo_path:
+            self.lbl_url_diretory.setText(self.reduceUrl(photo_path))
+            self.image_path = photo_path
+
+            json_file = JsonSetting().getPathJson()
+            with open(json_file, 'r') as file:
+                dados = json.load(file)
+
+            dados['registration_panel']['image_path'] = photo_path
+            with open(json_file, "w") as file:
+                json.dump(dados, file)
+
+    def getSettings(self):
+        json_file = JsonSetting().getPathJson()
+        with open(json_file, 'r') as file:
+            dados = json.load(file)
+
+        self.image_path = dados['registration_panel']['image_path']
+        self.show_exem = dados['registration_panel']['show_exem']
+
+        self.lbl_url_diretory.setText(self.reduceUrl(self.image_path))
+
+        if self.show_exem:
+            self.icon_img.show()
+            self.checkBox.setChecked(False)
+        else:
+            self.icon_img.hide()
+            self.checkBox.setChecked(True)
 
     def itemIpwebcamSelected(self, item):
         self.lineEdit_ipwebcam.setText(item)
@@ -105,11 +172,12 @@ class PyProductRegistration(QWidget):
 
     def addImage(self):
 
-        languege = str(locale.getlocale()[0].lower())
-        path = '~\Imagens'
-
-        if 'en' in languege:
-            path = '~\Pictures'
+        path = ''
+        if not self.image_path:
+            path = pathlib.Path().home()
+            self.image_path = path
+        else:
+            path = self.image_path
 
         path = os.path.expanduser(path)
         path = os.path.normpath(path)
@@ -369,7 +437,7 @@ class PyProductRegistration(QWidget):
         qimg = QPixmap.fromImage(qimg.copy(rest, 0, width - rest, height))
 
         # Convert the QImage to a bytes object
-        self.file_path = "photo.JPEG"
+        self.file_path = self.image_path + "\photo.JPEG"
         self.file_path = os.path.abspath(self.file_path)
         if os.path.exists(self.file_path):
             for i in range(1, 100_000_000):
@@ -1072,15 +1140,15 @@ class PyProductRegistration(QWidget):
         self.horizontalLayout_16 = QHBoxLayout(self.frame_folder_img)
         self.horizontalLayout_16.setSpacing(5)
         self.horizontalLayout_16.setObjectName(u"horizontalLayout_16")
-        self.label_2 = QLabel(self.frame_folder_img)
-        self.label_2.setObjectName(u"label_2")
+        self.lbl_url_diretory = QLabel(self.frame_folder_img)
+        self.lbl_url_diretory.setObjectName(u"lbl_url_diretory")
         font1 = QFont()
         font1.setBold(True)
-        self.label_2.setFont(font1)
-        self.label_2.setLayoutDirection(Qt.LeftToRight)
-        self.label_2.setAlignment(Qt.AlignCenter)
+        self.lbl_url_diretory.setFont(font1)
+        self.lbl_url_diretory.setLayoutDirection(Qt.LeftToRight)
+        self.lbl_url_diretory.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
 
-        self.horizontalLayout_16.addWidget(self.label_2)
+        self.horizontalLayout_16.addWidget(self.lbl_url_diretory)
 
         self.btn_buscar_caminho = QPushButton(self.frame_folder_img)
         self.btn_buscar_caminho.setObjectName(u"btn_buscar_caminho")
@@ -1207,7 +1275,7 @@ class PyProductRegistration(QWidget):
             QCoreApplication.translate("Form", u"Informa\u00e7\u00f5es adicionais sobre o produto (opcional)",
                                        None))
         self.checkBox.setText(QCoreApplication.translate("Form", u"Mostrar exemplo da imagem minimizada", None))
-        self.label_2.setText(QCoreApplication.translate("Form", u"C:\\Users\\Daniel\\Videos\\.....\\Music", None))
+        self.lbl_url_diretory.setText(QCoreApplication.translate("Form", u"C:\\Users\\Daniel\\Videos\\.....\\Music", None))
 
         self.combo_box_ipwebcam.setItemText(0, QCoreApplication.translate("Form", u"New Item 0", None))
         self.combo_box_ipwebcam.setItemText(1, QCoreApplication.translate("Form", u"New Item 1", None))
