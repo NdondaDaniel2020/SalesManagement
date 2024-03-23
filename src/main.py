@@ -19,19 +19,17 @@ from src.gui.widgets.py_product_registration.py_product_registration import PyPr
 
 # MAIN INTERFACE CODE
 # CÓDIGO PRINCIPAL DA INTERFACE
-from src.gui.ui.windows.main_window.ui_main_window import Ui_MainWindow
+from src.gui.uis.windows.main_window.ui_main_window import Ui_MainWindow
 from src.gui.function.functions_main_window.functions_system import FunctionsSystem
 
 # INTERFACE AUXILIARY CODE
 # CÓDIGO AUXILIAR DA INTERFACE
-from src.gui.ui.windows.main_window.setup_main_window import *
+from src.gui.uis.windows.main_window.setup_main_window import *
 from src.gui.function.functions_main_window.functions_chart import ChartFunctions
 
 # AUXILIARY CODE
 # CÓDIGO AUXILIAR
-from src.gui.core.imagepath import ImagePath
-from src.gui.core.qss_themes import QssThemes
-
+from src.gui.core.absolute_path import AbsolutePath
 
 #
 try:
@@ -51,7 +49,7 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
 
         # ////////////////////////////////////////////////////////////////////////
-        self.setWindowIcon(QIcon(ImagePath().set_svg_image('icon_resimido.png')))
+        self.setWindowIcon(QIcon(AbsolutePath().getPathImage('icon_resimido.png')))
         self.setWindowTitle("Sales Management MX")
 
         # ////////////////////////////////////////////////////////////////////////

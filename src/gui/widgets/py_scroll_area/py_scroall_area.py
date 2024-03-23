@@ -1,5 +1,5 @@
 from src.qt_core import *
-from src.gui.core.imagepath import ImagePath
+from src.gui.core.absolute_path import AbsolutePath
 
 class PyScrollArea(QScrollArea):
     def __init__(self, parent=None):
@@ -162,7 +162,7 @@ class PyTransitionButton(object):
         self.next_btn.setMinimumSize(self.size)
         self.next_btn.setStyleSheet(self.style_next)
         self.next_btn.setIconSize(QSize(13, 13))
-        self.next_btn.setIcon(QIcon(ImagePath().set_svg_icon('icon_next_btn')))
+        self.next_btn.setIcon(QIcon(AbsolutePath().getPathIcon('icon_next_btn')))
 
         self.shadow_next = QGraphicsDropShadowEffect(self.next_btn)
         self.shadow_next.setBlurRadius(30)
@@ -183,7 +183,7 @@ class PyTransitionButton(object):
         self.back_btn.setMinimumSize(self.size)
         self.back_btn.setStyleSheet(self.style_back)
         self.back_btn.setIconSize(QSize(17, 17))
-        self.back_btn.setIcon(QIcon(ImagePath().set_svg_icon('icon_back_btn')))
+        self.back_btn.setIcon(QIcon(AbsolutePath().getPathIcon('icon_back_btn')))
 
         self.shadow_back = QGraphicsDropShadowEffect(self.back_btn)
         self.shadow_back.setBlurRadius(30)

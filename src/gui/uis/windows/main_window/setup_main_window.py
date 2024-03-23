@@ -2,15 +2,15 @@ import platform
 
 from src.qt_core import *
 
-from src.gui.ui.windows.main_window.ui_main_window import Ui_MainWindow
+from src.gui.uis.windows.main_window.ui_main_window import Ui_MainWindow
 
 from src.gui.widgets.py_grips.py_grips import PyGrips
 from src.gui.widgets.py_left_menu.py_left_menu import LeftMenu
 from src.gui.widgets.py_push_button.py_push_button import PyPushButton
 from src.gui.widgets.py_painel_button.py_painel_button import PyPanelButton
 
-from src.gui.core.imagepath import ImagePath
-from src.gui.core.qss_themes import QssThemes
+from src.gui.core.absolute_path import AbsolutePath
+
 
 
 
@@ -36,19 +36,19 @@ class SetUpMainWindow:
 
     def configIconPath(self):
 
-        self.ui.logo.setIcon(QIcon(ImagePath().set_svg_image('img-removebg-preview.png')))
+        self.ui.logo.setIcon(QIcon(AbsolutePath().getPathImage('img-removebg-preview.png')))
 
         # //////////////////////////////////////////////////////////////////////////////////////////////////////
-        self.ui.btn_log_extra_venda.setIcon(QIcon(ImagePath().set_svg_icon('icon_push_notification.svg')))
-        self.ui.btn_log_extra_perda.setIcon(QIcon(ImagePath().set_svg_icon('icon_push_notification.svg')))
-        self.ui.btn_logo_extra_perda.setIcon(QIcon(ImagePath().set_svg_icon('icon_push_notification.svg')))
-        self.ui.btn_log_extra_inventario.setIcon(QIcon(ImagePath().set_svg_icon('icon_push_notification.svg')))
+        self.ui.btn_log_extra_venda.setIcon(QIcon(AbsolutePath().getPathIcon('icon_push_notification.svg')))
+        self.ui.btn_log_extra_perda.setIcon(QIcon(AbsolutePath().getPathIcon('icon_push_notification.svg')))
+        self.ui.btn_logo_extra_perda.setIcon(QIcon(AbsolutePath().getPathIcon('icon_push_notification.svg')))
+        self.ui.btn_log_extra_inventario.setIcon(QIcon(AbsolutePath().getPathIcon('icon_push_notification.svg')))
 
         # ////////////////////////////////////////////////////////////////////////////////////////////
-        self.ui.btn_logo_venda.setIcon(QIcon(ImagePath().set_svg_icon('icon_coin.svg')))
-        self.ui.btn_logo_inventario.setIcon(QIcon(ImagePath().set_svg_icon('icon_box.svg')))
-        self.ui.btn_logo_recibo.setIcon(QIcon(ImagePath().set_svg_icon('icon_inventory.svg')))
-        self.ui.btn_logo_perda.setIcon(QIcon(ImagePath().set_svg_icon('icon_line_chart_down.svg')))
+        self.ui.btn_logo_venda.setIcon(QIcon(AbsolutePath().getPathIcon('icon_coin.svg')))
+        self.ui.btn_logo_inventario.setIcon(QIcon(AbsolutePath().getPathIcon('icon_box.svg')))
+        self.ui.btn_logo_recibo.setIcon(QIcon(AbsolutePath().getPathIcon('icon_inventory.svg')))
+        self.ui.btn_logo_perda.setIcon(QIcon(AbsolutePath().getPathIcon('icon_line_chart_down.svg')))
 
         # //////////////////////////////////////////////////////////////////////////////////////////
         self.ui.widget_1.setIcon("icon_line_chart_down.svg")
@@ -64,20 +64,20 @@ class SetUpMainWindow:
         self.ui.widget_3.clicked.connect(lambda: print("test3"))
 
         # ////////////////////////////////////////////////////////////////////////
-        self.ui.icon_img_28.setIcon(QIcon(ImagePath().set_svg_image('tatiana-removebg-preview.png')))
-        self.ui.icon_img_29.setIcon(QIcon(ImagePath().set_svg_image('daniel-removebg-preview.png')))
-        self.ui.icon_img_30.setIcon(QIcon(ImagePath().set_svg_image('john-removebg-preview.png')))
+        self.ui.icon_img_28.setIcon(QIcon(AbsolutePath().getPathImage('tatiana-removebg-preview.png')))
+        self.ui.icon_img_29.setIcon(QIcon(AbsolutePath().getPathImage('daniel-removebg-preview.png')))
+        self.ui.icon_img_30.setIcon(QIcon(AbsolutePath().getPathImage('john-removebg-preview.png')))
 
         # ////////////////////////////////////////////////////////////////////////
-        self.ui.frest_user.setPathImage(ImagePath().set_svg_image('daniel.jpg'))
+        self.ui.frest_user.setPathImage(AbsolutePath().getPathImage('daniel.jpg'))
         self.ui.frest_user.clicked.connect(lambda: print("test user"))
 
-        self.ui.qrcode.setIcon(QIcon(ImagePath().set_svg_image("SalesManagement.svg")))
+        self.ui.qrcode.setIcon(QIcon(AbsolutePath().getPathImage("SalesManagement.svg")))
 
         # ////////////////////////////////////////////////////////////////////////
-        self.ui.btn_pesquisa_produto.setIcon(QIcon(ImagePath().set_svg_icon('icon_search.svg')))
-        self.ui.btn_mais_opcoes.setIcon(QIcon(ImagePath().set_svg_icon('icon_more.svg')))
-        self.ui.btn_adicionar_produto.setIcon(QIcon(ImagePath().set_svg_icon('icon_add.svg')))
+        self.ui.btn_pesquisa_produto.setIcon(QIcon(AbsolutePath().getPathIcon('icon_search.svg')))
+        self.ui.btn_mais_opcoes.setIcon(QIcon(AbsolutePath().getPathIcon('icon_more.svg')))
+        self.ui.btn_adicionar_produto.setIcon(QIcon(AbsolutePath().getPathIcon('icon_add.svg')))
 
 
 
@@ -128,7 +128,7 @@ class SetUpMainWindow:
         # ADD ICON
         # ////////////////////////////////////////////////////////////////////////////////
         icon = QIcon()
-        icon.addFile(ImagePath().set_svg_icon("icon_minimize.svg"), QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(AbsolutePath().getPathIcon("icon_minimize.svg"), QSize(), QIcon.Normal, QIcon.Off)
 
         # CONFIG ICON SIZE
         # ////////////////////////////////////////////////////////////////////////////////
@@ -152,7 +152,7 @@ class SetUpMainWindow:
         # ADD ICON
         # ////////////////////////////////////////////////////////////////////////////////
         icon1 = QIcon()
-        icon1.addFile(ImagePath().set_svg_icon("icon_maximize.svg"), QSize(), QIcon.Normal, QIcon.Off)
+        icon1.addFile(AbsolutePath().getPathIcon("icon_maximize.svg"), QSize(), QIcon.Normal, QIcon.Off)
 
         # CONFIG ICON SIZE
         # //////////////////////////////
@@ -176,7 +176,7 @@ class SetUpMainWindow:
         # ADD ICON
         # //////////////////////////////////////////////////////////////////////////////
         icon2 = QIcon()
-        icon2.addFile(ImagePath().set_svg_icon("icon_close.svg"), QSize(), QIcon.Normal, QIcon.Off)
+        icon2.addFile(AbsolutePath().getPathIcon("icon_close.svg"), QSize(), QIcon.Normal, QIcon.Off)
 
         # ICON SIZE
         # //////////////////////////////////////////////////////////////////////////////
@@ -208,7 +208,7 @@ class SetUpMainWindow:
 
         # ADD STYLE WINDOW
         # ////////////////////////////////////////////////////////////////////////////////
-        self.ui.widget_style_sheet.setStyleSheet(QssThemes().set_qss(file_name='window_normal.qss', theme='dark'))
+        self.ui.widget_style_sheet.setStyleSheet(AbsolutePath().getThemeQss(file_name='window_normal.qss', theme='dark'))
 
 
         # ////////////////////////////////////////////////////////////////////////////////
@@ -281,7 +281,7 @@ class SetUpMainWindow:
         # CONFIG INTERFACE NO WINDOW
         #///////////////////////////////////////////////////////////////////////////////
         self.ui.widget_style_sheet.setStyleSheet(
-            QssThemes().set_qss(file_name='non_window_configuration.qss', theme='dark'))
+            AbsolutePath().getThemeQss(file_name='non_window_configuration.qss', theme='dark'))
 
         # REMOVE MARGIN ON WINDOW
         # //////////////////////////////////////////////////////////////////////////////
@@ -306,15 +306,15 @@ class SetUpMainWindow:
 
             # ADJUST STYLE OF BUTTON MAXIMIZE
             # //////////////////////////////////////////////////////////////////////////
-            self.btn_maximize.setIcon(QIcon(ImagePath().set_svg_icon('icon_restore2.svg')))
+            self.btn_maximize.setIcon(QIcon(AbsolutePath().getPathIcon('icon_restore2.svg')))
             self.btn_maximize.setIconSize(QSize(20, 20))
             # self.btn_maximize.set_style(btn_hover="#313237", btn_pressed="#26272b",
             #                             btn_radius=4, text_padding=3)
 
             # REPLACE STYLE OF WINDOW
             # //////////////////////////////////////////////////////////////////////////
-            self.ui.widget_style_sheet.setStyleSheet(QssThemes().set_qss(file_name='window_maximized.qss',
-                                                                            theme='dark'))
+            self.ui.widget_style_sheet.setStyleSheet(AbsolutePath().getThemeQss(file_name='window_maximized.qss',
+                                                                             theme='dark'))
 
             # Hide GRIP'S
             # ////////////////////////////////////////////////////////////////////////////////
@@ -341,7 +341,7 @@ class SetUpMainWindow:
 
             # REPLACE STYLE BUTTON MAXIMIZE
             # //////////////////////////////////////////////////////////////////////////
-            self.btn_maximize.setIcon(QIcon(ImagePath().set_svg_icon('icon_maximize.svg')))
+            self.btn_maximize.setIcon(QIcon(AbsolutePath().getPathIcon('icon_maximize.svg')))
             self.btn_maximize.setIconSize(QSize(17, 17))
 
             # ADJUST STYLE OF BUTTON MAXIMIZE
@@ -351,7 +351,7 @@ class SetUpMainWindow:
 
             # REPLACE STYLE OF WINDOW
             # //////////////////////////////////////////////////////////////////////////
-            self.ui.widget_style_sheet.setStyleSheet(QssThemes().set_qss(file_name='window_normal.qss', theme='dark'))
+            self.ui.widget_style_sheet.setStyleSheet(AbsolutePath().getThemeQss(file_name='window_normal.qss', theme='dark'))
 
             # Hide GRIP'S
             # ////////////////////////////////////////////////////////////////////////////////

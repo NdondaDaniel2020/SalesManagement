@@ -15,8 +15,7 @@ import pathlib
 from rembg import remove
 from src.qt_core import *
 from qfluentwidgets import Slider
-from src.gui.core.imagepath import ImagePath
-from src.gui.core.json_settings import JsonSetting
+from src.gui.core.absolute_path import AbsolutePath
 from src.gui.widgets.py_slide_stacked_widgets.py_slide_stacked_widgets import PySlidingStackedWidget
 
 
@@ -39,7 +38,7 @@ class PyProductRegistration(QWidget):
 
         # ////////////////////////////////////////////////////////////////
         self.selected_camera = 0
-        self.countAvailableCameras()
+        # self.countAvailableCameras()
         self.cap = cv2.VideoCapture(self.selected_camera)  # 'http://192.168.0.120:8080/video'
 
         # Create a QTimer to update the image every 100ms
@@ -51,7 +50,7 @@ class PyProductRegistration(QWidget):
         self.first_exe = False
         self.render_file = None
         self.btn_sender = self.btn_nav_camera
-        self.file_path = ImagePath().set_svg_icon("icon_gallery.svg")
+        self.file_path = AbsolutePath().getPathIcon("icon_gallery.svg")
 
         self.stackedWidget.enterEvent = self.stacked_Widget_enter_event
         self.stackedWidget.leaveEvent = self.stacked_Widget_leave_event
@@ -115,10 +114,20 @@ class PyProductRegistration(QWidget):
         if self.cap.isOpened():
             self.cap.release()
 
+    def validarEnderecoIp(self, ip: str) -> bool:
+        padrao = r"^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):[0-9]{4}$"
+        return re.match(padrao, ip) is not None
+
     def changeCamLdt(self) -> None:  # tem erro na hora de fechar
         txt = self.lineEdit_ipwebcam.text()
 
+        if self.validarEnderecoIp(txt):
 
+            if not 'http://' in txt:
+                txt = 'http://' + txt
+
+            if not '/video' in txt:
+                txt = txt + '/video'
 
         if not txt in [self.combo_box_ipwebcam.itemText(i) for i in range(self.combo_box_ipwebcam.count())]:
             self.combo_box_ipwebcam.addItem(txt)
@@ -137,7 +146,7 @@ class PyProductRegistration(QWidget):
             self.icon_img.show()
             self.show_exem = True
 
-        json_file = JsonSetting().getPathJson()
+        json_file = AbsolutePath().getPathSetting()
         with open(json_file, 'r') as file:
             dados = json.load(file)
 
@@ -154,12 +163,12 @@ class PyProductRegistration(QWidget):
         return url
 
     def setPhotoPath(self) -> None:
-        photo_path = QFileDialog().getExistingDirectory()
+        photo_path = QFileDialog().getExistingDirectory(dir=self.image_path)
         if photo_path:
             self.lbl_url_diretory.setText(self.reduceUrl(photo_path))
             self.image_path = photo_path
 
-            json_file = JsonSetting().getPathJson()
+            json_file = AbsolutePath().getPathSetting()
             with open(json_file, 'r') as file:
                 dados = json.load(file)
 
@@ -168,12 +177,15 @@ class PyProductRegistration(QWidget):
                 json.dump(dados, file)
 
     def getSettings(self) -> None:
-        json_file = JsonSetting().getPathJson()
+        json_file = AbsolutePath().getPathSetting()
         with open(json_file, 'r') as file:
             dados = json.load(file)
 
         self.image_path = dados['registration_panel']['image_path']
         self.show_exem = dados['registration_panel']['show_exem']
+
+        if not self.image_path:
+            self.image_path = pathlib.Path().home()
 
         self.lbl_url_diretory.setText(self.reduceUrl(self.image_path))
 
@@ -184,7 +196,7 @@ class PyProductRegistration(QWidget):
             self.icon_img.hide()
             self.checkBox.setChecked(True)
 
-    def countAvailableCameras(self) -> None:
+    def countAvailableCameras(self) -> None:  ## fazer rodar no main -> tela de login
         # Inicializa a contagem de câmeras disponíveis
         contador = 0
         for i in range(1000):
@@ -201,19 +213,9 @@ class PyProductRegistration(QWidget):
 
     def addImage(self) -> None:
 
-        path = ''
-        if not self.image_path:
-            path = pathlib.Path().home()
-            self.image_path = path
-        else:
-            path = self.image_path
-
-        path = os.path.expanduser(path)
-        path = os.path.normpath(path)
-
         self.file_path = QFileDialog.getOpenFileName(
             parent=self,
-            dir=path,
+            dir=self.image_path,
             filter=self.tr('img file (*.png *.jpeg *.jpg *.PNG *.JPG) ')
         )[0]
 
@@ -229,7 +231,7 @@ class PyProductRegistration(QWidget):
 
     def closeImage(self) -> None:
         icon = QIcon()
-        icon.addFile(ImagePath().set_svg_icon("icon_gallery.svg"))
+        icon.addFile(AbsolutePath().getPathIcon("icon_gallery.svg"))
 
         self.image.setIconSize(QSize(25, 25))
         self.icon_img.setIconSize(QSize(18, 18))
@@ -543,6 +545,7 @@ class PyProductRegistration(QWidget):
                                        "#frame_continer_setting,\n"
                                        "#frame_show_btn_image,\n"
                                        "#frame_folder_img,\n"
+                                       "#lbl_url_diretory,\n"
                                        " #frame_quantidade,\n"
                                        "#frame_continer_preco,\n"
                                        " #frame_continer_information_adicionais{\n"
@@ -736,7 +739,7 @@ class PyProductRegistration(QWidget):
         self.image.setObjectName(u"image")
         self.image.setGeometry(QRect(40, 40, 220, 390))
         icon = QIcon()
-        icon.addFile(ImagePath().set_svg_icon("icon_gallery.svg"))
+        icon.addFile(AbsolutePath().getPathIcon("icon_gallery.svg"))
         self.image.setIcon(icon)
         self.image.setIconSize(QSize(25, 25))
         self.icon_img = QPushButton(self.page_foto)
@@ -774,7 +777,7 @@ class PyProductRegistration(QWidget):
         self.btn_nav_camera.setMinimumSize(QSize(40, 40))
         self.btn_nav_camera.setMaximumSize(QSize(40, 40))
         icon1 = QIcon()
-        icon1.addFile(ImagePath().set_svg_icon("icon_camera.svg"))
+        icon1.addFile(AbsolutePath().getPathIcon("icon_camera.svg"))
         self.btn_nav_camera.setIcon(icon1)
         self.btn_nav_camera.setIconSize(QSize(27, 27))
 
@@ -785,7 +788,7 @@ class PyProductRegistration(QWidget):
         self.btn_nav_key.setMinimumSize(QSize(40, 40))
         self.btn_nav_key.setMaximumSize(QSize(40, 40))
         icon2 = QIcon()
-        icon2.addFile(ImagePath().set_svg_icon("icon_key.svg"))
+        icon2.addFile(AbsolutePath().getPathIcon("icon_key.svg"))
         self.btn_nav_key.setIcon(icon2)
         self.btn_nav_key.setIconSize(QSize(27, 27))
 
@@ -796,7 +799,7 @@ class PyProductRegistration(QWidget):
         self.btn_nav_edit.setMinimumSize(QSize(40, 40))
         self.btn_nav_edit.setMaximumSize(QSize(40, 40))
         icon3 = QIcon()
-        icon3.addFile(ImagePath().set_svg_icon("icon_edit_text.svg"))
+        icon3.addFile(AbsolutePath().getPathIcon("icon_edit_text.svg"))
         self.btn_nav_edit.setIcon(icon3)
         self.btn_nav_edit.setIconSize(QSize(27, 27))
 
@@ -807,7 +810,7 @@ class PyProductRegistration(QWidget):
         self.btn_nav_setting.setMinimumSize(QSize(40, 40))
         self.btn_nav_setting.setMaximumSize(QSize(40, 40))
         icon4 = QIcon()
-        icon4.addFile(ImagePath().set_svg_icon("icon_setting.svg"))
+        icon4.addFile(AbsolutePath().getPathIcon("icon_setting.svg"))
         self.btn_nav_setting.setIcon(icon4)
         self.btn_nav_setting.setIconSize(QSize(28, 28))
 
@@ -849,7 +852,7 @@ class PyProductRegistration(QWidget):
         font.setPointSize(10)
         self.btn_ok.setFont(font)
         icon5 = QIcon()
-        icon5.addFile(ImagePath().set_svg_icon("icon_check_ok.svg"))
+        icon5.addFile(AbsolutePath().getPathIcon("icon_check_ok.svg"))
         self.btn_ok.setIcon(icon5)
         self.btn_ok.setIconSize(QSize(22, 22))
 
@@ -860,7 +863,7 @@ class PyProductRegistration(QWidget):
         self.btn_scan.setMinimumSize(QSize(10, 33))
         self.btn_scan.setFont(font)
         icon6 = QIcon()
-        icon6.addFile(ImagePath().set_svg_icon("icon_qr_code.svg"))
+        icon6.addFile(AbsolutePath().getPathIcon("icon_qr_code.svg"))
         self.btn_scan.setIcon(icon6)
         self.btn_scan.setIconSize(QSize(22, 22))
 
@@ -889,7 +892,7 @@ class PyProductRegistration(QWidget):
         self.btn_del.setMinimumSize(QSize(10, 33))
         self.btn_del.setFont(font)
         icon7 = QIcon()
-        icon7.addFile(ImagePath().set_svg_icon("icon_delete.svg"))
+        icon7.addFile(AbsolutePath().getPathIcon("icon_delete.svg"))
         self.btn_del.setIcon(icon7)
         self.btn_del.setIconSize(QSize(22, 22))
 
@@ -1014,7 +1017,7 @@ class PyProductRegistration(QWidget):
         self.btn_show_categoria.setMaximumSize(QSize(37, 37))
         self.btn_show_categoria.setStyleSheet(u"")
         icon8 = QIcon()
-        icon8.addFile(ImagePath().set_svg_icon("icon_down_arrow.svg"))
+        icon8.addFile(AbsolutePath().getPathIcon("icon_down_arrow.svg"))
         self.btn_show_categoria.setIcon(icon8)
         self.btn_show_categoria.setIconSize(QSize(30, 30))
 
@@ -1098,14 +1101,14 @@ class PyProductRegistration(QWidget):
         self.btn_add_data.setGeometry(QRect(215, 40, 35, 35))
         self.btn_add_data.setLayoutDirection(Qt.RightToLeft)
         icon9 = QIcon()
-        icon9.addFile(ImagePath().set_svg_icon("icon_add.svg"))
+        icon9.addFile(AbsolutePath().getPathIcon("icon_add.svg"))
         self.btn_add_data.setIcon(icon9)
         self.btn_add_data.setIconSize(QSize(31, 31))
         self.btn_calendario = QPushButton(self.frame_calendario)
         self.btn_calendario.setObjectName(u"btn_calendario")
         self.btn_calendario.setGeometry(QRect(2, 4, 20, 20))
         icon11 = QIcon()
-        icon11.addFile(ImagePath().set_svg_icon("icon_service.svg"))
+        icon11.addFile(AbsolutePath().getPathIcon("icon_service.svg"))
         self.btn_calendario.setIcon(icon11)
         self.btn_calendario.setIconSize(QSize(25, 25))
 
@@ -1158,7 +1161,7 @@ class PyProductRegistration(QWidget):
         self.btn_buscar_caminho.setMinimumSize(QSize(37, 37))
         self.btn_buscar_caminho.setMaximumSize(QSize(37, 37))
         icon12 = QIcon()
-        icon12.addFile(ImagePath().set_svg_icon("icon_search_folder.svg"))
+        icon12.addFile(AbsolutePath().getPathIcon("icon_search_folder.svg"))
         self.btn_buscar_caminho.setIcon(icon12)
         self.btn_buscar_caminho.setIconSize(QSize(18, 18))
 
@@ -1220,7 +1223,7 @@ class PyProductRegistration(QWidget):
         self.btn_foto_back.setMinimumSize(QSize(37, 37))
         self.btn_foto_back.setMaximumSize(QSize(37, 37))
         icon13 = QIcon()
-        icon13.addFile(ImagePath().set_svg_icon("icon_back.svg"))
+        icon13.addFile(AbsolutePath().getPathIcon("icon_back.svg"))
         self.btn_foto_back.setIcon(icon13)
         self.btn_foto_back.setIconSize(QSize(18, 18))
         self.stackedWidget.addWidget(self.page_camera)
@@ -1384,7 +1387,7 @@ class Menu(QFrame):
                                "QPushButton:hover{background-color: rgb(47, 54, 100)}\n"
                                "\n"
                                "QPushButton:pressed{background-color: rgb(33, 38, 70);}")
-        self.add.setIcon(QIcon(ImagePath().set_svg_icon('icon_add.svg')))
+        self.add.setIcon(QIcon(AbsolutePath().getPathIcon('icon_add.svg')))
         self.add.setIconSize(QSize(32, 32))
 
         self.verticalLayout_30.addWidget(self.add)
@@ -1406,7 +1409,7 @@ class Menu(QFrame):
                                 "\n"
                                 "QPushButton:pressed{background-color: rgb(33, 38, 70);}")
 
-        self.foto.setIcon(QIcon(ImagePath().set_svg_icon('icon_camera.svg')))
+        self.foto.setIcon(QIcon(AbsolutePath().getPathIcon('icon_camera.svg')))
         self.foto.setIconSize(QSize(21, 21))
 
         self.verticalLayout_30.addWidget(self.foto)
@@ -1428,7 +1431,7 @@ class Menu(QFrame):
                                  "\n"
                                  "QPushButton:pressed{background-color: rgb(33, 38, 70);}")
 
-        self.rembg.setIcon(QIcon(ImagePath().set_svg_icon('icon_gallery_remove.svg')))
+        self.rembg.setIcon(QIcon(AbsolutePath().getPathIcon('icon_gallery_remove.svg')))
         self.rembg.setIconSize(QSize(20, 20))
 
         self.verticalLayout_30.addWidget(self.rembg)
@@ -1450,7 +1453,7 @@ class Menu(QFrame):
                                   "\n"
                                   "QPushButton:pressed{background-color: rgb(33, 38, 70);}")
 
-        self.rotate.setIcon(QIcon(ImagePath().set_svg_icon('icon_rotate.svg')))
+        self.rotate.setIcon(QIcon(AbsolutePath().getPathIcon('icon_rotate.svg')))
         self.rotate.setIconSize(QSize(18, 18))
 
         self.verticalLayout_30.addWidget(self.rotate)
@@ -1472,7 +1475,7 @@ class Menu(QFrame):
                                       "\n"
                                       "QPushButton:pressed{background-color: rgb(33, 38, 70);}")
 
-        self.resize_img.setIcon(QIcon(ImagePath().set_svg_icon('icon_size_svgrepo.svg')))
+        self.resize_img.setIcon(QIcon(AbsolutePath().getPathIcon('icon_size_svgrepo.svg')))
         self.resize_img.setIconSize(QSize(23, 23))
 
         self.verticalLayout_30.addWidget(self.resize_img)
@@ -1494,7 +1497,7 @@ class Menu(QFrame):
                                    "\n"
                                    "QPushButton:pressed{background-color: rgb(33, 38, 70);}")
 
-        self.deletar.setIcon(QIcon(ImagePath().set_svg_icon('icon_delete.svg')))
+        self.deletar.setIcon(QIcon(AbsolutePath().getPathIcon('icon_delete.svg')))
         self.deletar.setIconSize(QSize(25, 21))
 
         self.verticalLayout_30.addWidget(self.deletar)

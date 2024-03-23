@@ -1,5 +1,5 @@
 from src.qt_core import *
-from src.gui.core.imagepath import ImagePath
+from src.gui.core.absolute_path import AbsolutePath
 
 class PySegmentedWidget(QWidget):
 
@@ -18,7 +18,7 @@ class PySegmentedWidget(QWidget):
         self.btn_active.setMinimumSize(QSize(40, 40))
         self.btn_active.setMaximumSize(QSize(40, 40))
         icon = QIcon()
-        icon.addFile(ImagePath().set_svg_icon("icon_key.svg"))
+        icon.addFile(AbsolutePath().getPathIcon("icon_key.svg"))
         self.btn_active.setIcon(icon)
         self.btn_active.setStyleSheet("""QPushButton{
 background-color: rgb(47, 54, 100);
@@ -74,7 +74,7 @@ QPushButton:pressed{background-color: rgb(48, 55, 102);}
         self.btn_nav_camera.setMaximumSize(QSize(40, 40))
         self.btn_nav_camera.setStyleSheet(u"")
         icon3 = QIcon()
-        icon3.addFile(ImagePath().set_svg_icon("icon_camera.svg"))
+        icon3.addFile(AbsolutePath().getPathIcon("icon_camera.svg"))
         self.btn_nav_camera.setIcon(icon3)
         self.btn_nav_camera.setIconSize(QSize(27, 27))
 
@@ -85,7 +85,7 @@ QPushButton:pressed{background-color: rgb(48, 55, 102);}
         self.btn_nav_key.setMinimumSize(QSize(40, 40))
         self.btn_nav_key.setMaximumSize(QSize(40, 40))
         icon = QIcon()
-        icon.addFile(ImagePath().set_svg_icon("icon_key.svg"))
+        icon.addFile(AbsolutePath().getPathIcon("icon_key.svg"))
         self.btn_nav_key.setIcon(icon)
         self.btn_nav_key.setIconSize(QSize(27, 27))
 
@@ -96,7 +96,7 @@ QPushButton:pressed{background-color: rgb(48, 55, 102);}
         self.btn_nav_edit.setMinimumSize(QSize(40, 40))
         self.btn_nav_edit.setMaximumSize(QSize(40, 40))
         icon1 = QIcon()
-        icon1.addFile(ImagePath().set_svg_icon("icon_edit_text.svg"))
+        icon1.addFile(AbsolutePath().getPathIcon("icon_edit_text.svg"))
         self.btn_nav_edit.setIcon(icon1)
         self.btn_nav_edit.setIconSize(QSize(27, 27))
 
@@ -107,7 +107,7 @@ QPushButton:pressed{background-color: rgb(48, 55, 102);}
         self.btn_nav_info.setMinimumSize(QSize(40, 40))
         self.btn_nav_info.setMaximumSize(QSize(40, 40))
         icon2 = QIcon()
-        icon2.addFile(ImagePath().set_svg_icon("icon_info_2.svg"))
+        icon2.addFile(AbsolutePath().getPathIcon("icon_info_2.svg"))
         self.btn_nav_info.setIcon(icon2)
         self.btn_nav_info.setIconSize(QSize(28, 28))
 

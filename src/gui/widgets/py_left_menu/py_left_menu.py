@@ -11,7 +11,7 @@
 from src.qt_core import *
 
 from src.gui.widgets.py_push_button.py_push_button import PyPushButton
-from src.gui.core.imagepath import ImagePath
+from src.gui.core.absolute_path import AbsolutePath
 
 
 class LeftMenu(QWidget):
@@ -775,7 +775,7 @@ class UiLeftMenu(QWidget):
         self.btn_back.setMinimumSize(QSize(37, 37))
         self.btn_back.setMaximumSize(QSize(1234, 37))
         icon_back = QIcon()
-        icon_back.addFile(ImagePath().set_svg_icon("icon_back.svg"), QSize(), QIcon.Normal, QIcon.Off)
+        icon_back.addFile(AbsolutePath().getPathIcon("icon_back.svg"), QSize(), QIcon.Normal, QIcon.Off)
         self.btn_back.setIcon(icon_back)
         self.btn_back.setIconSize(QSize(20, 20))
 
@@ -790,7 +790,7 @@ class UiLeftMenu(QWidget):
         self.btn_menu.setMinimumSize(QSize(37, 37))
         self.btn_menu.setMaximumSize(QSize(1234, 37))
         icon_menu = QIcon()
-        icon_menu.addFile(ImagePath().set_svg_icon("icon_menu.svg"), QSize(), QIcon.Normal, QIcon.Off)
+        icon_menu.addFile(AbsolutePath().getPathIcon("icon_menu.svg"), QSize(), QIcon.Normal, QIcon.Off)
         self.btn_menu.setIcon(icon_menu)
         self.btn_menu.setIconSize(QSize(30, 30))
 
@@ -803,7 +803,7 @@ class UiLeftMenu(QWidget):
         self.btn_home.setMinimumSize(QSize(37, 37))
         self.btn_home.setMaximumSize(QSize(1234, 37))
         icon_home = QIcon()
-        icon_home.addFile(ImagePath().set_svg_icon("icon_home.svg"), QSize(), QIcon.Normal, QIcon.Off)
+        icon_home.addFile(AbsolutePath().getPathIcon("icon_home.svg"), QSize(), QIcon.Normal, QIcon.Off)
         self.btn_home.setIcon(icon_home)
         self.btn_home.setIconSize(QSize(28, 28))
 
@@ -814,7 +814,7 @@ class UiLeftMenu(QWidget):
         self.btn_compra.setMinimumSize(QSize(37, 37))
         self.btn_compra.setMaximumSize(QSize(1234, 37))
         icon_compra = QIcon()
-        icon_compra.addFile(ImagePath().set_svg_icon("icon_compra.svg"), QSize(), QIcon.Normal, QIcon.Off)
+        icon_compra.addFile(AbsolutePath().getPathIcon("icon_compra.svg"), QSize(), QIcon.Normal, QIcon.Off)
         self.btn_compra.setIcon(icon_compra)
         self.btn_compra.setIconSize(QSize(36, 36))
 
@@ -825,7 +825,7 @@ class UiLeftMenu(QWidget):
         self.btn_venda.setMinimumSize(QSize(37, 37))
         self.btn_venda.setMaximumSize(QSize(1234, 37))
         icon_venda = QIcon()
-        icon_venda.addFile(ImagePath().set_svg_icon("icon_venda.svg"), QSize(), QIcon.Normal, QIcon.Off)
+        icon_venda.addFile(AbsolutePath().getPathIcon("icon_venda.svg"), QSize(), QIcon.Normal, QIcon.Off)
         self.btn_venda.setIcon(icon_venda)
         self.btn_venda.setIconSize(QSize(36, 36))
 
@@ -886,7 +886,7 @@ class UiLeftMenu(QWidget):
         self.btn_inventario.setMinimumSize(QSize(37, 37))
         self.btn_inventario.setMaximumSize(QSize(1234, 37))
         icon_inventario = QIcon()
-        icon_inventario.addFile(ImagePath().set_svg_icon("icon_box.svg"), QSize(), QIcon.Normal, QIcon.Off)
+        icon_inventario.addFile(AbsolutePath().getPathIcon("icon_box.svg"), QSize(), QIcon.Normal, QIcon.Off)
         self.btn_inventario.setIcon(icon_inventario)
         self.btn_inventario.setIconSize(QSize(30, 30))
 
@@ -899,7 +899,7 @@ class UiLeftMenu(QWidget):
         self.btn_relatorio.setMinimumSize(QSize(37, 37))
         self.btn_relatorio.setMaximumSize(QSize(1234, 37))
         icon_relatorio = QIcon()
-        icon_relatorio.addFile(ImagePath().set_svg_icon("icon_inventory.svg"), QSize(), QIcon.Normal, QIcon.Off)
+        icon_relatorio.addFile(AbsolutePath().getPathIcon("icon_inventory.svg"), QSize(), QIcon.Normal, QIcon.Off)
         self.btn_relatorio.setIcon(icon_relatorio)
         self.btn_relatorio.setIconSize(QSize(38, 38))
 
@@ -912,7 +912,7 @@ class UiLeftMenu(QWidget):
         self.btn_service.setMinimumSize(QSize(37, 37))
         self.btn_service.setMaximumSize(QSize(1234, 37))
         icon_service = QIcon()
-        icon_service.addFile(ImagePath().set_svg_icon("icon_sevice.svg"), QSize(), QIcon.Normal, QIcon.Off)
+        icon_service.addFile(AbsolutePath().getPathIcon("icon_sevice.svg"), QSize(), QIcon.Normal, QIcon.Off)
         self.btn_service.setIcon(icon_service)
         self.btn_service.setIconSize(QSize(23, 23))
 
@@ -924,7 +924,7 @@ class UiLeftMenu(QWidget):
         self.btn_fornecedor.setMinimumSize(QSize(37, 37))
         self.btn_fornecedor.setMaximumSize(QSize(1234, 37))
         icon_fornecedor = QIcon()
-        icon_fornecedor.addFile(ImagePath().set_svg_icon("icon_employee.svg"), QSize(), QIcon.Normal, QIcon.Off)
+        icon_fornecedor.addFile(AbsolutePath().getPathIcon("icon_employee.svg"), QSize(), QIcon.Normal, QIcon.Off)
         self.btn_fornecedor.setIcon(icon_fornecedor)
         self.btn_fornecedor.setIconSize(QSize(26, 26))
 
@@ -937,7 +937,7 @@ class UiLeftMenu(QWidget):
         self.btn_cliente.setMinimumSize(QSize(37, 37))
         self.btn_cliente.setMaximumSize(QSize(1234, 37))
         icon_cliente = QIcon()
-        icon_cliente.addFile(ImagePath().set_svg_icon("icon_cliente.svg"), QSize(), QIcon.Normal, QIcon.Off)
+        icon_cliente.addFile(AbsolutePath().getPathIcon("icon_cliente.svg"), QSize(), QIcon.Normal, QIcon.Off)
         self.btn_cliente.setIcon(icon_cliente)
         self.btn_cliente.setIconSize(QSize(26, 26))
 
@@ -949,7 +949,7 @@ class UiLeftMenu(QWidget):
         self.btn_agenda.setMinimumSize(QSize(37, 37))
         self.btn_agenda.setMaximumSize(QSize(1234, 37))
         icon_agenda = QIcon()
-        icon_agenda.addFile(ImagePath().set_svg_icon("icon_service.svg"), QSize(), QIcon.Normal, QIcon.Off)
+        icon_agenda.addFile(AbsolutePath().getPathIcon("icon_service.svg"), QSize(), QIcon.Normal, QIcon.Off)
         self.btn_agenda.setIcon(icon_agenda)
         self.btn_agenda.setIconSize(QSize(41, 41))
 
@@ -961,7 +961,7 @@ class UiLeftMenu(QWidget):
         self.btn_recibo.setMinimumSize(QSize(37, 37))
         self.btn_recibo.setMaximumSize(QSize(1234, 37))
         icon_recibo = QIcon()
-        icon_recibo.addFile(ImagePath().set_svg_icon("icon_receipt"), QSize(), QIcon.Normal, QIcon.Off)
+        icon_recibo.addFile(AbsolutePath().getPathIcon("icon_receipt"), QSize(), QIcon.Normal, QIcon.Off)
         self.btn_recibo.setIcon(icon_recibo)
         self.btn_recibo.setIconSize(QSize(25, 25))
 
@@ -973,7 +973,7 @@ class UiLeftMenu(QWidget):
         self.btn_copia_seguranca.setMinimumSize(QSize(37, 37))
         self.btn_copia_seguranca.setMaximumSize(QSize(1234, 37))
         icon_copia_seguranca = QIcon()
-        icon_copia_seguranca.addFile(ImagePath().set_svg_icon("icon_cloud.svg"), QSize(), QIcon.Normal, QIcon.Off)
+        icon_copia_seguranca.addFile(AbsolutePath().getPathIcon("icon_cloud.svg"), QSize(), QIcon.Normal, QIcon.Off)
         self.btn_copia_seguranca.setIcon(icon_copia_seguranca)
         self.btn_copia_seguranca.setIconSize(QSize(25, 25))
 
@@ -1005,7 +1005,7 @@ class UiLeftMenu(QWidget):
         self.btn_setting.setMinimumSize(QSize(37, 37))
         self.btn_setting.setMaximumSize(QSize(1234, 37))
         icon_setting = QIcon()
-        icon_setting.addFile(ImagePath().set_svg_icon("icon_setting.svg"), QSize(), QIcon.Normal, QIcon.Off)
+        icon_setting.addFile(AbsolutePath().getPathIcon("icon_setting.svg"), QSize(), QIcon.Normal, QIcon.Off)
         self.btn_setting.setIcon(icon_setting)
         self.btn_setting.setIconSize(QSize(28, 28))
 
@@ -1016,7 +1016,7 @@ class UiLeftMenu(QWidget):
         self.btn_info.setMinimumSize(QSize(37, 37))
         self.btn_info.setMaximumSize(QSize(1234, 37))
         icon_info = QIcon()
-        icon_info.addFile(ImagePath().set_svg_icon("icon_information.svg"), QSize(), QIcon.Normal, QIcon.Off)
+        icon_info.addFile(AbsolutePath().getPathIcon("icon_information.svg"), QSize(), QIcon.Normal, QIcon.Off)
         self.btn_info.setIcon(icon_info)
         self.btn_info.setIconSize(QSize(27, 27))
 
@@ -1027,7 +1027,7 @@ class UiLeftMenu(QWidget):
         self.btn_user.setMinimumSize(QSize(37, 37))
         self.btn_user.setMaximumSize(QSize(1234, 37))
         icon_user = QIcon()
-        icon_user.addFile(ImagePath().set_svg_image("daniel.jpg"), QSize(), QIcon.Normal, QIcon.Off)
+        icon_user.addFile(AbsolutePath().getPathImage("daniel.jpg"), QSize(), QIcon.Normal, QIcon.Off)
         self.btn_user.setIcon(icon_user)
         self.btn_user.setIconSize(QSize(34, 39))
 

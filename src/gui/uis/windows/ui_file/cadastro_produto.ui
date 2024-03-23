@@ -51,6 +51,7 @@ QStackedWidget,
 #frame_continer_setting,
 #frame_show_btn_image,
 #frame_folder_img,
+#lbl_url_diretory,
  #frame_quantidade,
 #frame_continer_preco,
  #frame_continer_information_adicionais{

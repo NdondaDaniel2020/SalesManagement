@@ -1,5 +1,5 @@
 from src.qt_core import *
-from src.gui.core.imagepath import ImagePath
+from src.gui.core.absolute_path import AbsolutePath
 
 class PyEditableComboBox(QComboBox):
     def __init__(self, parent=None):
@@ -9,7 +9,7 @@ class PyEditableComboBox(QComboBox):
         self.setEditable(True)
 
         icon = QIcon()
-        icon.addFile(ImagePath().set_svg_icon('icon_down_arrow.svg'))
+        icon.addFile(AbsolutePath().getPathIcon('icon_down_arrow.svg'))
         self.button = QPushButton(self)
         self.button.setStyleSheet("""QPushButton{
                                         background-color: rgb(32, 33, 36);

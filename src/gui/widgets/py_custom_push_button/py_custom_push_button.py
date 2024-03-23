@@ -9,7 +9,7 @@
 ################################################################################
 
 from src.qt_core import *
-from src.gui.core.imagepath import ImagePath
+from src.gui.core.absolute_path import AbsolutePath
 
 class PyCustomPushButton(QFrame):
 
@@ -34,7 +34,7 @@ class PyCustomPushButton(QFrame):
         self.button.setText(text)
 
     def setIcon(self, icon):
-        self.button.setIcon(QIcon(ImagePath().set_svg_icon(icon)))
+        self.button.setIcon(QIcon(AbsolutePath().getPathIcon(icon)))
 
 
     def _setupUi_(self, parent):
@@ -78,7 +78,7 @@ class PyCustomPushButton(QFrame):
         self.more.setMaximumSize(QSize(36, 37))
         self.more.setStyleSheet(style_button)
         icon1 = QIcon()
-        icon1.addFile(ImagePath().set_svg_icon('icon_more.svg'), QSize(), QIcon.Normal, QIcon.Off)
+        icon1.addFile(AbsolutePath().getPathIcon('icon_more.svg'), QSize(), QIcon.Normal, QIcon.Off)
 
         self.more.setIcon(icon1)
         self.more.setIconSize(QSize(21, 21))

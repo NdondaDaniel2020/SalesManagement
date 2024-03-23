@@ -6125,7 +6125,7 @@ Nos países de língua inglesa o texto apresenta-se em forma um pouco diferente,
                                <x>0</x>
                                <y>0</y>
                                <width>1021</width>
-                               <height>148</height>
+                               <height>144</height>
                               </rect>
                              </property>
                              <property name="styleSheet">
@@ -6736,8 +6736,8 @@ color: #e9eaec;</string>
                            <rect>
                             <x>0</x>
                             <y>0</y>
-                            <width>640</width>
-                            <height>425</height>
+                            <width>325</width>
+                            <height>400</height>
                            </rect>
                           </property>
                           <property name="styleSheet">
@@ -7678,8 +7678,8 @@ border-radius: 10px;</string>
                                 <property name="geometry">
                                  <rect>
                                   <x>0</x>
-                                  <y>-60</y>
-                                  <width>614</width>
+                                  <y>0</y>
+                                  <width>100</width>
                                   <height>678</height>
                                  </rect>
                                 </property>

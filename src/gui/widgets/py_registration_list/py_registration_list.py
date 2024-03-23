@@ -1,5 +1,5 @@
 from src.qt_core import *
-from src.gui.core.imagepath import ImagePath
+from src.gui.core.absolute_path import AbsolutePath
 
 class PyRegistrationList(QFrame):
 
@@ -256,7 +256,7 @@ class PyRegistrationList(QFrame):
 " 	background-color: rgb(38, 39, 43);\n"
 "}")
 
-        self.btn_opcoes.setIcon(QIcon(ImagePath().set_svg_icon('icon_more.svg')))
+        self.btn_opcoes.setIcon(QIcon(AbsolutePath().getPathIcon('icon_more.svg')))
         self.btn_opcoes.setIconSize(QSize(20, 20))
 
         self.horizontalLayout_8.addWidget(self.btn_opcoes)
@@ -389,7 +389,7 @@ class Menu(QFrame):
                                    "QPushButton:hover{background-color: rgb(47, 54, 100)}\n"
                                    "\n"
                                    "QPushButton:pressed{background-color: rgb(33, 38, 70);}")
-         self.editar.setIcon(QIcon(ImagePath().set_svg_icon('icon_edit.svg')))
+         self.editar.setIcon(QIcon(AbsolutePath().getPathIcon('icon_edit.svg')))
          self.editar.setIconSize(QSize(19, 19))
 
          self.verticalLayout_30.addWidget(self.editar)
@@ -411,7 +411,7 @@ class Menu(QFrame):
                                     "\n"
                                     "QPushButton:pressed{background-color: rgb(33, 38, 70);}")
 
-         self.deletar.setIcon(QIcon(ImagePath().set_svg_icon('icon_delete.svg')))
+         self.deletar.setIcon(QIcon(AbsolutePath().getPathIcon('icon_delete.svg')))
          self.deletar.setIconSize(QSize(21, 21))
 
          self.verticalLayout_30.addWidget(self.deletar)

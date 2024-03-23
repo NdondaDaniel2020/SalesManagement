@@ -9,7 +9,7 @@
 ################################################################################
 
 from src.qt_core import *
-from src.gui.core.imagepath import ImagePath
+from src.gui.core.absolute_path import AbsolutePath
 
 class Ui_LoginWindow(QMainWindow):
     def __init__(self):
