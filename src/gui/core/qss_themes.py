@@ -12,8 +12,8 @@ class QssThemes:
     # ///////////////////////////////////////////////////////////////
     app_path = pathlib.Path().absolute()
 
-    if '\gui' in str(app_path):
-        while '\gui' not in str(app_path)[-4::]:
+    if '\guis' in str(app_path):
+        while '\guis' not in str(app_path)[-4::]:
             app_path = app_path.parent
     else:
         app_path = os.path.abspath(os.getcwd())

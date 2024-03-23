@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'cadastro_produtoyMjAHS.ui'
+## Form generated from reading UI file 'cadastro_produtoyMjAHS.uis'
 ##
 ## Created by: Qt User Interface Compiler version 6.4.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 import os
+import re
 import cv2
 import json
 import pathlib
@@ -16,7 +17,6 @@ from src.qt_core import *
 from qfluentwidgets import Slider
 from src.gui.core.imagepath import ImagePath
 from src.gui.core.json_settings import JsonSetting
-from src.gui.widgets.py_editable_comboBox.editable_combo_box import PyEditableComboBox
 from src.gui.widgets.py_slide_stacked_widgets.py_slide_stacked_widgets import PySlidingStackedWidget
 
 
@@ -38,12 +38,14 @@ class PyProductRegistration(QWidget):
         self.frame_central.setGraphicsEffect(self.shadow_window)
 
         # ////////////////////////////////////////////////////////////////
-        self.cap = cv2.VideoCapture(0)  # 'http://192.168.0.120:8080/video'
-        # self.countAvailableCameras()
+        self.selected_camera = 0
+        self.countAvailableCameras()
+        self.cap = cv2.VideoCapture(self.selected_camera)  # 'http://192.168.0.120:8080/video'
 
         # Create a QTimer to update the image every 100ms
         self.timer = QTimer()
         self.timer.timeout.connect(self.continuousImageUpdate)
+
         # ////////////////////////////////////////////////////////////////
         self.can_close = False
         self.first_exe = False
@@ -57,7 +59,6 @@ class PyProductRegistration(QWidget):
         self.image.mousePressEvent = self.mouse_press_event_menu_image
 
         # ////////////////////////////////////////////////////////////////
-
         self.btn_del.clicked.connect(self.close)
 
         self.btn_nav_key.clicked.connect(self.changePosition)
@@ -65,43 +66,70 @@ class PyProductRegistration(QWidget):
         self.btn_nav_camera.clicked.connect(self.changePosition)
         self.btn_nav_setting.clicked.connect(self.changePosition)
 
-        self.btn_setting.clicked.connect(lambda: self.btn_nav_setting.click())
-
-        self.btn_foto_back.clicked.connect(self.backToMainPage)
-
         self.btn_show_categoria.clicked.connect(self.showPopupCategoria)
         self.btn_show_unidade.clicked.connect(self.showPopupUnidade)
         self.btn_show_ipwebcam.clicked.connect(self.showPopupIpwebcam)
+
         self.combo_box_categoria.currentTextChanged.connect(self.itemCategoriaSelected)
         self.combo_box_unidade.currentTextChanged.connect(self.itemUnidadeSelected)
         self.combo_box_ipwebcam.currentTextChanged.connect(self.itemIpwebcamSelected)
-
-        self.checkBox.clicked.connect(self.showExep)
+        self.lineEdit_ipwebcam.returnPressed.connect(self.changeCamLdt)
 
         self.btn_buscar_caminho.clicked.connect(self.setPhotoPath)
         self.lbl_url_diretory.mousePressEvent = lambda a: self.setPhotoPath()
 
+        self.btn_setting.clicked.connect(lambda: self.btn_nav_setting.click())
+
+        self.btn_foto_back.clicked.connect(self.backToMainPage)
+
+        self.checkBox.clicked.connect(self.showExep)
+
+
     # VALIDAÇÃO E CÓDIGO DO PAINEL
     # /////////////////////////////////////////////////////
-    ################### NAO TERMINDAS #############
-    def showPopupCategoria(self):
+    ################### NAO TERMINDAS ############# connectar com bd
+    def showPopupCategoria(self) -> None:
         self.combo_box_categoria.showPopup()
 
-    def itemCategoriaSelected(self, item):
+    def itemCategoriaSelected(self, item) -> None:
         self.lineEdit_categoria.setText(item)
 
-    def showPopupUnidade(self):
+    def showPopupUnidade(self) -> None:
         self.combo_box_unidade.showPopup()
 
-    def itemUnidadeSelected(self, item):
+    def itemUnidadeSelected(self, item) -> None:
         self.lineEdit_unidade.setText(item)
 
-    def showPopupIpwebcam(self):
+    ################### TERMINDAS #############
+    def showPopupIpwebcam(self) -> None:
         self.combo_box_ipwebcam.showPopup()
 
-    ################### TERMINDAS #############
+    def itemIpwebcamSelected(self, item) -> None:
+        self.lineEdit_ipwebcam.setText(item)
 
-    def showExep(self):
+        if item.isnumeric():
+            self.selected_camera = int(item)
+        else:
+            self.selected_camera = item
+
+        if self.cap.isOpened():
+            self.cap.release()
+
+    def changeCamLdt(self) -> None:  # tem erro na hora de fechar
+        txt = self.lineEdit_ipwebcam.text()
+
+
+
+        if not txt in [self.combo_box_ipwebcam.itemText(i) for i in range(self.combo_box_ipwebcam.count())]:
+            self.combo_box_ipwebcam.addItem(txt)
+
+        self.selected_camera = txt
+        if self.cap.isOpened():
+            self.cap.release()
+
+        self.combo_box_ipwebcam.showPopup()
+
+    def showExep(self) -> None:
         if self.checkBox.isChecked():
             self.icon_img.hide()
             self.show_exem = False
@@ -117,7 +145,7 @@ class PyProductRegistration(QWidget):
         with open(json_file, "w") as file:
             json.dump(dados, file)
 
-    def reduceUrl(self, url: str):
+    def reduceUrl(self, url: str) -> str:
         if len(url) > 24:
             url = os.path.normpath(url).split('\\')
             url = (*url[:4], '....', url[-1])
@@ -125,7 +153,7 @@ class PyProductRegistration(QWidget):
             return url
         return url
 
-    def setPhotoPath(self):
+    def setPhotoPath(self) -> None:
         photo_path = QFileDialog().getExistingDirectory()
         if photo_path:
             self.lbl_url_diretory.setText(self.reduceUrl(photo_path))
@@ -139,7 +167,7 @@ class PyProductRegistration(QWidget):
             with open(json_file, "w") as file:
                 json.dump(dados, file)
 
-    def getSettings(self):
+    def getSettings(self) -> None:
         json_file = JsonSetting().getPathJson()
         with open(json_file, 'r') as file:
             dados = json.load(file)
@@ -156,10 +184,7 @@ class PyProductRegistration(QWidget):
             self.icon_img.hide()
             self.checkBox.setChecked(True)
 
-    def itemIpwebcamSelected(self, item):
-        self.lineEdit_ipwebcam.setText(item)
-
-    def countAvailableCameras(self):
+    def countAvailableCameras(self) -> None:
         # Inicializa a contagem de câmeras disponíveis
         contador = 0
         for i in range(1000):
@@ -167,10 +192,14 @@ class PyProductRegistration(QWidget):
                 contador += 1
                 cv2.VideoCapture(i).release()
             else:
-                self.combo_box_categoria.addItem(f"{contador - 2}")
+                contador -= 2
+                self.combo_box_ipwebcam.addItem(f"{contador}")
                 break
 
-    def addImage(self):
+        self.selected_camera = contador
+        self.lineEdit_ipwebcam.setText(str(contador))
+
+    def addImage(self) -> None:
 
         path = ''
         if not self.image_path:
@@ -198,7 +227,7 @@ class PyProductRegistration(QWidget):
             self.image.setIcon(icon)
             self.icon_img.setIcon(icon)
 
-    def closeImage(self):
+    def closeImage(self) -> None:
         icon = QIcon()
         icon.addFile(ImagePath().set_svg_icon("icon_gallery.svg"))
 
@@ -221,7 +250,7 @@ class PyProductRegistration(QWidget):
         self.lineEdit_preco_compra.setValidator(regex_nu)
         self.lineEdit_quantidade_reserva.setValidator(regex_nu)
 
-    def changePosition(self):
+    def changePosition(self) -> None:
         btn = self.sender()
 
         self.btn_sender = btn
@@ -253,7 +282,7 @@ class PyProductRegistration(QWidget):
         self.stackedWidget.slideInIdx(i1)
         self.stackedWidget_2.slideInIdx(i2)
 
-    def removeBackgroundImage(self):
+    def removeBackgroundImage(self) -> None:
 
         if not 'icon_gallery' in self.file_path:
 
@@ -266,7 +295,7 @@ class PyProductRegistration(QWidget):
             else:
                 self.updateProductImage()
 
-    def rotateImage(self):
+    def rotateImage(self) -> None:
 
         if not 'icon_gallery' in self.file_path:
             try:
@@ -284,7 +313,7 @@ class PyProductRegistration(QWidget):
             else:
                 self.updateProductImage()
 
-    def updateProductImage(self):
+    def updateProductImage(self) -> None:
 
         icon = QIcon(self.file_path)
 
@@ -294,7 +323,7 @@ class PyProductRegistration(QWidget):
         self.image.setIcon(icon)
         self.icon_img.setIcon(icon)
 
-    def backToMainPage(self):
+    def backToMainPage(self) -> None:
         ### ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         self.group_sequential_animation = QSequentialAnimationGroup()
 
@@ -359,7 +388,7 @@ class PyProductRegistration(QWidget):
             self.cap.release()
         self.lbl_camera.setPixmap(QPixmap())
 
-    def makePhoto(self):
+    def makePhoto(self) -> None:
         # ///////////////////////////////////////////////////////////
         self.btn_nav_key.hide()
         self.btn_nav_setting.hide()
@@ -393,10 +422,10 @@ class PyProductRegistration(QWidget):
             QTimer().singleShot(400, lambda: self.startRecording())  # 'http://192.168.0.120:8080/video'
         QTimer().singleShot(400, lambda: self.timer.start())
 
-    def startRecording(self):
-        self.cap = cv2.VideoCapture(0)
+    def startRecording(self) -> None:
+        self.cap = cv2.VideoCapture(self.selected_camera)
 
-    def continuousImageUpdate(self):
+    def continuousImageUpdate(self) -> None:
         # Read the frame from the video capture object
         ret, frame = self.cap.read()
 
@@ -419,7 +448,7 @@ class PyProductRegistration(QWidget):
         except:
             pass
 
-    def saveImage(self, event):
+    def saveImage(self, event) -> None:
         # Get the current frame
         ret, frame = self.cap.read()
 
@@ -460,17 +489,17 @@ class PyProductRegistration(QWidget):
         #### salvar o caminho da img na bd
 
     # /////////////////////////////////////////////////////
-    def stacked_Widget_enter_event(self, event):
+    def stacked_Widget_enter_event(self, event) -> None:
         self.can_close = False
 
-    def stacked_Widget_leave_event(self, event):
+    def stacked_Widget_leave_event(self, event) -> None:
         self.can_close = True
 
-    def close_window_pressed_frame_style(self, event):
+    def close_window_pressed_frame_style(self, event) -> None:
         if self.can_close:
             self.close()
 
-    def mouse_press_event_menu_image(self, event: QMouseEvent):
+    def mouse_press_event_menu_image(self, event: QMouseEvent) -> None:
         if event.buttons() == Qt.LeftButton:
             self.addImage()
 
@@ -487,7 +516,7 @@ class PyProductRegistration(QWidget):
 
     # MONTAGEM DO WIDGET
     # /////////////////////////////////////////////////////
-    def setupUi(self, Form):
+    def setupUi(self, Form) -> None:
         if not Form.objectName():
             Form.setObjectName(u"Form")
         Form.resize(296, 462)
@@ -726,7 +755,7 @@ class PyProductRegistration(QWidget):
         self.frame_segmented_nav.setGeometry(QRect(60, 405, 182, 47))
         self.frame_segmented_nav.setMinimumSize(QSize(100, 30))
         self.frame_segmented_nav.setMaximumSize(QSize(1234578, 16777215))
-        self.frame_segmented_nav.setStyleSheet(u"QFrame{background-color: rgb(19, 20, 22);}\n"
+        self.frame_segmented_nav.setStyleSheet(u"QFrame{background-color: rgb(19, 20, 22); border-radius: 10px}\n"
                                                "QPushButton{\n"
                                                "background-color: rgb(19, 20, 22);\n"
                                                "color: rgb(233, 234, 236);}\n"
@@ -1048,39 +1077,11 @@ class PyProductRegistration(QWidget):
         self.frame_continer_information_adicionais = QFrame(self.page_edit)
         self.frame_continer_information_adicionais.setObjectName(u"frame_continer_information_adicionais")
         self.frame_continer_information_adicionais.setGeometry(QRect(14, 90, 273, 241))
-        self.frame_continer_information_adicionais.setMaximumSize(QSize(286, 262))
+        self.frame_continer_information_adicionais.setMaximumSize(QSize(286, 160))
         self.frame_continer_information_adicionais.setFrameShape(QFrame.StyledPanel)
         self.frame_continer_information_adicionais.setFrameShadow(QFrame.Raised)
         self.verticalLayout_9 = QVBoxLayout(self.frame_continer_information_adicionais)
         self.verticalLayout_9.setObjectName(u"verticalLayout_9")
-        self.frame_preco_adicional = QFrame(self.frame_continer_information_adicionais)
-        self.frame_preco_adicional.setObjectName(u"frame_preco_adicional")
-        self.frame_preco_adicional.setMaximumSize(QSize(16777215, 80))
-        self.frame_preco_adicional.setStyleSheet(u"")
-        self.frame_preco_adicional.setFrameShape(QFrame.StyledPanel)
-        self.frame_preco_adicional.setFrameShadow(QFrame.Raised)
-        self.lbl_tag = QLabel(self.frame_preco_adicional)
-        self.lbl_tag.setObjectName(u"lbl_tag")
-        self.lbl_tag.setGeometry(QRect(22, 7, 220, 20))
-        self.lbl_tag.setFont(font)
-        self.lbl_tag.setStyleSheet(u"color: rgb(134, 134, 137)")
-        self.btn_add_preco = QPushButton(self.frame_preco_adicional)
-        self.btn_add_preco.setObjectName(u"btn_add_preco")
-        self.btn_add_preco.setGeometry(QRect(215, 40, 35, 35))
-        self.btn_add_preco.setLayoutDirection(Qt.RightToLeft)
-        icon9 = QIcon()
-        icon9.addFile(ImagePath().set_svg_icon("icon_add.svg"))
-        self.btn_add_preco.setIcon(icon9)
-        self.btn_add_preco.setIconSize(QSize(33, 33))
-        self.icon_tag = QPushButton(self.frame_preco_adicional)
-        self.icon_tag.setObjectName(u"icon_tag")
-        self.icon_tag.setGeometry(QRect(3, 6, 20, 24))
-        icon10 = QIcon()
-        icon10.addFile(ImagePath().set_svg_icon("icon_tag.svg"))
-        self.icon_tag.setIcon(icon10)
-        self.icon_tag.setIconSize(QSize(17, 17))
-
-        self.verticalLayout_9.addWidget(self.frame_preco_adicional)
 
         self.frame_calendario = QFrame(self.frame_continer_information_adicionais)
         self.frame_calendario.setObjectName(u"frame_calendario")
@@ -1096,6 +1097,8 @@ class PyProductRegistration(QWidget):
         self.btn_add_data.setObjectName(u"btn_add_data")
         self.btn_add_data.setGeometry(QRect(215, 40, 35, 35))
         self.btn_add_data.setLayoutDirection(Qt.RightToLeft)
+        icon9 = QIcon()
+        icon9.addFile(ImagePath().set_svg_icon("icon_add.svg"))
         self.btn_add_data.setIcon(icon9)
         self.btn_add_data.setIconSize(QSize(31, 31))
         self.btn_calendario = QPushButton(self.frame_calendario)
@@ -1169,9 +1172,6 @@ class PyProductRegistration(QWidget):
         self.verticalLayout_3 = QVBoxLayout(self.frame_continer_setting)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.combo_box_ipwebcam = QComboBox(self.frame_continer_setting)
-        self.combo_box_ipwebcam.addItem("")
-        self.combo_box_ipwebcam.addItem("")
-        self.combo_box_ipwebcam.addItem("")
         self.combo_box_ipwebcam.setObjectName(u"combo_box_ipwebcam")
         self.combo_box_ipwebcam.setMinimumSize(QSize(0, 41))
 
@@ -1242,7 +1242,7 @@ class PyProductRegistration(QWidget):
 
     # setupUi
 
-    def retranslateUi(self, Form):
+    def retranslateUi(self, Form) -> None:
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         self.lineEdit_quantidade.setPlaceholderText(QCoreApplication.translate("Form", u"Quantidade", None))
         self.lineEdit_quantidade_reserva.setPlaceholderText(
@@ -1268,7 +1268,7 @@ class PyProductRegistration(QWidget):
             QCoreApplication.translate("Form", u"Pre\u00e7o de compra", None))
         self.lineEdit_preco_venda.setPlaceholderText(
             QCoreApplication.translate("Form", u"Pre\u00e7o de venda", None))
-        self.lbl_tag.setText(QCoreApplication.translate("Form", u"Pre\u00e7os adicional de venda(opcional)", None))
+
         self.lbl_calendario.setText(
             QCoreApplication.translate("Form", u"Data de expira\u00e7\u00e3o do produto(opcional)", None))
         self.informacoes_adicionais.setPlaceholderText(
@@ -1277,10 +1277,6 @@ class PyProductRegistration(QWidget):
         self.checkBox.setText(QCoreApplication.translate("Form", u"Mostrar exemplo da imagem minimizada", None))
         self.lbl_url_diretory.setText(QCoreApplication.translate("Form", u"C:\\Users\\Daniel\\Videos\\.....\\Music", None))
 
-        self.combo_box_ipwebcam.setItemText(0, QCoreApplication.translate("Form", u"New Item 0", None))
-        self.combo_box_ipwebcam.setItemText(1, QCoreApplication.translate("Form", u"New Item 1", None))
-        self.combo_box_ipwebcam.setItemText(2, QCoreApplication.translate("Form", u"New Item 2", None))
-
         self.combo_box_ipwebcam.setPlaceholderText(QCoreApplication.translate("Form", u"ipwebcam", None))
         self.lineEdit_ipwebcam.setPlaceholderText(QCoreApplication.translate("Form", u"Ipwebcam", None))
     # retranslateUi
@@ -1288,12 +1284,12 @@ class PyProductRegistration(QWidget):
 
 class Menu(QFrame):
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None) -> None:
         super().__init__(parent)
 
         self.__setUp__()
 
-    def showMethod(self):
+    def showMethod(self) -> None:
         self.show()
 
         self.animation_menu = QPropertyAnimation(self, b'minimumHeight')
@@ -1303,7 +1299,7 @@ class Menu(QFrame):
         self.animation_menu.setEasingCurve(QEasingCurve.Type.InOutExpo)
         self.animation_menu.start()
 
-    def leaveEvent(self, event):
+    def leaveEvent(self, event) -> None:
         self.animation_menu_min = QPropertyAnimation(self, b'minimumHeight')
         self.animation_menu_min.setStartValue(172)
         self.animation_menu_min.setDuration(400)
@@ -1322,7 +1318,7 @@ class Menu(QFrame):
         self.parallel_animation.finished.connect(lambda: self.close())
         self.parallel_animation.start()
 
-    def __setUp__(self):
+    def __setUp__(self) -> None:
         self.setStyleSheet(u"background-color: rgba(32, 33, 37, 255); border-radius: 10px;")
         self.setGeometry(0, 0, 127, 0)
 

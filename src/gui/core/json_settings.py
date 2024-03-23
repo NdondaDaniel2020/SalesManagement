@@ -14,8 +14,8 @@ class JsonSetting:
         # ///////////////////////////////////////////////////////////////
         self.app_path = pathlib.Path().absolute()
 
-        if '\gui' in str(self.app_path):
-            while '\gui' not in str(self.app_path)[-4::]:
+        if '\guis' in str(self.app_path):
+            while '\guis' not in str(self.app_path)[-4::]:
                 self.app_path = self.app_path.parent
         else:
             self.app_path = os.path.abspath(os.getcwd())
@@ -25,6 +25,7 @@ class JsonSetting:
     # SET SVG ICON
     # ///////////////////////////////////////////////////////////////
     def getPathJson(self):
-        path = os.path.join(self.app_path, 'settings/settings.json')
-        json = os.path.normpath(os.path.join(path))
+        path = '\settings\settings.json' if '\guis' in self.app_path else '\guis\settings\settings.json'
+        path = self.app_path + path
+        json = os.path.normpath(path)
         return json

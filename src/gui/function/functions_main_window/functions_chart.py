@@ -1,5 +1,5 @@
 from src.qt_core import *
-from src.gui.uis.windows.main_window.ui_main_window import Ui_MainWindow
+from src.gui.ui.windows.main_window.ui_main_window import Ui_MainWindow
 from src.gui.widgets.py_dynamic_chart.py_dynamic_chart import PyDynamicChart
 
 class ChartFunctions:

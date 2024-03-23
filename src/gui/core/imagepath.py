@@ -14,8 +14,8 @@ class ImagePath:
         # ///////////////////////////////////////////////////////////////
         self.app_path = pathlib.Path().absolute()
 
-        if '\gui' in str(self.app_path):
-            while '\gui' not in str(self.app_path)[-4::]:
+        if '\guis' in str(self.app_path):
+            while '\guis' not in str(self.app_path)[-4::]:
                 self.app_path = self.app_path.parent
         else:
             self.app_path = os.path.abspath(os.getcwd())

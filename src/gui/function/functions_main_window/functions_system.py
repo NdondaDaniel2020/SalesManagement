@@ -1,5 +1,5 @@
 from src.qt_core import *
-from src.gui.uis.windows.main_window.ui_main_window import Ui_MainWindow
+from src.gui.ui.windows.main_window.ui_main_window import Ui_MainWindow
 from src.gui.widgets.py_product_registration.py_product_registration import PyProductRegistration
 
 class FunctionsSystem:

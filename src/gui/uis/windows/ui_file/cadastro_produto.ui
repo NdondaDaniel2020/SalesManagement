@@ -369,7 +369,7 @@ border: 1px solid rgb(255, 255, 255)</string>
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">QFrame{background-color: rgb(19, 20, 22);}
+              <string notr="true">QFrame{background-color: rgb(19, 20, 22); border-radius: 10px}
 QPushButton{
 background-color: rgb(19, 20, 22);
 color: rgb(233, 234, 236);}
@@ -760,7 +760,7 @@ QPushButton:pressed{background-color: rgb(48, 55, 102);}
               </rect>
              </property>
              <property name="currentIndex">
-              <number>2</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="page">
               <widget class="QFrame" name="frame_quantidade">
@@ -1268,7 +1268,7 @@ QLineEdit{border-top-right-radius:0px;border-bottom-right-radius:0px;}</string>
                  <x>14</x>
                  <y>90</y>
                  <width>273</width>
-                 <height>241</height>
+                 <height>160</height>
                 </rect>
                </property>
                <property name="maximumSize">
@@ -1284,95 +1284,6 @@ QLineEdit{border-top-right-radius:0px;border-bottom-right-radius:0px;}</string>
                 <enum>QFrame::Raised</enum>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_9">
-                <item>
-                 <widget class="QFrame" name="frame_preco_adicional">
-                  <property name="maximumSize">
-                   <size>
-                    <width>16777215</width>
-                    <height>80</height>
-                   </size>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true"/>
-                  </property>
-                  <property name="frameShape">
-                   <enum>QFrame::StyledPanel</enum>
-                  </property>
-                  <property name="frameShadow">
-                   <enum>QFrame::Raised</enum>
-                  </property>
-                  <widget class="QLabel" name="lbl_tag">
-                   <property name="geometry">
-                    <rect>
-                     <x>22</x>
-                     <y>7</y>
-                     <width>220</width>
-                     <height>20</height>
-                    </rect>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>10</pointsize>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">color: rgb(134, 134, 137)</string>
-                   </property>
-                   <property name="text">
-                    <string>Preços adicional de venda(opcional)</string>
-                   </property>
-                  </widget>
-                  <widget class="QPushButton" name="btn_add_preco">
-                   <property name="geometry">
-                    <rect>
-                     <x>215</x>
-                     <y>40</y>
-                     <width>35</width>
-                     <height>35</height>
-                    </rect>
-                   </property>
-                   <property name="layoutDirection">
-                    <enum>Qt::RightToLeft</enum>
-                   </property>
-                   <property name="text">
-                    <string/>
-                   </property>
-                   <property name="icon">
-                    <iconset>
-                     <normaloff>../../../images/svg_icons/icon_add.svg</normaloff>../../../images/svg_icons/icon_add.svg</iconset>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>33</width>
-                     <height>33</height>
-                    </size>
-                   </property>
-                  </widget>
-                  <widget class="QPushButton" name="icon_tag">
-                   <property name="geometry">
-                    <rect>
-                     <x>3</x>
-                     <y>6</y>
-                     <width>20</width>
-                     <height>24</height>
-                    </rect>
-                   </property>
-                   <property name="text">
-                    <string/>
-                   </property>
-                   <property name="icon">
-                    <iconset>
-                     <normaloff>../../../images/svg_icons/icon_tag.svg</normaloff>../../../images/svg_icons/icon_tag.svg</iconset>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>17</width>
-                     <height>17</height>
-                    </size>
-                   </property>
-                  </widget>
-                 </widget>
-                </item>
                 <item>
                  <widget class="QFrame" name="frame_calendario">
                   <property name="maximumSize">
@@ -1532,7 +1443,7 @@ QLineEdit{border-top-right-radius:0px;border-bottom-right-radius:0px;}</string>
                  <number>5</number>
                 </property>
                 <item>
-                 <widget class="QLabel" name="label_2">
+                 <widget class="QLabel" name="lbl_url_diretory">
                   <property name="font">
                    <font>
                     <bold>true</bold>
@@ -1542,10 +1453,10 @@ QLineEdit{border-top-right-radius:0px;border-bottom-right-radius:0px;}</string>
                    <enum>Qt::LeftToRight</enum>
                   </property>
                   <property name="text">
-                   <string>C:\Users\Daniel\Videos\.....\Music</string>
+                   <string/>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignCenter</set>
+                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                   </property>
                  </widget>
                 </item>
