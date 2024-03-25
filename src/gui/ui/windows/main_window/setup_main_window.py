@@ -2,7 +2,7 @@ import platform
 
 from src.qt_core import *
 
-from src.gui.uis.windows.main_window.ui_main_window import Ui_MainWindow
+from src.gui.ui.windows.main_window.ui_main_window import Ui_MainWindow
 
 from src.gui.widgets.py_grips.py_grips import PyGrips
 from src.gui.widgets.py_left_menu.py_left_menu import LeftMenu
