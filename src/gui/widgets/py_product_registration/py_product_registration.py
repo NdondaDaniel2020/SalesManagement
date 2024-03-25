@@ -1,12 +1,4 @@
-# -*- coding: utf-8 -*-
 
-################################################################################
-## Form generated from reading UI file 'cadastro_produtoyMjAHS.ui'
-##
-## Created by: Qt User Interface Compiler version 6.4.3
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
 import os
 import re
 import cv2
@@ -14,8 +6,10 @@ import json
 import pathlib
 from rembg import remove
 from src.qt_core import *
-from qfluentwidgets import Slider
+from pyzbar.pyzbar import decode
+from src.gui.core.database import DataBase
 from src.gui.core.absolute_path import AbsolutePath
+from qfluentwidgets import CalendarPicker, setTheme, Theme
 from src.gui.widgets.py_slide_stacked_widgets.py_slide_stacked_widgets import PySlidingStackedWidget
 
 
@@ -42,23 +36,33 @@ class PyProductRegistration(QWidget):
         self.cap = cv2.VideoCapture(self.selected_camera)  # 'http://192.168.0.120:8080/video'
 
         # Create a QTimer to update the image every 100ms
-        self.timer = QTimer()
-        self.timer.timeout.connect(self.continuousImageUpdate)
+        self.timer_foto = QTimer()
+        self.timer_foto.timeout.connect(self.continuousImageUpdate)
 
+        self.timer_scan_bar_code = QTimer()
+        self.timer_scan_bar_code.timeout.connect(self.scanBarCodeCam)
         # ////////////////////////////////////////////////////////////////
         self.can_close = False
         self.first_exe = False
         self.render_file = None
+
         self.btn_sender = self.btn_nav_camera
-        self.file_path = AbsolutePath().getPathIcon("icon_gallery.svg")
+        self.current_image_path = AbsolutePath().getPathIcon("icon_gallery.svg")
 
         self.stackedWidget.enterEvent = self.stacked_Widget_enter_event
+        self.frame_central.enterEvent = self.stacked_Widget_enter_event
         self.stackedWidget.leaveEvent = self.stacked_Widget_leave_event
-        self.frame_style.mousePressEvent = self.close_window_pressed_frame_style
+
         self.image.mousePressEvent = self.mouse_press_event_menu_image
+        self.page_setting.mousePressEvent = self.stacked_Widget_enter_event
+        self.frame_style.mousePressEvent = self.close_window_pressed_frame_style
+        self.frame_segmented_nav.mousePressEvent = self.stacked_Widget_enter_event
+
+        self.lbl_url_diretory.mousePressEvent = lambda a: self.setPhotoPath()
+        self.horizontal_slider_resize.mouseReleaseEvent = lambda a: QTimer().singleShot(1500, lambda: self.sliderAnimationEnd())
 
         # ////////////////////////////////////////////////////////////////
-        self.btn_del.clicked.connect(self.close)
+        self.btn_del.clicked.connect(self.cleanAndClose)
 
         self.btn_nav_key.clicked.connect(self.changePosition)
         self.btn_nav_edit.clicked.connect(self.changePosition)
@@ -74,15 +78,19 @@ class PyProductRegistration(QWidget):
         self.combo_box_ipwebcam.currentTextChanged.connect(self.itemIpwebcamSelected)
         self.lineEdit_ipwebcam.returnPressed.connect(self.changeCamLdt)
 
+        self.horizontal_slider_resize.valueChanged.connect(self.changeSizeImage)
+
         self.btn_buscar_caminho.clicked.connect(self.setPhotoPath)
-        self.lbl_url_diretory.mousePressEvent = lambda a: self.setPhotoPath()
+
+        self.btn_chave_qrcode.clicked.connect(self.makePhoto)
 
         self.btn_setting.clicked.connect(lambda: self.btn_nav_setting.click())
 
-        self.btn_foto_back.clicked.connect(self.backToMainPage)
+        self.btn_foto_back.clicked.connect(lambda: self.backToMainPage(0))
 
         self.checkBox.clicked.connect(self.showExep)
 
+        self.btn_add_data.clicked.connect(self.addDateExpiration)
 
     # VALIDAÇÃO E CÓDIGO DO PAINEL
     # /////////////////////////////////////////////////////
@@ -115,10 +123,11 @@ class PyProductRegistration(QWidget):
             self.cap.release()
 
     def validarEnderecoIp(self, ip: str) -> bool:
-        padrao = r"^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):[0-9]{4}$"
-        return re.match(padrao, ip) is not None
+        padrao = QRegularExpression(
+            r"^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):[0-9]{4}$")
+        return padrao.match(ip).hasMatch()
 
-    def changeCamLdt(self) -> None:  # tem erro na hora de fechar
+    def changeCamLdt(self) -> None:
         txt = self.lineEdit_ipwebcam.text()
 
         if self.validarEnderecoIp(txt):
@@ -213,17 +222,17 @@ class PyProductRegistration(QWidget):
 
     def addImage(self) -> None:
 
-        self.file_path = QFileDialog.getOpenFileName(
+        self.current_image_path = QFileDialog.getOpenFileName(
             parent=self,
             dir=self.image_path,
             filter=self.tr('img file (*.png *.jpeg *.jpg *.PNG *.JPG) ')
         )[0]
 
-        if self.file_path:
+        if self.current_image_path:
             icon = QIcon()
-            icon.addFile(self.file_path)
+            icon.addFile(self.current_image_path)
 
-            self.image.setIconSize(QSize(250, 250))
+            self.image.setIconSize(QSize(260, 260))
             self.icon_img.setIconSize(QSize(30, 30))
 
             self.image.setIcon(icon)
@@ -286,12 +295,12 @@ class PyProductRegistration(QWidget):
 
     def removeBackgroundImage(self) -> None:
 
-        if not 'icon_gallery' in self.file_path:
+        if not 'icon_gallery' in self.current_image_path:
 
-            self.render_file = cv2.imread(self.file_path)
+            self.render_file = cv2.imread(self.current_image_path)
             try:
                 self.render_file = remove(self.render_file)
-                cv2.imwrite(self.file_path, self.render_file)
+                cv2.imwrite(self.current_image_path, self.render_file)
             except:
                 pass
             else:
@@ -299,9 +308,9 @@ class PyProductRegistration(QWidget):
 
     def rotateImage(self) -> None:
 
-        if not 'icon_gallery' in self.file_path:
+        if not 'icon_gallery' in self.current_image_path:
             try:
-                imagem = cv2.imread(self.file_path)
+                imagem = cv2.imread(self.current_image_path)
 
                 height, width = imagem.shape[:2]
                 center = (height / 2, width / 2)
@@ -309,15 +318,42 @@ class PyProductRegistration(QWidget):
                 rotation_matrix = cv2.getRotationMatrix2D(center, 45, 1.0)
                 rotated_image = cv2.warpAffine(imagem, rotation_matrix, (width, height))
 
-                cv2.imwrite(self.file_path, rotated_image)
+                cv2.imwrite(self.current_image_path, rotated_image)
             except:
                 pass
             else:
                 self.updateProductImage()
 
+    def sliderAnimationStart(self) -> None:
+        self.horizontal_slider_resize.show()
+
+        self.animation_slider = QPropertyAnimation(self.horizontal_slider_resize, b'pos')
+        self.animation_slider.setStartValue(QPoint(75, 415))
+        self.animation_slider.setDuration(400)
+        self.animation_slider.setEndValue(QPoint(75, 370))
+        self.animation_slider.setEasingCurve(QEasingCurve.Type.InOutExpo)
+        self.animation_slider.start()
+
+    def sliderAnimationEnd(self) -> None:
+
+        self.animation_slider = QPropertyAnimation(self.horizontal_slider_resize, b'pos')
+        self.animation_slider.setStartValue(QPoint(75, 370))
+        self.animation_slider.setDuration(500)
+        self.animation_slider.setEndValue(QPoint(75, 415))
+        self.animation_slider.setEasingCurve(QEasingCurve.Type.InOutExpo)
+        self.animation_slider.finished.connect(lambda: self.horizontal_slider_resize.hide())
+        self.animation_slider.start()
+
+    def changeSizeImage(self, value) -> None:
+
+        if not 'icon_gallery' in self.current_image_path:
+            self.image.setIconSize(QSize(value, value))
+            value = int((value * 30) / 260)
+            self.icon_img.setIconSize(QSize(value, value))
+
     def updateProductImage(self) -> None:
 
-        icon = QIcon(self.file_path)
+        icon = QIcon(self.current_image_path)
 
         self.image.setIconSize(QSize(250, 250))
         self.icon_img.setIconSize(QSize(30, 30))
@@ -325,7 +361,7 @@ class PyProductRegistration(QWidget):
         self.image.setIcon(icon)
         self.icon_img.setIcon(icon)
 
-    def backToMainPage(self) -> None:
+    def backToMainPage(self, value) -> None:
         ### ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         self.group_sequential_animation = QSequentialAnimationGroup()
 
@@ -345,11 +381,15 @@ class PyProductRegistration(QWidget):
         ## ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         self.group_animation_pos.addAnimation(self.segmented_navigation_animation)
 
+        end_point = QPoint(63, 408)
+        if value == 1:
+            end_point = QPoint(109, 408)
+
         # ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         self.btn_pos_animation = QPropertyAnimation(self.btn_activate, b'pos')
         self.btn_pos_animation.setStartValue(QPoint(130, 408))
         self.btn_pos_animation.setDuration(500)
-        self.btn_pos_animation.setEndValue(QPoint(63, 408))
+        self.btn_pos_animation.setEndValue(end_point)
         self.btn_pos_animation.setEasingCurve(QEasingCurve.Type.InOutExpo)
         self.group_animation_pos.addAnimation(self.btn_pos_animation)
 
@@ -384,8 +424,16 @@ class PyProductRegistration(QWidget):
 
         ### ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         self.group_sequential_animation.start()
-        self.stackedWidget.slideInIdx(0)
-        self.timer.stop()
+
+        self.stackedWidget.slideInIdx(value)
+
+        self.timer_foto.stop()
+        self.timer_scan_bar_code.stop()
+        if value == 0:
+            self.btn_activate.setIcon(QIcon(AbsolutePath().getPathIcon("icon_camera.svg")))
+        elif value == 1:
+            self.btn_activate.setIcon(QIcon(AbsolutePath().getPathIcon("icon_key.svg")))
+
         if self.cap.isOpened():
             self.cap.release()
         self.lbl_camera.setPixmap(QPixmap())
@@ -420,9 +468,17 @@ class PyProductRegistration(QWidget):
         self.btn_activate.clicked.connect(self.saveImage)
         self.lbl_camera.mouseReleaseEvent = self.saveImage
         self.stackedWidget.slideInIdx(2)
+
+        btn = self.sender()
+        self.btn_cam_selected = btn.objectName()
+
         if not self.cap.isOpened():
-            QTimer().singleShot(400, lambda: self.startRecording())  # 'http://192.168.0.120:8080/video'
-        QTimer().singleShot(400, lambda: self.timer.start())
+            QTimer().singleShot(400, lambda: self.startRecording())
+
+        if btn.objectName() == 'foto':
+            QTimer().singleShot(500, lambda: self.timer_foto.start())
+        elif btn.objectName() == 'btn_chave_qrcode':
+            QTimer().singleShot(500, lambda: self.timer_scan_bar_code.start())
 
     def startRecording(self) -> None:
         self.cap = cv2.VideoCapture(self.selected_camera)
@@ -450,45 +506,135 @@ class PyProductRegistration(QWidget):
         except:
             pass
 
-    def saveImage(self, event) -> None:
-        # Get the current frame
+    def scanBarCodeCam(self) -> None:
+        # Read the frame from the video capture object
         ret, frame = self.cap.read()
 
         # Convert the frame to QImage
-        height, width, channels = frame.shape
-        bytes_per_line = channels * width
-        qimg = QImage(frame.data, width, height, bytes_per_line, QImage.Format_RGB888).rgbSwapped()
+        try:
+            height, width, channels = frame.shape
+            bytes_per_line = channels * width
+            qimg = QImage(frame.data, width, height, bytes_per_line, QImage.Format_RGB888).rgbSwapped()
 
-        rest = 0
-        if width > self.lbl_camera.width():
-            rest = (width - self.lbl_camera.width()) / 2
-            width = width - rest
+            rest = 0
+            if width > self.lbl_camera.width():
+                rest = (width - self.lbl_camera.width()) / 2
+                width = width - rest
 
-        # Convert the QImage to QPixmap
-        qimg = QPixmap.fromImage(qimg.copy(rest, 0, width - rest, height))
+            # Convert the QImage to QPixmap
+            pixmap = QPixmap.fromImage(qimg.copy(rest, 0, width - rest, height))
 
-        # Convert the QImage to a bytes object
-        self.file_path = self.image_path + "\photo.JPEG"
-        self.file_path = os.path.abspath(self.file_path)
-        if os.path.exists(self.file_path):
-            for i in range(1, 100_000_000):
-                if not os.path.exists(self.file_path.replace('.', f'{i}.')):
-                    self.file_path = self.file_path.replace('.', f'{i}.')
-                    break
+            # Set the pixmap to the label
+            self.lbl_camera.setPixmap(pixmap)
+            for code in decode(frame):
+                print(code.data.decode('utf-8'))
+                if not code.data.decode('utf-8') in self.lineEdit_chave.text():
+                    self.lineEdit_chave.setText(code.data.decode('utf-8'))
+                    self.backToMainPage(1)
+        except:
+            pass
 
-        qimg.save(self.file_path)
+    def saveImage(self, event) -> None:
 
-        if self.file_path:
-            icon = QIcon()
-            icon.addFile(self.file_path)
+        if self.timer_foto.isActive():
+            # Get the current frame
+            ret, frame = self.cap.read()
 
-            self.image.setIconSize(QSize(250, 250))
-            self.icon_img.setIconSize(QSize(30, 30))
+            # Convert the frame to QImage
+            height, width, channels = frame.shape
+            bytes_per_line = channels * width
+            qimg = QImage(frame.data, width, height, bytes_per_line, QImage.Format_RGB888).rgbSwapped()
 
-            self.image.setIcon(icon)
-            self.icon_img.setIcon(icon)
+            rest = 0
+            if width > self.lbl_camera.width():
+                rest = (width - self.lbl_camera.width()) / 2
+                width = width - rest
+
+            # Convert the QImage to QPixmap
+            qimg = QPixmap.fromImage(qimg.copy(rest, 0, width - rest, height))
+
+            # Convert the QImage to a bytes object
+            self.current_image_path = self.image_path + "\photo.JPEG"
+            self.current_image_path = os.path.abspath(self.current_image_path)
+            if os.path.exists(self.current_image_path):
+                for i in range(1, 100_000_000):
+                    if not os.path.exists(self.current_image_path.replace('.', f'{i}.')):
+                        self.current_image_path = self.current_image_path.replace('.', f'{i}.')
+                        break
+
+            qimg.save(self.current_image_path)
+
+            if self.current_image_path:
+                icon = QIcon()
+                icon.addFile(self.current_image_path)
+
+                self.image.setIconSize(QSize(250, 250))
+                self.icon_img.setIconSize(QSize(30, 30))
+
+                self.image.setIcon(icon)
+                self.icon_img.setIcon(icon)
 
         #### salvar o caminho da img na bd
+
+    def addDateExpiration(self):
+        self.painel_calendario = PainelCalendario(self.page_edit)
+        self.painel_calendario.setGeometry(40, 100, 224, 140)
+        self.painel_calendario.mousePressEvent = self.stacked_Widget_enter_event
+        self.painel_calendario.btn_add_data.clicked.connect(self.addPainelCalendar)
+        self.page_edit.mousePressEvent = lambda a: self.painel_calendario.close()
+        self.painel_calendario.show()
+
+    def addPainelCalendar(self):
+        padrao = QRegularExpression(r"\d{2}/\d{2}/\d{4}")
+
+        self.painel_expiracao = PainelExpiracao()
+        data = self.painel_calendario.btn_calendario.text()
+        validar_data = padrao.match(data).hasMatch()
+        data_atual = QDate().currentDate().toString("dd/MM/yyyy")
+
+        d = data.split('/')
+        d = QDate(int(d[2]), int(d[1]), int(d[0]))
+        da = data_atual.split('/')
+        da = QDate(int(da[2]), int(da[1]), int(da[0]))
+
+        if validar_data and data != data_atual and da < d:
+            self.painel_expiracao.setDate(data)
+            self.horizontalLayout_7.insertWidget(0, self.painel_expiracao, 0, Qt.AlignBottom)
+            self.painel_calendario.close()
+
+            text = self.painel_calendario.plainTextEdit.toPlainText()
+
+            db = DataBase(AbsolutePath().getPathDatabase())
+            db.connectDataBase()
+            db.executarComand(
+                fr"""INSERT INTO data_de_expiracao (data, informacoes_de_expiracao) VALUES ('{data}', '{text}')""")
+            db.disconnectDataBase()
+
+
+    def cleanAndClose(self):
+        self.lineEdit_chave.setText('')
+        self.lineEdit_unidade.setText('')
+        self.lineEdit_categoria.setText('')
+        self.lineEdit_quantidade.setText('')
+        self.lineEdit_preco_venda.setText('')
+        self.lineEdit_nome_produto.setText('')
+        self.lineEdit_preco_compra.setText('')
+        self.informacoes_adicionais.setPlainText('')
+        self.lineEdit_quantidade_reserva.setText('')
+
+        # limpar datas adicinais
+        self.close()
+
+        objs = self.scroll_area_widget_contents_continer.findChildren(PainelExpiracao)
+        for obj in objs:
+            obj.close()
+
+        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget_2.setCurrentIndex(0)
+        self.btn_activate.setGeometry(QRect(63, 408, 40, 40))
+        self.btn_activate.setIcon(QIcon(AbsolutePath().getPathIcon("icon_camera.svg")))
+
+
 
     # /////////////////////////////////////////////////////
     def stacked_Widget_enter_event(self, event) -> None:
@@ -499,7 +645,7 @@ class PyProductRegistration(QWidget):
 
     def close_window_pressed_frame_style(self, event) -> None:
         if self.can_close:
-            self.close()
+            self.cleanAndClose()
 
     def mouse_press_event_menu_image(self, event: QMouseEvent) -> None:
         if event.buttons() == Qt.LeftButton:
@@ -513,11 +659,13 @@ class PyProductRegistration(QWidget):
             self.menu.foto.clicked.connect(self.makePhoto)
             self.menu.rotate.clicked.connect(self.rotateImage)
             self.menu.deletar.clicked.connect(self.closeImage)
+            self.menu.resize_img.clicked.connect(self.sliderAnimationStart)
             self.menu.rembg.clicked.connect(lambda: QTimer().singleShot(700, lambda: self.removeBackgroundImage()))
             self.menu.showMethod()
 
     # MONTAGEM DO WIDGET
     # /////////////////////////////////////////////////////
+    # noinspection PyUnresolvedReferences
     def setupUi(self, Form) -> None:
         if not Form.objectName():
             Form.setObjectName(u"Form")
@@ -539,6 +687,9 @@ class PyProductRegistration(QWidget):
                                        "#icon_tag, \n"
                                        "#image{background-color: transparent;}\n"
                                        "\n"
+                                       "#scroll_area_continer,\n"
+                                       "#scroll_area_widget_contents_continer,\n"
+                                       "#frame_continer_calendario{background-color: rgb(34, 35, 38); border:none}\n"
                                        "\n"
                                        "#frame_chave_qrcode, \n"
                                        "#frame_continer_prima_info,\n"
@@ -572,9 +723,9 @@ class PyProductRegistration(QWidget):
                                        "#btn_show_categoria:hover,\n"
                                        "#btn_chave_qrcode:hover,\n"
                                        "#btn_buscar_caminho:hover,\n"
-                                       "#btn_count_cam:hover{background-color: rgb(39, 40, 45);}\n"
+                                       "#btn_count_cam:"
+                                       "hover{background-color: rgb(39, 40, 45);}\n"
                                        "\n"
-                                       ""
                                        "#btn_show_unidade:pressed,\n"
                                        "#btn_show_categoria:pressed,\n"
                                        "#btn_chave_qrcode:pressed,\n"
@@ -594,7 +745,7 @@ class PyProductRegistration(QWidget):
                                        "\n"
                                        "\n"
                                        "\n"
-                                       "#frame_nav_bar{background-color: rgb(47, 54, 100); border-radius: 7px}\n"
+                                       "#frame_nav_bar, PainelCalendario{background-color: rgb(47, 54, 100); border-radius: 7px}\n"
                                        "\n"
                                        "#frame_nav_bar>QPushButton{\n"
                                        "background-color: rgb(19, 20, 22);\n"
@@ -612,10 +763,10 @@ class PyProductRegistration(QWidget):
                                        "	color: #ffffff}\n"
                                        "\n"
                                        "QPushButton:hover{\n"
+                                       ""
                                        "	background-color: rgb(28, 29, 32)}\n"
                                        "\n"
-                                       "QPus"
-                                       "hButton:pressed{\n"
+                                       "QPushButton:pressed{\n"
                                        "	background-color: rgb(19, 20, 22)}\n"
                                        "\n"
                                        "\n"
@@ -654,9 +805,9 @@ class PyProductRegistration(QWidget):
                                        "\n"
                                        "\n"
                                        "QComboBox{\n"
-                                       "    border: 1px solid rgb(47, 54, 100);\n"
-                                       "    border-radius: "
-                                       "5px;\n"
+                                       "    border: "
+                                       "1px solid rgb(47, 54, 100);\n"
+                                       "    border-radius: 5px;\n"
                                        "    padding-left: 5px;\n"
                                        "    padding-right: -187px;\n"
                                        "	color: rgb(133, 133, 136);\n"
@@ -691,9 +842,9 @@ class PyProductRegistration(QWidget):
                                        "	background-color: rgb(23, 24, 26);\n"
                                        "	padding: 10px;\n"
                                        "	selection-background-color: rgb(195, 155, 255);\n"
+                                       ""
                                        "	border: 2px solid  rgb(47, 54, 100);\n"
-                                       "	borde"
-                                       "r-radius:5px;}\n"
+                                       "	border-radius:5px;}\n"
                                        "\n"
                                        "QCheckBox{color: rgb(255, 255, 255);}\n"
                                        "QCheckBox::indicator {\n"
@@ -713,7 +864,52 @@ class PyProductRegistration(QWidget):
                                        "\n"
                                        "\n"
                                        "QLabel{color:#ffffff}\n"
-                                       "")
+                                       "\n"
+                                       "QSlider:horizontal {\n"
+                                       "    min-height: 24px;\n"
+                                       "}\n"
+                                       "\n"
+                                       "QSlider::groove:horizontal {\n"
+                                       "    height: 4px;\n"
+                                       "    background-color: rgb(158, 159, 159);\n"
+                                       "    border-radius: 2px;\n"
+                                       "}\n"
+                                       "\n"
+                                       "QSlider::sub-page:horizontal {\n"
+                                       "    background: rgb(47, 54, 100);\n"
+                                       "    height: 4px;\n"
+                                       "    border-radius: 2px;\n"
+                                       "}\n"
+                                       "\n"
+                                       "QSlider::handle:horizontal {\n"
+                                       "    border: 1px solid rgb(58, 58, 58);\n"
+                                       "    width: 21px;\n"
+                                       "    min-height: 22px;\n"
+                                       "    margin: -9px 0;\n"
+                                       ""
+                                       "    border-radius: 11px;\n"
+                                       "    background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5,\n"
+                                       "        stop:0 rgb(54, 63, 118),\n"
+                                       "        stop:0.5 rgb(64, 80, 170),\n"
+                                       "        stop:0.6 rgb(69, 69, 69),\n"
+                                       "        stop:1 rgb(69, 69, 69));\n"
+                                       "}\n"
+                                       "\n"
+                                       "QSlider::handle:horizontal:hover {\n"
+                                       "    background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5,\n"
+                                       "        stop:0 rgb(63, 78, 165),\n"
+                                       "        stop:0.6 rgb(72, 91, 190),\n"
+                                       "        stop:0.7 rgb(69, 69, 69),\n"
+                                       "        stop:1 rgb(69, 69, 69));\n"
+                                       "}\n"
+                                       "\n"
+                                       "QSlider::handle:horizontal:pressed {\n"
+                                       "    background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5,\n"
+                                       "        stop:0 rgb(54, 63, 118),\n"
+                                       "        stop:0.4 rgb(64, 80, 170),\n"
+                                       "        stop:0.5 rgb(69, 69, 69),\n"
+                                       "        stop:1 rgb(69, 69, 69));\n"
+                                       "}")
         self.frame_style.setFrameShape(QFrame.StyledPanel)
         self.frame_style.setFrameShadow(QFrame.Raised)
         self.verticalLayout_2 = QVBoxLayout(self.frame_style)
@@ -737,7 +933,7 @@ class PyProductRegistration(QWidget):
         self.page_foto.setObjectName(u"page_foto")
         self.image = QPushButton(self.page_foto)
         self.image.setObjectName(u"image")
-        self.image.setGeometry(QRect(40, 40, 220, 390))
+        self.image.setGeometry(QRect(5, 10, 290, 450))
         icon = QIcon()
         icon.addFile(AbsolutePath().getPathIcon("icon_gallery.svg"))
         self.image.setIcon(icon)
@@ -831,6 +1027,13 @@ class PyProductRegistration(QWidget):
                                         "")
         self.btn_activate.setIcon(icon1)
         self.btn_activate.setIconSize(QSize(27, 27))
+        self.horizontal_slider_resize = QSlider(self.page_foto)
+        self.horizontal_slider_resize.setObjectName(u"horizontal_slider_resize")
+        self.horizontal_slider_resize.setGeometry(QRect(75, 415, 152, 24))
+        self.horizontal_slider_resize.setMaximum(500)
+        self.horizontal_slider_resize.setValue(260)
+        self.horizontal_slider_resize.setOrientation(Qt.Horizontal)
+        self.horizontal_slider_resize.hide()
         self.stackedWidget.addWidget(self.page_foto)
         self.page_dados = QWidget()
         self.page_dados.setObjectName(u"page_dados")
@@ -1096,9 +1299,9 @@ class PyProductRegistration(QWidget):
         self.lbl_calendario.setGeometry(QRect(22, 7, 230, 16))
         self.lbl_calendario.setFont(font)
         self.lbl_calendario.setStyleSheet(u"color: rgb(134, 134, 137)")
-        self.btn_add_data = QPushButton(self.frame_calendario)
+        self.btn_add_data = QPushButton(self.frame_continer_information_adicionais)
         self.btn_add_data.setObjectName(u"btn_add_data")
-        self.btn_add_data.setGeometry(QRect(215, 40, 35, 35))
+        self.btn_add_data.setGeometry(QRect(225, 50, 35, 35))
         self.btn_add_data.setLayoutDirection(Qt.RightToLeft)
         icon9 = QIcon()
         icon9.addFile(AbsolutePath().getPathIcon("icon_add.svg"))
@@ -1111,6 +1314,37 @@ class PyProductRegistration(QWidget):
         icon11.addFile(AbsolutePath().getPathIcon("icon_service.svg"))
         self.btn_calendario.setIcon(icon11)
         self.btn_calendario.setIconSize(QSize(25, 25))
+
+        self.frame_continer_calendario = QFrame(self.frame_calendario)
+        self.frame_continer_calendario.setObjectName(u"frame_continer")
+        self.frame_continer_calendario.setGeometry(QRect(1, 23, 250, 53))
+        self.frame_continer_calendario.setMinimumSize(QSize(250, 53))
+        self.frame_continer_calendario.setMaximumSize(QSize(250, 53))
+        self.frame_continer_calendario.setFrameShape(QFrame.StyledPanel)
+        self.frame_continer_calendario.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_5 = QVBoxLayout(self.frame_continer_calendario)
+        self.verticalLayout_5.setSpacing(0)
+        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.verticalLayout_5.setContentsMargins(0, 0, 0, 0)
+        self.scroll_area_continer = QScrollArea(self.frame_continer_calendario)
+        self.scroll_area_continer.setObjectName(u"scroll_area_continer")
+        self.scroll_area_continer.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.scroll_area_continer.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.scroll_area_continer.setWidgetResizable(True)
+        self.scroll_area_widget_contents_continer = QWidget()
+        self.scroll_area_widget_contents_continer.setObjectName(u"scroll_area_widget_contents_continer")
+        self.scroll_area_widget_contents_continer.setGeometry(QRect(0, 0, 250, 53))
+        self.horizontalLayout_7 = QHBoxLayout(self.scroll_area_widget_contents_continer)
+        self.horizontalLayout_7.setSpacing(3)
+        self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
+        self.horizontalLayout_7.setContentsMargins(3, 0, 0, 0)
+        self.horizontalSpacer = QSpacerItem(188, 50, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_7.addItem(self.horizontalSpacer)
+
+        self.scroll_area_continer.setWidget(self.scroll_area_widget_contents_continer)
+
+        self.verticalLayout_5.addWidget(self.scroll_area_continer)
 
         self.verticalLayout_9.addWidget(self.frame_calendario)
 
@@ -1152,7 +1386,7 @@ class PyProductRegistration(QWidget):
         font1.setBold(True)
         self.lbl_url_diretory.setFont(font1)
         self.lbl_url_diretory.setLayoutDirection(Qt.LeftToRight)
-        self.lbl_url_diretory.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
+        self.lbl_url_diretory.setAlignment(Qt.AlignLeading | Qt.AlignLeft | Qt.AlignVCenter)
 
         self.horizontalLayout_16.addWidget(self.lbl_url_diretory)
 
@@ -1278,11 +1512,41 @@ class PyProductRegistration(QWidget):
             QCoreApplication.translate("Form", u"Informa\u00e7\u00f5es adicionais sobre o produto (opcional)",
                                        None))
         self.checkBox.setText(QCoreApplication.translate("Form", u"Mostrar exemplo da imagem minimizada", None))
-        self.lbl_url_diretory.setText(QCoreApplication.translate("Form", u"C:\\Users\\Daniel\\Videos\\.....\\Music", None))
 
         self.combo_box_ipwebcam.setPlaceholderText(QCoreApplication.translate("Form", u"ipwebcam", None))
         self.lineEdit_ipwebcam.setPlaceholderText(QCoreApplication.translate("Form", u"Ipwebcam", None))
     # retranslateUi
+
+
+class PainelExpiracao(QFrame):
+    def __init__(self):
+        super().__init__()
+
+        self.setObjectName(u"frame_6")
+        self.setGeometry(QRect(80, 190, 53, 47))
+        self.setMinimumSize(QSize(53, 47))
+        self.setMaximumSize(QSize(53, 47))
+        self.setStyleSheet(u"background-color: rgb(47, 54, 100);border-radius:5px;")
+        self.setFrameShape(QFrame.StyledPanel)
+        self.setFrameShadow(QFrame.Raised)
+
+        self.btn_confimacao = QPushButton(self)
+        self.btn_confimacao.setObjectName(u"calendario")
+        self.btn_confimacao.setGeometry(QRect(0, 0, 18, 18))
+        icon = QIcon()
+        icon.addFile(AbsolutePath().getPathIcon("icon_service.svg"))
+        self.btn_confimacao.setIcon(icon)
+        self.btn_confimacao.setIconSize(QSize(18, 18))
+        self.data = QLabel(self)
+        self.data.setObjectName(u"data")
+        self.data.setGeometry(QRect(4, 17, 49, 16))
+        font = QFont()
+        font.setPointSize(7)
+        self.data.setFont(font)
+        self.data.setStyleSheet(u"color: rgb(134, 134, 137)")
+
+    def setDate(self, date):
+        self.data.setText(date)
 
 
 class Menu(QFrame):
@@ -1393,7 +1657,7 @@ class Menu(QFrame):
         self.verticalLayout_30.addWidget(self.add)
 
         self.foto = QPushButton(self.frame_continer)
-        self.foto.setObjectName(u"deletar")
+        self.foto.setObjectName(u"foto")
         self.foto.setMinimumSize(QSize(0, 25))
         self.foto.setSizeIncrement(QSize(0, 0))
         self.foto.setFont(font1)
@@ -1514,6 +1778,178 @@ class Menu(QFrame):
         self.rotate.setText(QCoreApplication.translate("MainWindow", u"  Rotacionar", None))
         self.resize_img.setText(QCoreApplication.translate("MainWindow", u" Tamanho", None))
         self.deletar.setText(QCoreApplication.translate("MainWindow", u"  Deletar", None))
+
+
+class PainelCalendario(QFrame):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        self.setObjectName(u"frame")
+        self.setGeometry(QRect(10, 0, 244, 200))
+        self.setStyleSheet(u"background-color: rgb(19, 20, 22);\n"
+"border-radius:7px;")
+        self.setFrameShape(QFrame.StyledPanel)
+        self.setFrameShadow(QFrame.Raised)
+        self.verticalLayout = QVBoxLayout(self)
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.frame_2 = QFrame(self)
+        self.frame_2.setObjectName(u"frame_2")
+        self.frame_2.setFrameShape(QFrame.StyledPanel)
+        self.frame_2.setFrameShadow(QFrame.Raised)
+
+        self.verticalLayout.addWidget(self.frame_2)
+
+        self.horizontalLayout = QHBoxLayout()
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        setTheme(Theme.DARK)
+        self.btn_calendario = CalendarPicker(self)
+        self.btn_calendario.setObjectName(u"AtitleButton")
+        self.btn_calendario.setStyleSheet(u"#titleButton {\n"
+"    font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';\n"
+"    font-weight: 500;\n"
+"    color: black;\n"
+"    background-color: transparent;\n"
+"    border: none;\n"
+"    margin: 0;\n"
+"    padding-left: 8px;\n"
+"    text-align: left;\n"
+"    border-radius: 5px;\n"
+"}\n"
+"\n"
+"#titleButton:hover {\n"
+"    background-color: rgba(0, 0, 0, 9);\n"
+"}\n"
+"\n"
+"#titleButton:pressed {\n"
+"    background-color: rgba(0, 0, 0, 6);\n"
+"}\n"
+"\n"
+"#titleButton:disabled {\n"
+"    color: rgba(0, 0, 0, 0.4);\n"
+"}\n"
+"\n"
+"#weekDayLabel {\n"
+"    font: 12px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';\n"
+"    font-weight: 500;\n"
+"    color: black;\n"
+"    background-color: transparent;\n"
+"    border: none;\n"
+"    text-align: center;\n"
+"}\n"
+"\n"
+"#weekDayGroup {\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"CalendarViewBase {\n"
+"    background-color: rgb(255, 255, 255);\n"
+"    border: 1px solid rgba(0, 0, 0, 0.1);\n"
+"    border-radius: 8px;\n"
+"}\n"
+"\n"
+"ScrollViewBase {\n"
+"    bor"
+                        "der: none;\n"
+"    padding: 0px 1px 0px 1px;\n"
+"    border-bottom-left-radius: 8px;\n"
+"    border-bottom-right-radius: 8px;\n"
+"    border-top: 1px solid rgb(240, 240, 240);\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"CalendarPicker {\n"
+"    color: rgba(0, 0, 0, 0.6063);\n"
+"    background: rgba(255, 255, 255, 0.7);\n"
+"    border: 1px solid rgba(0, 0, 0, 0.073);\n"
+"    border-bottom: 1px solid rgba(0, 0, 0, 0.183);\n"
+"    border-radius: 5px;\n"
+"    font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';\n"
+"    padding: 5px 32px 6px 12px;\n"
+"    outline: none;\n"
+"    text-align: left;\n"
+"}\n"
+"\n"
+"\n"
+"CalendarPicker:hover {\n"
+"    background: rgba(249, 249, 249, 0.5);\n"
+"}\n"
+"\n"
+"CalendarPicker:pressed {\n"
+"    background: rgba(249, 249, 249, 0.3);\n"
+"    border-bottom: 1px solid rgba(0, 0, 0, 0.073);\n"
+"}\n"
+"\n"
+"CalendarPicker:disabled {\n"
+"    color: rgba(0, 0, 0, 0.36);\n"
+"    background: rgba(249, 249, 249, 0.3);\n"
+"    border: 1px solid rgba(0, 0, 0, 0.06);\n"
+"    borde"
+                        "r-bottom: 1px solid rgba(0, 0, 0, 0.06);\n"
+"}\n"
+"\n"
+"CalendarPicker[hasDate=true] {\n"
+"    color: black;\n"
+"}")
+        self.btn_calendario.setDateFormat('d/MM/yyyy')
+
+        self.horizontalLayout.addWidget(self.btn_calendario)
+
+        self.btn_add_data = QPushButton(self)
+        self.btn_add_data.setObjectName(u"btn_add_data")
+        self.btn_add_data.setMinimumSize(QSize(32, 32))
+        self.btn_add_data.setMaximumSize(QSize(32, 32))
+        self.btn_add_data.setLayoutDirection(Qt.RightToLeft)
+        self.btn_add_data.setStyleSheet("""QPushButton{
+                                        background-color: rgb(47, 54, 100);
+                                        color: rgb(233, 234, 236);}
+                                        QPushButton:hover{background-color: rgb(50, 57, 106);}
+                                        QPushButton:pressed{background-color: rgb(48, 55, 102);}""")
+        icon = QIcon()
+        icon.addFile(AbsolutePath().getPathIcon("icon_check_ok.svg"))
+        self.btn_add_data.setIcon(icon)
+        self.btn_add_data.setIconSize(QSize(24, 24))
+
+        self.horizontalLayout.addWidget(self.btn_add_data)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout)
+
+        self.plainTextEdit = QPlainTextEdit(self)
+        self.plainTextEdit.setObjectName(u"plainTextEdit")
+        self.plainTextEdit.setStyleSheet(u"\n"
+"QPlainTextEdit {\n"
+"    color: rgba(0, 0, 0, 0.6063);\n"
+"    background: rgba(255, 255, 255, 0.7);\n"
+"    border: 1px solid rgba(0, 0, 0, 0.073);\n"
+"    border-bottom: 1px solid rgba(0, 0, 0, 0.183);\n"
+"    border-radius: 5px;\n"
+"    padding-left: 5px;\n"
+"    text-align: left;\n"
+"}\n"
+"\n"
+"\n"
+"QPlainTextEdit:hover {\n"
+"    background: rgba(249, 249, 249, 0.5);\n"
+"}\n"
+"\n"
+"QPlainTextEdit:pressed {\n"
+"    background: rgba(249, 249, 249, 0.3);\n"
+"    border-bottom: 1px solid rgba(0, 0, 0, 0.073);\n"
+"}\n"
+"\n"
+"QPlainTextEdit:disabled {\n"
+"    color: rgba(0, 0, 0, 0.36);\n"
+"    background: rgba(249, 249, 249, 0.3);\n"
+"    border: 1px solid rgba(0, 0, 0, 0.06);\n"
+"    border-bottom: 1px solid rgba(0, 0, 0, 0.06);\n"
+"}")
+
+        self.verticalLayout.addWidget(self.plainTextEdit)
+
+        self.plainTextEdit.setPlaceholderText(QCoreApplication.translate("Form", u"Mensagem", None))
+
+    # retranslateUi
+
 
 
 if __name__ == '__main__':
