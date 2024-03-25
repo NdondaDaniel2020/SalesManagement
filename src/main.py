@@ -19,12 +19,12 @@ from src.gui.widgets.py_product_registration.py_product_registration import PyPr
 
 # MAIN INTERFACE CODE
 # CÓDIGO PRINCIPAL DA INTERFACE
-from src.gui.uis.windows.main_window.ui_main_window import Ui_MainWindow
+from src.gui.ui.windows.main_window.ui_main_window import Ui_MainWindow
 from src.gui.function.functions_main_window.functions_system import FunctionsSystem
 
 # INTERFACE AUXILIARY CODE
 # CÓDIGO AUXILIAR DA INTERFACE
-from src.gui.uis.windows.main_window.setup_main_window import *
+from src.gui.ui.windows.main_window.setup_main_window import *
 from src.gui.function.functions_main_window.functions_chart import ChartFunctions
 
 # AUXILIARY CODE
