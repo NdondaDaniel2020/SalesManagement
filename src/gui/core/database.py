@@ -2,16 +2,16 @@ import sqlite3
 from src.gui.core.absolute_path import AbsolutePath
 
 class DataBase():
-    def __init__(self, name='banco'):
+    def __init__(self, name: str='banco') -> None:
         if '.db' in name:
             self.name = name
         else:
             self.name = name+'.db'
 
-    def connectDataBase(self):
+    def connectDataBase(self) -> None:
         self.connection = sqlite3.connect(self.name)
 
-    def disconnectDataBase(self):
+    def disconnectDataBase(self) -> None:
         try:
             self.connection.commit() ## commit salva os dados no banco
             self.connection.close()
@@ -19,19 +19,19 @@ class DataBase():
             print('Nenhuma conexão detetada')
             raise "No connection detected"
 
-    def executarComand(self, comand):
+    def executarComand(self, comand: str) -> None:
         cursor = self.connection.cursor()
         cursor.execute(comand)
 
     # retorna todos
-    def executarFetchall(self, fetchall):
+    def executarFetchall(self, fetchall) -> list:
         cursor = self.connection.cursor()
         cursor.execute(fetchall)
         dados = cursor.fetchall()
         return dados
 
     # retorna 1
-    def executarFetchone(self, fetchall):
+    def executarFetchone(self, fetchall) -> tuple:
         cursor = self.connection.cursor()
         cursor.execute(fetchall)
         dados = cursor.fetchone()
@@ -40,15 +40,14 @@ class DataBase():
     def NotaComandSQL(self):
         pass
 
-    def __str__(self):
+    def __str__(self) -> str:
         return 'Class para criares o teu banco de dados'
 
 if __name__ == "__main__":
-    stock = DataBase(AbsolutePath().getPathDatabase())
-    stock.connectDataBase()
-    stock.executarComand("""INSERT INTO Categoria (nome) values ('Compra')""")
-    stock.executarComand("""INSERT INTO data_de_expiracao (data, informacoes_de_expiracao) VALUES ("12/04/2024", "informacoes de teste")""")
-    stock.disconnectDataBase()
+    db = DataBase(AbsolutePath().getPathDatabase())
+    db.connectDataBase()
+    db.executarComand("INSERT INTO categoria(nome) values ('cosmetico')")
+    db.disconnectDataBase()
 
 # data.executarComand("""
 # CREATE TABLE IF NOT EXISTS Usuario(
