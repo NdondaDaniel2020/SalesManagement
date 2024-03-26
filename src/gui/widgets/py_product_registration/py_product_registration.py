@@ -10,6 +10,7 @@ from pyzbar.pyzbar import decode
 from src.gui.core.database import DataBase
 from src.gui.core.absolute_path import AbsolutePath
 from qfluentwidgets import CalendarPicker, setTheme, Theme
+from src.gui.function.functions_main_window.static_functions import generate_barcode, reduce_url
 from src.gui.widgets.py_slide_stacked_widgets.py_slide_stacked_widgets import PySlidingStackedWidget
 
 
@@ -21,6 +22,7 @@ class PyProductRegistration(QWidget):
         self.setupUi(self)
         self.validator()
         self.getSettings()
+        self.getDataFromDatabase()
 
         # ////////////////////////////////////////////////////////////////
         self.shadow_window = QGraphicsDropShadowEffect(self)
@@ -42,12 +44,13 @@ class PyProductRegistration(QWidget):
         self.timer_scan_bar_code = QTimer()
         self.timer_scan_bar_code.timeout.connect(self.scanBarCodeCam)
         # ////////////////////////////////////////////////////////////////
-        self.can_close = False
-        self.first_exe = False
         self.render_file = None
+        self.can_close: bool = False
+        self.painel_calendario: PainelCalendario = None
+        self.group_animation_calendario: QParallelAnimationGroup = None
 
         self.btn_sender = self.btn_nav_camera
-        self.current_image_path = AbsolutePath().getPathIcon("icon_gallery.svg")
+        self.current_image_path: str = AbsolutePath().getPathIcon("icon_gallery.svg")
 
         self.stackedWidget.enterEvent = self.stacked_Widget_enter_event
         self.frame_central.enterEvent = self.stacked_Widget_enter_event
@@ -72,11 +75,13 @@ class PyProductRegistration(QWidget):
         self.btn_show_categoria.clicked.connect(self.showPopupCategoria)
         self.btn_show_unidade.clicked.connect(self.showPopupUnidade)
         self.btn_show_ipwebcam.clicked.connect(self.showPopupIpwebcam)
+        self.lineEdit_unidade.returnPressed.connect(self.addUnidade)
+        self.lineEdit_categoria.returnPressed.connect(self.addCategoria)
 
         self.combo_box_categoria.currentTextChanged.connect(self.itemCategoriaSelected)
         self.combo_box_unidade.currentTextChanged.connect(self.itemUnidadeSelected)
         self.combo_box_ipwebcam.currentTextChanged.connect(self.itemIpwebcamSelected)
-        self.lineEdit_ipwebcam.returnPressed.connect(self.changeCamLdt)
+        self.lineEdit_ipwebcam.returnPressed.connect(self.addIpwbcam)
 
         self.horizontal_slider_resize.valueChanged.connect(self.changeSizeImage)
 
@@ -92,6 +97,8 @@ class PyProductRegistration(QWidget):
 
         self.btn_add_data.clicked.connect(self.addDateExpiration)
 
+        self.btn_ok.clicked.connect(self.getAllData)
+
     # VALIDAÇÃO E CÓDIGO DO PAINEL
     # /////////////////////////////////////////////////////
     ################### NAO TERMINDAS ############# connectar com bd
@@ -101,13 +108,46 @@ class PyProductRegistration(QWidget):
     def itemCategoriaSelected(self, item) -> None:
         self.lineEdit_categoria.setText(item)
 
+    def addCategoria(self):
+        item = self.lineEdit_categoria.text()
+        self.combo_box_categoria.addItem(item.capitalize())
+        self.combo_box_categoria.showPopup()
+
+        db = DataBase(AbsolutePath().getPathDatabase())
+        db.connectDataBase()
+        db.executarComand(f"INSERT INTO categoria(nome) VALUES ('{item.lower()}')")
+        db.disconnectDataBase()
+
     def showPopupUnidade(self) -> None:
         self.combo_box_unidade.showPopup()
 
     def itemUnidadeSelected(self, item) -> None:
         self.lineEdit_unidade.setText(item)
 
-    ################### TERMINDAS #############
+    def addUnidade(self):
+        item = self.lineEdit_unidade.text()
+        self.combo_box_unidade.addItem(item.capitalize())
+        self.combo_box_unidade.showPopup()
+
+        db = DataBase(AbsolutePath().getPathDatabase())
+        db.connectDataBase()
+        db.executarComand(f"INSERT INTO unidade(nome) VALUES ('{item.lower()}')")
+        db.disconnectDataBase()
+
+    def getDataFromDatabase(self):
+
+        db = DataBase(AbsolutePath().getPathDatabase())
+        db.connectDataBase()
+        categoria = db.executarFetchall(f"select * FROM categoria")
+        unidade = db.executarFetchall(f"select * FROM unidade")
+        db.disconnectDataBase()
+
+        for i in unidade:
+            self.combo_box_unidade.addItem(i[1].capitalize())
+
+        for i in categoria:
+            self.combo_box_categoria.addItem(i[1].capitalize())
+
     def showPopupIpwebcam(self) -> None:
         self.combo_box_ipwebcam.showPopup()
 
@@ -122,15 +162,12 @@ class PyProductRegistration(QWidget):
         if self.cap.isOpened():
             self.cap.release()
 
-    def validarEnderecoIp(self, ip: str) -> bool:
+    def addIpwbcam(self) -> None:
         padrao = QRegularExpression(
             r"^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):[0-9]{4}$")
-        return padrao.match(ip).hasMatch()
-
-    def changeCamLdt(self) -> None:
         txt = self.lineEdit_ipwebcam.text()
 
-        if self.validarEnderecoIp(txt):
+        if padrao.match(txt).hasMatch():
 
             if not 'http://' in txt:
                 txt = 'http://' + txt
@@ -163,18 +200,10 @@ class PyProductRegistration(QWidget):
         with open(json_file, "w") as file:
             json.dump(dados, file)
 
-    def reduceUrl(self, url: str) -> str:
-        if len(url) > 24:
-            url = os.path.normpath(url).split('\\')
-            url = (*url[:4], '....', url[-1])
-            url = '\\'.join(url)
-            return url
-        return url
-
     def setPhotoPath(self) -> None:
         photo_path = QFileDialog().getExistingDirectory(dir=self.image_path)
         if photo_path:
-            self.lbl_url_diretory.setText(self.reduceUrl(photo_path))
+            self.lbl_url_diretory.setText(reduce_url(photo_path))
             self.image_path = photo_path
 
             json_file = AbsolutePath().getPathSetting()
@@ -196,7 +225,7 @@ class PyProductRegistration(QWidget):
         if not self.image_path:
             self.image_path = pathlib.Path().home()
 
-        self.lbl_url_diretory.setText(self.reduceUrl(self.image_path))
+        self.lbl_url_diretory.setText(reduce_url(self.image_path))
 
         if self.show_exem:
             self.icon_img.show()
@@ -576,13 +605,48 @@ class PyProductRegistration(QWidget):
 
         #### salvar o caminho da img na bd
 
+
     def addDateExpiration(self):
-        self.painel_calendario = PainelCalendario(self.page_edit)
-        self.painel_calendario.setGeometry(40, 100, 224, 140)
-        self.painel_calendario.mousePressEvent = self.stacked_Widget_enter_event
-        self.painel_calendario.btn_add_data.clicked.connect(self.addPainelCalendar)
-        self.page_edit.mousePressEvent = lambda a: self.painel_calendario.close()
-        self.painel_calendario.show()
+
+        if not self.painel_calendario:
+            self.painel_calendario = PainelCalendario(self.page_edit)
+            self.painel_calendario.setGeometry(40, 100, 224, 140)
+            self.painel_calendario.show()
+
+            self.painel_calendario.mousePressEvent = self.stacked_Widget_enter_event
+            self.painel_calendario.btn_add_data.clicked.connect(self.addPainelCalendar)
+
+            self.painel_calendario_opacity = QGraphicsOpacityEffect(self.painel_calendario)
+            self.painel_calendario_opacity.setOpacity(0.0)
+            self.painel_calendario.setGraphicsEffect(self.painel_calendario_opacity)
+
+            def clear(e):
+                self.painel_calendario_opacity.setOpacity(0.0)
+                self.painel_calendario.btn_calendario.setText("Selecione a Data")
+                self.painel_calendario.plainTextEdit.setPlainText("")
+                self.painel_calendario.setGeometry(-234, -150, 224, 140)
+
+            self.page_edit.mousePressEvent = clear
+
+            self.calendario_opacity_animation = QPropertyAnimation(self.painel_calendario_opacity, b'opacity')
+            self.calendario_opacity_animation.setStartValue(0.0)
+            self.calendario_opacity_animation.setEndValue(0.9)
+            self.calendario_opacity_animation.setDuration(400)
+
+            self.pos_animation_calendario = QPropertyAnimation(self.painel_calendario, b'pos')
+            self.pos_animation_calendario.setStartValue(QPoint(40, 100))
+            self.pos_animation_calendario.setEndValue(QPoint(40, 55))
+            self.pos_animation_calendario.setDuration(400)
+            self.pos_animation_calendario.setEasingCurve(QEasingCurve.Type.InOutCirc)
+
+            self.group_animation_calendario = QParallelAnimationGroup()
+            self.group_animation_calendario.addAnimation(self.calendario_opacity_animation)
+            self.group_animation_calendario.addAnimation(self.pos_animation_calendario)
+            self.group_animation_calendario.start()
+
+        else:
+            self.group_animation_calendario.start()
+
 
     def addPainelCalendar(self):
         padrao = QRegularExpression(r"\d{2}/\d{2}/\d{4}")
@@ -610,7 +674,6 @@ class PyProductRegistration(QWidget):
                 fr"""INSERT INTO data_de_expiracao (data, informacoes_de_expiracao) VALUES ('{data}', '{text}')""")
             db.disconnectDataBase()
 
-
     def cleanAndClose(self):
         self.lineEdit_chave.setText('')
         self.lineEdit_unidade.setText('')
@@ -634,7 +697,121 @@ class PyProductRegistration(QWidget):
         self.btn_activate.setGeometry(QRect(63, 408, 40, 40))
         self.btn_activate.setIcon(QIcon(AbsolutePath().getPathIcon("icon_camera.svg")))
 
+    def alertaAnimtion(self):
 
+        self.opacity_animation_reverse = QPropertyAnimation(self.alerta_opacity, b'opacity')
+        self.opacity_animation_reverse.setStartValue(0.9)
+        self.opacity_animation_reverse.setEndValue(0.0)
+        self.opacity_animation_reverse.setDuration(400)
+
+        self.opacity_animation = QPropertyAnimation(self.alerta_opacity, b'opacity')
+        self.opacity_animation.setStartValue(0.0)
+        self.opacity_animation.setEndValue(0.9)
+        self.opacity_animation.setDuration(400)
+
+        self.pos_animation = QPropertyAnimation(self.lbl_alerta, b'pos')
+        self.pos_animation.setStartValue(QPoint(45, 0))
+        self.pos_animation.setEndValue(QPoint(45, 50))
+        self.pos_animation.setDuration(400)
+        self.pos_animation.setEasingCurve(QEasingCurve.Type.InOutCirc)
+
+        self.group_animation_alerta = QParallelAnimationGroup()
+        self.group_animation_alerta.addAnimation(self.opacity_animation)
+        self.group_animation_alerta.addAnimation(self.pos_animation)
+        self.group_animation_alerta.start()
+
+    def getAllData(self) -> dict:
+        try_exec = True
+
+        produto = {}
+        db = DataBase(AbsolutePath().getPathDatabase())
+        db.connectDataBase()
+
+        produto['image'] = '' if 'icon_gallery.svg' in self.current_image_path else self.current_image_path
+
+        im = self.image.iconSize()
+        i_im = self.icon_img.iconSize()
+        produto['size_image'] = {'image': (im.width(), im.height()),
+                                 'icon_image': (i_im.width(), i_im.height())}
+
+        objs = self.scroll_area_widget_contents_continer.findChildren(PainelExpiracao)
+        datas_de_expir = db.executarFetchall(f"SELECT id FROM data_de_expiracao ORDER by id DESC LIMIT {len(objs)};")
+        produto['data_de_expiracao'] = datas_de_expir
+
+        if self.lineEdit_unidade.text():
+            txt = self.lineEdit_unidade.text().lower()
+            id_uni = db.executarFetchone(f"SELECT id FROM unidade where nome='{txt}'")
+            produto['unidade'] = int(id_uni[0])
+        elif try_exec:
+            self.lbl_alerta.setText('Selecione uma unidade')
+            self.alertaAnimtion()
+            QTimer().singleShot(2000, lambda: self.opacity_animation_reverse.start())
+            try_exec = False
+
+        if self.lineEdit_categoria.text():
+            txt = self.lineEdit_categoria.text().lower()
+            id_cat = db.executarFetchone(f"SELECT id FROM categoria where nome='{txt}'")
+            produto['categoria'] = int(id_cat[0])
+        elif try_exec:
+            self.lbl_alerta.setText('Selecione uma categoria')
+            self.alertaAnimtion()
+            QTimer().singleShot(2000, lambda: self.opacity_animation_reverse.start())
+            try_exec = False
+
+        if self.lineEdit_nome_produto.text():
+            produto['nome_produto'] = self.lineEdit_nome_produto.text()
+        elif try_exec:
+            self.lbl_alerta.setText('Adicione um nome no produto')
+            self.alertaAnimtion()
+            QTimer().singleShot(2000, lambda: self.opacity_animation_reverse.start())
+            try_exec = False
+
+        if self.lineEdit_preco_venda.text():
+            produto['preco_venda'] = int(self.lineEdit_preco_venda.text())
+
+        elif try_exec:
+            self.lbl_alerta.setText('Adicione o preço de venda')
+            self.alertaAnimtion()
+            QTimer().singleShot(2000, lambda: self.opacity_animation_reverse.start())
+            try_exec = False
+
+        chaves = db.executarFetchall("select chave FROM produto")
+        db.disconnectDataBase()
+
+        if not self.lineEdit_chave.text():  # testar chaves iguais
+            chave_gerada = generate_barcode()
+            while chave_gerada in chaves:
+                chave_gerada = generate_barcode()
+
+            produto['chave'] = chave_gerada
+            self.lineEdit_chave.setText(chave_gerada)
+
+        elif not self.lineEdit_chave.text() in chaves:
+            produto['chave'] = self.lineEdit_chave.text()
+
+        elif try_exec:
+            self.lbl_alerta.setText('Mude a chave')
+            self.alertaAnimtion()
+            QTimer().singleShot(2000, lambda: self.opacity_animation_reverse.start())
+            try_exec = False
+
+        # opcionais
+
+        preco_compra = self.lineEdit_preco_compra.text()
+        produto['preco_compra'] = 0 if not preco_compra.isnumeric() else int(preco_compra)
+
+        quantidade = self.lineEdit_quantidade.text()
+        produto['quantidade'] = 0 if not quantidade.isnumeric() else int(quantidade)
+
+        quantidade_reserva = self.lineEdit_quantidade_reserva.text()
+        produto['quantidade_reserva'] = 0 if not quantidade_reserva.isnumeric() else int(quantidade_reserva)
+
+        produto['informacoes_adicionais'] = self.informacoes_adicionais.toPlainText()
+
+        if try_exec:
+            import pprint
+            pprint.pprint(produto)
+            return produto
 
     # /////////////////////////////////////////////////////
     def stacked_Widget_enter_event(self, event) -> None:
@@ -686,6 +863,11 @@ class PyProductRegistration(QWidget):
                                        "#btn_calendario, \n"
                                        "#icon_tag, \n"
                                        "#image{background-color: transparent;}\n"
+                                       "\n"
+                                        "#lbl_alerta{\n"
+                                        "background-color: rgb(32, 33, 36);\n"
+                                        "color: rgb(255, 255, 255);\n"
+                                        "border-radius:5px;}\n"
                                        "\n"
                                        "#scroll_area_continer,\n"
                                        "#scroll_area_widget_contents_continer,\n"
@@ -926,6 +1108,7 @@ class PyProductRegistration(QWidget):
         self.verticalLayout_6.setSpacing(0)
         self.verticalLayout_6.setObjectName(u"verticalLayout_6")
         self.verticalLayout_6.setContentsMargins(0, 0, 0, 0)
+
         self.stackedWidget = PySlidingStackedWidget(self.frame_central)
         self.stackedWidget.setObjectName(u"stackedWidget")
         self.stackedWidget.setStyleSheet(u"")
@@ -1160,9 +1343,6 @@ class PyProductRegistration(QWidget):
         self.verticalLayout_4 = QVBoxLayout(self.frame_continer_prima_info)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
         self.combo_box_unidade = QComboBox(self.frame_continer_prima_info)
-        self.combo_box_unidade.addItem("")
-        self.combo_box_unidade.addItem("")
-        self.combo_box_unidade.addItem("")
         self.combo_box_unidade.setObjectName(u"combo_box_unidade")
         self.combo_box_unidade.setMinimumSize(QSize(0, 37))
         self.combo_box_unidade.setFont(font)
@@ -1174,9 +1354,6 @@ class PyProductRegistration(QWidget):
         self.verticalLayout_4.addWidget(self.combo_box_unidade)
 
         self.combo_box_categoria = QComboBox(self.frame_continer_prima_info)
-        self.combo_box_categoria.addItem("")
-        self.combo_box_categoria.addItem("")
-        self.combo_box_categoria.addItem("")
         self.combo_box_categoria.setObjectName(u"combo_box_categoria")
         self.combo_box_categoria.setMinimumSize(QSize(0, 37))
         self.combo_box_categoria.setFont(font)
@@ -1465,6 +1642,21 @@ class PyProductRegistration(QWidget):
         self.verticalLayout_6.addWidget(self.stackedWidget)
 
         self.verticalLayout_2.addWidget(self.frame_central, 0, Qt.AlignHCenter)
+
+        self.lbl_alerta = QLabel(self.frame_central)
+        self.lbl_alerta.setObjectName('lbl_alerta')
+        self.lbl_alerta.setGeometry(45, 50, 210, 30)
+        self.lbl_alerta.setMinimumSize(0, 0)
+        self.lbl_alerta.setMaximumSize(1234567, 1234567)
+        font_ = QFont()
+        font_.setPointSize(10)
+        font_.setBold(True)
+        self.lbl_alerta.setFont(font_)
+        self.lbl_alerta.setAlignment(Qt.AlignHCenter|Qt.AlignVCenter)
+
+        self.alerta_opacity = QGraphicsOpacityEffect(self.lbl_alerta)
+        self.alerta_opacity.setOpacity(0.0)
+        self.lbl_alerta.setGraphicsEffect(self.alerta_opacity)
 
         self.verticalLayout.addWidget(self.frame_style)
 
@@ -1780,6 +1972,23 @@ class Menu(QFrame):
         self.deletar.setText(QCoreApplication.translate("MainWindow", u"  Deletar", None))
 
 
+class Alerta(QLabel):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        
+        self.setObjectName(u"label")
+        self.setGeometry(QRect(20, 60, 151, 30))
+        font = QFont()
+        font.setPointSize(10)
+        font.setBold(True)
+        self.setFont(font)
+        self.setStyleSheet(u"background-color: rgb(32, 33, 36);\n"
+                                 "color: rgb(255, 255, 255);\n"
+                                 "border-radius:5px;")
+        self.setAlignment(Qt.AlignCenter)
+
+
+
 class PainelCalendario(QFrame):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -1803,7 +2012,7 @@ class PainelCalendario(QFrame):
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         setTheme(Theme.DARK)
         self.btn_calendario = CalendarPicker(self)
-        self.btn_calendario.setObjectName(u"AtitleButton")
+        self.btn_calendario.setObjectName(u"btn_calendario")
         self.btn_calendario.setStyleSheet(u"#titleButton {\n"
 "    font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';\n"
 "    font-weight: 500;\n"
@@ -1890,6 +2099,7 @@ class PainelCalendario(QFrame):
 "CalendarPicker[hasDate=true] {\n"
 "    color: black;\n"
 "}")
+        self.btn_calendario.setText("Selecione a Data")
         self.btn_calendario.setDateFormat('d/MM/yyyy')
 
         self.horizontalLayout.addWidget(self.btn_calendario)
