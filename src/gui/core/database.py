@@ -37,16 +37,13 @@ class DataBase():
         dados = cursor.fetchone()
         return dados
 
-    def NotaComandSQL(self):
-        pass
-
     def __str__(self) -> str:
         return 'Class para criares o teu banco de dados'
 
 if __name__ == "__main__":
     db = DataBase(AbsolutePath().getPathDatabase())
     db.connectDataBase()
-    db.executarComand("INSERT INTO categoria(nome) values ('cosmetico')")
+    query = db.executarFetchall("SELECT chave, nome, quantidade, preco_venda, linkImg from produto")
     db.disconnectDataBase()
 
 # data.executarComand("""
