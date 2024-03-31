@@ -9,6 +9,7 @@ from src.gui.widgets.py_left_menu.py_left_menu import LeftMenu
 from src.gui.widgets.py_push_button.py_push_button import PyPushButton
 from src.gui.widgets.py_painel_button.py_painel_button import PyPanelButton
 
+from src.gui.core.database import DataBase
 from src.gui.core.absolute_path import AbsolutePath
 
 
@@ -39,18 +40,30 @@ class SetUpMainWindow:
         self.ui.logo.setIcon(QIcon(AbsolutePath().getPathImage('img-removebg-preview.png')))
 
         # //////////////////////////////////////////////////////////////////////////////////////////////////////
-        self.ui.btn_log_extra_venda.setIcon(QIcon(AbsolutePath().getPathIcon('icon_push_notification.svg')))
-        self.ui.btn_log_extra_perda.setIcon(QIcon(AbsolutePath().getPathIcon('icon_push_notification.svg')))
-        self.ui.btn_logo_extra_perda.setIcon(QIcon(AbsolutePath().getPathIcon('icon_push_notification.svg')))
-        self.ui.btn_log_extra_inventario.setIcon(QIcon(AbsolutePath().getPathIcon('icon_push_notification.svg')))
+        icon_no = QIcon(AbsolutePath().getPathIcon('icon_push_notification.svg'))
+        self.ui.btn_log_extra_venda.setIcon(icon_no)
+        self.ui.btn_log_extra_perda.setIcon(icon_no)
+        self.ui.btn_log_extra_recibo.setIcon(icon_no)
+        self.ui.btn_log_extra_inventario.setIcon(icon_no)
 
-        # ////////////////////////////////////////////////////////////////////////////////////////////
+        self.ui.btn_log_extra_recibo_venda.setIcon(icon_no)
+        self.ui.btn_log_extra_criar_produto.setIcon(icon_no)
+        self.ui.btn_log_extra_pedido_de_compra.setIcon(icon_no)
+        self.ui.btn_log_extra_historico_de_venda.setIcon(icon_no)
+
+        # /////////////////////////////////////////////////////////////////////////////////////////////////////////////
         self.ui.btn_logo_venda.setIcon(QIcon(AbsolutePath().getPathIcon('icon_coin.svg')))
         self.ui.btn_logo_inventario.setIcon(QIcon(AbsolutePath().getPathIcon('icon_box.svg')))
         self.ui.btn_logo_recibo.setIcon(QIcon(AbsolutePath().getPathIcon('icon_inventory.svg')))
         self.ui.btn_logo_perda.setIcon(QIcon(AbsolutePath().getPathIcon('icon_line_chart_down.svg')))
 
-        # //////////////////////////////////////////////////////////////////////////////////////////
+        self.ui.btn_logo_recibo_venda.setIcon(QIcon(AbsolutePath().getPathIcon('icon_inventory.svg')))
+        self.ui.btn_logo_historico_de_venda.setIcon(QIcon(AbsolutePath().getPathIcon('icon_clipboar')))
+        self.ui.btn_logo_historico_de_venda_.setIcon(QIcon(AbsolutePath().getPathIcon('icon_coin.svg')))
+        self.ui.btn_logo_pedido_de_compra.setIcon(QIcon(AbsolutePath().getPathIcon('icon_receipt.svg')))
+        self.ui.btn_logo_criar_produto.setIcon(QIcon(AbsolutePath().getPathIcon('icon_existinginventory.svg')))
+
+        # /////////////////////////////////////////////////////////////////////////////////////////////////////////////
         self.ui.widget_1.setIcon("icon_line_chart_down.svg")
         self.ui.widget_1.setText("Pizza Char")
         self.ui.widget_1.clicked.connect(lambda: print("test1"))
@@ -63,38 +76,24 @@ class SetUpMainWindow:
         self.ui.widget_3.setText("Char")
         self.ui.widget_3.clicked.connect(lambda: print("test3"))
 
-        # ////////////////////////////////////////////////////////////////////////
+        # /////////////////////////////////////////////////////////////////////////////////////////////////////////////
         self.ui.icon_img_28.setIcon(QIcon(AbsolutePath().getPathImage('tatiana-removebg-preview.png')))
         self.ui.icon_img_29.setIcon(QIcon(AbsolutePath().getPathImage('daniel-removebg-preview.png')))
         self.ui.icon_img_30.setIcon(QIcon(AbsolutePath().getPathImage('john-removebg-preview.png')))
 
-        # ////////////////////////////////////////////////////////////////////////
+        # ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         self.ui.frest_user.setPathImage(AbsolutePath().getPathImage('daniel.jpg'))
         self.ui.frest_user.clicked.connect(lambda: print("test user"))
 
         self.ui.qrcode.setIcon(QIcon(AbsolutePath().getPathImage("SalesManagement.svg")))
 
-        # ////////////////////////////////////////////////////////////////////////
+        # ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         self.ui.btn_pesquisa_produto.setIcon(QIcon(AbsolutePath().getPathIcon('icon_search.svg')))
         self.ui.btn_mais_opcoes.setIcon(QIcon(AbsolutePath().getPathIcon('icon_more.svg')))
         self.ui.btn_adicionar_produto.setIcon(QIcon(AbsolutePath().getPathIcon('icon_add.svg')))
 
-
-
-
-    def configCircularProgress(self):
-
-        self.ui.circupar_progress_bar.width = 150
-        self.ui.circupar_progress_bar.height = 150
-        self.ui.circupar_progress_bar.value = 80
-        self.ui.circupar_progress_bar.setFixedSize(215, 172)
-        self.ui.circupar_progress_bar.move(30, 10)
-        self.ui.circupar_progress_bar.font_size = 12
-        self.ui.circupar_progress_bar.progress_width = 6
-        self.ui.circupar_progress_bar.ad_shadow(True)
-        self.ui.circupar_progress_bar.progress_color = 0x596deb
-        self.ui.circupar_progress_bar.text_color = 0xE9EAEC
-
+        self.ui.btn_pesquisa_produto_de_venda.setIcon(QIcon(AbsolutePath().getPathIcon('icon_search.svg')))
+        self.ui.btn_mais_opcoes_de_venda.setIcon(QIcon(AbsolutePath().getPathIcon('icon_more.svg')))
 
     def configSystem(self):
 
@@ -231,8 +230,8 @@ class SetUpMainWindow:
         # ////////////////////////////////////////////////////////////////////////////////
         def moveWindow(event):
             if event.buttons() == Qt.LeftButton:
-                self.move(self.pos() + event.globalPos() - self._dragPos)
-                self._dragPos = event.globalPos()  ## event.globalPos() deprecated
+                self.move(self.pos() + event.globalPosition().toPoint() - self._dragPos)
+                self._dragPos = event.globalPosition().toPoint()
                 event.accept()
 
 
