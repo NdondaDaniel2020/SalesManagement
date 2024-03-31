@@ -58,14 +58,14 @@ border-radius:10px;}</string>
        <widget class="QPushButton" name="icon">
         <property name="minimumSize">
          <size>
-          <width>35</width>
-          <height>39</height>
+          <width>37</width>
+          <height>37</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>35</width>
-          <height>39</height>
+          <width>37</width>
+          <height>37</height>
          </size>
         </property>
         <property name="styleSheet">
@@ -334,7 +334,7 @@ margin-left:3px
             <string notr="true">color: rgb(121, 121, 121)</string>
            </property>
            <property name="text">
-            <string>Unidade</string>
+            <string>Quantidade</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
