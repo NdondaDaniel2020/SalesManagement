@@ -2,6 +2,7 @@ from src.qt_core import *
 from src.gui.ui.windows.main_window.ui_main_window import Ui_MainWindow
 from src.gui.widgets.py_product_registration.py_product_registration import PyProductRegistration
 
+
 class FunctionsSystem:
 
     def __init__(self) -> None:
@@ -80,8 +81,47 @@ class FunctionsSystem:
         if self.ui.frame_char.height() == 0:
             self.ui.frame_char.hide()
 
+    def searchProduct(self):
+        nome = self.ui.line_edit_pesquisa_produto.text()
 
+        objs = self.ui.scrollAreaWidgetContents_2.findChildren(PyRegistrationList)
 
+        if not nome:
+            for obj in objs:
+                obj.show()
+        else:
+            for obj in objs:
+                obj.hide()
+                if nome.lower() in obj.nome_produto.text().lower():
+                    obj.show()
+
+    def resizeFrameChartWidth(self):
+        height = self.ui.frame_chart_bar.size().height()
+        width = self.ui.frame_chart_bar.size().width()
+
+        if height > 154:
+            # self.group_animation = QParallelAnimationGroup()
+            #
+            # self.maximum_animation = QPropertyAnimation(self.ui.frame_chart_bar, b'maximumWidth')
+            # self.maximum_animation.setStartValue(width)
+            # self.maximum_animation.setDuration(400)
+            # self.maximum_animation.setEndValue(height)
+            # self.maximum_animation.setEasingCurve(QEasingCurve.Type.InOutCirc)
+            #
+            # self.group_animation.addAnimation(self.maximum_animation)
+            #
+            # self.minimum_animation = QPropertyAnimation(self.ui.frame_chart_bar, b'minimumWidth')
+            # self.minimum_animation.setStartValue(width)
+            # self.minimum_animation.setDuration(400)
+            # self.minimum_animation.setEndValue(height)
+            # self.minimum_animation.setEasingCurve(QEasingCurve.Type.InOutCirc)
+            #
+            # self.group_animation.addAnimation(self.minimum_animation)
+            #
+            # self.group_animation.start()
+
+            self.ui.frame_chart_bar.setMaximumWidth(height)
+            self.ui.frame_chart_bar.setMinimumWidth(height)
 
 # : https://doc.qt.io/qt-6/qt.html#Key-enum
 
