@@ -2,6 +2,10 @@ from src.qt_core import *
 from src.gui.ui.windows.main_window.ui_main_window import Ui_MainWindow
 from src.gui.widgets.py_dynamic_chart.py_dynamic_chart import PyDynamicChart
 
+from src.gui.core.database import DataBase
+from src.gui.core.absolute_path import AbsolutePath
+
+
 class ChartFunctions:
 
     def __init__(self):
@@ -12,7 +16,10 @@ class ChartFunctions:
 
 
     def addInventoryChart(self):
-
+        """
+        grafico das vendas (saidas) e entradas (entrada de produto)
+        :return:
+        """
         series_max = QSplineSeries()
         series_max.append(0, 6)
         series_max.append(2, 4)
@@ -65,6 +72,39 @@ class ChartFunctions:
 
         self.ui.vertical_layout_chart_inevntario.insertWidget(0, self._chart_view)
 
+    def configCircularProgress(self):
+        """
+
+        :return:
+        """
+
+        db = DataBase(AbsolutePath().getPathDatabase())
+        db.connectDataBase()
+        query = db.executarFetchone("SELECT * FROM vw_nivel_atualt_do_inventario")
+        db.disconnectDataBase()
+
+        valor = float(f'{(query[0] / query[1]) * 100:.1f}')
+
+        self.ui.circular_progress_bar.width = 150
+        self.ui.circular_progress_bar.height = 150
+        self.ui.circular_progress_bar.value = valor
+        self.ui.circular_progress_bar.setFixedSize(215, 172)
+        self.ui.circular_progress_bar.move(30, 10)
+        self.ui.circular_progress_bar.font_size = 12
+        self.ui.circular_progress_bar.progress_width = 6
+        self.ui.circular_progress_bar.ad_shadow(True)
+        self.ui.circular_progress_bar.progress_color = 0x596deb
+        self.ui.circular_progress_bar.text_color = 0xE9EAEC
+
+    def updateCircularProgress(self):
+        db = DataBase(AbsolutePath().getPathDatabase())
+        db.connectDataBase()
+        query = db.executarFetchone("SELECT * FROM vw_nivel_atualt_do_inventario")
+        db.disconnectDataBase()
+
+        valor = float(f'{(query[0] / query[1]) * 100:.1f}')
+
+        self.ui.circular_progress_bar.value = valor
 
     def addBarChartOnHomepage(self):
         grid_color = QColor(54, 63, 118)
@@ -179,3 +219,4 @@ class ChartFunctions:
 
         self.ui.vertical_layout_dynamic_chart.addWidget(self.dynamic_chart_view)
 
+        return self.dynamic_chart._timer
