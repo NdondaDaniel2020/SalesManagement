@@ -37,7 +37,7 @@
      <property name="styleSheet">
       <string notr="true">#frame_style{
 	border-radius: 10px;
-	background-color: rgba(19, 20, 22, 25);}
+	background-color: rgba(19, 20, 22, 65);}
 
 QStackedWidget, 
 #btn_calendario, 
@@ -204,14 +204,14 @@ QCheckBox::indicator {
 	width: 15px;
 	height: 15px;
 	border-radius: 10px;
-    background: rgb(44, 49, 60);
+    background: rgb(255, 255, 255);
 }
 QCheckBox::indicator:hover {
     border: 3px solid rgb(49, 57, 105);
 }
 QCheckBox::indicator:checked {
     background: 3px solid rgb(47, 54, 100);
-	border: 3px solid rgb(44, 49, 60);
+	border: 3px solid rgb(255, 255, 255);
 }
 
 
@@ -707,34 +707,6 @@ QPushButton:pressed{background-color: rgb(48, 55, 102);}
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="btn_scan">
-                <property name="minimumSize">
-                 <size>
-                  <width>10</width>
-                  <height>33</height>
-                 </size>
-                </property>
-                <property name="font">
-                 <font>
-                  <pointsize>10</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="icon">
-                 <iconset>
-                  <normaloff>../../../images/svg_icons/icon_qr_code.svg</normaloff>../../../images/svg_icons/icon_qr_code.svg</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>22</width>
-                  <height>22</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-              <item>
                <widget class="QPushButton" name="btn_camera">
                 <property name="minimumSize">
                  <size>
@@ -830,7 +802,7 @@ QPushButton:pressed{background-color: rgb(48, 55, 102);}
               </rect>
              </property>
              <property name="currentIndex">
-              <number>0</number>
+              <number>2</number>
              </property>
              <widget class="QWidget" name="page">
               <widget class="QFrame" name="frame_quantidade">
@@ -863,31 +835,10 @@ QPushButton:pressed{background-color: rgb(48, 55, 102);}
                    </font>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignCenter</set>
+                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                   </property>
                   <property name="placeholderText">
                    <string>Quantidade</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLineEdit" name="lineEdit_quantidade_reserva">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>37</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>10</pointsize>
-                   </font>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                  <property name="placeholderText">
-                   <string>Quantidade Reserva</string>
                   </property>
                  </widget>
                 </item>
@@ -1289,27 +1240,6 @@ QLineEdit{border-top-right-radius:0px;border-bottom-right-radius:0px;}</string>
                </property>
                <layout class="QHBoxLayout" name="horizontalLayout_14">
                 <item>
-                 <widget class="QLineEdit" name="lineEdit_preco_compra">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>37</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>10</pointsize>
-                   </font>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                  <property name="placeholderText">
-                   <string>Preço de compra</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
                  <widget class="QLineEdit" name="lineEdit_preco_venda">
                   <property name="minimumSize">
                    <size>
@@ -1323,7 +1253,7 @@ QLineEdit{border-top-right-radius:0px;border-bottom-right-radius:0px;}</string>
                    </font>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignCenter</set>
+                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                   </property>
                   <property name="placeholderText">
                    <string>Preço de venda</string>
@@ -1497,8 +1427,8 @@ QLineEdit{border-top-right-radius:0px;border-bottom-right-radius:0px;}</string>
                         <rect>
                          <x>0</x>
                          <y>0</y>
-                         <width>250</width>
-                         <height>53</height>
+                         <width>100</width>
+                         <height>50</height>
                         </rect>
                        </property>
                        <layout class="QHBoxLayout" name="horizontalLayout_7">
