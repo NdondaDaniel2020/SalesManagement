@@ -37,7 +37,7 @@ class PyDynamicChart(QChart):
         self._axisX.setRange(0, 10)
         self._axisY.setRange(-5, 10)
 
-        self._timer.start()
+        # self._timer.start()
 
     @Slot()
     def handleTimeout(self):
