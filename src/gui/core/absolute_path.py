@@ -67,6 +67,11 @@ class AbsolutePath:
         json = os.path.normpath(path)
         return json
 
+    def getPathSettingSize(self):
+        path = self.obs_path + '\gui\settings\settings_size.json'
+        json = os.path.normpath(path)
+        return json
+
     def getPathDatabase(self):
         path = self.obs_path + '\SalesManagement.db'
         json = os.path.normpath(path)
