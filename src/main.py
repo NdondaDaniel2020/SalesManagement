@@ -1,8 +1,9 @@
 
 # PACOTES NATIVOS
 # NATIVE PACKAGES
-import sys
 import os
+import sys
+import json
 import pathlib
 
 # INSTALLED PACKAGES
@@ -14,6 +15,7 @@ from src.qt_core import *
 from src.gui.widgets.py_grips.py_grips import PyGrips
 from src.gui.widgets.py_left_menu.py_left_menu import LeftMenu
 from src.gui.widgets.py_push_button.py_push_button import PyPushButton
+from src.gui.widgets.py_registration_list.py_registration_list import PyRegistrationList
 from src.gui.widgets.py_product_registration.py_product_registration import PyProductRegistration
 # from src.gui.widgets.py_flow_layout.py_flow_layout import PyFlowLayout
 
@@ -29,7 +31,10 @@ from src.gui.function.functions_main_window.functions_chart import ChartFunction
 
 # AUXILIARY CODE
 # CÓDIGO AUXILIAR
+from src.gui.core.database import DataBase
 from src.gui.core.absolute_path import AbsolutePath
+from src.gui.function.functions_main_window.static_functions import (saveImageSettingInSizeSetting,
+                                                                     insertProductDataIntoTheDatabase)
 
 #
 try:
@@ -48,91 +53,57 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        # ////////////////////////////////////////////////////////////////////////
+        # /////////////////////////////////////////////////////////////////////////
         self.setWindowIcon(QIcon(AbsolutePath().getPathImage('icon_resimido.png')))
+
         self.setWindowTitle("Sales Management MX")
-
-        # ////////////////////////////////////////////////////////////////////////
-        self.ui.frame_registro.setImage(r'C:\Users\Daniel\Downloads\mist.png')
-        self.ui.frame_registro.setImageSize(40, 40)
-        self.ui.frame_registro.setCode('123')
-        self.ui.frame_registro.setName('Silking Mist')
-        self.ui.frame_registro.setUnidade(12)
-        self.ui.frame_registro.setValorDeVenda(11_450)
-
-        self.ui.frame_registro_10.setImage(r'C:\Users\Daniel\Downloads\mascara.png')
-        self.ui.frame_registro_10.setImageSize(28, 28)
-        self.ui.frame_registro_10.setCode('323')
-        self.ui.frame_registro_10.setName('Mascara Hidratante')
-        self.ui.frame_registro_10.setUnidade(30)
-        self.ui.frame_registro_10.setValorDeVenda(8_500)
-
-        self.ui.frame_registro_11.setImage(r'C:\Users\Daniel\Downloads\tint_spray.png')
-        self.ui.frame_registro_11.setImageSize(37, 37)
-        self.ui.frame_registro_11.setCode('233')
-        self.ui.frame_registro_11.setName('Tint Spray')
-        self.ui.frame_registro_11.setUnidade(20)
-        self.ui.frame_registro_11.setValorDeVenda(16_000)
-
-        self.ui.frame_registro_12.setImage(r'C:\Users\Daniel\Downloads\barra_de_cera.png')
-        self.ui.frame_registro_12.setImageSize(43, 43)
-        self.ui.frame_registro_12.setCode('234')
-        self.ui.frame_registro_12.setName('Barra de Cera')
-        self.ui.frame_registro_12.setUnidade(22)
-        self.ui.frame_registro_12.setValorDeVenda(7_450)
-
-        self.ui.frame_registro_9.setImage(r'C:\Users\Daniel\Downloads\spray.png')
-        self.ui.frame_registro_9.setImageSize(40, 40)
-        self.ui.frame_registro_9.setCode('235')
-        self.ui.frame_registro_9.setName('Spray')
-        self.ui.frame_registro_9.setUnidade(21)
-        self.ui.frame_registro_9.setValorDeVenda(11_500)
-
-        self.ui.frame_registro_8.setImage(r'C:\Users\Daniel\Downloads\mousse.png')
-        self.ui.frame_registro_8.setImageSize(37, 37)
-        self.ui.frame_registro_8.setCode('236')
-        self.ui.frame_registro_8.setName('Mousse')
-        self.ui.frame_registro_8.setUnidade(26)
-        self.ui.frame_registro_8.setValorDeVenda(13_500)
-
-        self.ui.frame_registro_7.setImage(r'C:\Users\Daniel\Downloads\shampoo.png')
-        self.ui.frame_registro_7.setImageSize(30, 30)
-        self.ui.frame_registro_9.setCode('237')
-        self.ui.frame_registro_9.setName('Shampoo')
-        self.ui.frame_registro.setUnidade(40)
-        self.ui.frame_registro.setValorDeVenda(18_450)
+        self.setBaseSize(QSize(724, 621))
 
         # ////////////////////////////////////////////////////////////////////////
         self.set_title_bar = False
-        self.product_registration = None
+        self.registration_panel: PyProductRegistration = None
 
         # /////////////////////////////////////////////////////////////
         SetUpMainWindow.configIconPath(self)
         SetUpMainWindow.addControlWindow(self)
         SetUpMainWindow.configSystem(self)
-        SetUpMainWindow.configCircularProgress(self)
 
         # /////////////////////////////////////////////////////////////
         ChartFunctions.addInventoryChart(self)
+        ChartFunctions.configCircularProgress(self)
         ChartFunctions.addBarChartOnHomepage(self)
-        ChartFunctions.addDynamicLineChart(self)
+        self.timer_dynamic_chart = ChartFunctions.addDynamicLineChart(self)
+        # self.timer_dynamic_chart ativar
 
-        # /////////////////////////////////////////////////////////////
+        # //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        self.ui.frame_inventario.mousePressEvent = lambda e: self.ui.stacked_widget.setCurrentWidget(
+                                                                                                self.ui.page_inventario)
+        self.ui.frame_venda.mousePressEvent = lambda e: self.ui.stacked_widget.setCurrentWidget(self.ui.page_venda)
+
+        # //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        # todas as iniciolizacoes tem que passa na tela de login
         self._iniLeftMenu_()
+        self.initRegistrationPanel()
+        self.automaticProductInsertion()
 
-        # /////////////////////////////////////////////////////////////                 QSize(724, 622) QSize(724, 616)
+        # //////////////////////////////////////////////////////////////////////////////////
         self._connectingPages_()
 
-        # //////////////////////////////// LEFT MENU /////////////////////////////////////
+        # //////////////////////////////// LEFT MENU //////////////////////////////////////
         self.btn_info_base.clicked.connect(lambda: FunctionsSystem.resizeLeftColumn(self))
         self.btn_info_float.clicked.connect(lambda: FunctionsSystem.resizeLeftColumn(self))
 
         self.btn_info_base.clicked.connect(self.left_menu.activeBtbInfo)
         self.btn_info_float.clicked.connect(self.left_menu.activeBtbInfo)
 
-        self.btn_back_base.clicked.connect(lambda: print(self.size()))
+        # self.btn_back_base.clicked.connect(lambda: print(self.size(), self.ui.frame_chart_bar.size()))
+
+        self.ui.btn_pesquisa_produto.clicked.connect(lambda: FunctionsSystem.searchProduct(self))
+        self.ui.line_edit_pesquisa_produto.returnPressed.connect(lambda: FunctionsSystem.searchProduct(self))
+
         # ///////////////////////////////////////////// INVENTORY ///////////////////////////////////////////
-        self.ui.btn_adicionar_produto.clicked.connect(lambda: self.showProductRegistration())
+        self.ui.btn_adicionar_produto.clicked.connect(lambda: self.showRegistrationPanel())
+        self.ui.frame_criar_produto.mousePressEvent = lambda e: self.showRegistrationPanel()
 
 
 
@@ -280,39 +251,90 @@ class MainWindow(QMainWindow):
 
         if name_btn == 'btn_home':
             self.ui.stacked_widget.setCurrentWidget(self.ui.page_home)
+            self.timer_dynamic_chart.start()
 
         elif name_btn == 'btn_inventario':
             self.ui.stacked_widget.setCurrentWidget(self.ui.page_inventario)
+            self.timer_dynamic_chart.stop()
+
+        elif name_btn == 'btn_venda':
+            self.ui.stacked_widget.setCurrentWidget(self.ui.page_venda)
+            self.timer_dynamic_chart.stop()
 
 
+    def initRegistrationPanel(self):
+        self.registration_panel = PyProductRegistration(self.ui.central_widget)
+        self.registration_panel.countAvailableCameras()
+        self.registration_panel.close()
 
     @Slot(None)
-    def showProductRegistration(self) -> None:
+    def showRegistrationPanel(self) -> None:
         """
         ESTE MÉTODO É REPONSAVEL POR CENTRALIZAR MOSTRAR E AJUSTAR O PAINEL DE REGISTRO
         :return:
         """
-        if not self.product_registration:
-            self.product_registration = PyProductRegistration(self.ui.central_widget)
 
-        # ///////////////////////////////////////////////////////////////////////////////////////
-        self.product_registration.move((self.width() - self.product_registration.width()) / 2,
-                                       (self.height() - self.product_registration.height()) / 2)
+        self.registration_panel.btn_ok.clicked.connect(self.registerProduct)
+
+        self.registration_panel.move((self.width() - self.registration_panel.width()) / 2,
+                                     (self.height() - self.registration_panel.height()) / 2)
+
+        if self.registration_panel.isHidden():
+            self.registration_panel.setGeometry(0, 0, self.width(), self.height())
+
+            self.registration_panel.show()
+
+    def automaticProductInsertion(self):
+        db = DataBase(AbsolutePath().getPathDatabase())
+        db.connectDataBase()
+        query = db.executarFetchall("SELECT chave, nome, quantidade, preco_venda, linkImg from produto")
+        db.disconnectDataBase()
+
+        json_file = AbsolutePath().getPathSettingSize()
+
+        for dados in query:
+            list_produto = PyRegistrationList()
+            list_produto.setImage(dados[4])
+            list_produto.setChave(dados[0][:4])
+            list_produto.setQuantidade(dados[2])
+            list_produto.setValorDeVenda(dados[3], True)
+            list_produto.setName(dados[1].capitalize())
+
+            with open(json_file, 'r') as file:
+                dado = json.load(file)
+                list_produto.setImageSize(*dado[dados[1]]["icon_image"])
+
+            self.ui.vertical_layout_registro.insertWidget(0, list_produto)
 
 
-        # ///////////////////////////////////////////////////////////////////////////////////////
-        if self.product_registration.isHidden():
-            self.product_registration.setGeometry(0, 0, self.width(), self.height())
+    def registerProduct(self):
+        produto = self.registration_panel.getAllData()
 
-            # //////////////////////////////////////////////////////////////////////////////////
-            self.product_registration.show()
+        if produto:
+            list_produto = PyRegistrationList()
+            list_produto.setImage(produto['linkImg'])
+            list_produto.setChave(produto['chave'][:4])
+            list_produto.setQuantidade(produto['quantidade'])
+            list_produto.setValorDeVenda(int(produto['preco_venda']))
+            list_produto.setName(produto['nome_produto'].capitalize())
+            list_produto.setImageSize(*produto['size_image']['icon_image'])
+
+            self.ui.vertical_layout_registro.insertWidget(0, list_produto)
+            self.registration_panel.cleanAndClose()
+            self.registration_panel.close()
+
+            saveImageSettingInSizeSetting(produto)
+            insertProductDataIntoTheDatabase(produto)
+
+            ChartFunctions.updateCircularProgress()
+
 
 
 
 
 
     def mousePressEvent(self, event):
-        self._dragPos = event.globalPos()
+        self._dragPos = event.globalPosition().toPoint()
 
     def resizeEvent(self, event):
         """
@@ -325,16 +347,17 @@ class MainWindow(QMainWindow):
         SetUpMainWindow.resizeLeftMenu(self, event)
         SetUpMainWindow.resizeGrips(self)
 
+        FunctionsSystem.resizeFrameChartWidth(self)
         # //////////////////////////////////////////////////////////////////////////////////
-        if self.product_registration:
-            self.product_registration.setGeometry(
-                self.product_registration.x(),
-                self.product_registration.y(),
+        if self.registration_panel:
+            self.registration_panel.setGeometry(
+                self.registration_panel.x(),
+                self.registration_panel.y(),
                 self.width(), self.height()
             )
             # //////////////////////////////////////////////////////////////////////////////////////
-            self.product_registration.move((self.width() - self.product_registration.width()) / 2,
-                                           (self.height() - self.product_registration.height()) / 2)
+            self.registration_panel.move((self.width() - self.registration_panel.width()) / 2,
+                                         (self.height() - self.registration_panel.height()) / 2)
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_F11:
