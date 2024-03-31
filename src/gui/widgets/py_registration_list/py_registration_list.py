@@ -1,12 +1,15 @@
 from src.qt_core import *
+from src.gui.core.database import DataBase
 from src.gui.core.absolute_path import AbsolutePath
+
 
 class PyRegistrationList(QFrame):
 
     def __init__(self, parent=None):
         super().__init__(parent)
 
-
+        self.setGeometry(0, 0, 618, 50)
+        self.setStyleSheet("QFrame{background-color: rgb(32, 33, 37);border-radius:10px;}")
         self.__setUp__()
 
 
@@ -16,7 +19,7 @@ class PyRegistrationList(QFrame):
         self.editar = None
 
 
-    def setCode(self, code):
+    def setChave(self, code):
         self.chave.setText(code)
 
 
@@ -24,15 +27,26 @@ class PyRegistrationList(QFrame):
         self.nome_produto.setText(name)
 
 
-    def setUnidade(self, value=0):
-        self.lbl_unidade_valor.setText(str(value))
+    def setQuantidade(self, value=0):
+        self.lbl_quantidade.setText(str(value))
 
-    def setValorDeVenda(self, value=0):
+    def setValorDeVenda(self, value=0, auto=False):
+
         self.lbl_venda_valor.setText(f'Kz {value:,}'.replace(',', '.'))
-        unidade = int(self.lbl_unidade_valor.text())
-        self.lbl_valor_total.setText(f'Kz {(value * unidade):,}'.replace(',', '.'))
+        quantidade = int(self.lbl_quantidade.text())
+        self.lbl_valor_total.setText(f'Kz {(value * quantidade):,}'.replace(',', '.'))
 
-        self.lbl_percentual.setText(f'{(unidade / 367) * 100:.1f}')
+        db = DataBase(AbsolutePath().getPathDatabase())
+        db.connectDataBase()
+        quantidade_total = db.executarFetchone("SELECT sum(quantidade) from produto")
+        db.disconnectDataBase()
+
+        quantidade_total = quantidade_total[0]
+
+        if not auto:
+            quantidade_total += quantidade
+        self.lbl_percentual.setText(f'{(quantidade / quantidade_total) * 100:.1f}')
+
 
     def setImage(self, path):
         icon = QIcon()
@@ -75,8 +89,8 @@ class PyRegistrationList(QFrame):
         self.horizontalLayout_8.setContentsMargins(6, 0, 10, 0)
         self.icon_img = QPushButton(self.frame_registro)
         self.icon_img.setObjectName(u"icon")
-        self.icon_img.setMinimumSize(QSize(35, 39))
-        self.icon_img.setMaximumSize(QSize(35, 39))
+        self.icon_img.setMinimumSize(QSize(37, 37))
+        self.icon_img.setMaximumSize(QSize(37, 37))
         self.icon_img.setStyleSheet(u"QPushButton{border: 1px solid rgb(230, 230, 230);border-radius:5px;}")
         icon = QIcon()
 
@@ -187,21 +201,21 @@ class PyRegistrationList(QFrame):
         self.verticalLayout_2 = QVBoxLayout(self.frame_unidade)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.verticalLayout_2.setContentsMargins(10, 10, 10, 10)
-        self.lbl_unidade = QLabel(self.frame_unidade)
-        self.lbl_unidade.setObjectName(u"lbl_unidade")
-        self.lbl_unidade.setFont(font2)
-        self.lbl_unidade.setStyleSheet(u"color: rgb(121, 121, 121)")
-        self.lbl_unidade.setAlignment(Qt.AlignCenter)
+        self.lbl_quantidade_inf = QLabel(self.frame_unidade)
+        self.lbl_quantidade_inf.setObjectName(u"lbl_unidade")
+        self.lbl_quantidade_inf.setFont(font2)
+        self.lbl_quantidade_inf.setStyleSheet(u"color: rgb(121, 121, 121)")
+        self.lbl_quantidade_inf.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout_2.addWidget(self.lbl_unidade)
+        self.verticalLayout_2.addWidget(self.lbl_quantidade_inf)
 
-        self.lbl_unidade_valor = QLabel(self.frame_unidade)
-        self.lbl_unidade_valor.setObjectName(u"lbl_unidade_valor")
-        self.lbl_unidade_valor.setFont(font2)
-        self.lbl_unidade_valor.setStyleSheet(u"color: rgb(233, 234, 236);")
-        self.lbl_unidade_valor.setAlignment(Qt.AlignCenter)
+        self.lbl_quantidade = QLabel(self.frame_unidade)
+        self.lbl_quantidade.setObjectName(u"lbl_unidade_valor")
+        self.lbl_quantidade.setFont(font2)
+        self.lbl_quantidade.setStyleSheet(u"color: rgb(233, 234, 236);")
+        self.lbl_quantidade.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout_2.addWidget(self.lbl_unidade_valor)
+        self.verticalLayout_2.addWidget(self.lbl_quantidade)
 
 
         self.horizontalLayout_8.addWidget(self.frame_unidade)
@@ -271,11 +285,11 @@ class PyRegistrationList(QFrame):
     def __retranslateUi__(self):
         self.chave.setText(QCoreApplication.translate("return_busca", u"333", None))
         self.nome_produto.setText(QCoreApplication.translate("return_busca", u"Coca Cola", None))
-        self.lbl_valor_percentual.setText(QCoreApplication.translate("return_busca", u"Valor Total/percent", None))
+        self.lbl_valor_percentual.setText(QCoreApplication.translate("return_busca", u"Valor total/Percentual", None))
         self.lbl_valor_total.setText(QCoreApplication.translate("return_busca", u"Kz 5000", None))
         self.lbl_percentual.setText(QCoreApplication.translate("return_busca", u"60%", None))
-        self.lbl_unidade.setText(QCoreApplication.translate("return_busca", u"Unidade", None))
-        self.lbl_unidade_valor.setText(QCoreApplication.translate("return_busca", u"20", None))
+        self.lbl_quantidade_inf.setText(QCoreApplication.translate("return_busca", u"Quantidade", None))
+        self.lbl_quantidade.setText(QCoreApplication.translate("return_busca", u"20", None))
         self.lbl_venda.setText(QCoreApplication.translate("return_busca", u"Venda", None))
         self.lbl_venda_valor.setText(QCoreApplication.translate("return_busca", u"Kz 250", None))
 

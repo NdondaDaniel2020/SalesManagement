@@ -512,7 +512,7 @@ class LeftMenu(QWidget):
             height = object.height() - 20
 
         self.frame_left_menu_float.setGeometry(self._pos_x, self._pos_y, object.width(), height)
-        # print(height, object.height())
+
         self._pos_width = object.width()
 
         if self.title_bar:

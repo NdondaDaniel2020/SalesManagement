@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_windowdMxHrc.ui'
+## Form generated from reading UI file 'main_windowrzmbET.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.4.2
 ##
@@ -23,7 +23,6 @@ from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGridLayout,
 from src.gui.widgets.py_circular_progress.py_circular_progress import PyCircularProgress
 from src.gui.widgets.py_custom_push_button.py_custom_push_button import PyCustomPushButton
 from src.gui.widgets.py_painel_button.py_painel_button import PyPanelButton
-from src.gui.widgets.py_registration_list.py_registration_list import PyRegistrationList
 from src.gui.widgets.py_scroll_area.py_scroall_area import PyScrollArea
 from src.gui.widgets.py_user_button.py_user_button import PyUserButton
 
@@ -31,7 +30,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(724, 622)
+        MainWindow.resize(724, 579)
         self.widget_style_sheet = QWidget(MainWindow)
         self.widget_style_sheet.setObjectName(u"widget_style_sheet")
         self.widget_style_sheet.setStyleSheet(u"#central_widget,\n"
@@ -63,6 +62,30 @@ class Ui_MainWindow(object):
 "border:none;\n"
 "}\n"
 "\n"
+"/*Inventario*/\n"
+"#frame_nav_busca,\n"
+"#frame_border,\n"
+"#frame_char\n"
+"{background-color: rgb(32, 33, 37);}\n"
+"\n"
+"#lbl_nome_n,\n"
+"#lbl_quantidade,\n"
+"#lbl_nome_inventario,\n"
+"#lbl_venda_inventario,\n"
+"#frame_info_inventario,\n"
+"#frame_continer_border,\n"
+"#scroll_area_list_regitro_inventa"
+                        "rio,\n"
+"#scroll_area_widget_contents_inventario\n"
+"{background-color: rgb(19, 20, 22);\n"
+"color: rgb(255, 255, 255);\n"
+"border-radius:10px;}\n"
+"\n"
+"#frame_chart_inventario,\n"
+"#frame_circular_progress_bar\n"
+"{background-color: rgb(47, 54, 100);}\n"
+"\n"
+"\n"
 "\n"
 "/* style all QScrollBar*/\n"
 "QScrollBar:horizontal {\n"
@@ -75,8 +98,7 @@ class Ui_MainWindow(object):
 "QScrollBar::handle:horizontal {\n"
 "    background: rgba(64, 80, 170, 150);\n"
 "    min-width: 25px;\n"
-""
-                        "	border-radius: 4px\n"
+"	border-radius: 4px\n"
 "}\n"
 "QScrollBar::handle:horizontal:hover {\n"
 "    background: rgba(64, 80, 170, 190);\n"
@@ -92,7 +114,8 @@ class Ui_MainWindow(object):
 "    subcontrol-position: right;\n"
 "    subcontrol-origin: margin;\n"
 "}\n"
-"QScrollBar::sub-line:horizontal {\n"
+"QScrollBar::sub-lin"
+                        "e:horizontal {\n"
 "    border: none;\n"
 "    background: #313237;\n"
 "    width: 20px;\n"
@@ -115,8 +138,7 @@ class Ui_MainWindow(object):
 "	 border: none;\n"
 "     background: #26272b;\n"
 "     width: 8px;\n"
-"     m"
-                        "argin: 21px 0 21px 0;\n"
+"     margin: 21px 0 21px 0;\n"
 "	 border-radius: 0px;\n"
 "}\n"
 "QScrollBar::handle:vertical {\n"
@@ -133,7 +155,8 @@ class Ui_MainWindow(object):
 "     border: none;\n"
 "     background: #313237;\n"
 "     height: 20px;\n"
-"	 border-bottom-left-radius: 4px;\n"
+"	 border-bo"
+                        "ttom-left-radius: 4px;\n"
 "     border-bottom-right-radius: 4px;\n"
 "     subcontrol-position: bottom;\n"
 "     subcontrol-origin: margin;\n"
@@ -151,8 +174,7 @@ class Ui_MainWindow(object):
 "     background: none;\n"
 "}\n"
 "\n"
-"QScrollBar::add-page:vertical, QScrollBar::sub-page:vert"
-                        "ical {\n"
+"QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {\n"
 "     background: none;\n"
 "}\n"
 "")
@@ -1798,12 +1820,12 @@ class Ui_MainWindow(object):
 "color: rgb(255, 255, 255);\n"
 "background-color: transparent")
         self.lbl_info_extra_recibo_1.setScaledContents(False)
-        self.btn_logo_extra_perda = QPushButton(self.frame_recibo)
-        self.btn_logo_extra_perda.setObjectName(u"btn_logo_extra_perda")
-        self.btn_logo_extra_perda.setGeometry(QRect(128, 137, 20, 20))
-        self.btn_logo_extra_perda.setStyleSheet(u"background-color: transparent")
-        self.btn_logo_extra_perda.setIcon(icon9)
-        self.btn_logo_extra_perda.setIconSize(QSize(20, 20))
+        self.btn_log_extra_recibo = QPushButton(self.frame_recibo)
+        self.btn_log_extra_recibo.setObjectName(u"btn_log_extra_recibo")
+        self.btn_log_extra_recibo.setGeometry(QRect(128, 137, 20, 20))
+        self.btn_log_extra_recibo.setStyleSheet(u"background-color: transparent")
+        self.btn_log_extra_recibo.setIcon(icon9)
+        self.btn_log_extra_recibo.setIconSize(QSize(20, 20))
         self.lbl_info_extra_recibo_2 = QLabel(self.frame_recibo)
         self.lbl_info_extra_recibo_2.setObjectName(u"lbl_info_extra_recibo_2")
         self.lbl_info_extra_recibo_2.setGeometry(QRect(22, 126, 110, 10))
@@ -2568,7 +2590,7 @@ class Ui_MainWindow(object):
         self.scroll_area_home_bottom.setWidgetResizable(True)
         self.scroll_area_widget_contents_home_bottom = QWidget()
         self.scroll_area_widget_contents_home_bottom.setObjectName(u"scroll_area_widget_contents_home_bottom")
-        self.scroll_area_widget_contents_home_bottom.setGeometry(QRect(0, 0, 640, 425))
+        self.scroll_area_widget_contents_home_bottom.setGeometry(QRect(0, 0, 632, 400))
         self.scroll_area_widget_contents_home_bottom.setStyleSheet(u"background-color: rgb(19, 20, 22);")
         self.verticalLayout_3 = QVBoxLayout(self.scroll_area_widget_contents_home_bottom)
         self.verticalLayout_3.setSpacing(0)
@@ -2755,7 +2777,6 @@ class Ui_MainWindow(object):
         self.frame_char.setObjectName(u"frame_char")
         self.frame_char.setMinimumSize(QSize(0, 190))
         self.frame_char.setMaximumSize(QSize(16777215, 190))
-        self.frame_char.setStyleSheet(u"background-color:rgb(32, 33, 37)")
         self.frame_char.setFrameShape(QFrame.StyledPanel)
         self.frame_char.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_9 = QHBoxLayout(self.frame_char)
@@ -2763,7 +2784,6 @@ class Ui_MainWindow(object):
         self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
         self.frame_chart_inventario = QFrame(self.frame_char)
         self.frame_chart_inventario.setObjectName(u"frame_chart_inventario")
-        self.frame_chart_inventario.setStyleSheet(u"background-color: rgb(47, 54, 100);")
         self.frame_chart_inventario.setFrameShape(QFrame.StyledPanel)
         self.frame_chart_inventario.setFrameShadow(QFrame.Raised)
         self.vertical_layout_chart_inevntario = QVBoxLayout(self.frame_chart_inventario)
@@ -2780,33 +2800,452 @@ class Ui_MainWindow(object):
         self.frame_circular_progress_bar.setStyleSheet(u"background-color: rgb(47, 54, 100);")
         self.frame_circular_progress_bar.setFrameShape(QFrame.StyledPanel)
         self.frame_circular_progress_bar.setFrameShadow(QFrame.Raised)
-        self.circupar_progress_bar = PyCircularProgress(self.frame_circular_progress_bar)
-        self.circupar_progress_bar.setObjectName(u"circupar_progress_bar")
-        self.circupar_progress_bar.setGeometry(QRect(9, 6, 197, 157))
-        self.circupar_progress_bar.setMinimumSize(QSize(197, 157))
-        self.circupar_progress_bar.setMaximumSize(QSize(197, 157))
+        self.circular_progress_bar = PyCircularProgress(self.frame_circular_progress_bar)
+        self.circular_progress_bar.setObjectName(u"circular_progress_bar")
+        self.circular_progress_bar.setGeometry(QRect(9, 6, 197, 157))
+        self.circular_progress_bar.setMinimumSize(QSize(197, 157))
+        self.circular_progress_bar.setMaximumSize(QSize(197, 157))
 
         self.horizontalLayout_9.addWidget(self.frame_circular_progress_bar)
 
 
         self.verticalLayout_9.addWidget(self.frame_char)
 
-        self.frame_80 = QFrame(self.page_inventario)
-        self.frame_80.setObjectName(u"frame_80")
-        self.frame_80.setMinimumSize(QSize(0, 44))
-        self.frame_80.setMaximumSize(QSize(16777215, 44))
-        self.frame_80.setStyleSheet(u"background-color: rgb(32, 33, 37)")
-        self.frame_80.setFrameShape(QFrame.StyledPanel)
-        self.frame_80.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_12 = QHBoxLayout(self.frame_80)
+        self.frame_nav_busca = QFrame(self.page_inventario)
+        self.frame_nav_busca.setObjectName(u"frame_nav_busca")
+        self.frame_nav_busca.setMinimumSize(QSize(0, 44))
+        self.frame_nav_busca.setMaximumSize(QSize(16777215, 44))
+        self.frame_nav_busca.setStyleSheet(u"\n"
+"QPushButton {\n"
+"    color: rgb(233, 234, 236);\n"
+"    background-color: rgb(38, 39, 43);\n"
+"    border: none;\n"
+"	border-radius: 8px;\n"
+"}\n"
+"\n"
+"QPushButton:hover \n"
+"{\n"
+" 	background-color: rgb(49, 50, 55)\n"
+" }\n"
+"\n"
+"QPushButton:pressed \n"
+"{\n"
+" 	background-color: rgb(38, 39, 43);\n"
+"}\n"
+"\n"
+"QLineEdit{\n"
+"	background-color: transparent;\n"
+"	color: rgb(233, 234, 236);\n"
+"	border: 1px solid rgb(47, 54, 100);\n"
+"	border-radius: 5px;\n"
+"	padding-left: 5px;\n"
+"}\n"
+"\n"
+"QLineEdit:hover{\n"
+"	border: 1px solid rgb(64, 80, 170);\n"
+"}\n"
+"\n"
+"QLineEdit:focus{\n"
+"	border: 1px solid rgb(89, 109, 235);\n"
+"}")
+        self.frame_nav_busca.setFrameShape(QFrame.StyledPanel)
+        self.frame_nav_busca.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_12 = QHBoxLayout(self.frame_nav_busca)
         self.horizontalLayout_12.setSpacing(4)
         self.horizontalLayout_12.setObjectName(u"horizontalLayout_12")
         self.horizontalLayout_12.setContentsMargins(4, 0, 4, 0)
-        self.btn_pesquisa_produto = QPushButton(self.frame_80)
+        self.btn_pesquisa_produto = QPushButton(self.frame_nav_busca)
         self.btn_pesquisa_produto.setObjectName(u"btn_pesquisa_produto")
         self.btn_pesquisa_produto.setMinimumSize(QSize(37, 37))
         self.btn_pesquisa_produto.setMaximumSize(QSize(37, 37))
-        self.btn_pesquisa_produto.setStyleSheet(u"QPushButton {\n"
+        self.btn_pesquisa_produto.setIcon(icon5)
+        self.btn_pesquisa_produto.setIconSize(QSize(25, 25))
+
+        self.horizontalLayout_12.addWidget(self.btn_pesquisa_produto)
+
+        self.line_edit_pesquisa_produto = QLineEdit(self.frame_nav_busca)
+        self.line_edit_pesquisa_produto.setObjectName(u"line_edit_pesquisa_produto")
+        self.line_edit_pesquisa_produto.setMinimumSize(QSize(0, 35))
+        self.line_edit_pesquisa_produto.setClearButtonEnabled(False)
+
+        self.horizontalLayout_12.addWidget(self.line_edit_pesquisa_produto)
+
+        self.btn_mais_opcoes = QPushButton(self.frame_nav_busca)
+        self.btn_mais_opcoes.setObjectName(u"btn_mais_opcoes")
+        self.btn_mais_opcoes.setMinimumSize(QSize(37, 37))
+        self.btn_mais_opcoes.setMaximumSize(QSize(37, 37))
+        self.btn_mais_opcoes.setIcon(icon6)
+        self.btn_mais_opcoes.setIconSize(QSize(25, 25))
+
+        self.horizontalLayout_12.addWidget(self.btn_mais_opcoes)
+
+        self.btn_adicionar_produto = QPushButton(self.frame_nav_busca)
+        self.btn_adicionar_produto.setObjectName(u"btn_adicionar_produto")
+        self.btn_adicionar_produto.setMinimumSize(QSize(37, 37))
+        self.btn_adicionar_produto.setMaximumSize(QSize(37, 37))
+        self.btn_adicionar_produto.setIcon(icon7)
+        self.btn_adicionar_produto.setIconSize(QSize(35, 35))
+
+        self.horizontalLayout_12.addWidget(self.btn_adicionar_produto)
+
+
+        self.verticalLayout_9.addWidget(self.frame_nav_busca)
+
+        self.frame_info_inventario = QFrame(self.page_inventario)
+        self.frame_info_inventario.setObjectName(u"frame_info_inventario")
+        self.frame_info_inventario.setMinimumSize(QSize(0, 20))
+        self.frame_info_inventario.setMaximumSize(QSize(16777215, 20))
+        self.frame_info_inventario.setStyleSheet(u"#frame_info_inventario\n"
+"{background-color: rgb(19, 20, 22);}\n"
+"\n"
+"#frame_info_inventario > QLabel\n"
+"{background-color: rgb(19, 20, 22); \n"
+"color: rgb(255, 255, 255);}")
+        self.frame_info_inventario.setFrameShape(QFrame.StyledPanel)
+        self.frame_info_inventario.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_13 = QHBoxLayout(self.frame_info_inventario)
+        self.horizontalLayout_13.setSpacing(0)
+        self.horizontalLayout_13.setObjectName(u"horizontalLayout_13")
+        self.horizontalLayout_13.setContentsMargins(10, 0, 10, 0)
+        self.lbl_nome_n = QLabel(self.frame_info_inventario)
+        self.lbl_nome_n.setObjectName(u"lbl_nome_n")
+        self.lbl_nome_n.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
+
+        self.horizontalLayout_13.addWidget(self.lbl_nome_n)
+
+        self.lbl_nome_inventario = QLabel(self.frame_info_inventario)
+        self.lbl_nome_inventario.setObjectName(u"lbl_nome_inventario")
+        self.lbl_nome_inventario.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_13.addWidget(self.lbl_nome_inventario)
+
+        self.lbl_quantidade = QLabel(self.frame_info_inventario)
+        self.lbl_quantidade.setObjectName(u"lbl_quantidade")
+        self.lbl_quantidade.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_13.addWidget(self.lbl_quantidade)
+
+        self.lbl_venda_inventario = QLabel(self.frame_info_inventario)
+        self.lbl_venda_inventario.setObjectName(u"lbl_venda_inventario")
+        self.lbl_venda_inventario.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_13.addWidget(self.lbl_venda_inventario)
+
+
+        self.verticalLayout_9.addWidget(self.frame_info_inventario)
+
+        self.frame_border = QFrame(self.page_inventario)
+        self.frame_border.setObjectName(u"frame_border")
+        self.frame_border.setFrameShape(QFrame.StyledPanel)
+        self.frame_border.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_10 = QVBoxLayout(self.frame_border)
+        self.verticalLayout_10.setSpacing(0)
+        self.verticalLayout_10.setObjectName(u"verticalLayout_10")
+        self.verticalLayout_10.setContentsMargins(4, 4, 4, 4)
+        self.frame_continer_border = QFrame(self.frame_border)
+        self.frame_continer_border.setObjectName(u"frame_continer_border")
+        self.frame_continer_border.setStyleSheet(u"background-color: rgb(19, 20, 22);")
+        self.frame_continer_border.setFrameShape(QFrame.StyledPanel)
+        self.frame_continer_border.setFrameShadow(QFrame.Raised)
+        self.vertical_layout_inventario = QVBoxLayout(self.frame_continer_border)
+        self.vertical_layout_inventario.setSpacing(0)
+        self.vertical_layout_inventario.setObjectName(u"vertical_layout_inventario")
+        self.vertical_layout_inventario.setContentsMargins(5, 5, 5, 5)
+        self.scroll_area_list_regitro_inventario = QScrollArea(self.frame_continer_border)
+        self.scroll_area_list_regitro_inventario.setObjectName(u"scroll_area_list_regitro_inventario")
+        sizePolicy.setHeightForWidth(self.scroll_area_list_regitro_inventario.sizePolicy().hasHeightForWidth())
+        self.scroll_area_list_regitro_inventario.setSizePolicy(sizePolicy)
+        self.scroll_area_list_regitro_inventario.setStyleSheet(u"background-color: rgb(19, 20, 22);")
+        self.scroll_area_list_regitro_inventario.setWidgetResizable(True)
+        self.scroll_area_widget_contents_inventario = QWidget()
+        self.scroll_area_widget_contents_inventario.setObjectName(u"scroll_area_widget_contents_inventario")
+        self.scroll_area_widget_contents_inventario.setGeometry(QRect(0, 0, 622, 220))
+        self.vertical_layout_registro = QVBoxLayout(self.scroll_area_widget_contents_inventario)
+        self.vertical_layout_registro.setObjectName(u"vertical_layout_registro")
+        self.vertical_layout_registro.setContentsMargins(2, 3, 2, 3)
+        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.vertical_layout_registro.addItem(self.verticalSpacer_2)
+
+        self.scroll_area_list_regitro_inventario.setWidget(self.scroll_area_widget_contents_inventario)
+
+        self.vertical_layout_inventario.addWidget(self.scroll_area_list_regitro_inventario)
+
+
+        self.verticalLayout_10.addWidget(self.frame_continer_border)
+
+
+        self.verticalLayout_9.addWidget(self.frame_border)
+
+        self.stacked_widget.addWidget(self.page_inventario)
+        self.page_venda = QWidget()
+        self.page_venda.setObjectName(u"page_venda")
+        self.verticalLayout_19 = QVBoxLayout(self.page_venda)
+        self.verticalLayout_19.setObjectName(u"verticalLayout_19")
+        self.frame_nav_continer_venda = QFrame(self.page_venda)
+        self.frame_nav_continer_venda.setObjectName(u"frame_nav_continer_venda")
+        self.frame_nav_continer_venda.setMinimumSize(QSize(0, 179))
+        self.frame_nav_continer_venda.setMaximumSize(QSize(16777215, 179))
+        self.frame_nav_continer_venda.setStyleSheet(u"background-color: rgb(54, 63, 118);")
+        self.frame_nav_continer_venda.setFrameShape(QFrame.StyledPanel)
+        self.frame_nav_continer_venda.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_23 = QHBoxLayout(self.frame_nav_continer_venda)
+        self.horizontalLayout_23.setObjectName(u"horizontalLayout_23")
+        self.frame_historico_de_venda = QFrame(self.frame_nav_continer_venda)
+        self.frame_historico_de_venda.setObjectName(u"frame_historico_de_venda")
+        self.frame_historico_de_venda.setMinimumSize(QSize(151, 161))
+        self.frame_historico_de_venda.setMaximumSize(QSize(123456, 123456))
+        self.frame_historico_de_venda.setStyleSheet(u"QFrame{\n"
+"	background-color: rgba(32, 33, 37, 200);\n"
+"	background-image: url(none);}\n"
+"\n"
+"QFrame:hover\n"
+"{border: 0.5px solid rgba(255, 255, 255, 80)}")
+        self.frame_historico_de_venda.setFrameShape(QFrame.StyledPanel)
+        self.frame_historico_de_venda.setFrameShadow(QFrame.Raised)
+        self.btn_logo_historico_de_venda = QPushButton(self.frame_historico_de_venda)
+        self.btn_logo_historico_de_venda.setObjectName(u"btn_logo_historico_de_venda")
+        self.btn_logo_historico_de_venda.setGeometry(QRect(18, 25, 51, 55))
+        self.btn_logo_historico_de_venda.setStyleSheet(u"background-color: transparent")
+        icon18 = QIcon()
+        icon18.addFile(u"../../../images/svg_icons/icon_clipboar.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_logo_historico_de_venda.setIcon(icon18)
+        self.btn_logo_historico_de_venda.setIconSize(QSize(63, 63))
+        self.lbl_venda_historico_de_venda = QLabel(self.frame_historico_de_venda)
+        self.lbl_venda_historico_de_venda.setObjectName(u"lbl_venda_historico_de_venda")
+        self.lbl_venda_historico_de_venda.setGeometry(QRect(20, 90, 131, 16))
+        self.lbl_venda_historico_de_venda.setFont(font7)
+        self.lbl_venda_historico_de_venda.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"background-color: transparent;\n"
+"border:none;")
+        self.btn_log_extra_historico_de_venda = QPushButton(self.frame_historico_de_venda)
+        self.btn_log_extra_historico_de_venda.setObjectName(u"btn_log_extra_historico_de_venda")
+        self.btn_log_extra_historico_de_venda.setGeometry(QRect(128, 137, 20, 20))
+        self.btn_log_extra_historico_de_venda.setStyleSheet(u"background-color: transparent")
+        self.btn_log_extra_historico_de_venda.setIcon(icon9)
+        self.btn_log_extra_historico_de_venda.setIconSize(QSize(20, 20))
+        self.lbl_info_historico_de_venda = QLabel(self.frame_historico_de_venda)
+        self.lbl_info_historico_de_venda.setObjectName(u"lbl_info_historico_de_venda")
+        self.lbl_info_historico_de_venda.setGeometry(QRect(22, 140, 50, 10))
+        self.lbl_info_historico_de_venda.setFont(font8)
+        self.lbl_info_historico_de_venda.setStyleSheet(u"border:none;\n"
+"color: rgb(255, 255, 255);\n"
+"background-color: transparent")
+        self.lbl_info_historico_de_venda.setScaledContents(False)
+        self.lbl_info_historico_de_venda_2 = QLabel(self.frame_historico_de_venda)
+        self.lbl_info_historico_de_venda_2.setObjectName(u"lbl_info_historico_de_venda_2")
+        self.lbl_info_historico_de_venda_2.setGeometry(QRect(22, 112, 90, 10))
+        self.lbl_info_historico_de_venda_2.setFont(font8)
+        self.lbl_info_historico_de_venda_2.setStyleSheet(u"border:none;\n"
+"color: rgb(255, 255, 255);\n"
+"background-color: transparent")
+        self.lbl_info_historico_de_venda_2.setScaledContents(False)
+        self.lbl_info_historico_de_venda_3 = QLabel(self.frame_historico_de_venda)
+        self.lbl_info_historico_de_venda_3.setObjectName(u"lbl_info_historico_de_venda_3")
+        self.lbl_info_historico_de_venda_3.setGeometry(QRect(22, 126, 110, 10))
+        self.lbl_info_historico_de_venda_3.setFont(font8)
+        self.lbl_info_historico_de_venda_3.setStyleSheet(u"border:none;\n"
+"color: rgb(255, 255, 255);\n"
+"background-color: transparent")
+        self.lbl_info_historico_de_venda_3.setScaledContents(False)
+        self.btn_logo_historico_de_venda_ = QPushButton(self.frame_historico_de_venda)
+        self.btn_logo_historico_de_venda_.setObjectName(u"btn_logo_historico_de_venda_")
+        self.btn_logo_historico_de_venda_.setGeometry(QRect(48, 56, 24, 24))
+        self.btn_logo_historico_de_venda_.setStyleSheet(u"background-color: transparent")
+        self.btn_logo_historico_de_venda_.setIcon(icon10)
+        self.btn_logo_historico_de_venda_.setIconSize(QSize(24, 24))
+
+        self.horizontalLayout_23.addWidget(self.frame_historico_de_venda)
+
+        self.frame_recibo_venda = QFrame(self.frame_nav_continer_venda)
+        self.frame_recibo_venda.setObjectName(u"frame_recibo_venda")
+        self.frame_recibo_venda.setMinimumSize(QSize(151, 161))
+        self.frame_recibo_venda.setMaximumSize(QSize(123456, 123456))
+        self.frame_recibo_venda.setStyleSheet(u"QFrame{\n"
+"	background-color: rgba(32, 33, 37, 200);\n"
+"	background-image: url(none);}\n"
+"\n"
+"QFrame:hover\n"
+"{border: 0.5px solid rgba(255, 255, 255, 80)}")
+        self.frame_recibo_venda.setFrameShape(QFrame.StyledPanel)
+        self.frame_recibo_venda.setFrameShadow(QFrame.Raised)
+        self.btn_logo_recibo_venda = QPushButton(self.frame_recibo_venda)
+        self.btn_logo_recibo_venda.setObjectName(u"btn_logo_recibo_venda")
+        self.btn_logo_recibo_venda.setGeometry(QRect(18, 26, 52, 52))
+        self.btn_logo_recibo_venda.setStyleSheet(u"background-color: transparent")
+        self.btn_logo_recibo_venda.setIcon(icon12)
+        self.btn_logo_recibo_venda.setIconSize(QSize(80, 80))
+        self.lbl_recibo_venda = QLabel(self.frame_recibo_venda)
+        self.lbl_recibo_venda.setObjectName(u"lbl_recibo_venda")
+        self.lbl_recibo_venda.setGeometry(QRect(20, 90, 50, 16))
+        self.lbl_recibo_venda.setFont(font7)
+        self.lbl_recibo_venda.setStyleSheet(u"border:none;\n"
+"color: rgb(255, 255, 255);\n"
+"background-color: transparent")
+        self.lbl_info_extra_recibo_venda = QLabel(self.frame_recibo_venda)
+        self.lbl_info_extra_recibo_venda.setObjectName(u"lbl_info_extra_recibo_venda")
+        self.lbl_info_extra_recibo_venda.setGeometry(QRect(22, 112, 110, 10))
+        self.lbl_info_extra_recibo_venda.setFont(font8)
+        self.lbl_info_extra_recibo_venda.setStyleSheet(u"border:none;\n"
+"color: rgb(255, 255, 255);\n"
+"background-color: transparent")
+        self.lbl_info_extra_recibo_venda.setScaledContents(False)
+        self.btn_log_extra_recibo_venda = QPushButton(self.frame_recibo_venda)
+        self.btn_log_extra_recibo_venda.setObjectName(u"btn_log_extra_recibo_venda")
+        self.btn_log_extra_recibo_venda.setGeometry(QRect(128, 137, 20, 20))
+        self.btn_log_extra_recibo_venda.setStyleSheet(u"background-color: transparent")
+        self.btn_log_extra_recibo_venda.setIcon(icon9)
+        self.btn_log_extra_recibo_venda.setIconSize(QSize(20, 20))
+        self.lbl_info_extra_recibo_venda_2 = QLabel(self.frame_recibo_venda)
+        self.lbl_info_extra_recibo_venda_2.setObjectName(u"lbl_info_extra_recibo_venda_2")
+        self.lbl_info_extra_recibo_venda_2.setGeometry(QRect(22, 126, 110, 10))
+        self.lbl_info_extra_recibo_venda_2.setFont(font8)
+        self.lbl_info_extra_recibo_venda_2.setStyleSheet(u"border:none;\n"
+"color: rgb(255, 255, 255);\n"
+"background-color: transparent")
+        self.lbl_info_extra_recibo_venda_2.setScaledContents(False)
+        self.lbl_info_extra_recibo_venda_3 = QLabel(self.frame_recibo_venda)
+        self.lbl_info_extra_recibo_venda_3.setObjectName(u"lbl_info_extra_recibo_venda_3")
+        self.lbl_info_extra_recibo_venda_3.setGeometry(QRect(22, 140, 90, 10))
+        self.lbl_info_extra_recibo_venda_3.setFont(font8)
+        self.lbl_info_extra_recibo_venda_3.setStyleSheet(u"border:none;\n"
+"color: rgb(255, 255, 255);\n"
+"background-color: transparent")
+        self.lbl_info_extra_recibo_venda_3.setScaledContents(False)
+
+        self.horizontalLayout_23.addWidget(self.frame_recibo_venda)
+
+        self.frame_criar_produto = QFrame(self.frame_nav_continer_venda)
+        self.frame_criar_produto.setObjectName(u"frame_criar_produto")
+        self.frame_criar_produto.setMinimumSize(QSize(151, 161))
+        self.frame_criar_produto.setMaximumSize(QSize(123456, 123456))
+        self.frame_criar_produto.setStyleSheet(u"QFrame{\n"
+"	background-color: rgba(32, 33, 37, 200);\n"
+"	background-image: url(none);}\n"
+"\n"
+"QFrame:hover\n"
+"{border: 0.5px solid rgba(255, 255, 255, 80)}")
+        self.frame_criar_produto.setFrameShape(QFrame.StyledPanel)
+        self.frame_criar_produto.setFrameShadow(QFrame.Raised)
+        self.btn_logo_criar_produto = QPushButton(self.frame_criar_produto)
+        self.btn_logo_criar_produto.setObjectName(u"btn_logo_criar_produto")
+        self.btn_logo_criar_produto.setGeometry(QRect(18, 25, 56, 56))
+        self.btn_logo_criar_produto.setStyleSheet(u"background-color: transparent")
+        icon19 = QIcon()
+        icon19.addFile(u"../../../images/svg_icons/icon_existinginventory.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_logo_criar_produto.setIcon(icon19)
+        self.btn_logo_criar_produto.setIconSize(QSize(55, 55))
+        self.lbl_criar_produto = QLabel(self.frame_criar_produto)
+        self.lbl_criar_produto.setObjectName(u"lbl_criar_produto")
+        self.lbl_criar_produto.setGeometry(QRect(20, 90, 91, 16))
+        self.lbl_criar_produto.setFont(font7)
+        self.lbl_criar_produto.setStyleSheet(u"border:none;\n"
+"color: rgb(255, 255, 255);\n"
+"background-color: transparent")
+        self.lbl_info_criar_produto = QLabel(self.frame_criar_produto)
+        self.lbl_info_criar_produto.setObjectName(u"lbl_info_criar_produto")
+        self.lbl_info_criar_produto.setGeometry(QRect(22, 112, 101, 10))
+        self.lbl_info_criar_produto.setFont(font8)
+        self.lbl_info_criar_produto.setStyleSheet(u"border:none;\n"
+"color: rgb(255, 255, 255);\n"
+"background-color: transparent")
+        self.lbl_info_criar_produto.setScaledContents(False)
+        self.btn_log_extra_criar_produto = QPushButton(self.frame_criar_produto)
+        self.btn_log_extra_criar_produto.setObjectName(u"btn_log_extra_criar_produto")
+        self.btn_log_extra_criar_produto.setGeometry(QRect(128, 137, 20, 20))
+        self.btn_log_extra_criar_produto.setStyleSheet(u"background-color: transparent")
+        self.btn_log_extra_criar_produto.setIcon(icon9)
+        self.btn_log_extra_criar_produto.setIconSize(QSize(20, 20))
+        self.lbl_info_criar_produto_2 = QLabel(self.frame_criar_produto)
+        self.lbl_info_criar_produto_2.setObjectName(u"lbl_info_criar_produto_2")
+        self.lbl_info_criar_produto_2.setGeometry(QRect(22, 126, 111, 10))
+        self.lbl_info_criar_produto_2.setFont(font8)
+        self.lbl_info_criar_produto_2.setStyleSheet(u"border:none;\n"
+"color: rgb(255, 255, 255);\n"
+"background-color: transparent")
+        self.lbl_info_criar_produto_2.setScaledContents(False)
+        self.lbl_info_criar_produto_3 = QLabel(self.frame_criar_produto)
+        self.lbl_info_criar_produto_3.setObjectName(u"lbl_info_criar_produto_3")
+        self.lbl_info_criar_produto_3.setGeometry(QRect(22, 140, 50, 10))
+        self.lbl_info_criar_produto_3.setFont(font8)
+        self.lbl_info_criar_produto_3.setStyleSheet(u"border:none;\n"
+"color: rgb(255, 255, 255);\n"
+"background-color: transparent")
+        self.lbl_info_criar_produto_3.setScaledContents(False)
+
+        self.horizontalLayout_23.addWidget(self.frame_criar_produto)
+
+        self.frame_pedido_de_compra = QFrame(self.frame_nav_continer_venda)
+        self.frame_pedido_de_compra.setObjectName(u"frame_pedido_de_compra")
+        self.frame_pedido_de_compra.setMinimumSize(QSize(151, 161))
+        self.frame_pedido_de_compra.setMaximumSize(QSize(123456, 123456))
+        self.frame_pedido_de_compra.setStyleSheet(u"QFrame{\n"
+"	background-color: rgba(32, 33, 37, 200);\n"
+"	background-image: url(none);}\n"
+"\n"
+"QFrame:hover\n"
+"{border: 0.5px solid rgba(255, 255, 255, 80)}")
+        self.frame_pedido_de_compra.setFrameShape(QFrame.StyledPanel)
+        self.frame_pedido_de_compra.setFrameShadow(QFrame.Raised)
+        self.btn_logo_pedido_de_compra = QPushButton(self.frame_pedido_de_compra)
+        self.btn_logo_pedido_de_compra.setObjectName(u"btn_logo_pedido_de_compra")
+        self.btn_logo_pedido_de_compra.setGeometry(QRect(18, 25, 52, 55))
+        self.btn_logo_pedido_de_compra.setStyleSheet(u"background-color: transparent")
+        icon20 = QIcon()
+        icon20.addFile(u"../../../images/svg_icons/icon_receipt.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_logo_pedido_de_compra.setIcon(icon20)
+        self.btn_logo_pedido_de_compra.setIconSize(QSize(48, 48))
+        self.lbl_pedido_de_compra = QLabel(self.frame_pedido_de_compra)
+        self.lbl_pedido_de_compra.setObjectName(u"lbl_pedido_de_compra")
+        self.lbl_pedido_de_compra.setGeometry(QRect(20, 90, 131, 16))
+        self.lbl_pedido_de_compra.setFont(font7)
+        self.lbl_pedido_de_compra.setStyleSheet(u"border:none;\n"
+"color: rgb(255, 255, 255);\n"
+"background-color: transparent;")
+        self.lbl_info_pedido_de_compra = QLabel(self.frame_pedido_de_compra)
+        self.lbl_info_pedido_de_compra.setObjectName(u"lbl_info_pedido_de_compra")
+        self.lbl_info_pedido_de_compra.setGeometry(QRect(22, 112, 70, 10))
+        self.lbl_info_pedido_de_compra.setFont(font8)
+        self.lbl_info_pedido_de_compra.setStyleSheet(u"border:none;\n"
+"color: rgb(255, 255, 255);\n"
+"background-color: transparent")
+        self.lbl_info_pedido_de_compra.setScaledContents(False)
+        self.btn_log_extra_pedido_de_compra = QPushButton(self.frame_pedido_de_compra)
+        self.btn_log_extra_pedido_de_compra.setObjectName(u"btn_log_extra_pedido_de_compra")
+        self.btn_log_extra_pedido_de_compra.setGeometry(QRect(128, 137, 20, 20))
+        self.btn_log_extra_pedido_de_compra.setStyleSheet(u"background-color: transparent")
+        self.btn_log_extra_pedido_de_compra.setIcon(icon9)
+        self.btn_log_extra_pedido_de_compra.setIconSize(QSize(20, 20))
+        self.lbl_info_pedido_de_compra_2 = QLabel(self.frame_pedido_de_compra)
+        self.lbl_info_pedido_de_compra_2.setObjectName(u"lbl_info_pedido_de_compra_2")
+        self.lbl_info_pedido_de_compra_2.setGeometry(QRect(22, 126, 90, 10))
+        self.lbl_info_pedido_de_compra_2.setFont(font8)
+        self.lbl_info_pedido_de_compra_2.setStyleSheet(u"border:none;\n"
+"color: rgb(255, 255, 255);\n"
+"background-color: transparent")
+        self.lbl_info_pedido_de_compra_2.setScaledContents(False)
+
+        self.horizontalLayout_23.addWidget(self.frame_pedido_de_compra)
+
+
+        self.verticalLayout_19.addWidget(self.frame_nav_continer_venda)
+
+        self.frame_barra_busca = QFrame(self.page_venda)
+        self.frame_barra_busca.setObjectName(u"frame_barra_busca")
+        self.frame_barra_busca.setMinimumSize(QSize(0, 44))
+        self.frame_barra_busca.setMaximumSize(QSize(16777215, 44))
+        self.frame_barra_busca.setStyleSheet(u"background-color: rgb(32, 33, 37)")
+        self.frame_barra_busca.setFrameShape(QFrame.StyledPanel)
+        self.frame_barra_busca.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_25 = QHBoxLayout(self.frame_barra_busca)
+        self.horizontalLayout_25.setSpacing(4)
+        self.horizontalLayout_25.setObjectName(u"horizontalLayout_25")
+        self.horizontalLayout_25.setContentsMargins(4, 0, 4, 0)
+        self.btn_pesquisa_produto_de_venda = QPushButton(self.frame_barra_busca)
+        self.btn_pesquisa_produto_de_venda.setObjectName(u"btn_pesquisa_produto_de_venda")
+        self.btn_pesquisa_produto_de_venda.setMinimumSize(QSize(37, 37))
+        self.btn_pesquisa_produto_de_venda.setMaximumSize(QSize(37, 37))
+        self.btn_pesquisa_produto_de_venda.setStyleSheet(u"QPushButton {\n"
 "            color: rgb(233, 234, 236);\n"
 "            background-color: rgb(38, 39, 43);\n"
 "            border: none;\n"
@@ -2818,15 +3257,15 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {\n"
 " 	background-color: rgb(38, 39, 43);\n"
 "}")
-        self.btn_pesquisa_produto.setIcon(icon5)
-        self.btn_pesquisa_produto.setIconSize(QSize(25, 25))
+        self.btn_pesquisa_produto_de_venda.setIcon(icon5)
+        self.btn_pesquisa_produto_de_venda.setIconSize(QSize(25, 25))
 
-        self.horizontalLayout_12.addWidget(self.btn_pesquisa_produto)
+        self.horizontalLayout_25.addWidget(self.btn_pesquisa_produto_de_venda)
 
-        self.line_edit_pesquisa_produto = QLineEdit(self.frame_80)
-        self.line_edit_pesquisa_produto.setObjectName(u"line_edit_pesquisa_produto")
-        self.line_edit_pesquisa_produto.setMinimumSize(QSize(0, 35))
-        self.line_edit_pesquisa_produto.setStyleSheet(u"QLineEdit{\n"
+        self.line_edit_pesquisa_produto_devenda = QLineEdit(self.frame_barra_busca)
+        self.line_edit_pesquisa_produto_devenda.setObjectName(u"line_edit_pesquisa_produto_devenda")
+        self.line_edit_pesquisa_produto_devenda.setMinimumSize(QSize(0, 35))
+        self.line_edit_pesquisa_produto_devenda.setStyleSheet(u"QLineEdit{\n"
 "color: rgb(233, 234, 236);\n"
 "border: 1px solid rgb(47, 54, 100);\n"
 "border-radius: 5px;\n"
@@ -2838,15 +3277,15 @@ class Ui_MainWindow(object):
 "QLineEdit:focus{\n"
 "border: 1px solid rgb(89, 109, 235);\n"
 "}")
-        self.line_edit_pesquisa_produto.setClearButtonEnabled(False)
+        self.line_edit_pesquisa_produto_devenda.setClearButtonEnabled(False)
 
-        self.horizontalLayout_12.addWidget(self.line_edit_pesquisa_produto)
+        self.horizontalLayout_25.addWidget(self.line_edit_pesquisa_produto_devenda)
 
-        self.btn_mais_opcoes = QPushButton(self.frame_80)
-        self.btn_mais_opcoes.setObjectName(u"btn_mais_opcoes")
-        self.btn_mais_opcoes.setMinimumSize(QSize(37, 37))
-        self.btn_mais_opcoes.setMaximumSize(QSize(37, 37))
-        self.btn_mais_opcoes.setStyleSheet(u"QPushButton {\n"
+        self.btn_mais_opcoes_de_venda = QPushButton(self.frame_barra_busca)
+        self.btn_mais_opcoes_de_venda.setObjectName(u"btn_mais_opcoes_de_venda")
+        self.btn_mais_opcoes_de_venda.setMinimumSize(QSize(37, 37))
+        self.btn_mais_opcoes_de_venda.setMaximumSize(QSize(37, 37))
+        self.btn_mais_opcoes_de_venda.setStyleSheet(u"QPushButton {\n"
 "            color: rgb(233, 234, 236);\n"
 "            background-color: rgb(38, 39, 43);\n"
 "            border: none;\n"
@@ -2858,270 +3297,57 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {\n"
 " 	background-color: rgb(38, 39, 43);\n"
 "}")
-        self.btn_mais_opcoes.setIcon(icon6)
-        self.btn_mais_opcoes.setIconSize(QSize(25, 25))
+        self.btn_mais_opcoes_de_venda.setIcon(icon6)
+        self.btn_mais_opcoes_de_venda.setIconSize(QSize(25, 25))
 
-        self.horizontalLayout_12.addWidget(self.btn_mais_opcoes)
-
-        self.btn_adicionar_produto = QPushButton(self.frame_80)
-        self.btn_adicionar_produto.setObjectName(u"btn_adicionar_produto")
-        self.btn_adicionar_produto.setMinimumSize(QSize(37, 37))
-        self.btn_adicionar_produto.setMaximumSize(QSize(37, 37))
-        self.btn_adicionar_produto.setStyleSheet(u"QPushButton {\n"
-"            color: rgb(233, 234, 236);\n"
-"            background-color: rgb(38, 39, 43);\n"
-"            border: none;\n"
-"            border-radius: 8px;\n"
-"}\n"
-" QPushButton:hover {\n"
-" 	background-color: rgb(49, 50, 55)\n"
-" }\n"
-"QPushButton:pressed {\n"
-" 	background-color: rgb(38, 39, 43);\n"
-"}")
-        self.btn_adicionar_produto.setIcon(icon7)
-        self.btn_adicionar_produto.setIconSize(QSize(35, 35))
-
-        self.horizontalLayout_12.addWidget(self.btn_adicionar_produto)
+        self.horizontalLayout_25.addWidget(self.btn_mais_opcoes_de_venda)
 
 
-        self.verticalLayout_9.addWidget(self.frame_80)
+        self.verticalLayout_19.addWidget(self.frame_barra_busca)
 
-        self.frame_84 = QFrame(self.page_inventario)
-        self.frame_84.setObjectName(u"frame_84")
-        self.frame_84.setMinimumSize(QSize(0, 20))
-        self.frame_84.setMaximumSize(QSize(16777215, 20))
-        self.frame_84.setStyleSheet(u"background-color: rgb(19, 20, 22);")
-        self.frame_84.setFrameShape(QFrame.StyledPanel)
-        self.frame_84.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_13 = QHBoxLayout(self.frame_84)
-        self.horizontalLayout_13.setSpacing(0)
-        self.horizontalLayout_13.setObjectName(u"horizontalLayout_13")
-        self.horizontalLayout_13.setContentsMargins(10, 0, 10, 0)
-        self.label_25 = QLabel(self.frame_84)
-        self.label_25.setObjectName(u"label_25")
-        self.label_25.setStyleSheet(u"color: rgb(255, 255, 255);")
-        self.label_25.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
-
-        self.horizontalLayout_13.addWidget(self.label_25)
-
-        self.label_23 = QLabel(self.frame_84)
-        self.label_23.setObjectName(u"label_23")
-        self.label_23.setStyleSheet(u"color: rgb(255, 255, 255);")
-        self.label_23.setAlignment(Qt.AlignCenter)
-
-        self.horizontalLayout_13.addWidget(self.label_23)
-
-        self.label_24 = QLabel(self.frame_84)
-        self.label_24.setObjectName(u"label_24")
-        self.label_24.setStyleSheet(u"color: rgb(255, 255, 255);")
-        self.label_24.setAlignment(Qt.AlignCenter)
-
-        self.horizontalLayout_13.addWidget(self.label_24)
-
-        self.label_26 = QLabel(self.frame_84)
-        self.label_26.setObjectName(u"label_26")
-        self.label_26.setStyleSheet(u"color: rgb(255, 255, 255);")
-        self.label_26.setAlignment(Qt.AlignCenter)
-
-        self.horizontalLayout_13.addWidget(self.label_26)
-
-
-        self.verticalLayout_9.addWidget(self.frame_84)
-
-        self.frame_15 = QFrame(self.page_inventario)
-        self.frame_15.setObjectName(u"frame_15")
-        self.frame_15.setStyleSheet(u"background-color: rgb(32, 33, 37);")
-        self.frame_15.setFrameShape(QFrame.StyledPanel)
-        self.frame_15.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_10 = QVBoxLayout(self.frame_15)
-        self.verticalLayout_10.setSpacing(0)
-        self.verticalLayout_10.setObjectName(u"verticalLayout_10")
-        self.verticalLayout_10.setContentsMargins(4, 4, 4, 4)
-        self.frame_16 = QFrame(self.frame_15)
-        self.frame_16.setObjectName(u"frame_16")
-        self.frame_16.setStyleSheet(u"background-color: rgb(19, 20, 22);\n"
-"border-radius:10px;")
-        self.frame_16.setFrameShape(QFrame.StyledPanel)
-        self.frame_16.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_19 = QVBoxLayout(self.frame_16)
-        self.verticalLayout_19.setSpacing(0)
-        self.verticalLayout_19.setObjectName(u"verticalLayout_19")
-        self.verticalLayout_19.setContentsMargins(5, 5, 5, 5)
-        self.scrollArea = QScrollArea(self.frame_16)
-        self.scrollArea.setObjectName(u"scrollArea")
-        sizePolicy.setHeightForWidth(self.scrollArea.sizePolicy().hasHeightForWidth())
-        self.scrollArea.setSizePolicy(sizePolicy)
-        self.scrollArea.setStyleSheet(u"background-color: rgb(19, 20, 22);\n"
-"border-radius: 10px;")
-        self.scrollArea.setWidgetResizable(True)
-        self.scrollAreaWidgetContents_2 = QWidget()
-        self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, -60, 614, 678))
-        self.verticalLayout_204 = QVBoxLayout(self.scrollAreaWidgetContents_2)
-        self.verticalLayout_204.setObjectName(u"verticalLayout_204")
-        self.verticalLayout_204.setContentsMargins(2, 3, 2, 3)
-        self.frame_registro = PyRegistrationList(self.scrollAreaWidgetContents_2)
-        self.frame_registro.setObjectName(u"frame_registro")
-        self.frame_registro.setMinimumSize(QSize(0, 50))
-        self.frame_registro.setMaximumSize(QSize(16777215, 50))
-        self.frame_registro.setStyleSheet(u"QFrame{background-color: rgb(32, 33, 37);\n"
-"border-radius:10px;}")
-        self.frame_registro.setFrameShape(QFrame.StyledPanel)
-        self.frame_registro.setFrameShadow(QFrame.Raised)
-
-        self.verticalLayout_204.addWidget(self.frame_registro)
-
-        self.frame_registro_12 = PyRegistrationList(self.scrollAreaWidgetContents_2)
-        self.frame_registro_12.setObjectName(u"frame_registro_12")
-        self.frame_registro_12.setMinimumSize(QSize(0, 50))
-        self.frame_registro_12.setMaximumSize(QSize(16777215, 50))
-        self.frame_registro_12.setStyleSheet(u"QFrame{background-color: rgb(32, 33, 37);\n"
-"border-radius:10px;}")
-        self.frame_registro_12.setFrameShape(QFrame.StyledPanel)
-        self.frame_registro_12.setFrameShadow(QFrame.Raised)
-
-        self.verticalLayout_204.addWidget(self.frame_registro_12)
-
-        self.frame_registro_11 = PyRegistrationList(self.scrollAreaWidgetContents_2)
-        self.frame_registro_11.setObjectName(u"frame_registro_11")
-        self.frame_registro_11.setMinimumSize(QSize(0, 50))
-        self.frame_registro_11.setMaximumSize(QSize(16777215, 50))
-        self.frame_registro_11.setStyleSheet(u"QFrame{background-color: rgb(32, 33, 37);\n"
-"border-radius:10px;}")
-        self.frame_registro_11.setFrameShape(QFrame.StyledPanel)
-        self.frame_registro_11.setFrameShadow(QFrame.Raised)
-
-        self.verticalLayout_204.addWidget(self.frame_registro_11)
-
-        self.frame_registro_10 = PyRegistrationList(self.scrollAreaWidgetContents_2)
-        self.frame_registro_10.setObjectName(u"frame_registro_10")
-        self.frame_registro_10.setMinimumSize(QSize(0, 50))
-        self.frame_registro_10.setMaximumSize(QSize(16777215, 50))
-        self.frame_registro_10.setStyleSheet(u"QFrame{background-color: rgb(32, 33, 37);\n"
-"border-radius:10px;}")
-        self.frame_registro_10.setFrameShape(QFrame.StyledPanel)
-        self.frame_registro_10.setFrameShadow(QFrame.Raised)
-
-        self.verticalLayout_204.addWidget(self.frame_registro_10)
-
-        self.frame_registro_9 = PyRegistrationList(self.scrollAreaWidgetContents_2)
-        self.frame_registro_9.setObjectName(u"frame_registro_9")
-        self.frame_registro_9.setMinimumSize(QSize(0, 50))
-        self.frame_registro_9.setMaximumSize(QSize(16777215, 50))
-        self.frame_registro_9.setStyleSheet(u"QFrame{background-color: rgb(32, 33, 37);\n"
-"border-radius:10px;}")
-        self.frame_registro_9.setFrameShape(QFrame.StyledPanel)
-        self.frame_registro_9.setFrameShadow(QFrame.Raised)
-
-        self.verticalLayout_204.addWidget(self.frame_registro_9)
-
-        self.frame_registro_8 = PyRegistrationList(self.scrollAreaWidgetContents_2)
-        self.frame_registro_8.setObjectName(u"frame_registro_8")
-        self.frame_registro_8.setMinimumSize(QSize(0, 50))
-        self.frame_registro_8.setMaximumSize(QSize(16777215, 50))
-        self.frame_registro_8.setStyleSheet(u"QFrame{background-color: rgb(32, 33, 37);\n"
-"border-radius:10px;}")
-        self.frame_registro_8.setFrameShape(QFrame.StyledPanel)
-        self.frame_registro_8.setFrameShadow(QFrame.Raised)
-
-        self.verticalLayout_204.addWidget(self.frame_registro_8)
-
-        self.frame_registro_7 = PyRegistrationList(self.scrollAreaWidgetContents_2)
-        self.frame_registro_7.setObjectName(u"frame_registro_7")
-        self.frame_registro_7.setMinimumSize(QSize(0, 50))
-        self.frame_registro_7.setMaximumSize(QSize(16777215, 50))
-        self.frame_registro_7.setStyleSheet(u"QFrame{background-color: rgb(32, 33, 37);\n"
-"border-radius:10px;}")
-        self.frame_registro_7.setFrameShape(QFrame.StyledPanel)
-        self.frame_registro_7.setFrameShadow(QFrame.Raised)
-
-        self.verticalLayout_204.addWidget(self.frame_registro_7)
-
-        self.frame_registro_6 = PyRegistrationList(self.scrollAreaWidgetContents_2)
-        self.frame_registro_6.setObjectName(u"frame_registro_6")
-        self.frame_registro_6.setMinimumSize(QSize(0, 50))
-        self.frame_registro_6.setMaximumSize(QSize(16777215, 50))
-        self.frame_registro_6.setStyleSheet(u"QFrame{background-color: rgb(32, 33, 37);\n"
-"border-radius:10px;}")
-        self.frame_registro_6.setFrameShape(QFrame.StyledPanel)
-        self.frame_registro_6.setFrameShadow(QFrame.Raised)
-
-        self.verticalLayout_204.addWidget(self.frame_registro_6)
-
-        self.frame_registro_5 = PyRegistrationList(self.scrollAreaWidgetContents_2)
-        self.frame_registro_5.setObjectName(u"frame_registro_5")
-        self.frame_registro_5.setMinimumSize(QSize(0, 50))
-        self.frame_registro_5.setMaximumSize(QSize(16777215, 50))
-        self.frame_registro_5.setStyleSheet(u"QFrame{background-color: rgb(32, 33, 37);\n"
-"border-radius:10px;}")
-        self.frame_registro_5.setFrameShape(QFrame.StyledPanel)
-        self.frame_registro_5.setFrameShadow(QFrame.Raised)
-
-        self.verticalLayout_204.addWidget(self.frame_registro_5)
-
-        self.frame_registro_2 = PyRegistrationList(self.scrollAreaWidgetContents_2)
-        self.frame_registro_2.setObjectName(u"frame_registro_2")
-        self.frame_registro_2.setMinimumSize(QSize(0, 50))
-        self.frame_registro_2.setMaximumSize(QSize(16777215, 50))
-        self.frame_registro_2.setStyleSheet(u"QFrame{background-color: rgb(32, 33, 37);\n"
-"border-radius:10px;}")
-        self.frame_registro_2.setFrameShape(QFrame.StyledPanel)
-        self.frame_registro_2.setFrameShadow(QFrame.Raised)
-
-        self.verticalLayout_204.addWidget(self.frame_registro_2)
-
-        self.frame_registro_4 = PyRegistrationList(self.scrollAreaWidgetContents_2)
-        self.frame_registro_4.setObjectName(u"frame_registro_4")
-        self.frame_registro_4.setMinimumSize(QSize(0, 50))
-        self.frame_registro_4.setMaximumSize(QSize(16777215, 50))
-        self.frame_registro_4.setStyleSheet(u"QFrame{background-color: rgb(32, 33, 37);\n"
-"border-radius:10px;}")
-        self.frame_registro_4.setFrameShape(QFrame.StyledPanel)
-        self.frame_registro_4.setFrameShadow(QFrame.Raised)
-
-        self.verticalLayout_204.addWidget(self.frame_registro_4)
-
-        self.frame_registro_3 = PyRegistrationList(self.scrollAreaWidgetContents_2)
-        self.frame_registro_3.setObjectName(u"frame_registro_3")
-        self.frame_registro_3.setMinimumSize(QSize(0, 50))
-        self.frame_registro_3.setMaximumSize(QSize(16777215, 50))
-        self.frame_registro_3.setStyleSheet(u"QFrame{background-color: rgb(32, 33, 37);\n"
-"border-radius:10px;}")
-        self.frame_registro_3.setFrameShape(QFrame.StyledPanel)
-        self.frame_registro_3.setFrameShadow(QFrame.Raised)
-
-        self.verticalLayout_204.addWidget(self.frame_registro_3)
-
-        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.verticalLayout_204.addItem(self.verticalSpacer_2)
-
-        self.scrollArea.setWidget(self.scrollAreaWidgetContents_2)
-
-        self.verticalLayout_19.addWidget(self.scrollArea)
-
-
-        self.verticalLayout_10.addWidget(self.frame_16)
-
-
-        self.verticalLayout_9.addWidget(self.frame_15)
-
-        self.stacked_widget.addWidget(self.page_inventario)
-        self.page_3 = QWidget()
-        self.page_3.setObjectName(u"page_3")
-        self.verticalLayout_18 = QVBoxLayout(self.page_3)
-        self.verticalLayout_18.setObjectName(u"verticalLayout_18")
-        self.frame_30 = QFrame(self.page_3)
+        self.frame_30 = QFrame(self.page_venda)
         self.frame_30.setObjectName(u"frame_30")
+        self.frame_30.setStyleSheet(u"background-color: rgb(32, 33, 37);")
         self.frame_30.setFrameShape(QFrame.StyledPanel)
         self.frame_30.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_35 = QVBoxLayout(self.frame_30)
-        self.verticalLayout_35.setObjectName(u"verticalLayout_35")
+        self.verticalLayout_18 = QVBoxLayout(self.frame_30)
+        self.verticalLayout_18.setSpacing(0)
+        self.verticalLayout_18.setObjectName(u"verticalLayout_18")
+        self.verticalLayout_18.setContentsMargins(4, 4, 4, 4)
+        self.frame_57 = QFrame(self.frame_30)
+        self.frame_57.setObjectName(u"frame_57")
+        self.frame_57.setStyleSheet(u"background-color: rgb(19, 20, 22);\n"
+"border-radius:10px;")
+        self.frame_57.setFrameShape(QFrame.StyledPanel)
+        self.frame_57.setFrameShadow(QFrame.Raised)
+        self.vertical_layout_inventario_2 = QVBoxLayout(self.frame_57)
+        self.vertical_layout_inventario_2.setSpacing(0)
+        self.vertical_layout_inventario_2.setObjectName(u"vertical_layout_inventario_2")
+        self.vertical_layout_inventario_2.setContentsMargins(5, 5, 5, 5)
+        self.scrollArea_3 = QScrollArea(self.frame_57)
+        self.scrollArea_3.setObjectName(u"scrollArea_3")
+        sizePolicy.setHeightForWidth(self.scrollArea_3.sizePolicy().hasHeightForWidth())
+        self.scrollArea_3.setSizePolicy(sizePolicy)
+        self.scrollArea_3.setStyleSheet(u"background-color: rgb(19, 20, 22);\n"
+"border-radius: 10px;")
+        self.scrollArea_3.setWidgetResizable(True)
+        self.scrollAreaWidgetContents_3 = QWidget()
+        self.scrollAreaWidgetContents_3.setObjectName(u"scrollAreaWidgetContents_3")
+        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 622, 255))
+        self.vertical_layout_registro_2 = QVBoxLayout(self.scrollAreaWidgetContents_3)
+        self.vertical_layout_registro_2.setObjectName(u"vertical_layout_registro_2")
+        self.vertical_layout_registro_2.setContentsMargins(2, 3, 2, 3)
+        self.scrollArea_3.setWidget(self.scrollAreaWidgetContents_3)
 
-        self.verticalLayout_18.addWidget(self.frame_30)
+        self.vertical_layout_inventario_2.addWidget(self.scrollArea_3)
 
-        self.stacked_widget.addWidget(self.page_3)
+
+        self.verticalLayout_18.addWidget(self.frame_57)
+
+
+        self.verticalLayout_19.addWidget(self.frame_30)
+
+        self.stacked_widget.addWidget(self.page_venda)
 
         self.horizontalLayout.addWidget(self.stacked_widget)
 
@@ -3144,7 +3370,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stacked_widget.setCurrentIndex(2)
+        self.stacked_widget.setCurrentIndex(6)
         self.stackedWidget_4.setCurrentIndex(1)
 
 
@@ -3320,9 +3546,31 @@ class Ui_MainWindow(object):
         self.btn_pesquisa_produto.setText("")
         self.btn_mais_opcoes.setText("")
         self.btn_adicionar_produto.setText("")
-        self.label_25.setText(QCoreApplication.translate("MainWindow", u"               N\u00ba/Nome", None))
-        self.label_23.setText(QCoreApplication.translate("MainWindow", u"Nome", None))
-        self.label_24.setText(QCoreApplication.translate("MainWindow", u"Unidade       ", None))
-        self.label_26.setText(QCoreApplication.translate("MainWindow", u"Venda                      ", None))
+        self.lbl_nome_n.setText(QCoreApplication.translate("MainWindow", u"               N\u00ba/Nome", None))
+        self.lbl_nome_inventario.setText(QCoreApplication.translate("MainWindow", u"       Valor total/Percentual", None))
+        self.lbl_quantidade.setText(QCoreApplication.translate("MainWindow", u"Quantidade       ", None))
+        self.lbl_venda_inventario.setText(QCoreApplication.translate("MainWindow", u"Venda                      ", None))
+        self.btn_logo_historico_de_venda.setText("")
+        self.lbl_venda_historico_de_venda.setText(QCoreApplication.translate("MainWindow", u"Hist\u00f3rico de venda", None))
+        self.lbl_info_historico_de_venda.setText(QCoreApplication.translate("MainWindow", u"clientes fi\u00e9is", None))
+        self.lbl_info_historico_de_venda_2.setText(QCoreApplication.translate("MainWindow", u"Aprimore a experi\u00eancia", None))
+        self.lbl_info_historico_de_venda_3.setText(QCoreApplication.translate("MainWindow", u"de compra para garantir", None))
+        self.btn_logo_historico_de_venda_.setText("")
+        self.btn_logo_recibo_venda.setText("")
+        self.lbl_recibo_venda.setText(QCoreApplication.translate("MainWindow", u"Recibo", None))
+        self.lbl_info_extra_recibo_venda.setText(QCoreApplication.translate("MainWindow", u"Crie recibos personalizados", None))
+        self.lbl_info_extra_recibo_venda_2.setText(QCoreApplication.translate("MainWindow", u"para uma experi\u00eancia do", None))
+        self.lbl_info_extra_recibo_venda_3.setText(QCoreApplication.translate("MainWindow", u"cliente excepcional", None))
+        self.btn_logo_criar_produto.setText("")
+        self.lbl_criar_produto.setText(QCoreApplication.translate("MainWindow", u"Criar produto", None))
+        self.lbl_info_criar_produto.setText(QCoreApplication.translate("MainWindow", u"Gerencie efetivamente", None))
+        self.lbl_info_criar_produto_2.setText(QCoreApplication.translate("MainWindow", u"as perdas para maximizar", None))
+        self.lbl_info_criar_produto_3.setText(QCoreApplication.translate("MainWindow", u"os lucros", None))
+        self.btn_logo_pedido_de_compra.setText("")
+        self.lbl_pedido_de_compra.setText(QCoreApplication.translate("MainWindow", u"Pedido de compra", None))
+        self.lbl_info_pedido_de_compra.setText(QCoreApplication.translate("MainWindow", u"Gerencie eficientemente ", None))
+        self.lbl_info_pedido_de_compra_2.setText(QCoreApplication.translate("MainWindow", u"o seu Inventario", None))
+        self.btn_pesquisa_produto_de_venda.setText("")
+        self.btn_mais_opcoes_de_venda.setText("")
     # retranslateUi
 

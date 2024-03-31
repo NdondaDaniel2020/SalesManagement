@@ -35,7 +35,7 @@ class PyProductRegistration(QWidget):
         # ////////////////////////////////////////////////////////////////
         self.selected_camera = 0
         # self.countAvailableCameras()
-        self.cap = cv2.VideoCapture(self.selected_camera)  # 'http://192.168.0.120:8080/video'
+        self.cap = cv2.VideoCapture(self.selected_camera)
 
         # Create a QTimer to update the image every 100ms
         self.timer_foto = QTimer()
@@ -43,10 +43,25 @@ class PyProductRegistration(QWidget):
 
         self.timer_scan_bar_code = QTimer()
         self.timer_scan_bar_code.timeout.connect(self.scanBarCodeCam)
+
         # ////////////////////////////////////////////////////////////////
+        self.initialization()
+
+        # ////////////////////////////////////////////////////////////////
+        self.connections()
+
+    # VALIDAÇÃO E CÓDIGO DO PAINEL
+    # /////////////////////////////////////////////////////
+    def initialization(self) -> None:
+        """
+        INICIALIZAÇÃO DE PROPRIEDADE
+        :return:
+        """
+
         self.render_file = None
         self.can_close: bool = False
         self.painel_calendario: PainelCalendario = None
+        self.lista_datas_expiracao: list = []
         self.group_animation_calendario: QParallelAnimationGroup = None
 
         self.btn_sender = self.btn_nav_camera
@@ -64,7 +79,12 @@ class PyProductRegistration(QWidget):
         self.lbl_url_diretory.mousePressEvent = lambda a: self.setPhotoPath()
         self.horizontal_slider_resize.mouseReleaseEvent = lambda a: QTimer().singleShot(1500, lambda: self.sliderAnimationEnd())
 
-        # ////////////////////////////////////////////////////////////////
+    def connections(self) -> None:
+        """
+        CONEXÕES COM EVENTOS
+        :return:
+        """
+
         self.btn_del.clicked.connect(self.cleanAndClose)
 
         self.btn_nav_key.clicked.connect(self.changePosition)
@@ -91,18 +111,22 @@ class PyProductRegistration(QWidget):
 
         self.btn_setting.clicked.connect(lambda: self.btn_nav_setting.click())
 
+        self.btn_camera.clicked.connect(self.makePhoto)
+
         self.btn_foto_back.clicked.connect(lambda: self.backToMainPage(0))
 
         self.checkBox.clicked.connect(self.showExep)
 
         self.btn_add_data.clicked.connect(self.addDateExpiration)
 
-        self.btn_ok.clicked.connect(self.getAllData)
+        # self.btn_ok.clicked.connect(self.getAllData)
 
-    # VALIDAÇÃO E CÓDIGO DO PAINEL
-    # /////////////////////////////////////////////////////
-    ################### NAO TERMINDAS ############# connectar com bd
     def showPopupCategoria(self) -> None:
+        """
+        MOSTRAR POPUP DE CATEGORIA
+        :return:
+        """
+
         self.combo_box_categoria.showPopup()
 
     def itemCategoriaSelected(self, item) -> None:
@@ -202,6 +226,7 @@ class PyProductRegistration(QWidget):
 
     def setPhotoPath(self) -> None:
         photo_path = QFileDialog().getExistingDirectory(dir=self.image_path)
+        photo_path = os.path.normpath(photo_path)
         if photo_path:
             self.lbl_url_diretory.setText(reduce_url(photo_path))
             self.image_path = photo_path
@@ -234,7 +259,7 @@ class PyProductRegistration(QWidget):
             self.icon_img.hide()
             self.checkBox.setChecked(True)
 
-    def countAvailableCameras(self) -> None:  ## fazer rodar no main -> tela de login
+    def countAvailableCameras(self) -> None:
         # Inicializa a contagem de câmeras disponíveis
         contador = 0
         for i in range(1000):
@@ -251,13 +276,16 @@ class PyProductRegistration(QWidget):
 
     def addImage(self) -> None:
 
-        self.current_image_path = QFileDialog.getOpenFileName(
+        current_image_path = QFileDialog.getOpenFileName(
             parent=self,
             dir=self.image_path,
             filter=self.tr('img file (*.png *.jpeg *.jpg *.PNG *.JPG) ')
         )[0]
 
-        if self.current_image_path:
+        if current_image_path:
+            current_image_path = os.path.normpath(current_image_path)
+            self.current_image_path = current_image_path
+
             icon = QIcon()
             icon.addFile(self.current_image_path)
 
@@ -283,12 +311,12 @@ class PyProductRegistration(QWidget):
         :return:
         """
         regex_nu = QRegularExpressionValidator(QRegularExpression("^[0-9]*$"), self)
+
+        validator = QRegularExpressionValidator(QRegularExpression(r'[^\'"]*'), self)
+
         self.lineEdit_chave.setValidator(regex_nu)
-        # self.combo_box_unidade.setValidator(regex_nu)
         self.lineEdit_quantidade.setValidator(regex_nu)
         self.lineEdit_preco_venda.setValidator(regex_nu)
-        self.lineEdit_preco_compra.setValidator(regex_nu)
-        self.lineEdit_quantidade_reserva.setValidator(regex_nu)
 
     def changePosition(self) -> None:
         btn = self.sender()
@@ -474,7 +502,6 @@ class PyProductRegistration(QWidget):
         self.btn_nav_edit.hide()
 
         # ///////////////////////////////////////////////////////////
-        # self.frame_segmented_nav.setGeometry(60, 405, 47, 47)
         self.frame_segmented_nav.setMinimumSize(47, 47)
         self.frame_segmented_nav.setMaximumSize(47, 47)
 
@@ -504,10 +531,13 @@ class PyProductRegistration(QWidget):
         if not self.cap.isOpened():
             QTimer().singleShot(400, lambda: self.startRecording())
 
-        if btn.objectName() == 'foto':
+        if btn.objectName() == 'foto' or btn.objectName() == 'btn_camera':
             QTimer().singleShot(500, lambda: self.timer_foto.start())
+            self.btn_activate.setIcon(QIcon(AbsolutePath().getPathIcon("icon_camera.svg")))
+
         elif btn.objectName() == 'btn_chave_qrcode':
             QTimer().singleShot(500, lambda: self.timer_scan_bar_code.start())
+            self.btn_activate.setIcon(QIcon(AbsolutePath().getPathIcon("icon_qr_code.svg")))
 
     def startRecording(self) -> None:
         self.cap = cv2.VideoCapture(self.selected_camera)
@@ -605,6 +635,11 @@ class PyProductRegistration(QWidget):
 
         #### salvar o caminho da img na bd
 
+    def cleanAndHideCalendarPanel(self, e):
+        self.painel_calendario_opacity.setOpacity(0.0)
+        self.painel_calendario.btn_calendario.setText("Selecione a Data")
+        self.painel_calendario.plainTextEdit.setPlainText("")
+        self.painel_calendario.setGeometry(-234, -150, 224, 140)
 
     def addDateExpiration(self):
 
@@ -620,13 +655,7 @@ class PyProductRegistration(QWidget):
             self.painel_calendario_opacity.setOpacity(0.0)
             self.painel_calendario.setGraphicsEffect(self.painel_calendario_opacity)
 
-            def clear(e):
-                self.painel_calendario_opacity.setOpacity(0.0)
-                self.painel_calendario.btn_calendario.setText("Selecione a Data")
-                self.painel_calendario.plainTextEdit.setPlainText("")
-                self.painel_calendario.setGeometry(-234, -150, 224, 140)
-
-            self.page_edit.mousePressEvent = clear
+            self.page_edit.mousePressEvent = self.cleanAndHideCalendarPanel
 
             self.calendario_opacity_animation = QPropertyAnimation(self.painel_calendario_opacity, b'opacity')
             self.calendario_opacity_animation.setStartValue(0.0)
@@ -647,7 +676,6 @@ class PyProductRegistration(QWidget):
         else:
             self.group_animation_calendario.start()
 
-
     def addPainelCalendar(self):
         padrao = QRegularExpression(r"\d{2}/\d{2}/\d{4}")
 
@@ -664,15 +692,11 @@ class PyProductRegistration(QWidget):
         if validar_data and data != data_atual and da < d:
             self.painel_expiracao.setDate(data)
             self.horizontalLayout_7.insertWidget(0, self.painel_expiracao, 0, Qt.AlignBottom)
-            self.painel_calendario.close()
+            self.cleanAndHideCalendarPanel(1)
 
             text = self.painel_calendario.plainTextEdit.toPlainText()
-
-            db = DataBase(AbsolutePath().getPathDatabase())
-            db.connectDataBase()
-            db.executarComand(
-                fr"""INSERT INTO data_de_expiracao (data, informacoes_de_expiracao) VALUES ('{data}', '{text}')""")
-            db.disconnectDataBase()
+            text = text.replace("'", "").replace('"', "")
+            self.lista_datas_expiracao.append((data, text))
 
     def cleanAndClose(self):
         self.lineEdit_chave.setText('')
@@ -681,16 +705,19 @@ class PyProductRegistration(QWidget):
         self.lineEdit_quantidade.setText('')
         self.lineEdit_preco_venda.setText('')
         self.lineEdit_nome_produto.setText('')
-        self.lineEdit_preco_compra.setText('')
+        self.combo_box_unidade.setCurrentIndex(-1)
+        self.combo_box_categoria.setCurrentIndex(-1)
         self.informacoes_adicionais.setPlainText('')
-        self.lineEdit_quantidade_reserva.setText('')
-
-        # limpar datas adicinais
-        self.close()
 
         objs = self.scroll_area_widget_contents_continer.findChildren(PainelExpiracao)
         for obj in objs:
             obj.close()
+
+        if self.painel_calendario:
+            self.cleanAndHideCalendarPanel(1)
+
+        self.close()
+        self.closeImage()
 
         self.stackedWidget.setCurrentIndex(0)
         self.stackedWidget_2.setCurrentIndex(0)
@@ -727,16 +754,13 @@ class PyProductRegistration(QWidget):
         db = DataBase(AbsolutePath().getPathDatabase())
         db.connectDataBase()
 
-        produto['image'] = '' if 'icon_gallery.svg' in self.current_image_path else self.current_image_path
+        produto['linkImg'] = '' if 'icon_gallery.svg' in self.current_image_path else self.current_image_path
 
         im = self.image.iconSize()
         i_im = self.icon_img.iconSize()
         produto['size_image'] = {'image': (im.width(), im.height()),
                                  'icon_image': (i_im.width(), i_im.height())}
 
-        objs = self.scroll_area_widget_contents_continer.findChildren(PainelExpiracao)
-        datas_de_expir = db.executarFetchall(f"SELECT id FROM data_de_expiracao ORDER by id DESC LIMIT {len(objs)};")
-        produto['data_de_expiracao'] = datas_de_expir
 
         if self.lineEdit_unidade.text():
             txt = self.lineEdit_unidade.text().lower()
@@ -759,7 +783,7 @@ class PyProductRegistration(QWidget):
             try_exec = False
 
         if self.lineEdit_nome_produto.text():
-            produto['nome_produto'] = self.lineEdit_nome_produto.text()
+            produto['nome'] = self.lineEdit_nome_produto.text()
         elif try_exec:
             self.lbl_alerta.setText('Adicione um nome no produto')
             self.alertaAnimtion()
@@ -797,21 +821,18 @@ class PyProductRegistration(QWidget):
 
         # opcionais
 
-        preco_compra = self.lineEdit_preco_compra.text()
-        produto['preco_compra'] = 0 if not preco_compra.isnumeric() else int(preco_compra)
-
         quantidade = self.lineEdit_quantidade.text()
         produto['quantidade'] = 0 if not quantidade.isnumeric() else int(quantidade)
 
-        quantidade_reserva = self.lineEdit_quantidade_reserva.text()
-        produto['quantidade_reserva'] = 0 if not quantidade_reserva.isnumeric() else int(quantidade_reserva)
+        txt_info = self.informacoes_adicionais.toPlainText()
+        txt_info = txt_info.replace("'", "").replace('"', "")
+        produto['informacoes_adicionais'] = txt_info if txt_info else ''
 
-        produto['informacoes_adicionais'] = self.informacoes_adicionais.toPlainText()
+        produto['data_de_expiracao'] = self.lista_datas_expiracao
 
         if try_exec:
-            import pprint
-            pprint.pprint(produto)
             return produto
+        return {}
 
     # /////////////////////////////////////////////////////
     def stacked_Widget_enter_event(self, event) -> None:
@@ -856,7 +877,7 @@ class PyProductRegistration(QWidget):
         self.frame_style.setObjectName(u"frame_style")
         self.frame_style.setStyleSheet(u"#frame_style{\n"
                                        "	border-radius: 10px;\n"
-                                       "	background-color: rgba(19, 20, 22, 25);}\n"
+                                       "	background-color: rgba(19, 20, 22, 65);}\n"
                                        "\n"
                                        "\n"
                                        "QStackedWidget, \n"
@@ -1029,20 +1050,20 @@ class PyProductRegistration(QWidget):
                                        "	border-radius:5px;}\n"
                                        "\n"
                                        "QCheckBox{color: rgb(255, 255, 255);}\n"
-                                       "QCheckBox::indicator {\n"
-                                       "    border: 3px solid rgb(47, 54, 100);\n"
-                                       "	width: 15px;\n"
-                                       "	height: 15px;\n"
-                                       "	border-radius: 10px;\n"
-                                       "    background: rgb(44, 49, 60);\n"
-                                       "}\n"
-                                       "QCheckBox::indicator:hover {\n"
-                                       "    border: 3px solid rgb(49, 57, 105);\n"
-                                       "}\n"
-                                       "QCheckBox::indicator:checked {\n"
-                                       "    background: 3px solid rgb(47, 54, 100);\n"
-                                       "	border: 3px solid rgb(44, 49, 60);\n"
-                                       "}\n"
+                                        "QCheckBox::indicator {\n"
+                                            "border: 3px solid rgb(47, 54, 100);\n"
+                                            "width: 15px;\n"
+                                            "height: 15px;\n"
+                                            "border-radius: 10px;\n"
+                                            "background: rgb(255, 255, 255);\n"
+                                        "}\n"
+                                        "QCheckBox::indicator:hover {\n"
+                                            "border: 3px solid rgb(49, 57, 105);\n"
+                                        "}\n"
+                                        "QCheckBox::indicator:checked {\n"
+                                            "background: 3px solid rgb(47, 54, 100);\n"
+                                            "border: 3px solid rgb(255, 255, 255);\n"
+                                        "}\n"
                                        "\n"
                                        "\n"
                                        "QLabel{color:#ffffff}\n"
@@ -1244,17 +1265,6 @@ class PyProductRegistration(QWidget):
 
         self.horizontalLayout_2.addWidget(self.btn_ok)
 
-        self.btn_scan = QPushButton(self.frame_nav_bar)
-        self.btn_scan.setObjectName(u"btn_scan")
-        self.btn_scan.setMinimumSize(QSize(10, 33))
-        self.btn_scan.setFont(font)
-        icon6 = QIcon()
-        icon6.addFile(AbsolutePath().getPathIcon("icon_qr_code.svg"))
-        self.btn_scan.setIcon(icon6)
-        self.btn_scan.setIconSize(QSize(22, 22))
-
-        self.horizontalLayout_2.addWidget(self.btn_scan)
-
         self.btn_camera = QPushButton(self.frame_nav_bar)
         self.btn_camera.setObjectName(u"btn_camera")
         self.btn_camera.setMinimumSize(QSize(10, 33))
@@ -1300,17 +1310,9 @@ class PyProductRegistration(QWidget):
         self.lineEdit_quantidade.setObjectName(u"lineEdit_quantidade")
         self.lineEdit_quantidade.setMinimumSize(QSize(0, 37))
         self.lineEdit_quantidade.setFont(font)
-        self.lineEdit_quantidade.setAlignment(Qt.AlignCenter)
+        self.lineEdit_quantidade.setAlignment(Qt.AlignLeft)
 
         self.horizontalLayout_13.addWidget(self.lineEdit_quantidade)
-
-        self.lineEdit_quantidade_reserva = QLineEdit(self.frame_quantidade)
-        self.lineEdit_quantidade_reserva.setObjectName(u"lineEdit_quantidade_reserva")
-        self.lineEdit_quantidade_reserva.setMinimumSize(QSize(0, 37))
-        self.lineEdit_quantidade_reserva.setFont(font)
-        self.lineEdit_quantidade_reserva.setAlignment(Qt.AlignCenter)
-
-        self.horizontalLayout_13.addWidget(self.lineEdit_quantidade_reserva)
 
         self.frame_chave_qrcode = QFrame(self.page)
         self.frame_chave_qrcode.setObjectName(u"frame_chave_qrcode")
@@ -1330,6 +1332,8 @@ class PyProductRegistration(QWidget):
         self.btn_chave_qrcode.setObjectName(u"btn_chave_qrcode")
         self.btn_chave_qrcode.setMinimumSize(QSize(37, 37))
         self.btn_chave_qrcode.setMaximumSize(QSize(37, 37))
+        icon6 = QIcon()
+        icon6.addFile(AbsolutePath().getPathIcon("icon_qr_code.svg"))
         self.btn_chave_qrcode.setIcon(icon6)
         self.btn_chave_qrcode.setIconSize(QSize(22, 22))
 
@@ -1441,19 +1445,12 @@ class PyProductRegistration(QWidget):
         self.frame_continer_preco.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_14 = QHBoxLayout(self.frame_continer_preco)
         self.horizontalLayout_14.setObjectName(u"horizontalLayout_14")
-        self.lineEdit_preco_compra = QLineEdit(self.frame_continer_preco)
-        self.lineEdit_preco_compra.setObjectName(u"lineEdit_preco_compra")
-        self.lineEdit_preco_compra.setMinimumSize(QSize(0, 37))
-        self.lineEdit_preco_compra.setFont(font)
-        self.lineEdit_preco_compra.setAlignment(Qt.AlignCenter)
-
-        self.horizontalLayout_14.addWidget(self.lineEdit_preco_compra)
 
         self.lineEdit_preco_venda = QLineEdit(self.frame_continer_preco)
         self.lineEdit_preco_venda.setObjectName(u"lineEdit_preco_venda")
         self.lineEdit_preco_venda.setMinimumSize(QSize(0, 37))
         self.lineEdit_preco_venda.setFont(font)
-        self.lineEdit_preco_venda.setAlignment(Qt.AlignCenter)
+        self.lineEdit_preco_venda.setAlignment(Qt.AlignLeft)
 
         self.horizontalLayout_14.addWidget(self.lineEdit_preco_venda)
 
@@ -1674,27 +1671,21 @@ class PyProductRegistration(QWidget):
     def retranslateUi(self, Form) -> None:
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         self.lineEdit_quantidade.setPlaceholderText(QCoreApplication.translate("Form", u"Quantidade", None))
-        self.lineEdit_quantidade_reserva.setPlaceholderText(
-            QCoreApplication.translate("Form", u"Quantidade Reserva", None))
+
         self.lineEdit_chave.setPlaceholderText(QCoreApplication.translate("Form", u"Chave", None))
 
         self.combo_box_unidade.setItemText(0, QCoreApplication.translate("Form", u"New Item 0", None))
         self.combo_box_unidade.setItemText(1, QCoreApplication.translate("Form", u"New Item 1", None))
         self.combo_box_unidade.setItemText(2, QCoreApplication.translate("Form", u"New Item 2", None))
 
-        self.combo_box_unidade.setPlaceholderText(QCoreApplication.translate("Form", u"Unidade", None))
-        self.combo_box_categoria.setItemText(0, QCoreApplication.translate("Form", u"New Item 1", None))
-        self.combo_box_categoria.setItemText(1, QCoreApplication.translate("Form", u"New Item 2", None))
-        self.combo_box_categoria.setItemText(2, QCoreApplication.translate("Form", u"New Item 3", None))
+        self.combo_box_unidade.setPlaceholderText(QCoreApplication.translate("Form", u"Selecione uma unidade", None))
 
-        self.combo_box_categoria.setPlaceholderText(QCoreApplication.translate("Form", u"Categoria", None))
+        self.combo_box_categoria.setPlaceholderText(QCoreApplication.translate("Form", u"Selecione uma categoria", None))
         self.lineEdit_nome_produto.setPlaceholderText(QCoreApplication.translate("Form", u"Nome do produto", None))
-        self.lineEdit_categoria.setPlaceholderText(QCoreApplication.translate("Form", u"categoria", None))
+        self.lineEdit_categoria.setPlaceholderText(QCoreApplication.translate("Form", u"Selecione uma categoria", None))
 
-        self.lineEdit_unidade.setPlaceholderText(QCoreApplication.translate("Form", u"unidade", None))
+        self.lineEdit_unidade.setPlaceholderText(QCoreApplication.translate("Form", u"Selecione uma unidade", None))
 
-        self.lineEdit_preco_compra.setPlaceholderText(
-            QCoreApplication.translate("Form", u"Pre\u00e7o de compra", None))
         self.lineEdit_preco_venda.setPlaceholderText(
             QCoreApplication.translate("Form", u"Pre\u00e7o de venda", None))
 
@@ -1975,7 +1966,7 @@ class Menu(QFrame):
 class Alerta(QLabel):
     def __init__(self, parent=None):
         super().__init__(parent)
-        
+
         self.setObjectName(u"label")
         self.setGeometry(QRect(20, 60, 151, 30))
         font = QFont()
