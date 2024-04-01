@@ -1,4 +1,3 @@
-
 import os
 import re
 import cv2
@@ -76,8 +75,9 @@ class PyProductRegistration(QWidget):
         self.frame_style.mousePressEvent = self.close_window_pressed_frame_style
         self.frame_segmented_nav.mousePressEvent = self.stacked_Widget_enter_event
 
-        self.lbl_url_diretory.mousePressEvent = lambda a: self.setPhotoPath()
-        self.horizontal_slider_resize.mouseReleaseEvent = lambda a: QTimer().singleShot(1500, lambda: self.sliderAnimationEnd())
+        self.lbl_url_diretory.mousePressEvent = lambda e: self.setPhotoPath()
+        self.horizontal_slider_resize.mouseReleaseEvent = lambda e: (
+            QTimer().singleShot(1500, lambda: self.sliderAnimationEnd()))
 
     def connections(self) -> None:
         """
@@ -311,8 +311,6 @@ class PyProductRegistration(QWidget):
         :return:
         """
         regex_nu = QRegularExpressionValidator(QRegularExpression("^[0-9]*$"), self)
-
-        validator = QRegularExpressionValidator(QRegularExpression(r'[^\'"]*'), self)
 
         self.lineEdit_chave.setValidator(regex_nu)
         self.lineEdit_quantidade.setValidator(regex_nu)
@@ -761,7 +759,6 @@ class PyProductRegistration(QWidget):
         produto['size_image'] = {'image': (im.width(), im.height()),
                                  'icon_image': (i_im.width(), i_im.height())}
 
-
         if self.lineEdit_unidade.text():
             txt = self.lineEdit_unidade.text().lower()
             id_uni = db.executarFetchone(f"SELECT id FROM unidade where nome='{txt}'")
@@ -885,10 +882,10 @@ class PyProductRegistration(QWidget):
                                        "#icon_tag, \n"
                                        "#image{background-color: transparent;}\n"
                                        "\n"
-                                        "#lbl_alerta{\n"
-                                        "background-color: rgb(32, 33, 36);\n"
-                                        "color: rgb(255, 255, 255);\n"
-                                        "border-radius:5px;}\n"
+                                       "#lbl_alerta{\n"
+                                       "background-color: rgb(32, 33, 36);\n"
+                                       "color: rgb(255, 255, 255);\n"
+                                       "border-radius:5px;}\n"
                                        "\n"
                                        "#scroll_area_continer,\n"
                                        "#scroll_area_widget_contents_continer,\n"
@@ -1050,20 +1047,20 @@ class PyProductRegistration(QWidget):
                                        "	border-radius:5px;}\n"
                                        "\n"
                                        "QCheckBox{color: rgb(255, 255, 255);}\n"
-                                        "QCheckBox::indicator {\n"
-                                            "border: 3px solid rgb(47, 54, 100);\n"
-                                            "width: 15px;\n"
-                                            "height: 15px;\n"
-                                            "border-radius: 10px;\n"
-                                            "background: rgb(255, 255, 255);\n"
-                                        "}\n"
-                                        "QCheckBox::indicator:hover {\n"
-                                            "border: 3px solid rgb(49, 57, 105);\n"
-                                        "}\n"
-                                        "QCheckBox::indicator:checked {\n"
-                                            "background: 3px solid rgb(47, 54, 100);\n"
-                                            "border: 3px solid rgb(255, 255, 255);\n"
-                                        "}\n"
+                                       "QCheckBox::indicator {\n"
+                                       "border: 3px solid rgb(47, 54, 100);\n"
+                                       "width: 15px;\n"
+                                       "height: 15px;\n"
+                                       "border-radius: 10px;\n"
+                                       "background: rgb(255, 255, 255);\n"
+                                       "}\n"
+                                       "QCheckBox::indicator:hover {\n"
+                                       "border: 3px solid rgb(49, 57, 105);\n"
+                                       "}\n"
+                                       "QCheckBox::indicator:checked {\n"
+                                       "background: 3px solid rgb(47, 54, 100);\n"
+                                       "border: 3px solid rgb(255, 255, 255);\n"
+                                       "}\n"
                                        "\n"
                                        "\n"
                                        "QLabel{color:#ffffff}\n"
@@ -1649,7 +1646,7 @@ class PyProductRegistration(QWidget):
         font_.setPointSize(10)
         font_.setBold(True)
         self.lbl_alerta.setFont(font_)
-        self.lbl_alerta.setAlignment(Qt.AlignHCenter|Qt.AlignVCenter)
+        self.lbl_alerta.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
 
         self.alerta_opacity = QGraphicsOpacityEffect(self.lbl_alerta)
         self.alerta_opacity.setOpacity(0.0)
@@ -1680,7 +1677,8 @@ class PyProductRegistration(QWidget):
 
         self.combo_box_unidade.setPlaceholderText(QCoreApplication.translate("Form", u"Selecione uma unidade", None))
 
-        self.combo_box_categoria.setPlaceholderText(QCoreApplication.translate("Form", u"Selecione uma categoria", None))
+        self.combo_box_categoria.setPlaceholderText(
+            QCoreApplication.translate("Form", u"Selecione uma categoria", None))
         self.lineEdit_nome_produto.setPlaceholderText(QCoreApplication.translate("Form", u"Nome do produto", None))
         self.lineEdit_categoria.setPlaceholderText(QCoreApplication.translate("Form", u"Selecione uma categoria", None))
 
@@ -1974,10 +1972,9 @@ class Alerta(QLabel):
         font.setBold(True)
         self.setFont(font)
         self.setStyleSheet(u"background-color: rgb(32, 33, 36);\n"
-                                 "color: rgb(255, 255, 255);\n"
-                                 "border-radius:5px;")
+                           "color: rgb(255, 255, 255);\n"
+                           "border-radius:5px;")
         self.setAlignment(Qt.AlignCenter)
-
 
 
 class PainelCalendario(QFrame):
@@ -1987,7 +1984,7 @@ class PainelCalendario(QFrame):
         self.setObjectName(u"frame")
         self.setGeometry(QRect(10, 0, 244, 200))
         self.setStyleSheet(u"background-color: rgb(19, 20, 22);\n"
-"border-radius:7px;")
+                           "border-radius:7px;")
         self.setFrameShape(QFrame.StyledPanel)
         self.setFrameShadow(QFrame.Raised)
         self.verticalLayout = QVBoxLayout(self)
@@ -2005,91 +2002,91 @@ class PainelCalendario(QFrame):
         self.btn_calendario = CalendarPicker(self)
         self.btn_calendario.setObjectName(u"btn_calendario")
         self.btn_calendario.setStyleSheet(u"#titleButton {\n"
-"    font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';\n"
-"    font-weight: 500;\n"
-"    color: black;\n"
-"    background-color: transparent;\n"
-"    border: none;\n"
-"    margin: 0;\n"
-"    padding-left: 8px;\n"
-"    text-align: left;\n"
-"    border-radius: 5px;\n"
-"}\n"
-"\n"
-"#titleButton:hover {\n"
-"    background-color: rgba(0, 0, 0, 9);\n"
-"}\n"
-"\n"
-"#titleButton:pressed {\n"
-"    background-color: rgba(0, 0, 0, 6);\n"
-"}\n"
-"\n"
-"#titleButton:disabled {\n"
-"    color: rgba(0, 0, 0, 0.4);\n"
-"}\n"
-"\n"
-"#weekDayLabel {\n"
-"    font: 12px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';\n"
-"    font-weight: 500;\n"
-"    color: black;\n"
-"    background-color: transparent;\n"
-"    border: none;\n"
-"    text-align: center;\n"
-"}\n"
-"\n"
-"#weekDayGroup {\n"
-"    background-color: transparent;\n"
-"}\n"
-"\n"
-"CalendarViewBase {\n"
-"    background-color: rgb(255, 255, 255);\n"
-"    border: 1px solid rgba(0, 0, 0, 0.1);\n"
-"    border-radius: 8px;\n"
-"}\n"
-"\n"
-"ScrollViewBase {\n"
-"    bor"
-                        "der: none;\n"
-"    padding: 0px 1px 0px 1px;\n"
-"    border-bottom-left-radius: 8px;\n"
-"    border-bottom-right-radius: 8px;\n"
-"    border-top: 1px solid rgb(240, 240, 240);\n"
-"    background-color: transparent;\n"
-"}\n"
-"\n"
-"CalendarPicker {\n"
-"    color: rgba(0, 0, 0, 0.6063);\n"
-"    background: rgba(255, 255, 255, 0.7);\n"
-"    border: 1px solid rgba(0, 0, 0, 0.073);\n"
-"    border-bottom: 1px solid rgba(0, 0, 0, 0.183);\n"
-"    border-radius: 5px;\n"
-"    font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';\n"
-"    padding: 5px 32px 6px 12px;\n"
-"    outline: none;\n"
-"    text-align: left;\n"
-"}\n"
-"\n"
-"\n"
-"CalendarPicker:hover {\n"
-"    background: rgba(249, 249, 249, 0.5);\n"
-"}\n"
-"\n"
-"CalendarPicker:pressed {\n"
-"    background: rgba(249, 249, 249, 0.3);\n"
-"    border-bottom: 1px solid rgba(0, 0, 0, 0.073);\n"
-"}\n"
-"\n"
-"CalendarPicker:disabled {\n"
-"    color: rgba(0, 0, 0, 0.36);\n"
-"    background: rgba(249, 249, 249, 0.3);\n"
-"    border: 1px solid rgba(0, 0, 0, 0.06);\n"
-"    borde"
-                        "r-bottom: 1px solid rgba(0, 0, 0, 0.06);\n"
-"}\n"
-"\n"
-"CalendarPicker[hasDate=true] {\n"
-"    color: black;\n"
-"}")
+                                          "    font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';\n"
+                                          "    font-weight: 500;\n"
+                                          "    color: black;\n"
+                                          "    background-color: transparent;\n"
+                                          "    border: none;\n"
+                                          "    margin: 0;\n"
+                                          "    padding-left: 8px;\n"
+                                          "    text-align: left;\n"
+                                          "    border-radius: 5px;\n"
+                                          "}\n"
+                                          "\n"
+                                          "#titleButton:hover {\n"
+                                          "    background-color: rgba(0, 0, 0, 9);\n"
+                                          "}\n"
+                                          "\n"
+                                          "#titleButton:pressed {\n"
+                                          "    background-color: rgba(0, 0, 0, 6);\n"
+                                          "}\n"
+                                          "\n"
+                                          "#titleButton:disabled {\n"
+                                          "    color: rgba(0, 0, 0, 0.4);\n"
+                                          "}\n"
+                                          "\n"
+                                          "#weekDayLabel {\n"
+                                          "    font: 12px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';\n"
+                                          "    font-weight: 500;\n"
+                                          "    color: black;\n"
+                                          "    background-color: transparent;\n"
+                                          "    border: none;\n"
+                                          "    text-align: center;\n"
+                                          "}\n"
+                                          "\n"
+                                          "#weekDayGroup {\n"
+                                          "    background-color: transparent;\n"
+                                          "}\n"
+                                          "\n"
+                                          "CalendarViewBase {\n"
+                                          "    background-color: rgb(255, 255, 255);\n"
+                                          "    border: 1px solid rgba(0, 0, 0, 0.1);\n"
+                                          "    border-radius: 8px;\n"
+                                          "}\n"
+                                          "\n"
+                                          "ScrollViewBase {\n"
+                                          "    bor"
+                                          "der: none;\n"
+                                          "    padding: 0px 1px 0px 1px;\n"
+                                          "    border-bottom-left-radius: 8px;\n"
+                                          "    border-bottom-right-radius: 8px;\n"
+                                          "    border-top: 1px solid rgb(240, 240, 240);\n"
+                                          "    background-color: transparent;\n"
+                                          "}\n"
+                                          "\n"
+                                          "CalendarPicker {\n"
+                                          "    color: rgba(0, 0, 0, 0.6063);\n"
+                                          "    background: rgba(255, 255, 255, 0.7);\n"
+                                          "    border: 1px solid rgba(0, 0, 0, 0.073);\n"
+                                          "    border-bottom: 1px solid rgba(0, 0, 0, 0.183);\n"
+                                          "    border-radius: 5px;\n"
+                                          "    font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';\n"
+                                          "    padding: 5px 32px 6px 12px;\n"
+                                          "    outline: none;\n"
+                                          "    text-align: left;\n"
+                                          "}\n"
+                                          "\n"
+                                          "\n"
+                                          "CalendarPicker:hover {\n"
+                                          "    background: rgba(249, 249, 249, 0.5);\n"
+                                          "}\n"
+                                          "\n"
+                                          "CalendarPicker:pressed {\n"
+                                          "    background: rgba(249, 249, 249, 0.3);\n"
+                                          "    border-bottom: 1px solid rgba(0, 0, 0, 0.073);\n"
+                                          "}\n"
+                                          "\n"
+                                          "CalendarPicker:disabled {\n"
+                                          "    color: rgba(0, 0, 0, 0.36);\n"
+                                          "    background: rgba(249, 249, 249, 0.3);\n"
+                                          "    border: 1px solid rgba(0, 0, 0, 0.06);\n"
+                                          "    borde"
+                                          "r-bottom: 1px solid rgba(0, 0, 0, 0.06);\n"
+                                          "}\n"
+                                          "\n"
+                                          "CalendarPicker[hasDate=true] {\n"
+                                          "    color: black;\n"
+                                          "}")
         self.btn_calendario.setText("Selecione a Data")
         self.btn_calendario.setDateFormat('d/MM/yyyy')
 
@@ -2112,45 +2109,43 @@ class PainelCalendario(QFrame):
 
         self.horizontalLayout.addWidget(self.btn_add_data)
 
-
         self.verticalLayout.addLayout(self.horizontalLayout)
 
         self.plainTextEdit = QPlainTextEdit(self)
         self.plainTextEdit.setObjectName(u"plainTextEdit")
         self.plainTextEdit.setStyleSheet(u"\n"
-"QPlainTextEdit {\n"
-"    color: rgba(0, 0, 0, 0.6063);\n"
-"    background: rgba(255, 255, 255, 0.7);\n"
-"    border: 1px solid rgba(0, 0, 0, 0.073);\n"
-"    border-bottom: 1px solid rgba(0, 0, 0, 0.183);\n"
-"    border-radius: 5px;\n"
-"    padding-left: 5px;\n"
-"    text-align: left;\n"
-"}\n"
-"\n"
-"\n"
-"QPlainTextEdit:hover {\n"
-"    background: rgba(249, 249, 249, 0.5);\n"
-"}\n"
-"\n"
-"QPlainTextEdit:pressed {\n"
-"    background: rgba(249, 249, 249, 0.3);\n"
-"    border-bottom: 1px solid rgba(0, 0, 0, 0.073);\n"
-"}\n"
-"\n"
-"QPlainTextEdit:disabled {\n"
-"    color: rgba(0, 0, 0, 0.36);\n"
-"    background: rgba(249, 249, 249, 0.3);\n"
-"    border: 1px solid rgba(0, 0, 0, 0.06);\n"
-"    border-bottom: 1px solid rgba(0, 0, 0, 0.06);\n"
-"}")
+                                         "QPlainTextEdit {\n"
+                                         "    color: rgba(0, 0, 0, 0.6063);\n"
+                                         "    background: rgba(255, 255, 255, 0.7);\n"
+                                         "    border: 1px solid rgba(0, 0, 0, 0.073);\n"
+                                         "    border-bottom: 1px solid rgba(0, 0, 0, 0.183);\n"
+                                         "    border-radius: 5px;\n"
+                                         "    padding-left: 5px;\n"
+                                         "    text-align: left;\n"
+                                         "}\n"
+                                         "\n"
+                                         "\n"
+                                         "QPlainTextEdit:hover {\n"
+                                         "    background: rgba(249, 249, 249, 0.5);\n"
+                                         "}\n"
+                                         "\n"
+                                         "QPlainTextEdit:pressed {\n"
+                                         "    background: rgba(249, 249, 249, 0.3);\n"
+                                         "    border-bottom: 1px solid rgba(0, 0, 0, 0.073);\n"
+                                         "}\n"
+                                         "\n"
+                                         "QPlainTextEdit:disabled {\n"
+                                         "    color: rgba(0, 0, 0, 0.36);\n"
+                                         "    background: rgba(249, 249, 249, 0.3);\n"
+                                         "    border: 1px solid rgba(0, 0, 0, 0.06);\n"
+                                         "    border-bottom: 1px solid rgba(0, 0, 0, 0.06);\n"
+                                         "}")
 
         self.verticalLayout.addWidget(self.plainTextEdit)
 
         self.plainTextEdit.setPlaceholderText(QCoreApplication.translate("Form", u"Mensagem", None))
 
     # retranslateUi
-
 
 
 if __name__ == '__main__':

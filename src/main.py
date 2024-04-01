@@ -17,6 +17,7 @@ from src.gui.widgets.py_left_menu.py_left_menu import LeftMenu
 from src.gui.widgets.py_push_button.py_push_button import PyPushButton
 from src.gui.widgets.py_registration_list.py_registration_list import PyRegistrationList
 from src.gui.widgets.py_product_registration.py_product_registration import PyProductRegistration
+from src.gui.widgets import SaleMenu
 # from src.gui.widgets.py_flow_layout.py_flow_layout import PyFlowLayout
 
 # MAIN INTERFACE CODE
@@ -61,6 +62,7 @@ class MainWindow(QMainWindow):
 
         # ////////////////////////////////////////////////////////////////////////
         self.set_title_bar = False
+        self.menu_opcoes_de_venda: SaleMenu = None
         self.registration_panel: PyProductRegistration = None
 
         # /////////////////////////////////////////////////////////////
@@ -105,8 +107,7 @@ class MainWindow(QMainWindow):
         self.ui.btn_adicionar_produto.clicked.connect(lambda: self.showRegistrationPanel())
         self.ui.frame_criar_produto.mousePressEvent = lambda e: self.showRegistrationPanel()
 
-
-
+        self.ui.btn_mais_opcoes_de_venda.clicked.connect(self.showMenuOpcoes)
 
     # falha na arquitetura
     def _activeBtbInfo_(self):
@@ -262,6 +263,9 @@ class MainWindow(QMainWindow):
             self.timer_dynamic_chart.stop()
 
 
+
+    ############################################## inventario ###########################################
+
     def initRegistrationPanel(self):
         self.registration_panel = PyProductRegistration(self.ui.central_widget)
         self.registration_panel.countAvailableCameras()
@@ -330,8 +334,39 @@ class MainWindow(QMainWindow):
 
 
 
+    ################################################## venda #####################################################
 
+    def showMenuOpcoes(self):
+        if not self.menu_opcoes_de_venda:
+            self.menu_opcoes_de_venda = SaleMenu(self.ui.page_venda)
+            self.menu_opcoes_de_venda.move(456, 234)
+            self.menu_opcoes_de_venda.show()
 
+            self.ui.page_venda.mousePressEvent = lambda e: self.menu_opcoes_de_venda.close()
+
+            self.menu_opcoes_de_venda_opacity = QGraphicsOpacityEffect(self.menu_opcoes_de_venda)
+            self.menu_opcoes_de_venda_opacity.setOpacity(0.0)
+            self.menu_opcoes_de_venda.setGraphicsEffect(self.menu_opcoes_de_venda_opacity)
+
+            self.menu_venda_opacity_animation = QPropertyAnimation(self.menu_opcoes_de_venda_opacity, b'opacity')
+            self.menu_venda_opacity_animation.setStartValue(0.0)
+            self.menu_venda_opacity_animation.setEndValue(0.9)
+            self.menu_venda_opacity_animation.setDuration(400)
+
+            self.pos_animation_menu_venda = QPropertyAnimation(self.menu_opcoes_de_venda, b'pos')
+            self.pos_animation_menu_venda.setStartValue(QPoint(456, 240))
+            self.pos_animation_menu_venda.setEndValue(QPoint(456, 234))
+            self.pos_animation_menu_venda.setDuration(400)
+            self.pos_animation_menu_venda.setEasingCurve(QEasingCurve.Type.InOutCirc)
+
+            self.group_animation_menu_vendas = QParallelAnimationGroup()
+            self.group_animation_menu_vendas.addAnimation(self.menu_venda_opacity_animation)
+            self.group_animation_menu_vendas.addAnimation(self.pos_animation_menu_venda)
+            self.group_animation_menu_vendas.start()
+
+        elif not self.menu_opcoes_de_venda.isVisible():
+            self.menu_opcoes_de_venda.show()
+            self.group_animation_menu_vendas.start()
 
     def mousePressEvent(self, event):
         self._dragPos = event.globalPosition().toPoint()

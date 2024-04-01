@@ -81,6 +81,7 @@ class FunctionsSystem:
         if self.ui.frame_char.height() == 0:
             self.ui.frame_char.hide()
 
+    @Slot(None)
     def searchProduct(self):
         nome = self.ui.line_edit_pesquisa_produto.text()
 
