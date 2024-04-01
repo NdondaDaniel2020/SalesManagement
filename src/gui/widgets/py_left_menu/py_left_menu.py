@@ -209,7 +209,7 @@ class LeftMenu(QWidget):
     @Slot(str)
     def _connections_buttons_(self) -> None:
 
-
+        print(self.sender().objectName())
         # PEGAR OS BTNS PARA ALTERAR O ESTILO
         # GET THE BTNS TO CHANGE THE STYLE
         # //////////////////////////////////////////////////////
