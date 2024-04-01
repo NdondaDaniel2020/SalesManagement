@@ -966,7 +966,7 @@ QWidget:focus {
                    <item>
                     <widget class="QStackedWidget" name="stacked_widget">
                      <property name="currentIndex">
-                      <number>6</number>
+                      <number>5</number>
                      </property>
                      <widget class="QWidget" name="page">
                       <widget class="QLabel" name="label_3">
@@ -4824,7 +4824,7 @@ background-color: transparent</string>
                               <bool>false</bool>
                              </property>
                             </widget>
-                            <widget class="QPushButton" name="btn_logo_extra_perda">
+                            <widget class="QPushButton" name="btn_log_extra_recibo">
                              <property name="geometry">
                               <rect>
                                <x>128</x>
@@ -6148,7 +6148,7 @@ Nos países de língua inglesa o texto apresenta-se em forma um pouco diferente,
                                <x>0</x>
                                <y>0</y>
                                <width>1021</width>
-                               <height>144</height>
+                               <height>148</height>
                               </rect>
                              </property>
                              <property name="styleSheet">
@@ -6759,7 +6759,7 @@ color: #e9eaec;</string>
                            <rect>
                             <x>0</x>
                             <y>0</y>
-                            <width>325</width>
+                            <width>632</width>
                             <height>400</height>
                            </rect>
                           </property>
@@ -7773,7 +7773,7 @@ QFrame:hover
                              </property>
                              <property name="icon">
                               <iconset>
-                               <normaloff>../../../images/svg_icons/clipboard-delete-2-svgrepo-com.png</normaloff>../../../images/svg_icons/clipboard-delete-2-svgrepo-com.png</iconset>
+                               <normaloff>../../../images/svg_icons/icon_clipboar.png</normaloff>../../../images/svg_icons/icon_clipboar.png</iconset>
                              </property>
                              <property name="iconSize">
                               <size>
@@ -8045,7 +8045,7 @@ background-color: transparent</string>
                               <bool>false</bool>
                              </property>
                             </widget>
-                            <widget class="QPushButton" name="btn_logo_extra_recibo_venda">
+                            <widget class="QPushButton" name="btn_log_extra_recibo_venda">
                              <property name="geometry">
                               <rect>
                                <x>128</x>
@@ -8169,7 +8169,7 @@ QFrame:hover
                              </property>
                              <property name="icon">
                               <iconset>
-                               <normaloff>../../../../../../../Downloads/Imagens/existinginventorymajor-svgrepo-com.svg</normaloff>../../../../../../../Downloads/Imagens/existinginventorymajor-svgrepo-com.svg</iconset>
+                               <normaloff>../../../images/svg_icons/icon_existinginventory.svg</normaloff>../../../images/svg_icons/icon_existinginventory.svg</iconset>
                              </property>
                              <property name="iconSize">
                               <size>
