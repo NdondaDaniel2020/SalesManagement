@@ -12,13 +12,16 @@ from src.qt_core import *
 
 # CUSTOM WIDGETS
 # WIDGETS PERSONALIZADOS
+
 from src.gui.widgets.py_grips.py_grips import PyGrips
+from src.gui.widgets.py_menu.py_menu import PySaleMenu
 from src.gui.widgets.py_left_menu.py_left_menu import LeftMenu
 from src.gui.widgets.py_push_button.py_push_button import PyPushButton
 from src.gui.widgets.py_registration_list.py_registration_list import PyRegistrationList
 from src.gui.widgets.py_product_registration.py_product_registration import PyProductRegistration
-from src.gui.widgets import SaleMenu
-# from src.gui.widgets.py_flow_layout.py_flow_layout import PyFlowLayout
+from src.gui.widgets.py_sale_registration_list.py_sale_registration_list import PySaleRegistrationList
+from src.gui.widgets.py_painel_de_produtos_a_venda.py_painel_de_produtos_a_venda import PyProductSelectionPanel
+
 
 # MAIN INTERFACE CODE
 # CÓDIGO PRINCIPAL DA INTERFACE
@@ -37,7 +40,7 @@ from src.gui.core.absolute_path import AbsolutePath
 from src.gui.function.functions_main_window.static_functions import (saveImageSettingInSizeSetting,
                                                                      insertProductDataIntoTheDatabase)
 
-#
+
 try:
     from ctypes import windll  # Only exists on Windows.
     myappid = 'mycompany.myproduct.subproduct.version'
@@ -62,8 +65,9 @@ class MainWindow(QMainWindow):
 
         # ////////////////////////////////////////////////////////////////////////
         self.set_title_bar = False
-        self.menu_opcoes_de_venda: SaleMenu = None
+        self.menu_opcoes_de_venda: PySaleMenu = None
         self.registration_panel: PyProductRegistration = None
+        self.painel_de_produto: PyProductSelectionPanel = None
 
         # /////////////////////////////////////////////////////////////
         SetUpMainWindow.configIconPath(self)
@@ -108,6 +112,9 @@ class MainWindow(QMainWindow):
         self.ui.frame_criar_produto.mousePressEvent = lambda e: self.showRegistrationPanel()
 
         self.ui.btn_mais_opcoes_de_venda.clicked.connect(self.showMenuOpcoes)
+
+
+
 
     # falha na arquitetura
     def _activeBtbInfo_(self):
@@ -264,11 +271,13 @@ class MainWindow(QMainWindow):
 
 
 
-    ############################################## inventario ###########################################
+
+    ############################################## inventario ##############################################
 
     def initRegistrationPanel(self):
         self.registration_panel = PyProductRegistration(self.ui.central_widget)
         self.registration_panel.countAvailableCameras()
+
         self.registration_panel.close()
 
     @Slot(None)
@@ -277,16 +286,12 @@ class MainWindow(QMainWindow):
         ESTE MÉTODO É REPONSAVEL POR CENTRALIZAR MOSTRAR E AJUSTAR O PAINEL DE REGISTRO
         :return:
         """
-
         self.registration_panel.btn_ok.clicked.connect(self.registerProduct)
+        self.registration_panel.setGeometry(0, 0, self.width(), self.height())
 
         self.registration_panel.move((self.width() - self.registration_panel.width()) / 2,
                                      (self.height() - self.registration_panel.height()) / 2)
-
-        if self.registration_panel.isHidden():
-            self.registration_panel.setGeometry(0, 0, self.width(), self.height())
-
-            self.registration_panel.show()
+        self.registration_panel.show()
 
     def automaticProductInsertion(self):
         db = DataBase(AbsolutePath().getPathDatabase())
@@ -309,7 +314,6 @@ class MainWindow(QMainWindow):
                 list_produto.setImageSize(*dado[dados[1]]["icon_image"])
 
             self.ui.vertical_layout_registro.insertWidget(0, list_produto)
-
 
     def registerProduct(self):
         produto = self.registration_panel.getAllData()
@@ -334,13 +338,17 @@ class MainWindow(QMainWindow):
 
 
 
-    ################################################## venda #####################################################
 
+    ############################################## venda ##############################################
+    Slot(None)
     def showMenuOpcoes(self):
         if not self.menu_opcoes_de_venda:
-            self.menu_opcoes_de_venda = SaleMenu(self.ui.page_venda)
-            self.menu_opcoes_de_venda.move(456, 234)
+            self.menu_opcoes_de_venda = PySaleMenu(self.ui.page_venda)
+            self.menu_opcoes_de_venda.move(456, 234)  # rejustar no fim
             self.menu_opcoes_de_venda.show()
+
+            self.menu_opcoes_de_venda.abrir_painel_de_produto.clicked.connect(self.showProductPainel)
+            self.menu_opcoes_de_venda.limpar.clicked.connect(self.cleanProduct)
 
             self.ui.page_venda.mousePressEvent = lambda e: self.menu_opcoes_de_venda.close()
 
@@ -348,26 +356,86 @@ class MainWindow(QMainWindow):
             self.menu_opcoes_de_venda_opacity.setOpacity(0.0)
             self.menu_opcoes_de_venda.setGraphicsEffect(self.menu_opcoes_de_venda_opacity)
 
-            self.menu_venda_opacity_animation = QPropertyAnimation(self.menu_opcoes_de_venda_opacity, b'opacity')
-            self.menu_venda_opacity_animation.setStartValue(0.0)
-            self.menu_venda_opacity_animation.setEndValue(0.9)
-            self.menu_venda_opacity_animation.setDuration(400)
-
-            self.pos_animation_menu_venda = QPropertyAnimation(self.menu_opcoes_de_venda, b'pos')
-            self.pos_animation_menu_venda.setStartValue(QPoint(456, 240))
-            self.pos_animation_menu_venda.setEndValue(QPoint(456, 234))
-            self.pos_animation_menu_venda.setDuration(400)
-            self.pos_animation_menu_venda.setEasingCurve(QEasingCurve.Type.InOutCirc)
-
-            self.group_animation_menu_vendas = QParallelAnimationGroup()
-            self.group_animation_menu_vendas.addAnimation(self.menu_venda_opacity_animation)
-            self.group_animation_menu_vendas.addAnimation(self.pos_animation_menu_venda)
-            self.group_animation_menu_vendas.start()
+            self.AnimationMenuOpcoes()
 
         elif not self.menu_opcoes_de_venda.isVisible():
             self.menu_opcoes_de_venda.show()
-            self.group_animation_menu_vendas.start()
+            self.menu_venda_opacity_animation.start()
 
+    def AnimationMenuOpcoes(self):
+
+        self.menu_venda_opacity_animation = QPropertyAnimation(self.menu_opcoes_de_venda_opacity, b'opacity')
+        self.menu_venda_opacity_animation.setStartValue(0.0)
+        self.menu_venda_opacity_animation.setEndValue(0.9)
+        self.menu_venda_opacity_animation.setDuration(400)
+        self.menu_venda_opacity_animation.setEasingCurve(QEasingCurve.Type.InOutExpo)
+        self.menu_venda_opacity_animation.start()
+
+    def showProductPainel(self):
+        self.menu_opcoes_de_venda.close()
+
+        self.painel_de_produto = PyProductSelectionPanel(self.ui.central_widget)
+        self.painel_de_produto.setGeometry(0, 0, self.width(), self.height())
+        self.painel_de_produto.move((self.width() - self.registration_panel.width()) / 2,
+                                    (self.height() - self.registration_panel.height()) / 2)
+
+        self.painel_de_produto.btn_confirmar.clicked.connect(self.getProductSelected)
+
+        self.painel_de_produto.show()
+
+    def getProductExist(self):
+
+        lista_de_produtos_atuais = []
+        produtos = self.ui.scroll_area_widget_contents_venda.findChildren(PySaleRegistrationList)
+
+        for produto in produtos:
+            lista_de_produtos_atuais.append(produto.nome_produto.text())
+
+        return lista_de_produtos_atuais
+
+    def getProductSelected(self):
+        produtos = self.painel_de_produto.confirmProduct()
+        json_file = AbsolutePath().getPathSettingSize()
+        db = DataBase(AbsolutePath().getPathDatabase())
+        lista_de_produto = []
+
+        for produto in produtos:
+            db.connectDataBase()
+            query = db.executarFetchone(f"""SELECT chave, nome, quantidade, preco_venda, linkImg 
+                                            from produto where nome='{produto.lower()}'""")
+            lista_de_produto.append(query)
+            db.disconnectDataBase()
+
+        lista_de_produto_atuais = self.getProductExist()
+
+        for dados in lista_de_produto:
+            if not dados[1].capitalize() in lista_de_produto_atuais:
+                produto = PySaleRegistrationList()
+                produto.setImage(dados[4])
+                produto.setChave(dados[0])
+                produto.setQuantidade(dados[2])
+                produto.setPrecoDeVenda(dados[3])
+                produto.setName(dados[1].capitalize())
+
+                with open(json_file, 'r') as file:
+                    dado = json.load(file)
+                    produto.setImageSize(*dado[dados[1]]["icon_image"])
+
+                self.ui.vertical_layout_venda.insertWidget(0, produto)
+        self.painel_de_produto.close()
+
+    def cleanProduct(self):
+        produtos: list[PySaleRegistrationList] = None
+        produtos = self.ui.scroll_area_widget_contents_venda.findChildren(PySaleRegistrationList)
+
+        for produto in produtos:
+            produto.deleteLater()
+            del produto
+
+
+
+
+    ############################################## eventos ##############################################
     def mousePressEvent(self, event):
         self._dragPos = event.globalPosition().toPoint()
 
@@ -382,8 +450,14 @@ class MainWindow(QMainWindow):
         SetUpMainWindow.resizeLeftMenu(self, event)
         SetUpMainWindow.resizeGrips(self)
 
-        FunctionsSystem.resizeFrameChartWidth(self)
         # //////////////////////////////////////////////////////////////////////////////////
+        FunctionsSystem.resizeFrameChartWidth(self)
+
+        # //////////////////////////////////////////////////////////////////////////////////
+        if self.menu_opcoes_de_venda:
+            self.menu_opcoes_de_venda.move(self.size().width() - 268, 234)
+
+        # ///////////////////////////////////////////////////////////////////////////////////////
         if self.registration_panel:
             self.registration_panel.setGeometry(
                 self.registration_panel.x(),
@@ -393,6 +467,16 @@ class MainWindow(QMainWindow):
             # //////////////////////////////////////////////////////////////////////////////////////
             self.registration_panel.move((self.width() - self.registration_panel.width()) / 2,
                                          (self.height() - self.registration_panel.height()) / 2)
+
+        # ///////////////////////////////////////////////////////////////////////////////////////
+        if self.painel_de_produto:
+            self.painel_de_produto.setGeometry(
+            self.painel_de_produto.x(),
+            self.painel_de_produto.y(),
+            self.width(), self.height())
+
+            self.painel_de_produto.move((self.width() - self.registration_panel.width()) / 2,
+                                        (self.height() - self.registration_panel.height()) / 2)
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_F11:
