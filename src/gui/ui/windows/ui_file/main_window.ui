@@ -966,7 +966,7 @@ QWidget:focus {
                    <item>
                     <widget class="QStackedWidget" name="stacked_widget">
                      <property name="currentIndex">
-                      <number>5</number>
+                      <number>6</number>
                      </property>
                      <widget class="QWidget" name="page">
                       <widget class="QLabel" name="label_3">
@@ -8695,7 +8695,7 @@ border-radius: 10px;</string>
                                <property name="widgetResizable">
                                 <bool>true</bool>
                                </property>
-                               <widget class="QWidget" name="scrollAreaWidgetContents_3">
+                               <widget class="QWidget" name="scroll_area_widget_contents_venda">
                                 <property name="geometry">
                                  <rect>
                                   <x>0</x>
@@ -8704,7 +8704,7 @@ border-radius: 10px;</string>
                                   <height>255</height>
                                  </rect>
                                 </property>
-                                <layout class="QVBoxLayout" name="vertical_layout_registro_2">
+                                <layout class="QVBoxLayout" name="vertical_layout_venda">
                                  <property name="leftMargin">
                                   <number>2</number>
                                  </property>
@@ -8717,6 +8717,19 @@ border-radius: 10px;</string>
                                  <property name="bottomMargin">
                                   <number>3</number>
                                  </property>
+                                 <item>
+                                  <spacer name="verticalSpacer_7">
+                                   <property name="orientation">
+                                    <enum>Qt::Vertical</enum>
+                                   </property>
+                                   <property name="sizeHint" stdset="0">
+                                    <size>
+                                     <width>20</width>
+                                     <height>40</height>
+                                    </size>
+                                   </property>
+                                  </spacer>
+                                 </item>
                                 </layout>
                                </widget>
                               </widget>

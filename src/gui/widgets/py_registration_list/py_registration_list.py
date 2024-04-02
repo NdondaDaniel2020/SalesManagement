@@ -17,10 +17,11 @@ class PyRegistrationList(QFrame):
 
         self.deletar = None
         self.editar = None
-
+        self.chave_completa = ''
 
     def setChave(self, code):
-        self.chave.setText(code)
+        self.chave.setText(code[:4])
+        self.chave_completa = code
 
 
     def setName(self, name):
@@ -30,11 +31,12 @@ class PyRegistrationList(QFrame):
     def setQuantidade(self, value=0):
         self.lbl_quantidade.setText(str(value))
 
+
     def setValorDeVenda(self, value=0, auto=False):
 
-        self.lbl_venda_valor.setText(f'Kz {value:,}'.replace(',', '.'))
+        self.lbl_venda_valor.setText(f'Kz {value:,.2f}'.replace(',', '.'))
         quantidade = int(self.lbl_quantidade.text())
-        self.lbl_valor_total.setText(f'Kz {(value * quantidade):,}'.replace(',', '.'))
+        self.lbl_valor_total.setText(f'Kz {(value * quantidade):,.2f}'.replace(',', '.'))
 
         db = DataBase(AbsolutePath().getPathDatabase())
         db.connectDataBase()
@@ -290,9 +292,8 @@ class PyRegistrationList(QFrame):
         self.lbl_percentual.setText(QCoreApplication.translate("return_busca", u"60%", None))
         self.lbl_quantidade_inf.setText(QCoreApplication.translate("return_busca", u"Quantidade", None))
         self.lbl_quantidade.setText(QCoreApplication.translate("return_busca", u"20", None))
-        self.lbl_venda.setText(QCoreApplication.translate("return_busca", u"Venda", None))
+        self.lbl_venda.setText(QCoreApplication.translate("return_busca", u"Preço de venda", None))
         self.lbl_venda_valor.setText(QCoreApplication.translate("return_busca", u"Kz 250", None))
-
 
 
 

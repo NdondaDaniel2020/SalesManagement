@@ -10,7 +10,7 @@
 
 import json
 from src.qt_core import *
-from src.gui.widgets import PySelectionRecordList
+from src.gui.widgets.py_lista_de_registros_de_selecao.py_lista_de_registros_de_selecao import PySelectionRecordList
 from src.gui.core.database import DataBase
 from src.gui.core.absolute_path import AbsolutePath
 
@@ -20,11 +20,29 @@ class PyProductSelectionPanel(QWidget):
         super().__init__(parent)
 
         self.setupUi(self)
+        self.setGeometry(0, 0, 641, 429)
         self.automaticProductInsertion()
+
+        self.can_close = False
+
         self.line_edit_pesquisa_produto.returnPressed.connect(self.searchProduct)
         self.btn_pesquisa_produto.clicked.connect(self.searchProduct)
         self.btn_deletar.clicked.connect(self.close)
         self.btn_confirmar.clicked.connect(self.confirmProduct)
+
+        self.frame_center.enterEvent = self.enterEventFrameCenter
+        self.frame_center.leaveEvent = self.leaveEventFrameCenter
+        self.frame_base.mousePressEvent = self.closeClickedFrame
+
+    def closeClickedFrame(self, event):
+        if self.can_close:
+            self.close()
+
+    def enterEventFrameCenter(self, event):
+        self.can_close = False
+
+    def leaveEventFrameCenter(self, event):
+        self.can_close = True
 
     def confirmProduct(self):
 
@@ -33,24 +51,24 @@ class PyProductSelectionPanel(QWidget):
         ls = list()
         for obj in objs:
             if obj.checkBox.isChecked():
-                ls.append(obj)
+                ls.append(obj.nome_produto.text())
 
         return ls
 
     def automaticProductInsertion(self):
+
+        json_file = AbsolutePath().getPathSettingSize()
         db = DataBase(AbsolutePath().getPathDatabase())
         db.connectDataBase()
         query = db.executarFetchall("SELECT chave, nome, quantidade, preco_venda, linkImg from produto")
         db.disconnectDataBase()
 
-        json_file = AbsolutePath().getPathSettingSize()
-
         for dados in query:
             list_produto = PySelectionRecordList()
             list_produto.setImage(dados[4])
-            list_produto.setChave(dados[0][:4])
+            list_produto.setChave(dados[0])
             list_produto.setQuantidade(dados[2])
-            list_produto.setValorDeVenda(dados[3], True)
+            list_produto.setPrecoDeVenda(dados[3], True)
             list_produto.setName(dados[1].capitalize())
 
             with open(json_file, 'r') as file:
@@ -81,16 +99,18 @@ class PyProductSelectionPanel(QWidget):
         self.verticalLayout_3.setSpacing(0)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.frame_2 = QFrame(Form)
-        self.frame_2.setObjectName(u"frame_2")
-        self.frame_2.setStyleSheet(u"background-color: rgba(0, 0, 0, 65);")
-        self.frame_2.setFrameShape(QFrame.StyledPanel)
-        self.frame_2.setFrameShadow(QFrame.Raised)
-        self.verticalLayout = QVBoxLayout(self.frame_2)
+        self.frame_base = QFrame(Form)
+        self.frame_base.setObjectName(u"frame_2")
+        self.frame_base.setStyleSheet(u"background-color: rgba(0, 0, 0, 65);")
+        self.frame_base.setFrameShape(QFrame.StyledPanel)
+        self.frame_base.setFrameShadow(QFrame.Raised)
+        self.verticalLayout = QVBoxLayout(self.frame_base)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.frame = QFrame(self.frame_2)
-        self.frame.setObjectName(u"frame")
-        self.frame.setStyleSheet(u"QFrame{\n"
+        self.frame_center = QFrame(self.frame_base)
+        self.frame_center.setObjectName(u"frame")
+        self.frame_center.setMinimumSize(QSize(490, 390))
+        self.frame_center.setMaximumSize(QSize(490, 390))
+        self.frame_center.setStyleSheet(u"QFrame{\n"
 "background-color: rgb(0, 0, 0);\n"
 "border-radius: 10px;}\n"
 "\n"
@@ -184,11 +204,11 @@ class PyProductSelectionPanel(QWidget):
 "     background: none;\n"
 "}\n"
 "")
-        self.frame.setFrameShape(QFrame.StyledPanel)
-        self.frame.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_2 = QVBoxLayout(self.frame)
+        self.frame_center.setFrameShape(QFrame.StyledPanel)
+        self.frame_center.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_2 = QVBoxLayout(self.frame_center)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.frame_89 = QFrame(self.frame)
+        self.frame_89 = QFrame(self.frame_center)
         self.frame_89.setObjectName(u"frame_89")
         self.frame_89.setMinimumSize(QSize(0, 44))
         self.frame_89.setMaximumSize(QSize(16777215, 44))
@@ -244,7 +264,7 @@ class PyProductSelectionPanel(QWidget):
 
         self.verticalLayout_2.addWidget(self.frame_89)
 
-        self.frame_30 = QFrame(self.frame)
+        self.frame_30 = QFrame(self.frame_center)
         self.frame_30.setObjectName(u"frame_30")
         self.frame_30.setStyleSheet(u"background-color: rgb(32, 33, 37);")
         self.frame_30.setFrameShape(QFrame.StyledPanel)
@@ -356,11 +376,10 @@ class PyProductSelectionPanel(QWidget):
 
         self.verticalLayout_2.addWidget(self.frame_30)
 
+        self.verticalLayout.addWidget(self.frame_center, 0, Qt.AlignHCenter | Qt.AlignVCenter)
 
-        self.verticalLayout.addWidget(self.frame)
 
-
-        self.verticalLayout_3.addWidget(self.frame_2)
+        self.verticalLayout_3.addWidget(self.frame_base)
 
 
         self.retranslateUi(Form)

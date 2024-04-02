@@ -1,16 +1,19 @@
 import os
-import re
-import cv2
 import json
 import pathlib
+
+import cv2
 from rembg import remove
 from src.qt_core import *
 from pyzbar.pyzbar import decode
+from qfluentwidgets import CalendarPicker, setTheme, Theme
+
 from src.gui.core.database import DataBase
 from src.gui.core.absolute_path import AbsolutePath
-from qfluentwidgets import CalendarPicker, setTheme, Theme
 from src.gui.function.functions_main_window.static_functions import generate_barcode, reduce_url
+
 from src.gui.widgets.py_slide_stacked_widgets.py_slide_stacked_widgets import PySlidingStackedWidget
+
 
 
 class PyProductRegistration(QWidget):
@@ -584,7 +587,6 @@ class PyProductRegistration(QWidget):
             # Set the pixmap to the label
             self.lbl_camera.setPixmap(pixmap)
             for code in decode(frame):
-                print(code.data.decode('utf-8'))
                 if not code.data.decode('utf-8') in self.lineEdit_chave.text():
                     self.lineEdit_chave.setText(code.data.decode('utf-8'))
                     self.backToMainPage(1)

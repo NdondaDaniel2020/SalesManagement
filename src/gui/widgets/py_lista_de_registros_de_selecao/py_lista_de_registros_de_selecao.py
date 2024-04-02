@@ -19,46 +19,29 @@ class PySelectionRecordList(QFrame):
         super().__init__(parent)
 
         self.setupUi()
+        self.chave_completa = ''
 
 
     def setChave(self, code):
-        self.chave.setText(code)
-
+        self.chave.setText(code[:4])
+        self.chave_completa = code
 
     def setName(self, name):
         self.nome_produto.setText(name)
 
-
     def setQuantidade(self, value=0):
-        self.lbl_quantidade.setText(str(value))
-
-    def setValorDeVenda(self, value=0, auto=False):
-
-        self.lbl_venda_valor.setText(f'Kz {value:,}'.replace(',', '.'))
-        quantidade = int(self.lbl_quantidade.text())
-        self.lbl_valor_total.setText(f'Kz {(value * quantidade):,}'.replace(',', '.'))
-
-        db = DataBase(AbsolutePath().getPathDatabase())
-        db.connectDataBase()
-        quantidade_total = db.executarFetchone("SELECT sum(quantidade) from produto")
-        db.disconnectDataBase()
-
-        quantidade_total = quantidade_total[0]
-
-        if not auto:
-            quantidade_total += quantidade
-        self.lbl_percentual.setText(f'{(quantidade / quantidade_total) * 100:.1f}')
-
+        self.lbl_quantidade_valor.setText(str(value))
 
     def setImage(self, path):
         icon = QIcon()
         icon.addFile(path)
         self.icon_img.setIcon(icon)
 
+    def setPrecoDeVenda(self, value=0, auto=False):
+        self.lbl_preco_valor.setText(f'Kz {value:,.2f}'.replace(',', '.'))
 
     def setImageSize(self, width, heith):
         self.icon_img.setIconSize(QSize(width, heith))
-
 
     def setupUi(self):
 
@@ -161,60 +144,6 @@ class PySelectionRecordList(QFrame):
 
         self.horizontalLayout_9.addWidget(self.frame_chave_nome)
 
-        self.frame_valor_persentual = QFrame(self)
-        self.frame_valor_persentual.setObjectName(u"frame_valor_persentual")
-        self.frame_valor_persentual.setMinimumSize(QSize(92, 0))
-        self.frame_valor_persentual.setFrameShape(QFrame.StyledPanel)
-        self.frame_valor_persentual.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_7 = QVBoxLayout(self.frame_valor_persentual)
-        self.verticalLayout_7.setObjectName(u"verticalLayout_7")
-        self.verticalLayout_7.setContentsMargins(10, 8, 10, 10)
-        self.lbl_valor_percentual = QLabel(self.frame_valor_persentual)
-        self.lbl_valor_percentual.setObjectName(u"lbl_valor_percentual")
-        self.lbl_valor_percentual.setMaximumSize(QSize(16777215, 15))
-        font2 = QFont()
-        font2.setFamilies([u"Segoe UI Semibold"])
-        self.lbl_valor_percentual.setFont(font2)
-        self.lbl_valor_percentual.setAlignment(Qt.AlignCenter)
-
-        self.verticalLayout_7.addWidget(self.lbl_valor_percentual)
-
-        self.frame_continer = QFrame(self.frame_valor_persentual)
-        self.frame_continer.setObjectName(u"frame_continer")
-        self.frame_continer.setMaximumSize(QSize(16777215, 16))
-        self.frame_continer.setFrameShape(QFrame.StyledPanel)
-        self.frame_continer.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_4 = QHBoxLayout(self.frame_continer)
-        self.horizontalLayout_4.setSpacing(0)
-        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
-        self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
-        self.lbl_valor_total = QLabel(self.frame_continer)
-        self.lbl_valor_total.setObjectName(u"lbl_valor_total")
-        self.lbl_valor_total.setMaximumSize(QSize(16777215, 15))
-        self.lbl_valor_total.setFont(font2)
-        self.lbl_valor_total.setAlignment(Qt.AlignCenter)
-
-        self.horizontalLayout_4.addWidget(self.lbl_valor_total, 0, Qt.AlignRight)
-
-        self.lbl_percentual = QLabel(self.frame_continer)
-        self.lbl_percentual.setObjectName(u"lbl_percentual")
-        self.lbl_percentual.setMinimumSize(QSize(44, 0))
-        self.lbl_percentual.setMaximumSize(QSize(123456, 16))
-        font3 = QFont()
-        font3.setFamilies([u"Segoe UI Semibold"])
-        font3.setPointSize(8)
-        self.lbl_percentual.setFont(font3)
-        self.lbl_percentual.setAlignment(Qt.AlignCenter)
-        self.lbl_percentual.setWordWrap(False)
-        self.lbl_percentual.setMargin(0)
-
-        self.horizontalLayout_4.addWidget(self.lbl_percentual, 0, Qt.AlignLeft)
-
-
-        self.verticalLayout_7.addWidget(self.frame_continer)
-
-
-        self.horizontalLayout_9.addWidget(self.frame_valor_persentual)
 
         self.frame_unidade = QFrame(self)
         self.frame_unidade.setObjectName(u"frame_unidade")
@@ -227,17 +156,19 @@ class PySelectionRecordList(QFrame):
         self.verticalLayout_3.setContentsMargins(10, 10, 10, 10)
         self.lbl_quantidade = QLabel(self.frame_unidade)
         self.lbl_quantidade.setObjectName(u"lbl_quantidade")
+        font2 = QFont()
+        font2.setFamilies([u"Segoe UI Semibold"])
         self.lbl_quantidade.setFont(font2)
         self.lbl_quantidade.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_3.addWidget(self.lbl_quantidade)
 
-        self.lbl_unidade_valor = QLabel(self.frame_unidade)
-        self.lbl_unidade_valor.setObjectName(u"lbl_unidade_valor")
-        self.lbl_unidade_valor.setFont(font2)
-        self.lbl_unidade_valor.setAlignment(Qt.AlignCenter)
+        self.lbl_quantidade_valor = QLabel(self.frame_unidade)
+        self.lbl_quantidade_valor.setObjectName(u"lbl_quantidade_valor")
+        self.lbl_quantidade_valor.setFont(font2)
+        self.lbl_quantidade_valor.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout_3.addWidget(self.lbl_unidade_valor)
+        self.verticalLayout_3.addWidget(self.lbl_quantidade_valor)
 
 
         self.horizontalLayout_9.addWidget(self.frame_unidade)
@@ -251,19 +182,19 @@ class PySelectionRecordList(QFrame):
         self.verticalLayout_4 = QVBoxLayout(self.frame_venda)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
         self.verticalLayout_4.setContentsMargins(10, 10, 10, 10)
-        self.lbl_venda = QLabel(self.frame_venda)
-        self.lbl_venda.setObjectName(u"lbl_venda")
-        self.lbl_venda.setFont(font2)
-        self.lbl_venda.setAlignment(Qt.AlignCenter)
+        self.lbl_preco = QLabel(self.frame_venda)
+        self.lbl_preco.setObjectName(u"lbl_venda")
+        self.lbl_preco.setFont(font2)
+        self.lbl_preco.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout_4.addWidget(self.lbl_venda)
+        self.verticalLayout_4.addWidget(self.lbl_preco)
 
-        self.lbl_venda_valor = QLabel(self.frame_venda)
-        self.lbl_venda_valor.setObjectName(u"lbl_venda_valor")
-        self.lbl_venda_valor.setFont(font2)
-        self.lbl_venda_valor.setAlignment(Qt.AlignCenter)
+        self.lbl_preco_valor = QLabel(self.frame_venda)
+        self.lbl_preco_valor.setObjectName(u"lbl_venda_valor")
+        self.lbl_preco_valor.setFont(font2)
+        self.lbl_preco_valor.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout_4.addWidget(self.lbl_venda_valor)
+        self.verticalLayout_4.addWidget(self.lbl_preco_valor)
 
 
         self.horizontalLayout_9.addWidget(self.frame_venda)
@@ -282,14 +213,10 @@ class PySelectionRecordList(QFrame):
     def retranslateUi(self):
         self.chave.setText(QCoreApplication.translate("return_busca", u"333", None))
         self.nome_produto.setText(QCoreApplication.translate("return_busca", u"Coca Cola", None))
-        self.lbl_valor_percentual.setText(QCoreApplication.translate("return_busca", u"Valor/percent", None))
-        self.lbl_valor_total.setText(QCoreApplication.translate("return_busca", u"Kz 5000", None))
-        self.lbl_percentual.setText(QCoreApplication.translate("return_busca", u"60%", None))
         self.lbl_quantidade.setText(QCoreApplication.translate("return_busca", u"Quantidade", None))
-        self.lbl_unidade_valor.setText(QCoreApplication.translate("return_busca", u"20", None))
-        self.lbl_venda.setText(QCoreApplication.translate("return_busca", u"valor de venda", None))
-        self.lbl_venda_valor.setText(QCoreApplication.translate("return_busca", u"Kz 250", None))
-        self.checkBox.setText("")
+        self.lbl_quantidade_valor.setText(QCoreApplication.translate("return_busca", u"20", None))
+        self.lbl_preco.setText(QCoreApplication.translate("return_busca", u"Preço de venda", None))
+        self.lbl_preco_valor.setText(QCoreApplication.translate("return_busca", u"Kz 250", None))
     # retranslateUi
 
 if __name__ == '__main__':
@@ -298,4 +225,3 @@ if __name__ == '__main__':
     ls = PySelectionRecordList()
     ls.show()
     sys.exit(app.exec())
-

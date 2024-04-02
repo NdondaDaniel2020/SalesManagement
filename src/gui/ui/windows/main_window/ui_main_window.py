@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_windowrzmbET.ui'
+## Form generated from reading UI file 'main_windowmSBCRl.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.4.2
 ##
@@ -2399,7 +2399,7 @@ class Ui_MainWindow(object):
         self.scroll_area_home.setWidgetResizable(True)
         self.scroll_area_widget_contents_home = QWidget()
         self.scroll_area_widget_contents_home.setObjectName(u"scroll_area_widget_contents_home")
-        self.scroll_area_widget_contents_home.setGeometry(QRect(0, 0, 1021, 148))
+        self.scroll_area_widget_contents_home.setGeometry(QRect(0, 0, 1021, 144))
         self.scroll_area_widget_contents_home.setStyleSheet(u"#scroll_area_home, #scroll_area_widget_contents_home{\n"
 "background-color:rgb(32, 33, 37);\n"
 "border-radius:10px}")
@@ -2590,7 +2590,7 @@ class Ui_MainWindow(object):
         self.scroll_area_home_bottom.setWidgetResizable(True)
         self.scroll_area_widget_contents_home_bottom = QWidget()
         self.scroll_area_widget_contents_home_bottom.setObjectName(u"scroll_area_widget_contents_home_bottom")
-        self.scroll_area_widget_contents_home_bottom.setGeometry(QRect(0, 0, 632, 400))
+        self.scroll_area_widget_contents_home_bottom.setGeometry(QRect(0, 0, 325, 400))
         self.scroll_area_widget_contents_home_bottom.setStyleSheet(u"background-color: rgb(19, 20, 22);")
         self.verticalLayout_3 = QVBoxLayout(self.scroll_area_widget_contents_home_bottom)
         self.verticalLayout_3.setSpacing(0)
@@ -3331,13 +3331,17 @@ class Ui_MainWindow(object):
         self.scrollArea_3.setStyleSheet(u"background-color: rgb(19, 20, 22);\n"
 "border-radius: 10px;")
         self.scrollArea_3.setWidgetResizable(True)
-        self.scrollAreaWidgetContents_3 = QWidget()
-        self.scrollAreaWidgetContents_3.setObjectName(u"scrollAreaWidgetContents_3")
-        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 622, 255))
-        self.vertical_layout_registro_2 = QVBoxLayout(self.scrollAreaWidgetContents_3)
-        self.vertical_layout_registro_2.setObjectName(u"vertical_layout_registro_2")
-        self.vertical_layout_registro_2.setContentsMargins(2, 3, 2, 3)
-        self.scrollArea_3.setWidget(self.scrollAreaWidgetContents_3)
+        self.scroll_area_widget_contents_venda = QWidget()
+        self.scroll_area_widget_contents_venda.setObjectName(u"scroll_area_widget_contents_venda")
+        self.scroll_area_widget_contents_venda.setGeometry(QRect(0, 0, 622, 255))
+        self.vertical_layout_venda = QVBoxLayout(self.scroll_area_widget_contents_venda)
+        self.vertical_layout_venda.setObjectName(u"vertical_layout_venda")
+        self.vertical_layout_venda.setContentsMargins(2, 3, 2, 3)
+        self.verticalSpacer_7 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.vertical_layout_venda.addItem(self.verticalSpacer_7)
+
+        self.scrollArea_3.setWidget(self.scroll_area_widget_contents_venda)
 
         self.vertical_layout_inventario_2.addWidget(self.scrollArea_3)
 

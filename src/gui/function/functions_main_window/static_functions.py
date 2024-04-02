@@ -1,8 +1,8 @@
 import os
 import json
 import random
-from src.gui.core.absolute_path import AbsolutePath
 from src.gui.core.database import DataBase
+from src.gui.core.absolute_path import AbsolutePath
 
 
 def generate_barcode() -> str:
@@ -52,7 +52,7 @@ def saveImageSettingInSizeSetting(produto: dict):
 def insertProductDataIntoTheDatabase(produto: dict):
     insert_produto = fr"""INSERT INTO produto (chave, nome, preco_venda, quantidade, unidade, categoria,linkImg,
                                         informacoes_adicionais)
-                                VALUES ('{produto['chave']}', '{produto['nome_produto']}', {produto['preco_venda']},
+                                VALUES ('{produto['chave']}', '{produto['nome_produto'].lower().strip()}', {produto['preco_venda']},
                                         {produto['quantidade']}, {produto['unidade']}, {produto['categoria']},
                                         '{produto['linkImg']}' , '{produto['informacoes_adicionais']}')
                """
@@ -74,6 +74,5 @@ def insertProductDataIntoTheDatabase(produto: dict):
 
 if __name__ == '__main__':
     # produto = {'linkImg': 'C:\\Users\\Daniel\\Downloads\\barra_de_cera.png', 'size_image': {'image': (260, 260), 'icon_image': (30, 30)}, 'data_de_expiracao': [], 'unidade': 4, 'categoria': 2, 'nome_produto': 'barra de cera', 'preco_venda': 12000, 'chave': '8978885538803', 'quantidade': 12, 'informacoes_adicionais': '', 'data_de_expiracao': [('12/02/2025', 'primeira data de exipracao da barra de cera'), ('12/02/2026', 'segunda data de exipracao da barra de cera')]}
-    print(generate_barcode())
     ...
 

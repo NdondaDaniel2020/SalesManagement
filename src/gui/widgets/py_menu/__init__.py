@@ -1,1 +1,0 @@
-from src.gui.widgets.py_menu.py_menu import SaleMenu

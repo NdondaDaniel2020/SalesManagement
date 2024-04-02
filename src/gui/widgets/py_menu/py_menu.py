@@ -2,7 +2,7 @@ from src.qt_core import *
 from src.gui.core.database import DataBase
 from src.gui.core.absolute_path import AbsolutePath
 
-class SaleMenu(QFrame):
+class PySaleMenu(QFrame):
 
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
@@ -170,13 +170,13 @@ class SaleMenu(QFrame):
 
         self.verticalLayout_30.addWidget(self.resize_img)
 
-        self.deletar = QPushButton(self.frame_continer)
-        self.deletar.setObjectName(u"deletar")
-        self.deletar.setMinimumSize(QSize(0, 25))
-        self.deletar.setSizeIncrement(QSize(0, 0))
-        self.deletar.setFont(font1)
-        self.deletar.setCursor(QCursor(Qt.PointingHandCursor))
-        self.deletar.setStyleSheet(u"QPushButton{\n"
+        self.limpar = QPushButton(self.frame_continer)
+        self.limpar.setObjectName(u"deletar")
+        self.limpar.setMinimumSize(QSize(0, 25))
+        self.limpar.setSizeIncrement(QSize(0, 0))
+        self.limpar.setFont(font1)
+        self.limpar.setCursor(QCursor(Qt.PointingHandCursor))
+        self.limpar.setStyleSheet(u"QPushButton{\n"
                                    "background-color: rgb(19, 20, 22);\n"
                                    "border-radius: 5px;\n"
                                    "color: rgb(255, 255, 255);\n"
@@ -187,10 +187,10 @@ class SaleMenu(QFrame):
                                    "\n"
                                    "QPushButton:pressed{background-color: rgb(33, 38, 70);}")
 
-        self.deletar.setIcon(QIcon(AbsolutePath().getPathIcon('icon_delete.svg')))
-        self.deletar.setIconSize(QSize(25, 21))
+        self.limpar.setIcon(QIcon(AbsolutePath().getPathIcon('icon_delete.svg')))
+        self.limpar.setIconSize(QSize(25, 21))
 
-        self.verticalLayout_30.addWidget(self.deletar)
+        self.verticalLayout_30.addWidget(self.limpar)
 
         self.verticalLayout_29.addWidget(self.frame_continer)
 
@@ -203,14 +203,14 @@ class SaleMenu(QFrame):
         self.rembg.setText("  Remover bg")
         self.rotate.setText("  Rotacionar")
         self.resize_img.setText(" Tamanho")
-        self.deletar.setText("  Deletar")
+        self.limpar.setText("  Limpar")
 
 if __name__ == '__main__':
     import sys
     app = QApplication(sys.argv)
-    m = SaleMenu()
+    m = PySaleMenu()
     m.move((QApplication.primaryScreen().size().width() - m.width()) / 2,
-                  (QApplication.primaryScreen().size().height() - m.height()) / 4.8)
+           (QApplication.primaryScreen().size().height() - m.height()) / 4.8)
     m.show()
     print(m.size())
     sys.exit(app.exec())
