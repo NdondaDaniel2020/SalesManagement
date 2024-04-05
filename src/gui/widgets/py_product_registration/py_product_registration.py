@@ -211,6 +211,15 @@ class PyProductRegistration(QWidget):
 
         self.combo_box_ipwebcam.showPopup()
 
+        json_file = AbsolutePath().getPathSettingIp()
+        with open(json_file, 'r') as file:
+            dados = json.load(file)
+
+        if not txt in dados['inderecos']:
+            dados['inderecos'].append(txt)
+            with open(json_file, "w") as file:
+                json.dump(dados, file)
+
     def showExep(self) -> None:
         if self.checkBox.isChecked():
             self.icon_img.hide()
@@ -273,6 +282,13 @@ class PyProductRegistration(QWidget):
                 contador -= 2
                 self.combo_box_ipwebcam.addItem(f"{contador}")
                 break
+
+        json_file = AbsolutePath().getPathSettingIp()
+        with open(json_file, 'r') as file:
+            dados = json.load(file)
+
+        for dado in dados['inderecos']:
+            self.combo_box_ipwebcam.addItem(f"{dado}")
 
         self.selected_camera = contador
         self.lineEdit_ipwebcam.setText(str(contador))
@@ -530,14 +546,14 @@ class PyProductRegistration(QWidget):
         self.btn_cam_selected = btn.objectName()
 
         if not self.cap.isOpened():
-            QTimer().singleShot(400, lambda: self.startRecording())
+            QTimer().singleShot(500, lambda: self.startRecording())
 
         if btn.objectName() == 'foto' or btn.objectName() == 'btn_camera':
-            QTimer().singleShot(500, lambda: self.timer_foto.start())
+            QTimer().singleShot(800, lambda: self.timer_foto.start())
             self.btn_activate.setIcon(QIcon(AbsolutePath().getPathIcon("icon_camera.svg")))
 
         elif btn.objectName() == 'btn_chave_qrcode':
-            QTimer().singleShot(500, lambda: self.timer_scan_bar_code.start())
+            QTimer().singleShot(800, lambda: self.timer_scan_bar_code.start())
             self.btn_activate.setIcon(QIcon(AbsolutePath().getPathIcon("icon_qr_code.svg")))
 
     def startRecording(self) -> None:
