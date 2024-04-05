@@ -12,7 +12,7 @@ class PySaleMenu(QFrame):
 
     def __setUp__(self) -> None:
         self.setStyleSheet(u"background-color: rgba(32, 33, 37, 255); border-radius: 10px;")
-        self.setGeometry(0, 0, 193, 176)
+        self.setGeometry(0, 0, 197, 120)
 
 
         self.verticalLayout_27 = QVBoxLayout(self)
@@ -72,67 +72,67 @@ class PySaleMenu(QFrame):
                                "border-radius: 5px;\n"
                                "color: rgb(255, 255, 255);\n"
                                "text-align: left;\n"
-                               "padding-left: 0px;}\n"
+                               "padding-left: 1px;}\n"
                                "\n"
                                "QPushButton:hover{background-color: rgb(47, 54, 100)}\n"
                                "\n"
                                "QPushButton:pressed{background-color: rgb(33, 38, 70);}")
         self.abrir_painel_de_produto.setIcon(QIcon(AbsolutePath().getPathIcon('icon_action.svg')))
-        self.abrir_painel_de_produto.setIconSize(QSize(24, 24))
+        self.abrir_painel_de_produto.setIconSize(QSize(27, 27))
 
         self.verticalLayout_30.addWidget(self.abrir_painel_de_produto)
 
-        self.foto = QPushButton(self.frame_continer)
-        self.foto.setObjectName(u"foto")
-        self.foto.setMinimumSize(QSize(0, 25))
-        self.foto.setSizeIncrement(QSize(0, 0))
-        self.foto.setFont(font1)
-        self.foto.setCursor(QCursor(Qt.PointingHandCursor))
-        self.foto.setStyleSheet(u"QPushButton{\n"
+        self.scanner = QPushButton(self.frame_continer)
+        self.scanner.setObjectName(u"scaner")
+        self.scanner.setMinimumSize(QSize(0, 25))
+        self.scanner.setSizeIncrement(QSize(0, 0))
+        self.scanner.setFont(font1)
+        self.scanner.setCursor(QCursor(Qt.PointingHandCursor))
+        self.scanner.setStyleSheet(u"QPushButton{\n"
                                 "background-color: rgb(19, 20, 22);\n"
                                 "border-radius: 5px;\n"
                                 "color: rgb(255, 255, 255);\n"
                                 "text-align: left;\n"
-                                "padding-left: 6px;}\n"
+                                "padding-left: 5px;}\n"
                                 "\n"
                                 "QPushButton:hover{background-color: rgb(47, 54, 100)}\n"
                                 "\n"
                                 "QPushButton:pressed{background-color: rgb(33, 38, 70);}")
 
-        self.foto.setIcon(QIcon(AbsolutePath().getPathIcon('icon_camera.svg')))
-        self.foto.setIconSize(QSize(21, 21))
+        self.scanner.setIcon(QIcon(AbsolutePath().getPathIcon('icon_scan.svg')))
+        self.scanner.setIconSize(QSize(19, 19))
 
-        self.verticalLayout_30.addWidget(self.foto)
+        self.verticalLayout_30.addWidget(self.scanner)
 
-        self.rembg = QPushButton(self.frame_continer)
-        self.rembg.setObjectName(u"rembg")
-        self.rembg.setMinimumSize(QSize(0, 25))
-        self.rembg.setSizeIncrement(QSize(0, 0))
-        self.rembg.setFont(font1)
-        self.rembg.setCursor(QCursor(Qt.PointingHandCursor))
-        self.rembg.setStyleSheet(u"QPushButton{\n"
-                                 "background-color: rgb(19, 20, 22);\n"
-                                 "border-radius: 5px;\n"
-                                 "color: rgb(255, 255, 255);\n"
-                                 "text-align: left;\n"
-                                 "padding-left: 6px;}\n"
-                                 "\n"
-                                 "QPushButton:hover{background-color: rgb(47, 54, 100)}\n"
-                                 "\n"
-                                 "QPushButton:pressed{background-color: rgb(33, 38, 70);}")
+        # self.rembg = QPushButton(self.frame_continer)
+        # self.rembg.setObjectName(u"rembg")
+        # self.rembg.setMinimumSize(QSize(0, 25))
+        # self.rembg.setSizeIncrement(QSize(0, 0))
+        # self.rembg.setFont(font1)
+        # self.rembg.setCursor(QCursor(Qt.PointingHandCursor))
+        # self.rembg.setStyleSheet(u"QPushButton{\n"
+        #                          "background-color: rgb(19, 20, 22);\n"
+        #                          "border-radius: 5px;\n"
+        #                          "color: rgb(255, 255, 255);\n"
+        #                          "text-align: left;\n"
+        #                          "padding-left: 6px;}\n"
+        #                          "\n"
+        #                          "QPushButton:hover{background-color: rgb(47, 54, 100)}\n"
+        #                          "\n"
+        #                          "QPushButton:pressed{background-color: rgb(33, 38, 70);}")
+        #
+        # self.rembg.setIcon(QIcon(AbsolutePath().getPathIcon('icon_gallery_remove.svg')))
+        # self.rembg.setIconSize(QSize(20, 20))
+        #
+        # self.verticalLayout_30.addWidget(self.rembg)
 
-        self.rembg.setIcon(QIcon(AbsolutePath().getPathIcon('icon_gallery_remove.svg')))
-        self.rembg.setIconSize(QSize(20, 20))
-
-        self.verticalLayout_30.addWidget(self.rembg)
-
-        self.rotate = QPushButton(self.frame_continer)
-        self.rotate.setObjectName(u"rotate")
-        self.rotate.setMinimumSize(QSize(0, 25))
-        self.rotate.setSizeIncrement(QSize(0, 0))
-        self.rotate.setFont(font1)
-        self.rotate.setCursor(QCursor(Qt.PointingHandCursor))
-        self.rotate.setStyleSheet(u"QPushButton{\n"
+        self.finalizar = QPushButton(self.frame_continer)
+        self.finalizar.setObjectName(u"rotate")
+        self.finalizar.setMinimumSize(QSize(0, 25))
+        self.finalizar.setSizeIncrement(QSize(0, 0))
+        self.finalizar.setFont(font1)
+        self.finalizar.setCursor(QCursor(Qt.PointingHandCursor))
+        self.finalizar.setStyleSheet(u"QPushButton{\n"
                                   "background-color: rgb(19, 20, 22);\n"
                                   "border-radius: 5px;\n"
                                   "color: rgb(255, 255, 255);\n"
@@ -143,32 +143,10 @@ class PySaleMenu(QFrame):
                                   "\n"
                                   "QPushButton:pressed{background-color: rgb(33, 38, 70);}")
 
-        self.rotate.setIcon(QIcon(AbsolutePath().getPathIcon('icon_rotate.svg')))
-        self.rotate.setIconSize(QSize(18, 18))
+        self.finalizar.setIcon(QIcon(AbsolutePath().getPathIcon('icon_check_ok.svg')))
+        self.finalizar.setIconSize(QSize(20, 20))
 
-        self.verticalLayout_30.addWidget(self.rotate)
-
-        self.resize_img = QPushButton(self.frame_continer)
-        self.resize_img.setObjectName(u"resize_img")
-        self.resize_img.setMinimumSize(QSize(0, 25))
-        self.resize_img.setSizeIncrement(QSize(0, 0))
-        self.resize_img.setFont(font1)
-        self.resize_img.setCursor(QCursor(Qt.PointingHandCursor))
-        self.resize_img.setStyleSheet(u"QPushButton{\n"
-                                      "background-color: rgb(19, 20, 22);\n"
-                                      "border-radius: 5px;\n"
-                                      "color: rgb(255, 255, 255);\n"
-                                      "text-align: left;\n"
-                                      "padding-left: 5px;}\n"
-                                      "\n"
-                                      "QPushButton:hover{background-color: rgb(47, 54, 100)}\n"
-                                      "\n"
-                                      "QPushButton:pressed{background-color: rgb(33, 38, 70);}")
-
-        self.resize_img.setIcon(QIcon(AbsolutePath().getPathIcon('icon_size_svgrepo.svg')))
-        self.resize_img.setIconSize(QSize(23, 23))
-
-        self.verticalLayout_30.addWidget(self.resize_img)
+        self.verticalLayout_30.addWidget(self.finalizar)
 
         self.limpar = QPushButton(self.frame_continer)
         self.limpar.setObjectName(u"deletar")
@@ -199,11 +177,10 @@ class PySaleMenu(QFrame):
         self.verticalLayout_27.addWidget(self.frame_line)
 
         self.abrir_painel_de_produto.setText(" Abrir painel de produto")
-        self.foto.setText("  Fotografia")
-        self.rembg.setText("  Remover bg")
-        self.rotate.setText("  Rotacionar")
-        self.resize_img.setText(" Tamanho")
-        self.limpar.setText("  Limpar")
+        self.scanner.setText("  Scanear com câmera")
+        # self.rembg.setText("  Rotacionar")
+        self.finalizar.setText("  Finalizar venda")
+        self.limpar.setText("  Deletar tudo")
 
 if __name__ == '__main__':
     import sys
