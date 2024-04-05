@@ -72,7 +72,24 @@ class AbsolutePath:
         json = os.path.normpath(path)
         return json
 
+    def getPathSettingIp(self):
+        path = self.obs_path + '\gui\settings\settings_ip.json'
+        json = os.path.normpath(path)
+        return json
+
     def getPathDatabase(self):
         path = self.obs_path + '\SalesManagement.db'
         json = os.path.normpath(path)
         return json
+
+
+if __name__ == '__main__':
+    # import json
+    # json_file = AbsolutePath().getPathSettingIp()
+    # with open(json_file, 'r') as file:
+    #     dados = json.load(file)
+    #
+    # dados['inderecos'].append(txt)
+    # with open(json_file, "w") as file:
+    #     json.dump(dados, file)
+    ...

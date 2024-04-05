@@ -1,0 +1,859 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>433</width>
+    <height>362</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QFrame" name="frame_2">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(184, 184, 185);</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item alignment="Qt::AlignHCenter">
+       <widget class="QFrame" name="frame_center">
+        <property name="minimumSize">
+         <size>
+          <width>431</width>
+          <height>360</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>431</width>
+          <height>360</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QFrame{
+background-color: rgb(0, 0, 0);
+border-radius: 10px;}
+
+QScrollBar:horizontal {
+    border: none;
+    background: #26272b;
+    height: 8px;
+    margin: 0px 21px 0 21px;
+	border-radius: 0px;
+}
+QScrollBar::handle:horizontal {
+    background: rgba(64, 80, 170, 150);
+    min-width: 25px;
+	border-radius: 4px
+}
+QScrollBar::handle:horizontal:hover {
+    background: rgba(64, 80, 170, 190);
+    min-width: 25px;
+	border-radius: 4px
+}
+QScrollBar::add-line:horizontal {
+    border: none;
+    background: #313237;
+    width: 20px;
+	border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    subcontrol-position: right;
+    subcontrol-origin: margin;
+}
+QScrollBar::sub-line:horizontal {
+    border: none;
+    background: #313237;
+    width: 20px;
+	border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    subcontrol-position: left;
+    subcontrol-origin: margin;
+}
+QScrollBar::up-arrow:horizontal, QScrollBar::down-arrow:horizontal
+{
+     background: none;
+}
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal
+{
+     background: none;
+}
+
+
+QScrollBar:vertical {
+	 border: none;
+     background: #26272b;
+     width: 8px;
+     margin: 21px 0 21px 0;
+	 border-radius: 0px;
+}
+QScrollBar::handle:vertical {
+    background: rgba(64, 80, 170, 150);
+    min-width: 25px;
+	border-radius: 4px
+}
+QScrollBar::handle:vertical:hover {
+    background: rgba(64, 80, 170, 190);
+    min-width: 25px;
+	border-radius: 4px
+}
+QScrollBar::add-line:vertical {
+     border: none;
+     background: #313237;
+     height: 20px;
+	 border-bottom-left-radius: 4px;
+     border-bottom-right-radius: 4px;
+     subcontrol-position: bottom;
+     subcontrol-origin: margin;
+}
+QScrollBar::sub-line:vertical {
+	 border: none;
+     background: #313237;
+     height: 20px;
+	 border-top-left-radius: 4px;
+     border-top-right-radius: 4px;
+     subcontrol-position: top;
+     subcontrol-origin: margin;
+}
+QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+     background: none;
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+     background: none;
+}
+</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <property name="spacing">
+          <number>5</number>
+         </property>
+         <property name="leftMargin">
+          <number>5</number>
+         </property>
+         <property name="topMargin">
+          <number>5</number>
+         </property>
+         <property name="rightMargin">
+          <number>5</number>
+         </property>
+         <property name="bottomMargin">
+          <number>5</number>
+         </property>
+         <item>
+          <widget class="QFrame" name="frame_30">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(32, 33, 37);</string>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_18">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>4</number>
+            </property>
+            <property name="topMargin">
+             <number>4</number>
+            </property>
+            <property name="rightMargin">
+             <number>4</number>
+            </property>
+            <property name="bottomMargin">
+             <number>4</number>
+            </property>
+            <item>
+             <widget class="QFrame" name="frame_57">
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(19, 20, 22);
+border-radius:10px;</string>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QVBoxLayout" name="vertical_layout_inventario_2">
+               <property name="spacing">
+                <number>0</number>
+               </property>
+               <property name="leftMargin">
+                <number>5</number>
+               </property>
+               <property name="topMargin">
+                <number>5</number>
+               </property>
+               <property name="rightMargin">
+                <number>5</number>
+               </property>
+               <property name="bottomMargin">
+                <number>5</number>
+               </property>
+               <item>
+                <widget class="QFrame" name="frame">
+                 <property name="styleSheet">
+                  <string notr="true">QPushButton{
+	background-color:  rgb(32, 33, 36);
+	border-radius:7px;
+	border: 1px solid rgb(47, 54, 100);
+	color: #ffffff}
+
+QPushButton:hover{
+	background-color: rgb(28, 29, 32)}
+
+QPushButton:pressed{
+	background-color: rgb(19, 20, 22)}
+
+
+QLineEdit{
+border: 1px solid rgb(47, 54, 100);
+border-radius: 5px;
+background-color: rgb(32, 33, 36);
+color: white;padding-left:5px;}
+
+QLineEdit:hover{background-color: rgb(30, 31, 34);}
+
+QLineEdit:focus{background-color: rgb(37, 39, 42);}
+
+
+QComboBox{
+    border: 1px solid rgb(47, 54, 100);
+    border-radius: 5px;
+    padding-left: 5px;
+    padding-right: -187px;
+	color: rgb(133, 133, 136);
+    background-color: rgb(32, 33, 36);
+    text-align: left;
+}
+
+QComboBox:hover {
+	background-color: rgb(30, 31, 34);
+}
+
+QComboBox:pressed , QComboBox:focus{
+    background-color: rgb(37, 39, 42);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.073);
+	color: rgb(133, 133, 136);
+}
+
+QComboBox:disabled {
+	color: rgb(133, 133, 136);
+    background: rgba(249, 249, 249, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+                        
+QComboBox::drop-down {
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	width: 34px; }
+
+QComboBox QAbstractItemView {
+	color: rgb(133, 133, 136);
+	background-color: rgb(23, 24, 26);
+	padding: 10px;
+	selection-background-color: rgb(195, 155, 255);
+	border: 2px solid  rgb(47, 54, 100);
+	border-radius:5px;}
+
+QLabel{color:#ffffff}
+
+QCheckBox{color: rgb(255, 255, 255);}</string>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <widget class="QComboBox" name="combo_box_unidade">
+                  <property name="geometry">
+                   <rect>
+                    <x>5</x>
+                    <y>10</y>
+                    <width>394</width>
+                    <height>37</height>
+                   </rect>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>37</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>10</pointsize>
+                   </font>
+                  </property>
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
+                  <property name="editable">
+                   <bool>false</bool>
+                  </property>
+                  <property name="currentText">
+                   <string/>
+                  </property>
+                  <property name="currentIndex">
+                   <number>-1</number>
+                  </property>
+                  <property name="minimumContentsLength">
+                   <number>0</number>
+                  </property>
+                  <property name="placeholderText">
+                   <string>Cliente (opcinal)</string>
+                  </property>
+                  <property name="duplicatesEnabled">
+                   <bool>false</bool>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>New Item</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>New Item</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>New Item</string>
+                   </property>
+                  </item>
+                 </widget>
+                 <widget class="QLineEdit" name="lineEdit_nome_produto">
+                  <property name="geometry">
+                   <rect>
+                    <x>5</x>
+                    <y>210</y>
+                    <width>394</width>
+                    <height>37</height>
+                   </rect>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>30</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>10</pointsize>
+                   </font>
+                  </property>
+                  <property name="placeholderText">
+                   <string>Pagamento (opcional)</string>
+                  </property>
+                 </widget>
+                 <widget class="QComboBox" name="combo_box_categoria">
+                  <property name="geometry">
+                   <rect>
+                    <x>5</x>
+                    <y>60</y>
+                    <width>394</width>
+                    <height>37</height>
+                   </rect>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>37</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>10</pointsize>
+                   </font>
+                  </property>
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
+                  <property name="editable">
+                   <bool>false</bool>
+                  </property>
+                  <property name="currentText">
+                   <string/>
+                  </property>
+                  <property name="currentIndex">
+                   <number>-1</number>
+                  </property>
+                  <property name="minimumContentsLength">
+                   <number>0</number>
+                  </property>
+                  <property name="placeholderText">
+                   <string>Metodo de pagamento</string>
+                  </property>
+                  <property name="duplicatesEnabled">
+                   <bool>false</bool>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>New Item</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>New Item</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>New Item</string>
+                   </property>
+                  </item>
+                 </widget>
+                 <widget class="QLabel" name="label">
+                  <property name="geometry">
+                   <rect>
+                    <x>10</x>
+                    <y>120</y>
+                    <width>140</width>
+                    <height>18</height>
+                   </rect>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Valor de pagamento</string>
+                  </property>
+                 </widget>
+                 <widget class="QCheckBox" name="check_box_recibo_venda">
+                  <property name="geometry">
+                   <rect>
+                    <x>17</x>
+                    <y>150</y>
+                    <width>135</width>
+                    <height>20</height>
+                   </rect>
+                  </property>
+                  <property name="text">
+                   <string>Criar recibo de venda</string>
+                  </property>
+                 </widget>
+                 <widget class="QLabel" name="lb_valor_pagamento">
+                  <property name="geometry">
+                   <rect>
+                    <x>10</x>
+                    <y>185</y>
+                    <width>381</width>
+                    <height>18</height>
+                   </rect>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>16.000.00</string>
+                  </property>
+                 </widget>
+                 <widget class="QLabel" name="lbl_troco">
+                  <property name="geometry">
+                   <rect>
+                    <x>10</x>
+                    <y>260</y>
+                    <width>381</width>
+                    <height>18</height>
+                   </rect>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Troco:  3.000</string>
+                  </property>
+                 </widget>
+                 <widget class="QFrame" name="frame_custom_cliente">
+                  <property name="geometry">
+                   <rect>
+                    <x>5</x>
+                    <y>8</y>
+                    <width>394</width>
+                    <height>42</height>
+                   </rect>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton{border-top-left-radius:0px;border-bottom-left-radius:0px;}
+QLineEdit{border-top-right-radius:0px;border-bottom-right-radius:0px;}</string>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::StyledPanel</enum>
+                  </property>
+                  <property name="frameShadow">
+                   <enum>QFrame::Raised</enum>
+                  </property>
+                  <layout class="QHBoxLayout" name="horizontalLayout_5">
+                   <property name="spacing">
+                    <number>0</number>
+                   </property>
+                   <property name="leftMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>0</number>
+                   </property>
+                   <item>
+                    <widget class="QLineEdit" name="lineEdit_cliente">
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>37</height>
+                      </size>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <pointsize>10</pointsize>
+                      </font>
+                     </property>
+                     <property name="placeholderText">
+                      <string>Cliente (opcional)</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="btn_show_cliente">
+                     <property name="minimumSize">
+                      <size>
+                       <width>37</width>
+                       <height>37</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>37</width>
+                       <height>37</height>
+                      </size>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="icon">
+                      <iconset>
+                       <normaloff>../../../images/svg_icons/icon_down_arrow.svg</normaloff>../../../images/svg_icons/icon_down_arrow.svg</iconset>
+                     </property>
+                     <property name="iconSize">
+                      <size>
+                       <width>30</width>
+                       <height>30</height>
+                      </size>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                 <widget class="QFrame" name="frame_custom_pagamento">
+                  <property name="geometry">
+                   <rect>
+                    <x>5</x>
+                    <y>58</y>
+                    <width>394</width>
+                    <height>41</height>
+                   </rect>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton{border-top-left-radius:0px;border-bottom-left-radius:0px;}
+QLineEdit{border-top-right-radius:0px;border-bottom-right-radius:0px;}</string>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::StyledPanel</enum>
+                  </property>
+                  <property name="frameShadow">
+                   <enum>QFrame::Raised</enum>
+                  </property>
+                  <layout class="QHBoxLayout" name="horizontalLayout">
+                   <property name="spacing">
+                    <number>0</number>
+                   </property>
+                   <property name="leftMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>0</number>
+                   </property>
+                   <item>
+                    <widget class="QLineEdit" name="lineEdit_pagamento">
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>37</height>
+                      </size>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <pointsize>10</pointsize>
+                      </font>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true"/>
+                     </property>
+                     <property name="placeholderText">
+                      <string>Metodo de pagamento</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="btn_show_pagamento">
+                     <property name="minimumSize">
+                      <size>
+                       <width>37</width>
+                       <height>37</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>37</width>
+                       <height>37</height>
+                      </size>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true"/>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="icon">
+                      <iconset>
+                       <normaloff>../../../images/svg_icons/icon_down_arrow.svg</normaloff>../../../images/svg_icons/icon_down_arrow.svg</iconset>
+                     </property>
+                     <property name="iconSize">
+                      <size>
+                       <width>30</width>
+                       <height>30</height>
+                      </size>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </widget>
+               </item>
+               <item>
+                <widget class="QFrame" name="frame_90">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>44</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>44</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true"/>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <layout class="QHBoxLayout" name="horizontalLayout_26">
+                  <property name="spacing">
+                   <number>4</number>
+                  </property>
+                  <property name="leftMargin">
+                   <number>4</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>4</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>4</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>0</number>
+                  </property>
+                  <item>
+                   <spacer name="horizontalSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="btn_deletar">
+                    <property name="minimumSize">
+                     <size>
+                      <width>37</width>
+                      <height>37</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>37</width>
+                      <height>37</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">QPushButton {
+            color: rgb(233, 234, 236);
+            background-color: rgb(38, 39, 43);
+            border: none;
+            border-radius: 8px;
+}
+ QPushButton:hover {
+ 	background-color: rgb(49, 50, 55)
+ }
+QPushButton:pressed {
+ 	background-color: rgb(38, 39, 43);
+}</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset>
+                      <normaloff>../../../images/svg_icons/icon_delete.svg</normaloff>../../../images/svg_icons/icon_delete.svg</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>25</width>
+                      <height>25</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="btn_confirmar">
+                    <property name="minimumSize">
+                     <size>
+                      <width>37</width>
+                      <height>37</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>37</width>
+                      <height>37</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">QPushButton {
+            color: rgb(233, 234, 236);
+            background-color: rgb(38, 39, 43);
+            border: none;
+            border-radius: 8px;
+}
+ QPushButton:hover {
+ 	background-color: rgb(49, 50, 55)
+ }
+QPushButton:pressed {
+ 	background-color: rgb(38, 39, 43);
+}</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset>
+                      <normaloff>../../../images/svg_icons/icon_check_ok.svg</normaloff>../../../images/svg_icons/icon_check_ok.svg</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>25</width>
+                      <height>25</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
