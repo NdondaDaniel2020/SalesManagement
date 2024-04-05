@@ -118,7 +118,7 @@ class PyPushButton(QPushButton):
     def enterEvent(self, event):
         self.moveTooltip()
         if self.permission_show_tooltip:
-            self._tooltip.show()
+            self._tooltip.showAnimation()
 
     def leaveEvent(self, event):
         self.moveTooltip()
@@ -287,10 +287,27 @@ class _ToolTip(QLabel):
         self.setText(tooltip)
         self.adjustSize()
 
-        # SET DROP SHADOW
-        self.shadow = QGraphicsDropShadowEffect(self)
-        self.shadow.setBlurRadius(30)
-        self.shadow.setXOffset(0)
-        self.shadow.setYOffset(0)
-        self.shadow.setColor(QColor(0, 0, 0, 80))
-        self.setGraphicsEffect(self.shadow)
+        self.opacity = QGraphicsOpacityEffect(self)
+        self.opacity.setOpacity(0.0)
+        self.setGraphicsEffect(self.opacity)
+
+        self.animationOpacity()
+
+
+    def animationOpacity(self):
+        self.opacity_animation_up = QPropertyAnimation(self.opacity, b'opacity')
+        self.opacity_animation_up.setStartValue(0.0)
+        self.opacity_animation_up.setEndValue(0.9)
+        self.opacity_animation_up.setDuration(400)
+        self.opacity_animation_up.setEasingCurve(QEasingCurve.Type.InOutCirc)
+
+        self.opacity_animation_down = QPropertyAnimation(self.opacity, b'opacity')
+        self.opacity_animation_down.setStartValue(0.9)
+        self.opacity_animation_down.setEndValue(0.0)
+        self.opacity_animation_down.setDuration(500)
+        self.opacity_animation_down.setEasingCurve(QEasingCurve.Type.InOutCirc)
+
+    def showAnimation(self):
+        self.show()
+        self.opacity_animation_up.start()
+        QTimer().singleShot(700, lambda: self.opacity_animation_down.start())
