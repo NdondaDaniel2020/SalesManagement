@@ -19,6 +19,7 @@ from src.gui.widgets.py_grips.py_grips import PyGrips
 from src.gui.widgets.py_menu.py_menu import PySaleMenu
 from src.gui.widgets.py_left_menu.py_left_menu import LeftMenu
 from src.gui.widgets.py_push_button.py_push_button import PyPushButton
+from src.gui.widgets.py_sales_finisher.py_sales_finisher import PySalesFinisher
 from src.gui.widgets.py_registration_list.py_registration_list import PyRegistrationList
 from src.gui.widgets.py_product_registration.py_product_registration import PyProductRegistration
 from src.gui.widgets.py_sale_registration_list.py_sale_registration_list import PySaleRegistrationList
@@ -39,7 +40,8 @@ from src.gui.function.functions_main_window.functions_chart import ChartFunction
 from src.gui.core.database import DataBase
 from src.gui.core.absolute_path import AbsolutePath
 from src.gui.function.functions_main_window.static_functions import (saveImageSettingInSizeSetting,
-                                                                     insertProductDataIntoTheDatabase)
+                                                                     insertProductDataIntoTheDatabase,
+                                                                     convert_str_in_float)
 
 try:
     from ctypes import windll  # Only exists on Windows.
@@ -70,24 +72,25 @@ class MainWindow(QMainWindow):
         self.registration_panel: PyProductRegistration = None
         self.painel_de_produto: PyProductSelectionPanel = None
         self.combo_box_sugestao_de_busca: QComboBox = None
+        self.painel_sale_finisher: PySalesFinisher = None
+        self.usuario = 'NdDaniel'  # adicionar apartir da tela de login
 
         # adicionar nas configuracoes do despositivo que sera usado para as leiruras
         # quando se mudar tambem tem que mudar no painel de cadastro de produto
         # 'http://192.168.43.1:8080/video'
         # "http://192.168.0.120:8080/video
         # "http://192.168.42.129:8080/video
-        self.cap = cv2.VideoCapture('http://192.168.43.1:8080/video')  # nas configuracoes escolher scanner
-
+        # self.cap = cv2.VideoCapture('http://192.168.43.1:8080/video')  # nas configuracoes escolher scanner
+        self.cap = None
         self.timer_scan_bar_code = QTimer()
         self.timer_scan_bar_code.timeout.connect(self.scanBarCodeCam)
         self.timer_scan_bar_code.setInterval(1000)
 
         self.timer_show_scan_bar_code = QTimer()
-        self.timer_show_scan_bar_code.timeout.connect(self.showScanBarCodeCam)
+        self.timer_show_scan_bar_code.timeout.connect(self.showScanBarCodeCam)  # adicionar no painel de configuacoes
 
-        self.lbl_camera = QLabel(self.ui.page_venda)
-        self.lbl_camera.setGeometry(9, 9, 640, 179)
-
+        # self.lbl_camera = QLabel(self.ui.page_venda)  # adicionar no painel de configuacoes
+        # self.lbl_camera.setGeometry(9, 9, 640, 179)
 
         # /////////////////////////////////////////////////////////////
         SetUpMainWindow.configIconPath(self)
@@ -104,7 +107,7 @@ class MainWindow(QMainWindow):
 
         # //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         self.ui.frame_inventario.mousePressEvent = lambda e: self.ui.stacked_widget.setCurrentWidget(
-                                                                                                self.ui.page_inventario)
+            self.ui.page_inventario)
         self.ui.frame_venda.mousePressEvent = lambda e: self.ui.stacked_widget.setCurrentWidget(self.ui.page_venda)
 
         # //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -127,7 +130,6 @@ class MainWindow(QMainWindow):
         self.ui.line_edit_pesquisa_produto.returnPressed.connect(lambda: FunctionsSystem.searchProduct(self))
 
         self.ui.line_edit_pesquisa_produto_devenda.returnPressed.connect(self.irerirProdutosPelaChave)
-        self.ui.line_edit_pesquisa_produto_devenda.setFocus()  # sempre que entrar na venda foca direito na busca
 
         # ///////////////////////////////////////////// INVENTORY ///////////////////////////////////////////
         self.ui.btn_adicionar_produto.clicked.connect(lambda: self.showRegistrationPanel())
@@ -291,7 +293,6 @@ class MainWindow(QMainWindow):
 
 
 
-
     ############################################## inventario ##############################################
 
     def initRegistrationPanel(self):
@@ -356,8 +357,6 @@ class MainWindow(QMainWindow):
             ChartFunctions.updateCircularProgress()
 
 
-
-
     ############################################## venda ##############################################
 
     def irerirProdutosPelaChave(self):
@@ -376,15 +375,16 @@ class MainWindow(QMainWindow):
             db.disconnectDataBase()
 
             json_file = AbsolutePath().getPathSettingSize()
-            lista_de_produto_atuais = self.getProductExist()
+            lista_de_produto_atuais = self.getSelectedProductsForSale()
             for dados in query:
-                if not dados[1].capitalize() in lista_de_produto_atuais:
+                if not dados[1].capitalize() in lista_de_produto_atuais['nome']:
                     produto = PySaleRegistrationList()
                     produto.setImage(dados[4])
                     produto.setChave(dados[0])
                     produto.setQuantidade(dados[2])
                     produto.setPrecoDeVenda(dados[3])
                     produto.setName(dados[1].capitalize())
+                    produto.let_quantidade.setText('1')
 
                     with open(json_file, 'r') as file:
                         dado = json.load(file)
@@ -405,13 +405,18 @@ class MainWindow(QMainWindow):
     def showMenuOpcoes(self):
         if not self.menu_opcoes_de_venda:
             self.menu_opcoes_de_venda = PySaleMenu(self.ui.page_venda)
-            self.menu_opcoes_de_venda.move(456, 234)
+            self.menu_opcoes_de_venda.move(453, 234)
             self.menu_opcoes_de_venda.show()
 
             self.menu_opcoes_de_venda.abrir_painel_de_produto.clicked.connect(self.showProductPainel)
             self.menu_opcoes_de_venda.limpar.clicked.connect(self.cleanProduct)
 
-            def start_timer():
+            def show_painel_sale_finished():
+                self.showPanelSaleFinisher()
+                self.menu_opcoes_de_venda.close()
+            self.menu_opcoes_de_venda.finalizar.clicked.connect(show_painel_sale_finished)
+
+            def start_timer():  # ajustar a opcao de abrir e fechar  o scaner da cemera
                 self.timer_scan_bar_code.start()
                 self.timer_show_scan_bar_code.start()
                 self.menu_opcoes_de_venda.close()
@@ -450,23 +455,28 @@ class MainWindow(QMainWindow):
         self.painel_de_produto.move((self.width() - self.registration_panel.width()) / 2,
                                     (self.height() - self.registration_panel.height()) / 2)
 
-        self.painel_de_produto.btn_confirmar.clicked.connect(self.getProductSelected)
+        self.painel_de_produto.btn_confirmar.clicked.connect(self.getProductsSelectedInThePanel)
         self.painel_de_produto.btn_deletar.clicked.connect(lambda:
                                                            self.ui.line_edit_pesquisa_produto_devenda.setFocus())
 
         self.painel_de_produto.show()
 
-    def getProductExist(self):
-
-        lista_de_produtos_atuais = []
+    def getSelectedProductsForSale(self):
+        produtos_selecionados = {'chave': [], 'nome': [], 'quantidade': [], 'desconto': [], 'preco': [], 'subtotal': []}
         produtos = self.ui.scroll_area_widget_contents_venda.findChildren(PySaleRegistrationList)
 
         for produto in produtos:
-            lista_de_produtos_atuais.append(produto.nome_produto.text())
+            if int(produto.let_quantidade.text()) > 0:
+                produtos_selecionados['chave'].append(produto.chave_completa)
+                produtos_selecionados['nome'].append(produto.nome_produto.text())
+                produtos_selecionados['quantidade'].append(int(produto.let_quantidade.text()))
+                produtos_selecionados['desconto'].append(float(produto.let_desconto.text()))
+                produtos_selecionados['preco'].append(produto.preco_contante)
+                produtos_selecionados['subtotal'].append(convert_str_in_float(produto.lbl_subtotal_valor.text()))
 
-        return lista_de_produtos_atuais
+        return produtos_selecionados
 
-    def getProductSelected(self):
+    def getProductsSelectedInThePanel(self):
         produtos = self.painel_de_produto.confirmProduct()
         json_file = AbsolutePath().getPathSettingSize()
         db = DataBase(AbsolutePath().getPathDatabase())
@@ -479,16 +489,17 @@ class MainWindow(QMainWindow):
             lista_de_produto.append(query)
             db.disconnectDataBase()
 
-        lista_de_produto_atuais = self.getProductExist()
+        lista_de_produto_atuais = self.getSelectedProductsForSale()
 
         for dados in lista_de_produto:
-            if not dados[1].capitalize() in lista_de_produto_atuais:
+            if not dados[1].capitalize() in lista_de_produto_atuais['nome']:
                 produto = PySaleRegistrationList()
                 produto.setImage(dados[4])
                 produto.setChave(dados[0])
                 produto.setQuantidade(dados[2])
                 produto.setPrecoDeVenda(dados[3])
                 produto.setName(dados[1].capitalize())
+                produto.let_quantidade.setText('1')
 
                 with open(json_file, 'r') as file:
                     dado = json.load(file)
@@ -514,7 +525,6 @@ class MainWindow(QMainWindow):
 
         # Convert the frame to QImage
         try:
-
             for code in decode(frame):
                 chave = code.data.decode('utf-8')
 
@@ -535,19 +545,81 @@ class MainWindow(QMainWindow):
             bytes_per_line = channels * width
             qimg = QImage(frame.data, width, height, bytes_per_line, QImage.Format_RGB888).rgbSwapped()
 
-            rest = 0
-            if width > self.lbl_camera.width():
-                rest = (width - self.lbl_camera.width()) / 2
-                width = width - rest
+            # rest = 0
+            # if width > self.lbl_camera.width():
+            #     rest = (width - self.lbl_camera.width()) / 2
+            #     width = width - rest
 
             # Convert the QImage to QPixmap
-            pixmap = QPixmap.fromImage(qimg.copy(rest, 0, width - rest, height))
+            # pixmap = QPixmap.fromImage(qimg.copy(rest, 0, width - rest, height))
 
             # Set the pixmap to the label
-            self.lbl_camera.setPixmap(pixmap)  # por nas configuralcoes
+            # self.lbl_camera.setPixmap(pixmap)  # por nas configuralcoes
         except ImportError:
             pass
 
+    def showPanelSaleFinisher(self):
+
+        self.painel_sale_finisher = PySalesFinisher(self.ui.central_widget)
+        produtos_vendidos = self.getSelectedProductsForSale()
+
+        if produtos_vendidos['chave']:
+
+            width = self.painel_sale_finisher.width()
+            height = self.painel_sale_finisher.height()
+
+            self.painel_sale_finisher.btn_confirmar.clicked.connect(self.FinalizarVenda)
+            self.painel_sale_finisher.lineEdit_pagamento_valor.returnPressed.connect(self.FinalizarVenda)
+
+            self.painel_sale_finisher.move((self.width() - width) / 2, (self.height() - height) / 2)
+            self.painel_sale_finisher.setGeometry(0, 0, self.width(), self.height())
+
+            valor = sum(produtos_vendidos['subtotal'])
+            self.painel_sale_finisher.lb_valor_pagamento.setText(f'{valor:,.2f}'.replace(',', '.'))
+
+            self.painel_sale_finisher.show()
+
+    def FinalizarVenda(self):  # modula depois de criar recibo
+        produtos_vendidos = self.getSelectedProductsForSale()
+        dados_fvenda = self.painel_sale_finisher.confirmar()
+        data_atual = QDate().currentDate().toString("dd/MM/yyyy")
+
+        # import pprint
+        # pprint.pprint(produtos_vendidos)
+        # pprint.pprint(dados_fvenda)
+        # pprint.pprint(data_atual)
+
+        if dados_fvenda['ok']:
+
+            db = DataBase(AbsolutePath().getPathDatabase())
+            db.connectDataBase()
+
+            id_m_d_p = db.executarFetchone(f"""SELECT id FROM metodo_de_pagamento
+                                                WHERE nome='{dados_fvenda['metodo_de_pagamento']}'""")
+            id_cliente = db.executarFetchone(f"""SELECT id FROM cliente WHERE nome='{dados_fvenda['cliente']}'""")
+            id_usuario = db.executarFetchone(f"""SELECT id FROM usuario WHERE nome='{self.usuario}'""")
+
+            # print(id_usuario, id_cliente, id_m_d_p, dados_fvenda, self.usuario, produtos_vendidos)
+            db.executarComand(f"""INSERT INTO venda(data, total, troco, usuario, metodo_de_pagamento, cliente)
+                                VALUES ('{data_atual}', {sum(produtos_vendidos['subtotal'])},
+                                         {convert_str_in_float(dados_fvenda['troco'])}, {id_usuario[0]},
+                                         {id_m_d_p[0]}, {id_cliente[0] if id_cliente else 'Null'})""")
+
+            db.disconnectDataBase()
+
+            for chave, _, quantidade, desconto, preco, _ in zip(*produtos_vendidos.values()):
+                db.connectDataBase()
+                id_venda = db.executarFetchone("SELECT id FROM venda ORDER BY id DESC LIMIT 1")
+                id_produto = db.executarFetchone(f"SELECT ID FROM produto WHERE chave={chave}")
+
+                db.executarComand(f"""INSERT INTO itens_vendido(id_venda, id_produto, quantidade, desconto, preco)
+                                      VALUES ({id_venda[0]}, {id_produto[0]}, {quantidade},
+                                              {desconto}, {preco})""")
+                db.disconnectDataBase()
+
+            self.cleanProduct()
+            self.painel_sale_finisher.close()
+            self.ui.line_edit_pesquisa_produto_devenda.setFocus()
 
 
 
@@ -571,7 +643,7 @@ class MainWindow(QMainWindow):
 
         # //////////////////////////////////////////////////////////////////////////////////
         if self.menu_opcoes_de_venda:
-            self.menu_opcoes_de_venda.move(self.size().width() - 268, 234)
+            self.menu_opcoes_de_venda.move(self.size().width() - 272, 234)
 
         # ///////////////////////////////////////////////////////////////////////////////////////
         if self.registration_panel:
@@ -591,8 +663,20 @@ class MainWindow(QMainWindow):
                 self.painel_de_produto.y(),
                 self.width(), self.height())
 
-            self.painel_de_produto.move((self.width() - self.registration_panel.width()) / 2,
-                                        (self.height() - self.registration_panel.height()) / 2)
+            self.painel_de_produto.move((self.width() - self.painel_de_produto.width()) / 2,
+                                        (self.height() - self.painel_de_produto.height()) / 2)
+
+        # /////////////////////////////////////////////////////////////////////////////////////////
+        if self.painel_sale_finisher:
+
+            self.painel_sale_finisher.setGeometry(
+                self.painel_sale_finisher.x(),
+                self.painel_sale_finisher.y(),
+                self.width(), self.height())
+
+            self.painel_sale_finisher.move((self.width() - self.painel_sale_finisher.width()) / 2,
+                                        (self.height() - self.painel_sale_finisher.height()) / 2)
+
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_F11:
