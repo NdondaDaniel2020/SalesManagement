@@ -10,7 +10,7 @@ from matplotlib.rcsetup import validate_float_or_None
 ################################################################################
 
 from src.qt_core import *
-
+from src.gui.core.absolute_path import AbsolutePath
 
 class PySaleRegistrationList(QFrame):
     def __init__(self, parent=None):
@@ -48,6 +48,18 @@ class PySaleRegistrationList(QFrame):
                                                       "#lbl_subtotal,\n"
                                                       "#lbl_desconto\n"
                                                       "{color: rgb(121, 121, 121)}\n"
+                                                      "#btn_eliminar{\n"
+                                                        "color: rgb(233, 234, 236);\n"
+                                                          "background-color: rgb(38, 39, 43);\n"
+                                                          "border: none;\n"
+                                                          "border-radius: 6px;\n"
+                                                      "}\n"
+                                                      "#btn_eliminar:hover {\n"
+                                                      "background-color: rgb(49, 50, 55)\n"
+                                                      "}\n"
+                                                      "#btn_eliminar:pressed {\n"
+                                                      "background-color: rgb(38, 39, 43);\n"
+                                                      "}\n"
                                                       "")
         self.setMaximumHeight(50)
         self.setMinimumHeight(50)
@@ -59,6 +71,8 @@ class PySaleRegistrationList(QFrame):
         self.preco_contante = 0
         self.let_desconto.textChanged.connect(self.ajustDescont)
         self.let_quantidade.textChanged.connect(self.ajustQuantidade)
+
+        self.btn_eliminar.clicked.connect(self.deleteLater)
 
     def ajustDescont(self, value: str):
 
@@ -170,13 +184,12 @@ class PySaleRegistrationList(QFrame):
         self.horizontalLayout_8 = QHBoxLayout(self)
         self.horizontalLayout_8.setSpacing(5)
         self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
-        self.horizontalLayout_8.setContentsMargins(6, 0, 10, 0)
+        self.horizontalLayout_8.setContentsMargins(6, 0, 6, 0)
         self.icon_image = QPushButton(self)
         self.icon_image.setObjectName(u"icon")
         self.icon_image.setMinimumSize(QSize(37, 37))
         self.icon_image.setMaximumSize(QSize(37, 37))
         icon1 = QIcon()
-        icon1.addFile(u"", QSize(), QIcon.Normal,QIcon.Off)
         self.icon_image.setIcon(icon1)
         self.icon_image.setIconSize(QSize(60, 60))
 
@@ -287,7 +300,7 @@ class PySaleRegistrationList(QFrame):
         self.verticalLayout.addWidget(self.lbl_preco)
 
         self.lbl_preco_valor = QLabel(self.frame_venda)
-        self.lbl_preco_valor.setObjectName(u"lbl_subtotal_valor_2")
+        self.lbl_preco_valor.setObjectName(u"lbl_preco_valor")
         self.lbl_preco_valor.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout.addWidget(self.lbl_preco_valor)
@@ -317,6 +330,17 @@ class PySaleRegistrationList(QFrame):
         self.verticalLayout_6.addWidget(self.lbl_subtotal_valor)
 
         self.horizontalLayout_8.addWidget(self.frame_valor_persentual)
+
+        self.btn_eliminar = QPushButton(self)
+        self.btn_eliminar.setObjectName(u"btn_eliminar")
+        self.btn_eliminar.setMinimumSize(QSize(30, 25))
+        self.btn_eliminar.setMaximumSize(QSize(30, 25))
+        self.btn_eliminar.setSizeIncrement(QSize(0, 0))
+        icon1.addFile(AbsolutePath().getPathIcon("icon_close.svg"))
+        self.btn_eliminar.setIcon(icon1)
+        self.btn_eliminar.setIconSize(QSize(15, 15))
+
+        self.horizontalLayout_8.addWidget(self.btn_eliminar)
 
         self.retranslateUi()
 
