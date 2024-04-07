@@ -136,14 +136,21 @@ class PyProductRegistration(QWidget):
         self.lineEdit_categoria.setText(item)
 
     def addCategoria(self):
+        list_item: list = []
         item = self.lineEdit_categoria.text()
-        self.combo_box_categoria.addItem(item.capitalize())
-        self.combo_box_categoria.showPopup()
+        quantidade = int(self.combo_box_categoria.count())
 
-        db = DataBase(AbsolutePath().getPathDatabase())
-        db.connectDataBase()
-        db.executarComand(f"INSERT INTO categoria(nome) VALUES ('{item.lower()}')")
-        db.disconnectDataBase()
+        for i in range(quantidade):
+            list_item.append(self.combo_box_categoria.itemText(i))
+
+        if item and not item.isspace() and not item in list_item:
+            self.combo_box_categoria.addItem(item.title())
+            self.combo_box_categoria.showPopup()
+
+            db = DataBase(AbsolutePath().getPathDatabase())
+            db.connectDataBase()
+            db.executarComand(f"INSERT INTO categoria(nome) VALUES ('{item.lower()}')")
+            db.disconnectDataBase()
 
     def showPopupUnidade(self) -> None:
         self.combo_box_unidade.showPopup()
@@ -152,14 +159,21 @@ class PyProductRegistration(QWidget):
         self.lineEdit_unidade.setText(item)
 
     def addUnidade(self):
+        list_item: list = []
         item = self.lineEdit_unidade.text()
-        self.combo_box_unidade.addItem(item.capitalize())
-        self.combo_box_unidade.showPopup()
+        quantidade = int(self.combo_box_unidade.count())
 
-        db = DataBase(AbsolutePath().getPathDatabase())
-        db.connectDataBase()
-        db.executarComand(f"INSERT INTO unidade(nome) VALUES ('{item.lower()}')")
-        db.disconnectDataBase()
+        for i in range(quantidade):
+            list_item.append(self.combo_box_unidade.itemText(i))
+
+        if item and not item.isspace() and not item in list_item:
+            self.combo_box_unidade.addItem(item.title())
+            self.combo_box_unidade.showPopup()
+
+            db = DataBase(AbsolutePath().getPathDatabase())
+            db.connectDataBase()
+            db.executarComand(f"INSERT INTO unidade(nome) VALUES ('{item.lower()}')")
+            db.disconnectDataBase()
 
     def getDataFromDatabase(self):
 
@@ -170,10 +184,10 @@ class PyProductRegistration(QWidget):
         db.disconnectDataBase()
 
         for i in unidade:
-            self.combo_box_unidade.addItem(i[1].capitalize())
+            self.combo_box_unidade.addItem(i[1].title())
 
         for i in categoria:
-            self.combo_box_categoria.addItem(i[1].capitalize())
+            self.combo_box_categoria.addItem(i[1].title())
 
     def showPopupIpwebcam(self) -> None:
         self.combo_box_ipwebcam.showPopup()
@@ -375,7 +389,7 @@ class PyProductRegistration(QWidget):
             try:
                 self.render_file = remove(self.render_file)
                 cv2.imwrite(self.current_image_path, self.render_file)
-            except:
+            except ImportError:
                 pass
             else:
                 self.updateProductImage()
@@ -393,7 +407,7 @@ class PyProductRegistration(QWidget):
                 rotated_image = cv2.warpAffine(imagem, rotation_matrix, (width, height))
 
                 cv2.imwrite(self.current_image_path, rotated_image)
-            except:
+            except ImportError:
                 pass
             else:
                 self.updateProductImage()
@@ -579,7 +593,7 @@ class PyProductRegistration(QWidget):
 
             # Set the pixmap to the label
             self.lbl_camera.setPixmap(pixmap)
-        except:
+        except ImportError:
             pass
 
     def scanBarCodeCam(self) -> None:
@@ -606,10 +620,10 @@ class PyProductRegistration(QWidget):
                 if not code.data.decode('utf-8') in self.lineEdit_chave.text():
                     self.lineEdit_chave.setText(code.data.decode('utf-8'))
                     self.backToMainPage(1)
-        except:
+        except ImportError:
             pass
 
-    def saveImage(self, event) -> None:
+    def saveImage(self, _) -> None:
 
         if self.timer_foto.isActive():
             # Get the current frame
@@ -629,7 +643,7 @@ class PyProductRegistration(QWidget):
             qimg = QPixmap.fromImage(qimg.copy(rest, 0, width - rest, height))
 
             # Convert the QImage to a bytes object
-            self.current_image_path = self.image_path + "\photo.JPEG"
+            self.current_image_path = self.image_path + r"\photo.JPEG"
             self.current_image_path = os.path.abspath(self.current_image_path)
             if os.path.exists(self.current_image_path):
                 for i in range(1, 100_000_000):
@@ -651,7 +665,7 @@ class PyProductRegistration(QWidget):
 
         #### salvar o caminho da img na bd
 
-    def cleanAndHideCalendarPanel(self, e):
+    def cleanAndHideCalendarPanel(self, _):
         self.painel_calendario_opacity.setOpacity(0.0)
         self.painel_calendario.btn_calendario.setText("Selecione a Data")
         self.painel_calendario.plainTextEdit.setPlainText("")
@@ -850,13 +864,13 @@ class PyProductRegistration(QWidget):
         return {}
 
     # /////////////////////////////////////////////////////
-    def stacked_Widget_enter_event(self, event) -> None:
+    def stacked_Widget_enter_event(self, _) -> None:
         self.can_close = False
 
-    def stacked_Widget_leave_event(self, event) -> None:
+    def stacked_Widget_leave_event(self, _) -> None:
         self.can_close = True
 
-    def close_window_pressed_frame_style(self, event) -> None:
+    def close_window_pressed_frame_style(self, _) -> None:
         if self.can_close:
             self.cleanAndClose()
 
