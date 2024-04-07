@@ -47,7 +47,7 @@ class PyScrollArea(QScrollArea):
                 value_end = self.horizontalScrollBar().minimum()
 
         if not ((self.horizontalScrollBar().value() == self.horizontalScrollBar().maximum() and name_btn == 'next_btn') or
-            (self.horizontalScrollBar().value() == self.horizontalScrollBar().minimum() and name_btn == 'back_btn')):
+                (self.horizontalScrollBar().value() == self.horizontalScrollBar().minimum() and name_btn == 'back_btn')):
 
             self.scroll_animation = QPropertyAnimation(self.horizontalScrollBar(), b'value')
             self.scroll_animation.setStartValue(value_start)
