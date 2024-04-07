@@ -802,7 +802,7 @@ QPushButton:pressed{background-color: rgb(48, 55, 102);}
               </rect>
              </property>
              <property name="currentIndex">
-              <number>2</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="page">
               <widget class="QFrame" name="frame_quantidade">
@@ -1427,8 +1427,8 @@ QLineEdit{border-top-right-radius:0px;border-bottom-right-radius:0px;}</string>
                         <rect>
                          <x>0</x>
                          <y>0</y>
-                         <width>100</width>
-                         <height>50</height>
+                         <width>250</width>
+                         <height>53</height>
                         </rect>
                        </property>
                        <layout class="QHBoxLayout" name="horizontalLayout_7">
