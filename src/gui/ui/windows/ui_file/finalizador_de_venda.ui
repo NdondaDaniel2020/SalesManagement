@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>433</width>
-    <height>362</height>
+    <height>325</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,9 +30,9 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="QFrame" name="frame_2">
+    <widget class="QFrame" name="frame_base">
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(184, 184, 185);</string>
+      <string notr="true">background-color: rgba(0, 0, 0, 65);</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
@@ -61,13 +61,13 @@
         <property name="minimumSize">
          <size>
           <width>431</width>
-          <height>360</height>
+          <height>323</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
           <width>431</width>
-          <height>360</height>
+          <height>323</height>
          </size>
         </property>
         <property name="styleSheet">
@@ -75,93 +75,6 @@
 background-color: rgb(0, 0, 0);
 border-radius: 10px;}
 
-QScrollBar:horizontal {
-    border: none;
-    background: #26272b;
-    height: 8px;
-    margin: 0px 21px 0 21px;
-	border-radius: 0px;
-}
-QScrollBar::handle:horizontal {
-    background: rgba(64, 80, 170, 150);
-    min-width: 25px;
-	border-radius: 4px
-}
-QScrollBar::handle:horizontal:hover {
-    background: rgba(64, 80, 170, 190);
-    min-width: 25px;
-	border-radius: 4px
-}
-QScrollBar::add-line:horizontal {
-    border: none;
-    background: #313237;
-    width: 20px;
-	border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
-    subcontrol-position: right;
-    subcontrol-origin: margin;
-}
-QScrollBar::sub-line:horizontal {
-    border: none;
-    background: #313237;
-    width: 20px;
-	border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
-    subcontrol-position: left;
-    subcontrol-origin: margin;
-}
-QScrollBar::up-arrow:horizontal, QScrollBar::down-arrow:horizontal
-{
-     background: none;
-}
-QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal
-{
-     background: none;
-}
-
-
-QScrollBar:vertical {
-	 border: none;
-     background: #26272b;
-     width: 8px;
-     margin: 21px 0 21px 0;
-	 border-radius: 0px;
-}
-QScrollBar::handle:vertical {
-    background: rgba(64, 80, 170, 150);
-    min-width: 25px;
-	border-radius: 4px
-}
-QScrollBar::handle:vertical:hover {
-    background: rgba(64, 80, 170, 190);
-    min-width: 25px;
-	border-radius: 4px
-}
-QScrollBar::add-line:vertical {
-     border: none;
-     background: #313237;
-     height: 20px;
-	 border-bottom-left-radius: 4px;
-     border-bottom-right-radius: 4px;
-     subcontrol-position: bottom;
-     subcontrol-origin: margin;
-}
-QScrollBar::sub-line:vertical {
-	 border: none;
-     background: #313237;
-     height: 20px;
-	 border-top-left-radius: 4px;
-     border-top-right-radius: 4px;
-     subcontrol-position: top;
-     subcontrol-origin: margin;
-}
-QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
-     background: none;
-}
-
-QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
-     background: none;
-}
 </string>
         </property>
         <property name="frameShape">
@@ -318,7 +231,7 @@ QCheckBox{color: rgb(255, 255, 255);}</string>
                  <property name="frameShadow">
                   <enum>QFrame::Raised</enum>
                  </property>
-                 <widget class="QComboBox" name="combo_box_unidade">
+                 <widget class="QComboBox" name="combo_box_cliente">
                   <property name="geometry">
                    <rect>
                     <x>5</x>
@@ -375,12 +288,12 @@ QCheckBox{color: rgb(255, 255, 255);}</string>
                    </property>
                   </item>
                  </widget>
-                 <widget class="QLineEdit" name="lineEdit_nome_produto">
+                 <widget class="QLineEdit" name="lineEdit_pagamento_valor">
                   <property name="geometry">
                    <rect>
-                    <x>5</x>
-                    <y>210</y>
-                    <width>394</width>
+                    <x>14</x>
+                    <y>197</y>
+                    <width>384</width>
                     <height>37</height>
                    </rect>
                   </property>
@@ -396,10 +309,10 @@ QCheckBox{color: rgb(255, 255, 255);}</string>
                    </font>
                   </property>
                   <property name="placeholderText">
-                   <string>Pagamento (opcional)</string>
+                   <string>Pagamento</string>
                   </property>
                  </widget>
-                 <widget class="QComboBox" name="combo_box_categoria">
+                 <widget class="QComboBox" name="combo_box_pagamento">
                   <property name="geometry">
                    <rect>
                     <x>5</x>
@@ -460,7 +373,7 @@ QCheckBox{color: rgb(255, 255, 255);}</string>
                   <property name="geometry">
                    <rect>
                     <x>10</x>
-                    <y>120</y>
+                    <y>115</y>
                     <width>140</width>
                     <height>18</height>
                    </rect>
@@ -478,7 +391,7 @@ QCheckBox{color: rgb(255, 255, 255);}</string>
                   <property name="geometry">
                    <rect>
                     <x>17</x>
-                    <y>150</y>
+                    <y>145</y>
                     <width>135</width>
                     <height>20</height>
                    </rect>
@@ -490,8 +403,8 @@ QCheckBox{color: rgb(255, 255, 255);}</string>
                  <widget class="QLabel" name="lb_valor_pagamento">
                   <property name="geometry">
                    <rect>
-                    <x>10</x>
-                    <y>185</y>
+                    <x>17</x>
+                    <y>176</y>
                     <width>381</width>
                     <height>18</height>
                    </rect>
@@ -508,8 +421,8 @@ QCheckBox{color: rgb(255, 255, 255);}</string>
                  <widget class="QLabel" name="lbl_troco">
                   <property name="geometry">
                    <rect>
-                    <x>10</x>
-                    <y>260</y>
+                    <x>17</x>
+                    <y>239</y>
                     <width>381</width>
                     <height>18</height>
                    </rect>
@@ -697,6 +610,33 @@ QLineEdit{border-top-right-radius:0px;border-bottom-right-radius:0px;}</string>
                    </item>
                   </layout>
                  </widget>
+                 <widget class="QLabel" name="label_notificacao">
+                  <property name="geometry">
+                   <rect>
+                    <x>-300</x>
+                    <y>10</y>
+                    <width>261</width>
+                    <height>24</height>
+                   </rect>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QLabel{
+	background-color: rgb(19, 20, 22);
+	color: rgb(255, 255, 255);
+	border-radius: 7px;}</string>
+                  </property>
+                  <property name="text">
+                   <string>TextLabel</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
                 </widget>
                </item>
                <item>
@@ -704,13 +644,13 @@ QLineEdit{border-top-right-radius:0px;border-bottom-right-radius:0px;}</string>
                  <property name="minimumSize">
                   <size>
                    <width>0</width>
-                   <height>44</height>
+                   <height>40</height>
                   </size>
                  </property>
                  <property name="maximumSize">
                   <size>
                    <width>16777215</width>
-                   <height>44</height>
+                   <height>40</height>
                   </size>
                  </property>
                  <property name="styleSheet">
@@ -727,16 +667,16 @@ QLineEdit{border-top-right-radius:0px;border-bottom-right-radius:0px;}</string>
                    <number>4</number>
                   </property>
                   <property name="leftMargin">
-                   <number>4</number>
+                   <number>2</number>
                   </property>
                   <property name="topMargin">
-                   <number>4</number>
+                   <number>2</number>
                   </property>
                   <property name="rightMargin">
-                   <number>4</number>
+                   <number>2</number>
                   </property>
                   <property name="bottomMargin">
-                   <number>0</number>
+                   <number>2</number>
                   </property>
                   <item>
                    <spacer name="horizontalSpacer">
