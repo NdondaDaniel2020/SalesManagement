@@ -5,6 +5,17 @@ from src.gui.core.database import DataBase
 from src.gui.core.absolute_path import AbsolutePath
 
 
+def convert_str_in_float(value: str) -> float:
+    if ' ' in value:
+        value = value.split(' ')[-1]
+
+    value = value.split('.')
+    value.insert(-1, '.')
+    value = float(''.join(value))
+
+    return value
+
+
 def generate_barcode() -> str:
     codigo: str = ""
 
