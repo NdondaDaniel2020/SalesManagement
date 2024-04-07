@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>724</width>
-    <height>579</height>
+    <height>568</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -966,7 +966,7 @@ QWidget:focus {
                    <item>
                     <widget class="QStackedWidget" name="stacked_widget">
                      <property name="currentIndex">
-                      <number>6</number>
+                      <number>2</number>
                      </property>
                      <widget class="QWidget" name="page">
                       <widget class="QLabel" name="label_3">
@@ -6759,7 +6759,7 @@ color: #e9eaec;</string>
                            <rect>
                             <x>0</x>
                             <y>0</y>
-                            <width>632</width>
+                            <width>325</width>
                             <height>400</height>
                            </rect>
                           </property>
@@ -7660,8 +7660,8 @@ color: rgb(255, 255, 255);}</string>
                                  <rect>
                                   <x>0</x>
                                   <y>0</y>
-                                  <width>622</width>
-                                  <height>220</height>
+                                  <width>56</width>
+                                  <height>16</height>
                                  </rect>
                                 </property>
                                 <layout class="QVBoxLayout" name="vertical_layout_registro">
@@ -8701,7 +8701,7 @@ border-radius: 10px;</string>
                                   <x>0</x>
                                   <y>0</y>
                                   <width>622</width>
-                                  <height>255</height>
+                                  <height>244</height>
                                  </rect>
                                 </property>
                                 <layout class="QVBoxLayout" name="vertical_layout_venda">
