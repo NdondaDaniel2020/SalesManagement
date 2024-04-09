@@ -13,7 +13,7 @@ class AbsolutePath:
         ## PATH IMAGES
         # ///////////////////////////////////////////////////////////////
         self.obs_path = pathlib.Path().absolute()
-        while '\gui' in str(self.obs_path):
+        while os.path.normpath('/gui') in str(self.obs_path):
             self.obs_path = self.obs_path.parent
 
         self.obs_path = str(self.obs_path)
@@ -63,33 +63,31 @@ class AbsolutePath:
     # get SETTING JSON
     # ///////////////////////////////////////////////////////////////
     def getPathSetting(self):
-        path = self.obs_path + '\gui\settings\settings.json'
+        path = self.obs_path + r'/gui/settings/settings.json'
         json = os.path.normpath(path)
         return json
 
     def getPathSettingSize(self):
-        path = self.obs_path + '\gui\settings\settings_size.json'
+        path = self.obs_path + r'/gui/settings/settings_size.json'
         json = os.path.normpath(path)
         return json
 
     def getPathSettingIp(self):
-        path = self.obs_path + '\gui\settings\settings_ip.json'
+        path = self.obs_path + r'/gui/settings/settings_ip.json'
         json = os.path.normpath(path)
         return json
 
     def getPathDatabase(self):
-        path = self.obs_path + '\SalesManagement.db'
+        path = self.obs_path + r'/SalesManagement.db'
         json = os.path.normpath(path)
         return json
 
 
 if __name__ == '__main__':
     # import json
+    # import os
+    # path = '/gui'
     # json_file = AbsolutePath().getPathSettingIp()
-    # with open(json_file, 'r') as file:
-    #     dados = json.load(file)
-    #
-    # dados['inderecos'].append(txt)
-    # with open(json_file, "w") as file:
-    #     json.dump(dados, file)
+    # print(json_file)
+
     ...
