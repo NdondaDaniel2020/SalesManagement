@@ -13,14 +13,7 @@ from src.gui.core.database import DataBase
 from src.gui.core.absolute_path import AbsolutePath
 
 
-
-
 # from src.main import MainWindow
-
-
-#################### add a atualiza;\ao do left menu floa no mousePreesEvent,
-# para ele atualizar o left menu, cria um metodo para atualizar o tamanho na class left menu
-
 
 class SetUpMainWindow:
 
@@ -32,6 +25,15 @@ class SetUpMainWindow:
         self.ui.setupUi(self)
 
         self.set_title_bar = False
+
+
+    def configTableWidget(self):
+
+        for i in range(14):
+            self.ui.tabela_widget_de_historico_de_venda.horizontalHeader().setSectionResizeMode(i, QHeaderView.Stretch)
+
+        self.ui.tabela_widget_de_historico_de_venda.verticalHeader().hide()
+        self.ui.tabela_widget_de_historico_de_venda.setRowCount(0)
 
 
 
@@ -94,6 +96,11 @@ class SetUpMainWindow:
 
         self.ui.btn_pesquisa_produto_de_venda.setIcon(QIcon(AbsolutePath().getPathIcon('icon_search.svg')))
         self.ui.btn_mais_opcoes_de_venda.setIcon(QIcon(AbsolutePath().getPathIcon('icon_more.svg')))
+
+        self.ui.btn_pesquisa_historico_de_venda.setIcon(QIcon(AbsolutePath().getPathIcon('icon_search.svg')))
+        self.ui.btn_mais_opcoes_historico_de_venda.setIcon(QIcon(AbsolutePath().getPathIcon(
+            'icon_controller_adjust.svg')))
+
 
     def configSystem(self):
 
@@ -207,7 +214,8 @@ class SetUpMainWindow:
 
         # ADD STYLE WINDOW
         # ////////////////////////////////////////////////////////////////////////////////
-        self.ui.widget_style_sheet.setStyleSheet(AbsolutePath().getThemeQss(file_name='window_normal.qss', theme='dark'))
+        self.ui.widget_style_sheet.setStyleSheet(
+                                                AbsolutePath().getThemeQss(file_name='window_normal.qss', theme='dark'))
 
 
         # ////////////////////////////////////////////////////////////////////////////////
@@ -228,6 +236,8 @@ class SetUpMainWindow:
 
         # EVENTO PARA MOVER A JANELA
         # ////////////////////////////////////////////////////////////////////////////////
+
+
         def moveWindow(event):
             if event.buttons() == Qt.LeftButton:
                 self.move(self.pos() + event.globalPosition().toPoint() - self._dragPos)
@@ -237,6 +247,8 @@ class SetUpMainWindow:
 
         # EVENTO PARA MAXIMIZAR E NORMALIZAR A JANELA
         # ////////////////////////////////////////////////////////////////////////////////
+
+
         def mouseDoubleClickEvent(event):
             if event.type() == QEvent.MouseButtonDblClick:
                 self.restoreWindow()
@@ -278,7 +290,7 @@ class SetUpMainWindow:
         self.ui.title_bar.hide()
 
         # CONFIG INTERFACE NO WINDOW
-        #///////////////////////////////////////////////////////////////////////////////
+        # ///////////////////////////////////////////////////////////////////////////////
         self.ui.widget_style_sheet.setStyleSheet(
             AbsolutePath().getThemeQss(file_name='non_window_configuration.qss', theme='dark'))
 
@@ -312,8 +324,8 @@ class SetUpMainWindow:
 
             # REPLACE STYLE OF WINDOW
             # //////////////////////////////////////////////////////////////////////////
-            self.ui.widget_style_sheet.setStyleSheet(AbsolutePath().getThemeQss(file_name='window_maximized.qss',
-                                                                             theme='dark'))
+            self.ui.widget_style_sheet.setStyleSheet(
+                                             AbsolutePath().getThemeQss(file_name='window_maximized.qss', theme='dark'))
 
             # Hide GRIP'S
             # ////////////////////////////////////////////////////////////////////////////////
@@ -350,7 +362,8 @@ class SetUpMainWindow:
 
             # REPLACE STYLE OF WINDOW
             # //////////////////////////////////////////////////////////////////////////
-            self.ui.widget_style_sheet.setStyleSheet(AbsolutePath().getThemeQss(file_name='window_normal.qss', theme='dark'))
+            self.ui.widget_style_sheet.setStyleSheet(
+                                                AbsolutePath().getThemeQss(file_name='window_normal.qss', theme='dark'))
 
             # Hide GRIP'S
             # ////////////////////////////////////////////////////////////////////////////////
@@ -373,11 +386,11 @@ class SetUpMainWindow:
             self.bottom_left_grip.setGeometry(5, self.height() - 20, 15, 15)
             self.bottom_right_grip.setGeometry(self.width() - 20, self.height() - 20, 15, 15)
 
-    def resizeLeftMenu(self, event):
+    def resizeLeftMenu(self, _):
         """
         RESIZE LEFT MENU FLOAT
         REDIMENSIONAR MENU ESQUERDO FLUTUANTE
-        :param event:
+        :param _:
         :return:
         """
         self.left_menu.setResize(self.ui.frame_left_menu.geometry())
