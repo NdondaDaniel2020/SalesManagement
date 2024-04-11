@@ -43,41 +43,11 @@ class DataBase:
 
 
 if __name__ == "__main__":
-    from pprint import pprint
-    from src.qt_core import *
-
-    lista_do_dado: dict = dict()
-    atribustos: list = ['id', 'nome', 'unidade', 'categoria', 'metodo_de_pagamento', 'vendedor', 'cliente']
     db: DataBase = DataBase(AbsolutePath().getPathDatabase())
+    db.connectDataBase()
+    query = db.executarFetchall(f"SELECT DISTINCT * FROM vw_historico_de_venda")
+    db.disconnectDataBase()
 
-    for atributo in atribustos:
-        db.connectDataBase()
-        query = db.executarFetchall(f"SELECT DISTINCT {atributo} FROM vw_historico_de_venda")
-        lista_do_dado[f'{atributo}'] = query
-        db.disconnectDataBase()
-
-    txt = '1'
-
-    select = 'SELECT * FROM vw_historico_de_venda'
-    padrao = QRegularExpression(r"^[0-9]{2}\/[0-9]{2}\/[0-9]{4}")
-    if txt:
-        if txt in str(lista_do_dado['id']):
-            select = f"{select} WHERE id='{txt}';"
-        elif padrao.match(txt).hasMatch():
-            select = f"{select} WHERE data LIKE '{txt}%';"
-        elif txt in str(lista_do_dado['nome']):
-            select = f"{select} WHERE nome='{txt}';"
-        elif txt in str(lista_do_dado['unidade']):
-            select = f"{select} WHERE unidade='{txt}';"
-        elif txt in str(lista_do_dado['metodo_de_pagamento']):
-            select = f"{select} WHERE metodo_de_pagamento='{txt}';"
-        elif txt in str(lista_do_dado['vendedor']):
-            select = f"{select} WHERE vendedor='{txt}';"
-        elif txt in str(lista_do_dado['cliente']):
-            select = f"{select} WHERE cliente='{txt}';"
-
-
-    print(select, str(lista_do_dado['nome']))
 # database = database("../ControleFinanceiro")
 # database.connect_database()
 # database.executarComand("""
