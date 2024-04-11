@@ -7,6 +7,7 @@ from src.gui.core.absolute_path import AbsolutePath
 
 
 class ChartFunctions:
+    MES_DO_GRAFICO_DE_VENDA_SELECIONADO: int = 0
 
     def __init__(self):
         super().__init__()
@@ -71,6 +72,163 @@ class ChartFunctions:
         self._chart_view.setRenderHint(QPainter.Antialiasing)
 
         self.ui.vertical_layout_chart_inevntario.insertWidget(0, self._chart_view)
+
+    # historico de venda
+    def addHistoricBar(self):
+        valor_total_dos_meses = []
+        db = DataBase(AbsolutePath().getPathDatabase())
+        for i in range(1, 13):
+            db.connectDataBase()
+            query = db.executarFetchone(f"SELECT sum(total) FROM vw_venda WHERE data like '%/{i:02}/%'")
+            if query[0]:
+                valor_total_dos_meses.append(query[0])
+            else:
+                valor_total_dos_meses.append(0)
+            db.disconnectDataBase()
+
+        self.set_0 = QBarSet("Mes")
+        self.set_0.append(valor_total_dos_meses)
+        self.set_0.setColor(QColor(233, 234, 236))
+
+        self.series_bar = QBarSeries()
+        self.series_bar.append(self.set_0)
+        self.series_bar.clicked.connect(lambda: ChartFunctions.buscarDadosDoMesSelecionado(self))
+        self.series_bar.hovered.connect(ChartFunctions.selecionarMes)
+
+        self.chart_bar = QChart()
+        self.chart_bar.addSeries(self.series_bar)
+        self.chart_bar.setBackgroundBrush(QColor(255, 255, 255))
+        self.chart_bar.legend().hide()
+
+        self.categories = ["Jan", "Feb", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Sem", "Oct", "Nov", "Dez"]
+        self.axis_x_bar = QBarCategoryAxis()
+        self.axis_x_bar.append(self.categories)
+        self.chart_bar.addAxis(self.axis_x_bar, Qt.AlignBottom)
+
+        self.axis_y_bar = QValueAxis()
+        self.axis_y_bar.setRange(0, max(valor_total_dos_meses)+1000)
+        self.chart_bar.addAxis(self.axis_y_bar, Qt.AlignLeft)
+        self.series_bar.attachAxis(self.axis_y_bar)
+
+        # cor da linha x e y
+        pen = self.axis_x_bar.linePen()
+        pen.setColor(QColor(54, 63, 118))
+        self.axis_x_bar.setLinePen(pen)
+
+        pen = self.axis_y_bar.linePen()
+        pen.setColor(QColor(54, 63, 118))
+        self.axis_y_bar.setLinePen(pen)
+
+        # grid color
+        self.grid_pen_y_bar = self.axis_y_bar.gridLinePen()
+        self.grid_pen_y_bar.setColor(QColor(54, 63, 118))
+        self.axis_y_bar.setGridLinePen(self.grid_pen_y_bar)
+
+        self.grid_pen_x_bar = self.axis_x_bar.gridLinePen()
+        self.grid_pen_x_bar.setColor(QColor(54, 63, 118))
+        self.axis_x_bar.setGridLinePen(self.grid_pen_x_bar)
+
+        self.axis_x_bar.setLabelsColor(QColor(255, 255, 255))
+        self.axis_y_bar.setLabelsColor(QColor(255, 255, 255))
+
+        self.chart_bar.setBackgroundBrush(QColor(32, 33, 37))
+        self.chart_bar.setBackgroundPen(QColor(32, 33, 37))
+
+        self.chart_bar.legend().setVisible(False)
+        self.chart_bar.legend().setAlignment(Qt.AlignBottom)
+
+        self.chart_bar.setContentsMargins(-9, -7, -7, -7)
+        self.chart_bar.setMargins(QMargins(0, 5, 10, 0))
+
+        self._chart_view = QChartView(self.chart_bar)
+        self._chart_view.setRenderHint(QPainter.Antialiasing)
+
+        self.ui.vertical_layout_chart_historico_de_venda_bar.insertWidget(0, self._chart_view)
+
+    @staticmethod
+    def selecionarMes(_, mes):
+        ChartFunctions.MES_DO_GRAFICO_DE_VENDA_SELECIONADO = mes
+
+    def buscarDadosDoMesSelecionado(self):
+        mes = ChartFunctions.MES_DO_GRAFICO_DE_VENDA_SELECIONADO
+        self.ui.tabela_widget_de_historico_de_venda.setRowCount(0)
+
+        select = f"SELECT * FROM vw_historico_de_venda WHERE data like '%/{mes+1:02}/%'"
+
+        ChartFunctions.atribuirDadosNaTabelaDeHistorico(self, select)
+
+    def atribuirDadosNaTabelaDeHistorico(self, select):
+        db = DataBase(AbsolutePath().getPathDatabase())
+        db.connectDataBase()
+        query = db.executarFetchall(select)
+        db.disconnectDataBase()
+
+        self.ui.tabela_widget_de_historico_de_venda.setRowCount(len(query))
+
+        for i, dados in enumerate(query):
+            self.ui.tabela_widget_de_historico_de_venda.setItem(i, 0, QTableWidgetItem(str(dados[0])))
+            self.ui.tabela_widget_de_historico_de_venda.setItem(i, 1, QTableWidgetItem(str(dados[2])))
+            self.ui.tabela_widget_de_historico_de_venda.setItem(i, 2, QTableWidgetItem(str(dados[5])))
+            self.ui.tabela_widget_de_historico_de_venda.setItem(i, 3, QTableWidgetItem(str(dados[7]).title()))
+            self.ui.tabela_widget_de_historico_de_venda.setItem(i, 4, QTableWidgetItem(str(dados[6]).title()))
+            self.ui.tabela_widget_de_historico_de_venda.setItem(i, 5, QTableWidgetItem(str(dados[8])))
+            self.ui.tabela_widget_de_historico_de_venda.setItem(i, 6, QTableWidgetItem(str(dados[9]).title()))
+            self.ui.tabela_widget_de_historico_de_venda.setItem(i, 7, QTableWidgetItem(str(dados[11])))
+            self.ui.tabela_widget_de_historico_de_venda.setItem(i, 8, QTableWidgetItem(str(dados[10])))
+            self.ui.tabela_widget_de_historico_de_venda.setItem(i, 9, QTableWidgetItem(str(dados[13])))
+            self.ui.tabela_widget_de_historico_de_venda.setItem(i, 10, QTableWidgetItem(str(dados[12])))
+            self.ui.tabela_widget_de_historico_de_venda.setItem(i, 11, QTableWidgetItem(str(dados[3])))
+            self.ui.tabela_widget_de_historico_de_venda.setItem(i, 12, QTableWidgetItem(
+                str(dados[1] if dados[1] else '').title()))
+
+    def criacaoDoSelectPeloAtributo(self):
+        txt = self.ui.line_edit_pesquisa_historico_de_venda.text()
+
+        lista_do_dado: dict = dict()
+        atribustos: list = ['id', 'nome', 'unidade', 'categoria', 'metodo_de_pagamento', 'vendedor', 'cliente']
+        db: DataBase = DataBase(AbsolutePath().getPathDatabase())
+
+        for atributo in atribustos:
+            db.connectDataBase()
+            query = db.executarFetchall(f"SELECT DISTINCT {atributo} FROM vw_historico_de_venda")
+            lista_do_dado[f'{atributo}'] = query
+            db.disconnectDataBase()
+
+        select = 'SELECT * FROM vw_historico_de_venda'
+        padrao = QRegularExpression(r"^[0-9]{2}\/[0-9]{2}\/[0-9]{4}")
+
+        if txt:
+            if txt in str(lista_do_dado['id']):
+                select = f"{select} WHERE id='{txt}';"
+            elif padrao.match(txt).hasMatch():
+                select = f"{select} WHERE data LIKE '{txt}%';"
+            elif txt in str(lista_do_dado['nome']):
+                select = f"{select} WHERE nome='{txt}';"
+            elif txt in str(lista_do_dado['unidade']):
+                select = f"{select} WHERE unidade='{txt}';"
+            elif txt in str(lista_do_dado['metodo_de_pagamento']):
+                select = f"{select} WHERE metodo_de_pagamento='{txt}';"
+            elif txt in str(lista_do_dado['vendedor']):
+                select = f"{select} WHERE vendedor='{txt}';"
+            elif txt in str(lista_do_dado['cliente']):
+                select = f"{select} WHERE cliente='{txt}';"
+
+        return select
+
+    def pesquisarHistorico(self):
+        select = ChartFunctions.criacaoDoSelectPeloAtributo(self)
+        ChartFunctions.atribuirDadosNaTabelaDeHistorico(self, select.lower())
+
+    def updateHistorico(self):
+        select = "SELECT * FROM vw_historico_de_venda"
+        ChartFunctions.atribuirDadosNaTabelaDeHistorico(self, select)
+
+    def connecoesHistoricoDeVenda(self):
+        self.ui.line_edit_pesquisa_historico_de_venda.returnPressed.connect(lambda:
+                                                                            ChartFunctions.pesquisarHistorico(self))
+        self.ui.btn_pesquisa_historico_de_venda.clicked.connect(lambda: ChartFunctions.pesquisarHistorico(self))
+        ChartFunctions.updateHistorico(self)
+    # fechamento historico de venda
 
     def configCircularProgress(self):
         """
@@ -219,4 +377,4 @@ class ChartFunctions:
 
         self.ui.vertical_layout_dynamic_chart.addWidget(self.dynamic_chart_view)
 
-        return self.dynamic_chart._timer
+        return self.dynamic_chart.timer
