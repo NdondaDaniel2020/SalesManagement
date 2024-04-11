@@ -95,12 +95,15 @@ class MainWindow(QMainWindow):
         # /////////////////////////////////////////////////////////////
         SetUpMainWindow.configIconPath(self)
         SetUpMainWindow.addControlWindow(self)
+        SetUpMainWindow.configTableWidget(self)
         SetUpMainWindow.configSystem(self)
 
         # /////////////////////////////////////////////////////////////
         ChartFunctions.addInventoryChart(self)
-        ChartFunctions.configCircularProgress(self)
+        ChartFunctions.addHistoricBar(self)
+        ChartFunctions.updatCircularProgress(self)
         ChartFunctions.addBarChartOnHomepage(self)
+        ChartFunctions.connecoesHistoricoDeVenda(self)
         self.timer_dynamic_chart = ChartFunctions.addDynamicLineChart(self)
         # self.timer_dynamic_chart tem que ativar sempre que entrar nas na home
         # se o dinamic estiver ativo nas comfiguracoes
@@ -109,12 +112,14 @@ class MainWindow(QMainWindow):
         self.ui.frame_inventario.mousePressEvent = lambda e: self.ui.stacked_widget.setCurrentWidget(
             self.ui.page_inventario)
         self.ui.frame_venda.mousePressEvent = lambda e: self.ui.stacked_widget.setCurrentWidget(self.ui.page_venda)
+        self.ui.frame_historico_de_venda.mousePressEvent = lambda e: self.ui.stacked_widget.setCurrentWidget(
+            self.ui.page_historico_venda)
 
         # //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         # todas as iniciolizacoes tem que passa na tela de login
         self._iniLeftMenu_()
         self.initRegistrationPanel()
-        self.automaticProductInsertion()
+        self.insercaoAutomaticaDeProduto()
 
         # //////////////////////////////////////////////////////////////////////////////////
         self._connectingPages_()
@@ -132,8 +137,8 @@ class MainWindow(QMainWindow):
         self.ui.line_edit_pesquisa_produto_devenda.returnPressed.connect(self.irerirProdutosPelaChave)
 
         # ///////////////////////////////////////////// INVENTORY ///////////////////////////////////////////
-        self.ui.btn_adicionar_produto.clicked.connect(lambda: self.showRegistrationPanel())
-        self.ui.frame_criar_produto.mousePressEvent = lambda e: self.showRegistrationPanel()
+        self.ui.btn_adicionar_produto.clicked.connect(lambda: self.showPainelDeRegistroDeProduto())
+        self.ui.frame_criar_produto.mousePressEvent = lambda e: self.showPainelDeRegistroDeProduto()
 
         self.ui.btn_mais_opcoes_de_venda.clicked.connect(self.showMenuOpcoes)
 
@@ -291,29 +296,27 @@ class MainWindow(QMainWindow):
             self.timer_dynamic_chart.stop()
             self.ui.line_edit_pesquisa_produto_devenda.setFocus()
 
-
-
     ############################################## inventario ##############################################
 
     def initRegistrationPanel(self):
         self.registration_panel = PyProductRegistration(self.ui.central_widget)
-        self.registration_panel.countAvailableCameras()
+        # self.registration_panel.countAvailableCameras()  # por nas configuracoes
         self.registration_panel.close()
 
     @Slot(None)
-    def showRegistrationPanel(self) -> None:
+    def showPainelDeRegistroDeProduto(self) -> None:
         """
         ESTE MÉTODO É REPONSAVEL POR CENTRALIZAR MOSTRAR E AJUSTAR O PAINEL DE REGISTRO
         :return:
         """
-        self.registration_panel.btn_ok.clicked.connect(self.registerProduct)
+        self.registration_panel.btn_ok.clicked.connect(self.cadastrarProduto)
         self.registration_panel.setGeometry(0, 0, self.width(), self.height())
 
         self.registration_panel.move((self.width() - self.registration_panel.width()) / 2,
                                      (self.height() - self.registration_panel.height()) / 2)
         self.registration_panel.show()
 
-    def automaticProductInsertion(self):
+    def insercaoAutomaticaDeProduto(self):
         db = DataBase(AbsolutePath().getPathDatabase())
         db.connectDataBase()
         query = db.executarFetchall("SELECT chave, nome, quantidade, preco_venda, linkImg from produto")
@@ -335,7 +338,7 @@ class MainWindow(QMainWindow):
 
             self.ui.vertical_layout_registro.insertWidget(0, list_produto)
 
-    def registerProduct(self):
+    def cadastrarProduto(self):
         produto = self.registration_panel.getAllData()
 
         if produto:
@@ -355,7 +358,6 @@ class MainWindow(QMainWindow):
             insertProductDataIntoTheDatabase(produto)
 
             ChartFunctions.updateCircularProgress()
-
 
     ############################################## venda ##############################################
 
@@ -405,7 +407,7 @@ class MainWindow(QMainWindow):
     def showMenuOpcoes(self):
         if not self.menu_opcoes_de_venda:
             self.menu_opcoes_de_venda = PySaleMenu(self.ui.page_venda)
-            self.menu_opcoes_de_venda.move(453, 234)
+            self.menu_opcoes_de_venda.move(self.size().width() - 272, 234)
             self.menu_opcoes_de_venda.show()
 
             self.menu_opcoes_de_venda.abrir_painel_de_produto.clicked.connect(self.showProductPainel)
@@ -414,6 +416,7 @@ class MainWindow(QMainWindow):
             def show_painel_sale_finished():
                 self.showPanelSaleFinisher()
                 self.menu_opcoes_de_venda.close()
+
             self.menu_opcoes_de_venda.finalizar.clicked.connect(show_painel_sale_finished)
 
             def start_timer():  # ajustar a opcao de abrir e fechar  o scaner da cemera
@@ -421,11 +424,13 @@ class MainWindow(QMainWindow):
                 self.timer_show_scan_bar_code.start()
                 self.menu_opcoes_de_venda.close()
                 self.ui.line_edit_pesquisa_produto_devenda.setFocus()
+
             self.menu_opcoes_de_venda.scanner.clicked.connect(start_timer)
 
             def fechar_menu_de_opcoes(_):
                 self.menu_opcoes_de_venda.close()
                 self.ui.line_edit_pesquisa_produto_devenda.setFocus()
+
             self.ui.page_venda.mousePressEvent = fechar_menu_de_opcoes
 
             self.menu_opcoes_de_venda_opacity = QGraphicsOpacityEffect(self.menu_opcoes_de_venda)
@@ -564,7 +569,6 @@ class MainWindow(QMainWindow):
         produtos_vendidos = self.getSelectedProductsForSale()
 
         if produtos_vendidos['chave']:
-
             width = self.painel_sale_finisher.width()
             height = self.painel_sale_finisher.height()
 
@@ -582,7 +586,9 @@ class MainWindow(QMainWindow):
     def FinalizarVenda(self):  # modula depois de criar recibo
         produtos_vendidos = self.getSelectedProductsForSale()
         dados_fvenda = self.painel_sale_finisher.confirmar()
-        data_atual = QDate().currentDate().toString("dd/MM/yyyy")
+
+        data_atual = QDate.currentDate().toString("dd/MM/yyyy")
+        hora_atual = QDateTime.currentDateTime().time().toString()
 
         # import pprint
         # pprint.pprint(produtos_vendidos)
@@ -601,7 +607,7 @@ class MainWindow(QMainWindow):
 
             # print(id_usuario, id_cliente, id_m_d_p, dados_fvenda, self.usuario, produtos_vendidos)
             db.executarComand(f"""INSERT INTO venda(data, total, troco, usuario, metodo_de_pagamento, cliente)
-                                VALUES ('{data_atual}', {sum(produtos_vendidos['subtotal'])},
+                                VALUES ('{data_atual} {hora_atual}', {sum(produtos_vendidos['subtotal'])},
                                          {convert_str_in_float(dados_fvenda['troco'])}, {id_usuario[0]},
                                          {id_m_d_p[0]}, {id_cliente[0] if id_cliente else 'Null'})""")
 
@@ -620,8 +626,11 @@ class MainWindow(QMainWindow):
             self.cleanProduct()
             self.painel_sale_finisher.close()
             self.ui.line_edit_pesquisa_produto_devenda.setFocus()
+            ChartFunctions.updateHistorico(self)
+            ChartFunctions.updatCircularProgress(self)
 
 
+    ######################################### historico de venda #########################################
 
     ############################################## eventos ##############################################
     def mousePressEvent(self, event):
@@ -668,15 +677,13 @@ class MainWindow(QMainWindow):
 
         # /////////////////////////////////////////////////////////////////////////////////////////
         if self.painel_sale_finisher:
-
             self.painel_sale_finisher.setGeometry(
                 self.painel_sale_finisher.x(),
                 self.painel_sale_finisher.y(),
                 self.width(), self.height())
 
             self.painel_sale_finisher.move((self.width() - self.painel_sale_finisher.width()) / 2,
-                                        (self.height() - self.painel_sale_finisher.height()) / 2)
-
+                                           (self.height() - self.painel_sale_finisher.height()) / 2)
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_F11:
