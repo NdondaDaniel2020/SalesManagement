@@ -18,43 +18,43 @@ class PySalesFinisher(QFrame):
     def __init__(self, parent=None):
         super().__init__(parent)
 
-        self.setupUi(self)
-        self.autoInsertDados()
-        self.valdator()
+        self.__setupUi(self)
+        self.__autoInsertDados()
+        self.__validator()
         self.setStyleSheet(u"QFrame{background-color: rgba(0, 0, 0, 0);}")
 
-        self.can_close = False
+        self.can_close: bool = False
 
         self.btn_show_pagamento.clicked.connect(self.combo_box_pagamento.showPopup)
         self.btn_show_cliente.clicked.connect(self.combo_box_cliente.showPopup)
-        self.combo_box_cliente.currentTextChanged.connect(self.clienteSelected)
-        self.combo_box_pagamento.currentTextChanged.connect(self.pagamentoSlected)
-        self.lineEdit_cliente.returnPressed.connect(self.insertCliente)
-        self.lineEdit_pagamento.returnPressed.connect(self.insertPagamento)
-        self.lineEdit_pagamento_valor.textChanged.connect(self.comportamento_pagamento_valor)
+        self.combo_box_cliente.currentTextChanged.connect(self.__setClienteSelected)
+        self.combo_box_pagamento.currentTextChanged.connect(self.__setPagamentoSelected)
+        self.lineEdit_cliente.returnPressed.connect(self.__insertCliente)
+        self.lineEdit_pagamento.returnPressed.connect(self.__insertPagamento)
+        self.lineEdit_pagamento_valor.textChanged.connect(self.__comportamento_pagamento_valor)
         self.btn_deletar.clicked.connect(self.close)
         self.btn_confirmar.clicked.connect(self.confirmar)
         self.lineEdit_pagamento_valor.returnPressed.connect(self.confirmar)
 
-        self.frame_center.enterEvent = self.enterEventFrameCenter
-        self.frame_center.leaveEvent = self.leaveEventFrameCenter
-        self.frame_base.mousePressEvent = self.closeWhithFrame
-        self.frame.mousePressEvent = self.enterEventFrameCenter
+        self.frame_center.enterEvent = self.__enterEventFrameCenter
+        self.frame_center.leaveEvent = self.__leaveEventFrameCenter
+        self.frame_base.mousePressEvent = self.__closeWhithFrame
+        self.frame.mousePressEvent = self.__enterEventFrameCenter
 
-        self.notification()
+        self.__notification()
 
 
-    def enterEventFrameCenter(self, _):
+    def __enterEventFrameCenter(self, _):
         self.can_close = False
 
-    def leaveEventFrameCenter(self, _):
+    def __leaveEventFrameCenter(self, _):
         self.can_close = True
 
-    def closeWhithFrame(self, _):
+    def __closeWhithFrame(self, _):
         if self.can_close:
             self.close()
 
-    def notification(self):
+    def __notification(self):
         self.label_notificacao = QLabel(self.frame_center)
         self.label_notificacao.setObjectName(u"label_notificacao")
         self.label_notificacao.setGeometry(QRect(-300, 40, 261, 24))
@@ -69,9 +69,9 @@ class PySalesFinisher(QFrame):
         self.opacity.setOpacity(0.0)
         self.label_notificacao.setGraphicsEffect(self.opacity)
 
-        self.opacityAnimation()
+        self.__opacityAnimation()
 
-    def opacityAnimation(self):
+    def __opacityAnimation(self):
 
         self.group_animation = QParallelAnimationGroup()
 
@@ -96,7 +96,7 @@ class PySalesFinisher(QFrame):
         self.opacity_animation_down.setEasingCurve(QEasingCurve.Type.InOutExpo)
         self.opacity_animation_down.finished.connect(lambda: self.label_notificacao.move(-300, 25))
 
-    def startanimationNotification(self):
+    def __startanimationNotification(self):
         self.group_animation.start()
         QTimer.singleShot(800, lambda: self.opacity_animation_down.start())
 
@@ -110,7 +110,7 @@ class PySalesFinisher(QFrame):
 
         if not self.lineEdit_pagamento.text() in list_item:
             self.label_notificacao.setText("Selecione metodo de pagamento")
-            self.startanimationNotification()
+            self.__startanimationNotification()
             dados['ok'] = False
         else:
             dados['metodo_de_pagamento'] = self.lineEdit_pagamento.text().lower()
@@ -121,20 +121,20 @@ class PySalesFinisher(QFrame):
 
         if not valor or valor == '.' or valor == ',':
             self.label_notificacao.setText("Falha no valor pago")
-            self.startanimationNotification()
+            self.__startanimationNotification()
             dados['ok'] = False
         else:
             try:
                 float(valor)
             except ImportError as _:
                 self.label_notificacao.setText("Falha no valor pago")
-                self.startanimationNotification()
+                self.__startanimationNotification()
                 dados['ok'] = False
             else:
                 if troco.count('.') == 1:
                     if float(troco) < 0:
                         self.label_notificacao.setText("Falha no valor pago")
-                        self.startanimationNotification()
+                        self.__startanimationNotification()
                         dados['ok'] = False
                 elif troco.count('.') > 1:
                     troco = troco.split('.')
@@ -142,7 +142,7 @@ class PySalesFinisher(QFrame):
                     troco = float(''.join(troco))
                     if float(troco) < 0:
                         self.label_notificacao.setText("Falha no valor pago")
-                        self.startanimationNotification()
+                        self.__startanimationNotification()
                         dados['ok'] = False
 
         if dados['ok']:
@@ -150,11 +150,11 @@ class PySalesFinisher(QFrame):
 
         return dados
 
-    def valdator(self):
+    def __validator(self):
         regex = QRegularExpressionValidator(QRegularExpression(r"^[0-9.,]*$"), self)
         self.lineEdit_pagamento_valor.setValidator(regex)
 
-    def comportamento_pagamento_valor(self, value: str):
+    def __comportamento_pagamento_valor(self, value: str):
         if not value:
             value = '0'
 
@@ -186,7 +186,7 @@ class PySalesFinisher(QFrame):
         except ImportError:
             pass
 
-    def insertPagamento(self):
+    def __insertPagamento(self):
         list_item: list = []
         pagamento: str = self.lineEdit_pagamento.text()
         quantidade = int(self.combo_box_pagamento.count())
@@ -202,7 +202,7 @@ class PySalesFinisher(QFrame):
             db.executarComand(f"INSERT INTO metodo_de_pagamento(nome) VALUES ('{pagamento.lower()}')")
             db.disconnectDataBase()
 
-    def insertCliente(self):
+    def __insertCliente(self):
         list_item: list = []
         nome: str = self.lineEdit_cliente.text()
         quantidade = int(self.combo_box_cliente.count())
@@ -218,13 +218,13 @@ class PySalesFinisher(QFrame):
             db.executarComand(f"INSERT INTO cliente(nome) VALUES ('{nome.lower()}')")
             db.disconnectDataBase()
 
-    def clienteSelected(self, nome):
+    def __setClienteSelected(self, nome):
         self.lineEdit_cliente.setText(nome)
 
-    def pagamentoSlected(self, pagamento):
+    def __setPagamentoSelected(self, pagamento):
         self.lineEdit_pagamento.setText(pagamento)
 
-    def autoInsertDados(self):
+    def __autoInsertDados(self):
         db = DataBase(AbsolutePath().getPathDatabase())
         db.connectDataBase()
         query1 = db.executarFetchall("SELECT nome FROM cliente ORDER BY nome")
@@ -237,7 +237,7 @@ class PySalesFinisher(QFrame):
         for dados in query2:
             self.combo_box_pagamento.addItem(dados[0].title())
 
-    def setupUi(self, Form):
+    def __setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
         Form.resize(433, 325)
@@ -535,7 +535,7 @@ class PySalesFinisher(QFrame):
 
         self.verticalLayout.addWidget(self.frame_base)
 
-        self.retranslateUi(Form)
+        self.__retranslateUi(Form)
 
         self.combo_box_cliente.setCurrentIndex(-1)
         self.combo_box_pagamento.setCurrentIndex(-1)
@@ -544,7 +544,7 @@ class PySalesFinisher(QFrame):
 
     # setupUi
 
-    def retranslateUi(self, Form):
+    def __retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
 
         self.combo_box_cliente.setPlaceholderText(QCoreApplication.translate("Form", u"Cliente (opcinal)", None))

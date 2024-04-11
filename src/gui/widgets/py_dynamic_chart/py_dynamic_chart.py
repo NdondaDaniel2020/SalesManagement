@@ -9,7 +9,7 @@ from PySide6.QtGui import QPen, QColor
 class PyDynamicChart(QChart):
     def __init__(self, parent=None):
         super().__init__(QChart.ChartTypeCartesian, parent, Qt.WindowFlags())
-        self._timer = QTimer()
+        self.timer = QTimer()
         self._series = QSplineSeries(self)
         self._titles = []
         self._axisX = QValueAxis()
@@ -18,8 +18,8 @@ class PyDynamicChart(QChart):
         self._x = 5
         self._y = 1
 
-        self._timer.timeout.connect(self.handleTimeout)
-        self._timer.setInterval(1000)
+        self.timer.timeout.connect(self.handleTimeout)
+        self.timer.setInterval(1000)
 
         green = QPen(QColor(255, 255, 255))
         green.setWidth(1)
@@ -48,4 +48,4 @@ class PyDynamicChart(QChart):
         self._series.append(self._x, self._y)
         self.scroll(x, 0)
         if self._x == 100:
-            self._timer.stop()
+            self.timer.stop()

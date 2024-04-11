@@ -75,6 +75,10 @@ class ChartFunctions:
 
     # historico de venda
     def addHistoricBar(self):
+        """
+        código que cria o gráfico do historico de venda
+        :return:
+        """
         valor_total_dos_meses = []
         db = DataBase(AbsolutePath().getPathDatabase())
         for i in range(1, 13):
@@ -147,9 +151,19 @@ class ChartFunctions:
 
     @staticmethod
     def selecionarMes(_, mes):
+        """
+        responsavel por armazenar o mes selecionado
+        :param _:
+        :param mes:
+        :return:
+        """
         ChartFunctions.MES_DO_GRAFICO_DE_VENDA_SELECIONADO = mes
 
     def buscarDadosDoMesSelecionado(self):
+        """
+        responsavel po buscar pelo mes
+        :return:
+        """
         mes = ChartFunctions.MES_DO_GRAFICO_DE_VENDA_SELECIONADO
         self.ui.tabela_widget_de_historico_de_venda.setRowCount(0)
 
@@ -158,6 +172,11 @@ class ChartFunctions:
         ChartFunctions.atribuirDadosNaTabelaDeHistorico(self, select)
 
     def atribuirDadosNaTabelaDeHistorico(self, select):
+        """
+        responsavel por adicionar dados na tabela do historico de venda
+        :param select:
+        :return:
+        """
         db = DataBase(AbsolutePath().getPathDatabase())
         db.connectDataBase()
         query = db.executarFetchall(select)
@@ -182,6 +201,11 @@ class ChartFunctions:
                 str(dados[1] if dados[1] else '').title()))
 
     def criacaoDoSelectPeloAtributo(self):
+        """
+        responsavel pela criação do select de acordo pelos dados dados no line edit
+        no historico de venda
+        :return:
+        """
         txt = self.ui.line_edit_pesquisa_historico_de_venda.text()
 
         lista_do_dado: dict = dict()
@@ -216,23 +240,35 @@ class ChartFunctions:
         return select
 
     def pesquisarHistorico(self):
+        """
+        responsavel pela buca do select e inserção dos dados pesquisados
+        :return:
+        """
         select = ChartFunctions.criacaoDoSelectPeloAtributo(self)
         ChartFunctions.atribuirDadosNaTabelaDeHistorico(self, select.lower())
 
     def updateHistorico(self):
+        """
+        responsavel por atualizar o historico de venda
+        :return:
+        """
         select = "SELECT * FROM vw_historico_de_venda"
         ChartFunctions.atribuirDadosNaTabelaDeHistorico(self, select)
 
     def connecoesHistoricoDeVenda(self):
+        """
+        coneções do historico de venda
+        :return:
+        """
         self.ui.line_edit_pesquisa_historico_de_venda.returnPressed.connect(lambda:
                                                                             ChartFunctions.pesquisarHistorico(self))
         self.ui.btn_pesquisa_historico_de_venda.clicked.connect(lambda: ChartFunctions.pesquisarHistorico(self))
         ChartFunctions.updateHistorico(self)
     # fechamento historico de venda
 
-    def configCircularProgress(self):
+    def updatCircularProgress(self):
         """
-
+        responsavel por atualizar o o ggraficu circular do inventario
         :return:
         """
 
