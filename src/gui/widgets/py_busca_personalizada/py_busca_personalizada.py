@@ -60,6 +60,44 @@ class PyBuscaPersonalizada(QFrame):
         for i in query_usuario:
             self.com_vendedor.addItem(i[0])
 
+    def __filtragemDeDados(self):
+        """
+        responsavel pela filtragem dis dados para busca
+        :return:
+        """
+        dados = {}
+
+        ini = self.date_time_edit_inicio.dateTime().toString("dd/MM/yyyy HH:mm:ss")
+        fim = self.date_time_edit_fim.dateTime().toString("dd/MM/yyyy HH:mm:ss")
+
+        if self.let_id_valor.text():
+            dados['id'] = f"id={self.let_id_valor.text()}"
+
+        if self.let_nome_produto.text():
+            dados['nome'] = f"nome={self.let_nome_produto.text()}"
+
+        if self.com_categoria.currentText():
+            dados['categoria'] = f"categoria={self.com_categoria.currentText()}"
+
+        if self.com_unidade.currentText():
+            dados['unidade'] = f"unidade={self.com_unidade.currentText()}"
+
+        if self.com_cliente.currentText():
+            dados['cliente'] = f"cliente={self.com_cliente.currentText()}"
+
+        if self.com_vendedor.currentText():
+            dados['vendedor'] = f"vendedor={self.com_vendedor.currentText()}"
+
+        if self.com_total_operador.currentText() and self.let_total_valor.text():
+            dados['total_operador'] = f"total{self.com_total_operador.currentText()}{self.let_total_valor.text()}"
+
+        if ini == fim and ini != '01/01/2000 00:00:00':
+            dados['data'] = f"data='{ini}'"
+        elif ini != fim:
+            dados['data'] = f"data BETWEEN '{ini}' AND '{fim}'"
+
+        return dados
+
 
     def __setupUi(self, Form):
         if not Form.objectName():
