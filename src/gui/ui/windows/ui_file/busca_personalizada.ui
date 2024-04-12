@@ -7,8 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>586</width>
-    <height>149</height>
+    <height>146</height>
    </rect>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>149</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Form</string>
@@ -34,6 +40,12 @@
    </property>
    <item>
     <widget class="QFrame" name="frame_borda_esterior">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>149</height>
+      </size>
+     </property>
      <property name="styleSheet">
       <string notr="true">*{color: rgb(255, 255, 255)}
 
@@ -42,11 +54,11 @@
 	background-color: rgb(32, 33, 37);}
 
 #frame_border_continer{	
-	background-color: rgb(46, 47, 52);
+	background-color: rgb(19, 20, 22);
 	border-radius: 10px;}
 
 #frame_border_continer &gt; QFrame{
-	background-color: rgb(32, 33, 37);
+	background-color: rgb(28, 29, 32);
 	border-radius: 10px;}
 
 #frame_central_1 QFrame{background-color: rgb(32, 33, 37);}
@@ -56,7 +68,7 @@ QDateTimeEdit{
     border-bottom: 1px solid rgb(240, 240, 240);
 	border-radius: 0px;
 	color: rgb(133, 133, 136);
-    background-color: rgb(32, 33, 37);
+    background-color: rgb(28, 29, 32);
     text-align: left;
 }
 
@@ -74,7 +86,7 @@ QLineEdit{
     border-bottom: 1px solid rgb(240, 240, 240);
 	border-radius: 0px;
 	color: rgb(133, 133, 136);
-    background-color: rgb(32, 33, 37);
+    background-color: rgb(28, 29, 32);
     text-align: left;
 }
 
@@ -92,7 +104,7 @@ QComboBox{
     border-bottom: 1px solid rgb(240, 240, 240);
 	border-radius: 0px;
 	color: rgb(133, 133, 136);
-    background-color: rgb(32, 33, 37);
+    background-color: rgb(28, 29, 32);
     text-align: left;
 }
 
@@ -171,7 +183,7 @@ QComboBox QAbstractItemView {
           <number>5</number>
          </property>
          <property name="bottomMargin">
-          <number>5</number>
+          <number>2</number>
          </property>
          <item>
           <widget class="QFrame" name="frame_border_continer">
@@ -500,7 +512,7 @@ QComboBox QAbstractItemView {
                    <number>3</number>
                   </property>
                   <item>
-                   <widget class="QLabel" name="lbl_nome_produto_2">
+                   <widget class="QLabel" name="lbl_unidade">
                     <property name="maximumSize">
                      <size>
                       <width>16777215</width>
@@ -521,7 +533,7 @@ QComboBox QAbstractItemView {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="com_nome_produto">
+                   <widget class="QComboBox" name="com_unidade">
                     <property name="minimumSize">
                      <size>
                       <width>0</width>
@@ -782,7 +794,7 @@ QComboBox QAbstractItemView {
                    <number>3</number>
                   </property>
                   <property name="bottomMargin">
-                   <number>3</number>
+                   <number>0</number>
                   </property>
                   <item>
                    <widget class="QLabel" name="lbl_data">
@@ -952,22 +964,22 @@ QComboBox QAbstractItemView {
                        </item>
                        <item>
                         <property name="text">
-                         <string>&gt;=</string>
-                        </property>
-                       </item>
-                       <item>
-                        <property name="text">
-                         <string>&lt;=</string>
-                        </property>
-                       </item>
-                       <item>
-                        <property name="text">
                          <string>&gt;</string>
                         </property>
                        </item>
                        <item>
                         <property name="text">
                          <string>&lt;</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>&gt;=</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>&lt;=</string>
                         </property>
                        </item>
                       </widget>

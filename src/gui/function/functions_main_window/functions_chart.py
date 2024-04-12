@@ -374,7 +374,6 @@ class ChartFunctions:
 
         self.ui.vertical_layout_char_bar.addWidget(self._chart_view)
 
-
     def addDynamicLineChart(self):
         self.dynamic_chart = PyDynamicChart()
         self.dynamic_chart.legend().hide()

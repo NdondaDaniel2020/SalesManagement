@@ -17,7 +17,6 @@ class DataBase:
             self.connection.commit()  # commit salva os dados no banco
             self.connection.close()
         except ImportError:
-            print('Nenhuma conexão detetada')
             raise "No connection detected"
 
     def executarComand(self, comand: str) -> None:
@@ -47,10 +46,3 @@ if __name__ == "__main__":
     db.connectDataBase()
     query = db.executarFetchall(f"SELECT DISTINCT * FROM vw_historico_de_venda")
     db.disconnectDataBase()
-
-# database = database("../ControleFinanceiro")
-# database.connect_database()
-# database.executarComand("""
-# INSERT INTO Categoria (nome) values ('Compra')
-# """)
-# database.close_connection_database()
