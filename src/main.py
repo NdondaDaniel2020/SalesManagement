@@ -21,6 +21,7 @@ from src.gui.widgets.py_left_menu.py_left_menu import LeftMenu
 from src.gui.widgets.py_push_button.py_push_button import PyPushButton
 from src.gui.widgets.py_sales_finisher.py_sales_finisher import PySalesFinisher
 from src.gui.widgets.py_registration_list.py_registration_list import PyRegistrationList
+from src.gui.widgets.py_busca_personalizada.py_busca_personalizada import PyBuscaPersonalizada
 from src.gui.widgets.py_product_registration.py_product_registration import PyProductRegistration
 from src.gui.widgets.py_sale_registration_list.py_sale_registration_list import PySaleRegistrationList
 from src.gui.widgets.py_painel_de_produtos_a_venda.py_painel_de_produtos_a_venda import PyProductSelectionPanel
@@ -74,6 +75,7 @@ class MainWindow(QMainWindow):
         self.combo_box_sugestao_de_busca: QComboBox = None
         self.painel_sale_finisher: PySalesFinisher = None
         self.usuario = 'NdDaniel'  # adicionar apartir da tela de login
+        self.painel_de_busca_personalizada: PyBuscaPersonalizada = None
 
         # adicionar nas configuracoes do despositivo que sera usado para as leiruras
         # quando se mudar tambem tem que mudar no painel de cadastro de produto
@@ -130,6 +132,8 @@ class MainWindow(QMainWindow):
 
         self.btn_info_base.clicked.connect(self.left_menu.activeBtbInfo)
         self.btn_info_float.clicked.connect(self.left_menu.activeBtbInfo)
+
+        self.ui.btn_mais_opcoes_historico_de_venda.clicked.connect(self.showPainelBuscaPersonalizasa)
 
         self.ui.btn_pesquisa_produto.clicked.connect(lambda: FunctionsSystem.searchProduct(self))
         self.ui.line_edit_pesquisa_produto.returnPressed.connect(lambda: FunctionsSystem.searchProduct(self))
@@ -629,6 +633,22 @@ class MainWindow(QMainWindow):
             ChartFunctions.updateHistorico(self)
             ChartFunctions.updatCircularProgress(self)
 
+    ############################################### historico de venda ############################################
+
+    def showPainelBuscaPersonalizasa(self):
+        self.painel_de_busca_personalizada = PyBuscaPersonalizada(self.ui.page_historico_venda)
+        self.painel_de_busca_personalizada.setGeometry(39, 284, self.size().width() - 138, 149)
+        self.ui.page_historico_venda.mousePressEvent = lambda e: self.painel_de_busca_personalizada.close()
+
+        def busca_historico_de_venda():
+            select = self.painel_de_busca_personalizada.criarDoSelect()
+            ChartFunctions.atribuirDadosNaTabelaDeHistorico(self, select)
+            self.painel_de_busca_personalizada.close()
+
+        self.painel_de_busca_personalizada.btn_busca.clicked.connect(busca_historico_de_venda)
+        self.painel_de_busca_personalizada.show()
+
+    ################################################################################################################
 
     ######################################### historico de venda #########################################
 
@@ -654,7 +674,11 @@ class MainWindow(QMainWindow):
         if self.menu_opcoes_de_venda:
             self.menu_opcoes_de_venda.move(self.size().width() - 272, 234)
 
-        # ///////////////////////////////////////////////////////////////////////////////////////
+        # //////////////////////////////////////////////////////////////////////////////////
+        if self.painel_de_busca_personalizada:
+            self.painel_de_busca_personalizada.setGeometry(39, 284, self.size().width() - 138, 149)
+
+        # //////////////////////////////////////////////////////////////////////////////////
         if self.registration_panel:
             self.registration_panel.setGeometry(
                 self.registration_panel.x(),
@@ -665,7 +689,7 @@ class MainWindow(QMainWindow):
             self.registration_panel.move((self.width() - self.registration_panel.width()) / 2,
                                          (self.height() - self.registration_panel.height()) / 2)
 
-        # ///////////////////////////////////////////////////////////////////////////////////////
+        # //////////////////////////////////////////////////////////////////////////////////
         if self.painel_de_produto:
             self.painel_de_produto.setGeometry(
                 self.painel_de_produto.x(),
