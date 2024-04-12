@@ -22,8 +22,6 @@ class PyBuscaPersonalizada(QFrame):
         self.__autoInsert()
         self.__validator()
 
-        self.btn_busca.clicked.connect(self.__busca)
-
     def __validator(self) -> None:
         """
         Responsavel por validar apenas caracteres desejado
@@ -42,20 +40,20 @@ class PyBuscaPersonalizada(QFrame):
         """
         db: DataBase = DataBase(AbsolutePath().getPathDatabase())
         db.connectDataBase()
-        query_categoria = db.executarFetchall(f"SELECT DISTINCT nome FROM categoria")
-        query_unidade = db.executarFetchall(f"SELECT DISTINCT nome FROM unidade")
-        query_cliente = db.executarFetchall(f"SELECT DISTINCT nome FROM cliente")
-        query_usuario = db.executarFetchall(f"SELECT DISTINCT nome FROM usuario")
+        query_categoria: list[any] = db.executarFetchall(f"SELECT DISTINCT nome FROM categoria")
+        query_unidade: list[any] = db.executarFetchall(f"SELECT DISTINCT nome FROM unidade")
+        query_cliente: list[any] = db.executarFetchall(f"SELECT DISTINCT nome FROM cliente")
+        query_usuario: list[any] = db.executarFetchall(f"SELECT DISTINCT nome FROM usuario")
         db.disconnectDataBase()
 
         for i in query_categoria:
-            self.com_categoria.addItem(i[0])
+            self.com_categoria.addItem(i[0].title())
 
         for i in query_unidade:
-            self.com_unidade.addItem(i[0])
+            self.com_unidade.addItem(i[0].title())
 
         for i in query_cliente:
-            self.com_cliente.addItem(i[0])
+            self.com_cliente.addItem(i[0].title())
 
         for i in query_usuario:
             self.com_vendedor.addItem(i[0])
@@ -68,36 +66,52 @@ class PyBuscaPersonalizada(QFrame):
         dados = {}
 
         ini = self.date_time_edit_inicio.dateTime().toString("dd/MM/yyyy HH:mm:ss")
-        fim = self.date_time_edit_fim.dateTime().toString("dd/MM/yyyy HH:mm:ss")
+        fim = self.date_time_edit_fim.dateTime().toString("d/MM/yyyy HH:mm:ss")
 
         if self.let_id_valor.text():
             dados['id'] = f"id={self.let_id_valor.text()}"
 
         if self.let_nome_produto.text():
-            dados['nome'] = f"nome={self.let_nome_produto.text()}"
+            dados['nome'] = f"nome='{self.let_nome_produto.text().lower()}'"
 
         if self.com_categoria.currentText():
-            dados['categoria'] = f"categoria={self.com_categoria.currentText()}"
+            dados['categoria'] = f"categoria='{self.com_categoria.currentText().lower()}'"
 
         if self.com_unidade.currentText():
-            dados['unidade'] = f"unidade={self.com_unidade.currentText()}"
+            dados['unidade'] = f"unidade='{self.com_unidade.currentText().lower()}'"
 
         if self.com_cliente.currentText():
-            dados['cliente'] = f"cliente={self.com_cliente.currentText()}"
+            dados['cliente'] = f"cliente='{self.com_cliente.currentText().lower()}'"
 
         if self.com_vendedor.currentText():
-            dados['vendedor'] = f"vendedor={self.com_vendedor.currentText()}"
+            dados['vendedor'] = f"vendedor='{self.com_vendedor.currentText()}'"
 
         if self.com_total_operador.currentText() and self.let_total_valor.text():
             dados['total_operador'] = f"total{self.com_total_operador.currentText()}{self.let_total_valor.text()}"
 
-        if ini == fim and ini != '01/01/2000 00:00:00':
+        if ini == fim and ini != '1/1/2000 00:00:00':
             dados['data'] = f"data='{ini}'"
         elif ini != fim:
             dados['data'] = f"data BETWEEN '{ini}' AND '{fim}'"
 
         return dados
 
+    def criarDoSelect(self):
+        """
+        responsavel criar por select que fara a busca dos dados
+        :return:
+        """
+        dados = self.__filtragemDeDados()
+        select = 'SELECT * FROM vw_historico_de_venda'
+
+        if dados.keys():
+            select += f" WHERE"
+            for i, value in enumerate(dados.values()):
+                select += f" {value}"
+                if i != len(dados.values())-1:
+                    select += " AND"
+        print(select)
+        return select
 
     def __setupUi(self, Form):
         if not Form.objectName():
