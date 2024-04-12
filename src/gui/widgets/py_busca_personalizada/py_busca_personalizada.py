@@ -9,6 +9,8 @@
 ################################################################################
 
 from src.qt_core import *
+from src.gui.core.database import DataBase
+from src.gui.core.absolute_path import AbsolutePath
 
 
 class PyBuscaPersonalizada(QFrame):
@@ -17,9 +19,12 @@ class PyBuscaPersonalizada(QFrame):
 
         self.setMaximumHeight(149)
         self.__setupUi(self)
-        self.validator()
+        self.__autoInsert()
+        self.__validator()
 
-    def validator(self):
+        self.btn_busca.clicked.connect(self.__busca)
+
+    def __validator(self) -> None:
         """
         Responsavel por validar apenas caracteres desejado
         :return:
@@ -30,10 +35,37 @@ class PyBuscaPersonalizada(QFrame):
         self.let_id_valor.setValidator(regex_id)
         self.let_total_valor.setValidator(regex_valor)
 
+    def __autoInsert(self) -> None:
+        """
+        responsavel pela auto inserção dos dados na GUi
+        :return:
+        """
+        db: DataBase = DataBase(AbsolutePath().getPathDatabase())
+        db.connectDataBase()
+        query_categoria = db.executarFetchall(f"SELECT DISTINCT nome FROM categoria")
+        query_unidade = db.executarFetchall(f"SELECT DISTINCT nome FROM unidade")
+        query_cliente = db.executarFetchall(f"SELECT DISTINCT nome FROM cliente")
+        query_usuario = db.executarFetchall(f"SELECT DISTINCT nome FROM usuario")
+        db.disconnectDataBase()
+
+        for i in query_categoria:
+            self.com_categoria.addItem(i[0])
+
+        for i in query_unidade:
+            self.com_unidade.addItem(i[0])
+
+        for i in query_cliente:
+            self.com_cliente.addItem(i[0])
+
+        for i in query_usuario:
+            self.com_vendedor.addItem(i[0])
+
+
     def __setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
         Form.resize(586, 149)
+        Form.setMaximumSize(QSize(16777215, 149))
         Form.setStyleSheet(u"")
         self.verticalLayout = QVBoxLayout(Form)
         self.verticalLayout.setSpacing(0)
@@ -41,6 +73,7 @@ class PyBuscaPersonalizada(QFrame):
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.frame_borda_esterior = QFrame(Form)
         self.frame_borda_esterior.setObjectName(u"frame_borda_esterior")
+        self.frame_borda_esterior.setMaximumSize(QSize(16777215, 149))
         self.frame_borda_esterior.setStyleSheet(u"*{color: rgb(255, 255, 255)}\n"
                                                 "\n"
                                                 "#frame_borda_esterior{\n"
@@ -147,7 +180,7 @@ class PyBuscaPersonalizada(QFrame):
         self.verticalLayout_3 = QVBoxLayout(self.frame_continer_top_center)
         self.verticalLayout_3.setSpacing(0)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
-        self.verticalLayout_3.setContentsMargins(5, 5, 5, 5)
+        self.verticalLayout_3.setContentsMargins(5, 5, 5, 2)
         self.frame_border_continer = QFrame(self.frame_continer_top_center)
         self.frame_border_continer.setObjectName(u"frame_border_continer")
         self.frame_border_continer.setFrameShape(QFrame.StyledPanel)
@@ -267,21 +300,21 @@ class PyBuscaPersonalizada(QFrame):
         self.verticalLayout_9.setSpacing(5)
         self.verticalLayout_9.setObjectName(u"verticalLayout_9")
         self.verticalLayout_9.setContentsMargins(3, 3, 3, 3)
-        self.lbl_nome_produto_2 = QLabel(self.frame_unidade)
-        self.lbl_nome_produto_2.setObjectName(u"lbl_nome_produto_2")
-        self.lbl_nome_produto_2.setMaximumSize(QSize(16777215, 17))
-        self.lbl_nome_produto_2.setFont(font)
-        self.lbl_nome_produto_2.setAlignment(Qt.AlignCenter)
+        self.lbl_unidade = QLabel(self.frame_unidade)
+        self.lbl_unidade.setObjectName(u"lbl_unidade")
+        self.lbl_unidade.setMaximumSize(QSize(16777215, 17))
+        self.lbl_unidade.setFont(font)
+        self.lbl_unidade.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout_9.addWidget(self.lbl_nome_produto_2)
+        self.verticalLayout_9.addWidget(self.lbl_unidade)
 
-        self.com_nome_produto = QComboBox(self.frame_unidade)
-        self.com_nome_produto.setObjectName(u"com_nome_produto")
-        self.com_nome_produto.setMinimumSize(QSize(0, 20))
-        self.com_nome_produto.setMaximumSize(QSize(16777215, 20))
-        self.com_nome_produto.setFont(font1)
+        self.com_unidade = QComboBox(self.frame_unidade)
+        self.com_unidade.setObjectName(u"com_unidade")
+        self.com_unidade.setMinimumSize(QSize(0, 20))
+        self.com_unidade.setMaximumSize(QSize(16777215, 20))
+        self.com_unidade.setFont(font1)
 
-        self.verticalLayout_9.addWidget(self.com_nome_produto)
+        self.verticalLayout_9.addWidget(self.com_unidade)
 
         self.horizontalLayout_2.addWidget(self.frame_unidade)
 
@@ -361,7 +394,7 @@ class PyBuscaPersonalizada(QFrame):
         self.verticalLayout_12 = QVBoxLayout(self.frame_data)
         self.verticalLayout_12.setSpacing(5)
         self.verticalLayout_12.setObjectName(u"verticalLayout_12")
-        self.verticalLayout_12.setContentsMargins(3, 3, 3, 3)
+        self.verticalLayout_12.setContentsMargins(3, 3, 3, 0)
         self.lbl_data = QLabel(self.frame_data)
         self.lbl_data.setObjectName(u"lbl_data")
         self.lbl_data.setMaximumSize(QSize(16777215, 13))
@@ -490,16 +523,16 @@ class PyBuscaPersonalizada(QFrame):
         self.__retranslateUi(Form)
 
         QMetaObject.connectSlotsByName(Form)
+        # setupUi
 
     def __retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         self.lbl_id.setText(QCoreApplication.translate("Form", u"Id", None))
-        self.let_id_valor.setText("")
         self.lbl_nome_produto.setText(QCoreApplication.translate("Form", u"Nome do produto", None))
         self.lbl_categoria.setText(QCoreApplication.translate("Form", u"Categoria", None))
         self.com_categoria.setPlaceholderText(QCoreApplication.translate("Form", u"Selecione", None))
-        self.lbl_nome_produto_2.setText(QCoreApplication.translate("Form", u"Unidade", None))
-        self.com_nome_produto.setPlaceholderText(QCoreApplication.translate("Form", u"Selecione", None))
+        self.lbl_unidade.setText(QCoreApplication.translate("Form", u"Unidade", None))
+        self.com_unidade.setPlaceholderText(QCoreApplication.translate("Form", u"Selecione", None))
         self.lbl_cliente.setText(QCoreApplication.translate("Form", u"Cliente", None))
         self.com_cliente.setPlaceholderText(QCoreApplication.translate("Form", u"Selecione", None))
         self.lbl_vendedor.setText(QCoreApplication.translate("Form", u"Vendedor", None))
@@ -507,14 +540,14 @@ class PyBuscaPersonalizada(QFrame):
         self.lbl_data.setText(QCoreApplication.translate("Form", u"Data", None))
         self.lbl_total.setText(QCoreApplication.translate("Form", u"Total", None))
         self.com_total_operador.setItemText(0, QCoreApplication.translate("Form", u"=", None))
-        self.com_total_operador.setItemText(1, QCoreApplication.translate("Form", u">=", None))
-        self.com_total_operador.setItemText(2, QCoreApplication.translate("Form", u"<=", None))
-        self.com_total_operador.setItemText(3, QCoreApplication.translate("Form", u">", None))
-        self.com_total_operador.setItemText(4, QCoreApplication.translate("Form", u"<", None))
+        self.com_total_operador.setItemText(1, QCoreApplication.translate("Form", u">", None))
+        self.com_total_operador.setItemText(2, QCoreApplication.translate("Form", u"<", None))
+        self.com_total_operador.setItemText(3, QCoreApplication.translate("Form", u">=", None))
+        self.com_total_operador.setItemText(4, QCoreApplication.translate("Form", u"<=", None))
 
         self.com_total_operador.setPlaceholderText(QCoreApplication.translate("Form", u"Selecione", None))
-        self.let_total_valor.setText("")
         self.btn_busca.setText(QCoreApplication.translate("Form", u"Buscar", None))
+    # retranslateUi
 
 
 if __name__ == '__main__':
