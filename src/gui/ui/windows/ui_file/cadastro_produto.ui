@@ -802,7 +802,7 @@ QPushButton:pressed{background-color: rgb(48, 55, 102);}
               </rect>
              </property>
              <property name="currentIndex">
-              <number>0</number>
+              <number>1</number>
              </property>
              <widget class="QWidget" name="page">
               <widget class="QFrame" name="frame_quantidade">
@@ -1240,6 +1240,27 @@ QLineEdit{border-top-right-radius:0px;border-bottom-right-radius:0px;}</string>
                </property>
                <layout class="QHBoxLayout" name="horizontalLayout_14">
                 <item>
+                 <widget class="QLineEdit" name="lineEdit_preco_compra">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>37</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>10</pointsize>
+                   </font>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="placeholderText">
+                   <string>Preço de compra(o)</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
                  <widget class="QLineEdit" name="lineEdit_preco_venda">
                   <property name="minimumSize">
                    <size>
@@ -1253,7 +1274,7 @@ QLineEdit{border-top-right-radius:0px;border-bottom-right-radius:0px;}</string>
                    </font>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                   <set>Qt::AlignCenter</set>
                   </property>
                   <property name="placeholderText">
                    <string>Preço de venda</string>
