@@ -12,7 +12,6 @@ class PyRegistrationList(QFrame):
         self.setStyleSheet("QFrame{background-color: rgb(32, 33, 37);border-radius:10px;}")
         self.__setUp__()
 
-
         self.btn_opcoes.clicked.connect(self.showMenu)
 
         self.deletar = None
@@ -23,17 +22,13 @@ class PyRegistrationList(QFrame):
         self.chave.setText(code[:4])
         self.chave_completa = code
 
-
     def setName(self, name):
         self.nome_produto.setText(name)
-
 
     def setQuantidade(self, value=0):
         self.lbl_quantidade.setText(str(value))
 
-
     def setValorDeVenda(self, value=0, auto=False):
-
         self.lbl_venda_valor.setText(f'Kz {value:,.2f}'.replace(',', '.'))
         quantidade = int(self.lbl_quantidade.text())
         self.lbl_valor_total.setText(f'Kz {(value * quantidade):,.2f}'.replace(',', '.'))
@@ -49,19 +44,15 @@ class PyRegistrationList(QFrame):
             quantidade_total += quantidade
         self.lbl_percentual.setText(f'{(quantidade / quantidade_total) * 100:.1f}')
 
-
     def setImage(self, path):
         icon = QIcon()
         icon.addFile(path)
         self.icon_img.setIcon(icon)
 
-
     def setImageSize(self, width, heith):
         self.icon_img.setIconSize(QSize(width, heith))
 
-
     def showMenu(self):
-
         parent = self.parent().parent().parent().parent().parent().parent()
 
         self.menu = Menu(parent)
@@ -72,7 +63,6 @@ class PyRegistrationList(QFrame):
         self.editar = self.menu.btn_editar()
 
         self.menu.showMethod()
-
 
     def __setUp__(self):
         self.horizontalLayout_3 = QHBoxLayout(self)
@@ -128,7 +118,6 @@ class PyRegistrationList(QFrame):
 
         self.verticalLayout_9.addWidget(self.nome_produto)
 
-
         self.horizontalLayout_8.addWidget(self.frame_chave_nome)
 
         self.frame_valor_persentual = QFrame(self.frame_registro)
@@ -177,20 +166,18 @@ class PyRegistrationList(QFrame):
         font3.setPointSize(8)
         self.lbl_percentual.setFont(font3)
         self.lbl_percentual.setStyleSheet(u"background-color: rgb(230, 230, 230);\n"
-"color: rgb(0, 0, 0);\n"
-"border-radius:2px;\n"
-"margin-left:3px\n"
-"\n"
-"")
+                                          "color: rgb(0, 0, 0);\n"
+                                          "border-radius:2px;\n"
+                                          "margin-left:3px\n"
+                                          "\n"
+                                          "")
         self.lbl_percentual.setAlignment(Qt.AlignCenter)
         self.lbl_percentual.setWordWrap(False)
         self.lbl_percentual.setMargin(0)
 
         self.horizontalLayout_4.addWidget(self.lbl_percentual, 0, Qt.AlignLeft)
 
-
         self.verticalLayout_6.addWidget(self.frame_continer)
-
 
         self.horizontalLayout_8.addWidget(self.frame_valor_persentual)
 
@@ -219,7 +206,6 @@ class PyRegistrationList(QFrame):
 
         self.verticalLayout_2.addWidget(self.lbl_quantidade)
 
-
         self.horizontalLayout_8.addWidget(self.frame_unidade)
 
         self.frame_venda = QFrame(self.frame_registro)
@@ -247,7 +233,6 @@ class PyRegistrationList(QFrame):
 
         self.verticalLayout.addWidget(self.lbl_venda_valor)
 
-
         self.horizontalLayout_8.addWidget(self.frame_venda)
 
         self.btn_opcoes = QPushButton(self.frame_registro)
@@ -260,29 +245,26 @@ class PyRegistrationList(QFrame):
         font4.setBold(False)
         self.btn_opcoes.setFont(font4)
         self.btn_opcoes.setStyleSheet(u"QPushButton {\n"
-"            color: rgb(233, 234, 236);\n"
-"            background-color: rgb(38, 39, 43);\n"
-"            border: none;\n"
-"            border-radius: 6px;\n"
-"}\n"
-" QPushButton:hover {\n"
-" 	background-color: rgb(49, 50, 55)\n"
-" }\n"
-"QPushButton:pressed {\n"
-" 	background-color: rgb(38, 39, 43);\n"
-"}")
+                                      "            color: rgb(233, 234, 236);\n"
+                                      "            background-color: rgb(38, 39, 43);\n"
+                                      "            border: none;\n"
+                                      "            border-radius: 6px;\n"
+                                      "}\n"
+                                      " QPushButton:hover {\n"
+                                      " 	background-color: rgb(49, 50, 55)\n"
+                                      " }\n"
+                                      "QPushButton:pressed {\n"
+                                      " 	background-color: rgb(38, 39, 43);\n"
+                                      "}")
 
         self.btn_opcoes.setIcon(QIcon(AbsolutePath().getPathIcon('icon_more.svg')))
         self.btn_opcoes.setIconSize(QSize(20, 20))
 
         self.horizontalLayout_8.addWidget(self.btn_opcoes)
 
-
         self.horizontalLayout_3.addWidget(self.frame_registro)
 
-
         self.__retranslateUi__()
-
 
     def __retranslateUi__(self):
         self.chave.setText(QCoreApplication.translate("return_busca", u"333", None))
@@ -296,8 +278,6 @@ class PyRegistrationList(QFrame):
         self.lbl_venda_valor.setText(QCoreApplication.translate("return_busca", u"Kz 250", None))
 
 
-
-
 class Menu(QFrame):
 
     def __init__(self, parent=None):
@@ -306,7 +286,6 @@ class Menu(QFrame):
         self.__setUp__()
 
     def showMethod(self):
-
         self.show()
 
         self.animation_menu = QPropertyAnimation(self, b'minimumHeight')
@@ -317,7 +296,6 @@ class Menu(QFrame):
         self.animation_menu.start()
 
     def leaveEvent(self, event):
-
         self.animation_menu_min = QPropertyAnimation(self, b'minimumHeight')
         self.animation_menu_min.setStartValue(65)
         self.animation_menu_min.setDuration(400)
@@ -336,113 +314,110 @@ class Menu(QFrame):
         self.parallel_animation.finished.connect(lambda: self.close())
         self.parallel_animation.start()
 
-
     def __setUp__(self):
+        self.setStyleSheet(u"background-color: rgba(32, 33, 37, 255); border-radius: 10px;")
+        self.setGeometry(0, 0, 105, 0)
 
-         self.setStyleSheet(u"background-color: rgba(32, 33, 37, 255); border-radius: 10px;")
-         self.setGeometry(0, 0, 105, 0)
+        self.verticalLayout_27 = QVBoxLayout(self)
+        self.verticalLayout_27.setSpacing(0)
+        self.verticalLayout_27.setObjectName(u"verticalLayout_27")
+        self.verticalLayout_27.setContentsMargins(2, 2, 2, 2)
 
-         self.verticalLayout_27 = QVBoxLayout(self)
-         self.verticalLayout_27.setSpacing(0)
-         self.verticalLayout_27.setObjectName(u"verticalLayout_27")
-         self.verticalLayout_27.setContentsMargins(2, 2, 2, 2)
+        self.frame_line = QFrame(self)
+        self.frame_line.setObjectName(u"frame_line")
+        self.frame_line.setStyleSheet(u"background-color: rgba(64, 80, 170, 255);\n"
+                                      "border-radius: 8px")
+        self.frame_line.setFrameShape(QFrame.StyledPanel)
+        self.frame_line.setFrameShadow(QFrame.Raised)
 
-         self.frame_line = QFrame(self)
-         self.frame_line.setObjectName(u"frame_line")
-         self.frame_line.setStyleSheet(u"background-color: rgba(64, 80, 170, 255);\n"
-                                       "border-radius: 8px")
-         self.frame_line.setFrameShape(QFrame.StyledPanel)
-         self.frame_line.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_28 = QVBoxLayout(self.frame_line)
+        self.verticalLayout_28.setSpacing(0)
+        self.verticalLayout_28.setObjectName(u"verticalLayout_28")
+        self.verticalLayout_28.setContentsMargins(0, 0, 0, 0)
 
-         self.verticalLayout_28 = QVBoxLayout(self.frame_line)
-         self.verticalLayout_28.setSpacing(0)
-         self.verticalLayout_28.setObjectName(u"verticalLayout_28")
-         self.verticalLayout_28.setContentsMargins(0, 0, 0, 0)
+        self.frame_center = QFrame(self.frame_line)
+        self.frame_center.setObjectName(u"frame_center")
+        self.frame_center.setStyleSheet(u"background-color: rgba(32, 33, 37, 190);")
+        self.frame_center.setFrameShape(QFrame.StyledPanel)
+        self.frame_center.setFrameShadow(QFrame.Raised)
 
-         self.frame_center = QFrame(self.frame_line)
-         self.frame_center.setObjectName(u"frame_center")
-         self.frame_center.setStyleSheet(u"background-color: rgba(32, 33, 37, 190);")
-         self.frame_center.setFrameShape(QFrame.StyledPanel)
-         self.frame_center.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_29 = QVBoxLayout(self.frame_center)
+        self.verticalLayout_29.setSpacing(0)
+        self.verticalLayout_29.setObjectName(u"verticalLayout_29")
+        self.verticalLayout_29.setContentsMargins(1, 1, 1, 1)
 
-         self.verticalLayout_29 = QVBoxLayout(self.frame_center)
-         self.verticalLayout_29.setSpacing(0)
-         self.verticalLayout_29.setObjectName(u"verticalLayout_29")
-         self.verticalLayout_29.setContentsMargins(1, 1, 1, 1)
+        self.frame_continer = QFrame(self.frame_center)
+        self.frame_continer.setObjectName(u"frame_continer")
+        self.frame_continer.setMinimumSize(QSize(70, 10))
+        self.frame_continer.setStyleSheet(u"background-color:  rgb(19, 20, 22);\n"
+                                          "border-radius:6px;")
+        self.frame_continer.setFrameShape(QFrame.StyledPanel)
+        self.frame_continer.setFrameShadow(QFrame.Raised)
 
-         self.frame_continer = QFrame(self.frame_center)
-         self.frame_continer.setObjectName(u"frame_continer")
-         self.frame_continer.setMinimumSize(QSize(70, 10))
-         self.frame_continer.setStyleSheet(u"background-color:  rgb(19, 20, 22);\n"
-                                           "border-radius:6px;")
-         self.frame_continer.setFrameShape(QFrame.StyledPanel)
-         self.frame_continer.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_30 = QVBoxLayout(self.frame_continer)
+        self.verticalLayout_30.setSpacing(3)
+        self.verticalLayout_30.setObjectName(u"verticalLayout_30")
+        self.verticalLayout_30.setContentsMargins(2, 3, 2, 3)
 
-         self.verticalLayout_30 = QVBoxLayout(self.frame_continer)
-         self.verticalLayout_30.setSpacing(3)
-         self.verticalLayout_30.setObjectName(u"verticalLayout_30")
-         self.verticalLayout_30.setContentsMargins(2, 3, 2, 3)
+        self.editar = QPushButton(self.frame_continer)
+        self.editar.setObjectName(u"editar")
+        self.editar.setMinimumSize(QSize(0, 25))
+        self.editar.setSizeIncrement(QSize(0, 0))
 
-         self.editar = QPushButton(self.frame_continer)
-         self.editar.setObjectName(u"editar")
-         self.editar.setMinimumSize(QSize(0, 25))
-         self.editar.setSizeIncrement(QSize(0, 0))
+        font1 = QFont()
+        font1.setFamilies([u"Segoe UI Light"])
+        font1.setPointSize(11)
 
-         font1 = QFont()
-         font1.setFamilies([u"Segoe UI Light"])
-         font1.setPointSize(11)
+        self.editar.setFont(font1)
+        self.editar.setCursor(QCursor(Qt.PointingHandCursor))
+        self.editar.setStyleSheet(u"QPushButton{\n"
+                                  "background-color: rgb(19, 20, 22);\n"
+                                  "border-radius: 5px;\n"
+                                  "color: rgb(255, 255, 255);\n"
+                                  "text-align: left;\n"
+                                  "padding-left: 6px;}\n"
+                                  "\n"
+                                  "QPushButton:hover{background-color: rgb(47, 54, 100)}\n"
+                                  "\n"
+                                  "QPushButton:pressed{background-color: rgb(33, 38, 70);}")
+        self.editar.setIcon(QIcon(AbsolutePath().getPathIcon('icon_edit.svg')))
+        self.editar.setIconSize(QSize(19, 19))
 
-         self.editar.setFont(font1)
-         self.editar.setCursor(QCursor(Qt.PointingHandCursor))
-         self.editar.setStyleSheet(u"QPushButton{\n"
+        self.verticalLayout_30.addWidget(self.editar)
+
+        self.deletar = QPushButton(self.frame_continer)
+        self.deletar.setObjectName(u"deletar")
+        self.deletar.setMinimumSize(QSize(0, 25))
+        self.deletar.setSizeIncrement(QSize(0, 0))
+        self.deletar.setFont(font1)
+        self.deletar.setCursor(QCursor(Qt.PointingHandCursor))
+        self.deletar.setStyleSheet(u"QPushButton{\n"
                                    "background-color: rgb(19, 20, 22);\n"
                                    "border-radius: 5px;\n"
                                    "color: rgb(255, 255, 255);\n"
                                    "text-align: left;\n"
-                                   "padding-left: 6px;}\n"
+                                   "padding-left: 5px;}\n"
                                    "\n"
                                    "QPushButton:hover{background-color: rgb(47, 54, 100)}\n"
                                    "\n"
                                    "QPushButton:pressed{background-color: rgb(33, 38, 70);}")
-         self.editar.setIcon(QIcon(AbsolutePath().getPathIcon('icon_edit.svg')))
-         self.editar.setIconSize(QSize(19, 19))
 
-         self.verticalLayout_30.addWidget(self.editar)
+        self.deletar.setIcon(QIcon(AbsolutePath().getPathIcon('icon_delete.svg')))
+        self.deletar.setIconSize(QSize(21, 21))
 
-         self.deletar = QPushButton(self.frame_continer)
-         self.deletar.setObjectName(u"deletar")
-         self.deletar.setMinimumSize(QSize(0, 25))
-         self.deletar.setSizeIncrement(QSize(0, 0))
-         self.deletar.setFont(font1)
-         self.deletar.setCursor(QCursor(Qt.PointingHandCursor))
-         self.deletar.setStyleSheet(u"QPushButton{\n"
-                                    "background-color: rgb(19, 20, 22);\n"
-                                    "border-radius: 5px;\n"
-                                    "color: rgb(255, 255, 255);\n"
-                                    "text-align: left;\n"
-                                    "padding-left: 5px;}\n"
-                                    "\n"
-                                    "QPushButton:hover{background-color: rgb(47, 54, 100)}\n"
-                                    "\n"
-                                    "QPushButton:pressed{background-color: rgb(33, 38, 70);}")
+        self.verticalLayout_30.addWidget(self.deletar)
 
-         self.deletar.setIcon(QIcon(AbsolutePath().getPathIcon('icon_delete.svg')))
-         self.deletar.setIconSize(QSize(21, 21))
+        self.verticalLayout_29.addWidget(self.frame_continer)
 
-         self.verticalLayout_30.addWidget(self.deletar)
+        self.verticalLayout_28.addWidget(self.frame_center)
 
-         self.verticalLayout_29.addWidget(self.frame_continer)
+        self.verticalLayout_27.addWidget(self.frame_line)
 
-         self.verticalLayout_28.addWidget(self.frame_center)
-
-         self.verticalLayout_27.addWidget(self.frame_line)
-
-         self.editar.setText(QCoreApplication.translate("MainWindow", u"  Editar", None))
-         self.deletar.setText(QCoreApplication.translate("MainWindow", u"  Deletar", None))
+        self.editar.setText(QCoreApplication.translate("MainWindow", u"  Editar", None))
+        self.deletar.setText(QCoreApplication.translate("MainWindow", u"  Deletar", None))
 
     def btn_deletar(self):
         return self.deletar
 
     def btn_editar(self):
         return self.editar
-
