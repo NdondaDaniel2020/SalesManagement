@@ -8,24 +8,43 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QCheckBox, QFrame, QHBoxLayout,
-    QLabel, QLineEdit, QPushButton, QSizePolicy,
-    QVBoxLayout, QWidget)
+from src.qt_core import *
+
 
 class PyInsertRecordList(QFrame):
     def __init__(self, parent=None):
         super().__init__(parent)
 
-        self.setupUi()
+        self.__setupUi()
+        self.__validator()
         self.chave_completa = ''
 
+        self.checkBox.clicked.connect(self.__selecionarPorChackeBox)
+        self.lineEdit_quantidade.textChanged.connect(self.__selecionarPorLineEdit)
+
+
+    def __selecionarPorLineEdit(self, value):
+        if not value:
+            self.lineEdit_quantidade.setText("0")
+            value = "0"
+
+        if value:
+            self.lineEdit_quantidade.setText(f"{int(value)}")
+
+        if int(value) > 0:
+            self.checkBox.setChecked(True)
+        else:
+            self.checkBox.setChecked(False)
+
+    def __selecionarPorChackeBox(self):
+        if self.checkBox.isChecked():
+            self.lineEdit_quantidade.setText("1")
+        else:
+            self.lineEdit_quantidade.setText("0")
+
+    def __validator(self):
+        regex = QRegularExpressionValidator(QRegularExpression("^[0-9]*$"), self)
+        self.lineEdit_quantidade.setValidator(regex)
 
     def setChave(self, code):
         self.chave.setText(code[:4])
@@ -34,45 +53,89 @@ class PyInsertRecordList(QFrame):
     def setName(self, name):
         self.nome_produto.setText(name)
 
-    def setQuantidade(self, value=0):
-        self.lbl_quantidade_valor.setText(str(value))
-
     def setImage(self, path):
         icon = QIcon()
         icon.addFile(path)
         self.icon_img.setIcon(icon)
 
-    def setPrecoDeVenda(self, value=0, auto=False):
+    def setPrecoDeVenda(self, value=0):
         self.lbl_preco_valor.setText(f'Kz {value:,.2f}'.replace(',', '.'))
 
     def setImageSize(self, width, heith):
         self.icon_img.setIconSize(QSize(width, heith))
 
-    def setupUi(self):
-        self.verticalLayout = QVBoxLayout(return_busca)
-        self.verticalLayout.setObjectName(u"verticalLayout")
-        self.frame_registro = QFrame(return_busca)
-        self.frame_registro.setObjectName(u"frame_registro")
-        self.frame_registro.setMinimumSize(QSize(0, 50))
-        self.frame_registro.setMaximumSize(QSize(16777215, 50))
-        self.frame_registro.setFrameShape(QFrame.StyledPanel)
-        self.frame_registro.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_9 = QHBoxLayout(self.frame_registro)
+    def __setupUi(self):
+
+        self.setObjectName(u"frame_registro")
+        self.setMinimumSize(QSize(0, 50))
+        self.setMaximumSize(QSize(16777215, 50))
+        self.setFrameShape(QFrame.StyledPanel)
+        self.setFrameShadow(QFrame.Raised)
+        self.setStyleSheet("QPushButton{\n"
+                           "border: 1px solid rgb(230, 230, 230);\n"
+                           "border-radius:5px;}\n"
+                           "\n"
+                           "QLabel{color: rgb(233, 234, 236);}\n"
+                           "\n"
+                           "QLineEdit{\n"
+                           "	background-color: transparent; \n"
+                           "	border-radius: 6px;\n"
+                           "	border: transparent;\n"
+                           "	color: rgb(233, 234, 236);}\n"
+                           "\n"
+                           "QLineEdit:hover{\n"
+                           "	background-color: transparent; \n"
+                           "	border: 1px solid rgb(121, 121, 121);}\n"
+                           "\n"
+                           "QLineEdit:focus{\n"
+                           "	background-color: transparent; \n"
+                           "	border: 1px solid rgb(161, 161, 161);}\n"
+                           "\n"
+                           "QFrame{\n"
+                           "	background-color: rgb(32, 33, 37);\n"
+                           "	border-radius:10px;}\n"
+                           "\n"
+                           "#lbl_venda, #lbl_quantidade, #lbl_valor_percentual\n"
+                           "{color: rgb(121, 121, 121)}\n"
+                           "\n"
+                           "#lbl_percentual{\n"
+                           "background-color: rgb(230, 230, 230);\n"
+                           "color: rgb(0, 0, 0);\n"
+                           "border-radius:2px;\n"
+                           "margin-left:3px}\n"
+                           "\n"
+                           "QCheckBox{color: rgb(255, 255, 255);}\n"
+                           "QCheckBox::indicator {\n"
+                           "    border: 3px solid rgb(47, 54, 100);\n"
+                           "	width: 15px;\n"
+                           "	height: 15px;\n"
+                           "	border-radius: 10px;\n"
+                           "    background: rgb(255, 255, 255);\n"
+                           "}\n"
+                           "QCheckBox::indicator:hover {\n"
+                           "    border: 3px solid rgb(49, 57, 105);\n"
+                           "}\n"
+                           "QCheckBox::indicator:checked {\n"
+                           "    background: 3px solid rgb(47, 54, 100);\n"
+                           "	border: 3px solid rgb(255, 255, 255);\n"
+                           "}")
+        self.horizontalLayout_9 = QHBoxLayout(self)
         self.horizontalLayout_9.setSpacing(19)
         self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
         self.horizontalLayout_9.setContentsMargins(6, 0, 10, 0)
-        self.icon_img = QPushButton(self.frame_registro)
+        self.icon_img = QPushButton(self)
         self.icon_img.setObjectName(u"icon_img")
         self.icon_img.setMinimumSize(QSize(37, 37))
         self.icon_img.setMaximumSize(QSize(37, 37))
         icon = QIcon()
-        icon.addFile(u"../../../../../../imagem de modelo/transferir-removebg-preview.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u"../../../../../../imagem de modelo/transferir-removebg-preview.png", QSize(),
+                     QIcon.Normal, QIcon.Off)
         self.icon_img.setIcon(icon)
         self.icon_img.setIconSize(QSize(60, 60))
 
         self.horizontalLayout_9.addWidget(self.icon_img)
 
-        self.frame_chave_nome = QFrame(self.frame_registro)
+        self.frame_chave_nome = QFrame(self)
         self.frame_chave_nome.setObjectName(u"frame_chave_nome")
         self.frame_chave_nome.setFrameShape(QFrame.StyledPanel)
         self.frame_chave_nome.setFrameShadow(QFrame.Raised)
@@ -100,7 +163,7 @@ class PyInsertRecordList(QFrame):
 
         self.horizontalLayout_9.addWidget(self.frame_chave_nome)
 
-        self.frame_venda = QFrame(self.frame_registro)
+        self.frame_venda = QFrame(self)
         self.frame_venda.setObjectName(u"frame_venda")
         self.frame_venda.setMinimumSize(QSize(77, 0))
         self.frame_venda.setMaximumSize(QSize(2345678, 16777215))
@@ -108,7 +171,7 @@ class PyInsertRecordList(QFrame):
         self.frame_venda.setFrameShadow(QFrame.Raised)
         self.verticalLayout_4 = QVBoxLayout(self.frame_venda)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
-        self.verticalLayout_4.setContentsMargins(10, 10, 10, 10)
+        self.verticalLayout_4.setContentsMargins(10, 5, 10, 5)
         self.lbl_venda = QLabel(self.frame_venda)
         self.lbl_venda.setObjectName(u"lbl_venda")
         font2 = QFont()
@@ -118,17 +181,17 @@ class PyInsertRecordList(QFrame):
 
         self.verticalLayout_4.addWidget(self.lbl_venda)
 
-        self.lbl_venda_valor = QLabel(self.frame_venda)
-        self.lbl_venda_valor.setObjectName(u"lbl_venda_valor")
-        self.lbl_venda_valor.setFont(font2)
-        self.lbl_venda_valor.setAlignment(Qt.AlignCenter)
+        self.lbl_preco_valor = QLabel(self.frame_venda)
+        self.lbl_preco_valor.setObjectName(u"lbl_venda_valor")
+        self.lbl_preco_valor.setFont(font2)
+        self.lbl_preco_valor.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout_4.addWidget(self.lbl_venda_valor)
+        self.verticalLayout_4.addWidget(self.lbl_preco_valor)
 
 
         self.horizontalLayout_9.addWidget(self.frame_venda)
 
-        self.frame_unidade = QFrame(self.frame_registro)
+        self.frame_unidade = QFrame(self)
         self.frame_unidade.setObjectName(u"frame_unidade")
         self.frame_unidade.setMinimumSize(QSize(80, 0))
         self.frame_unidade.setMaximumSize(QSize(1234567, 16777215))
@@ -136,7 +199,7 @@ class PyInsertRecordList(QFrame):
         self.frame_unidade.setFrameShadow(QFrame.Raised)
         self.verticalLayout_3 = QVBoxLayout(self.frame_unidade)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
-        self.verticalLayout_3.setContentsMargins(10, 8, 10, 9)
+        self.verticalLayout_3.setContentsMargins(0, 5, 0, 5)
         self.lbl_quantidade = QLabel(self.frame_unidade)
         self.lbl_quantidade.setObjectName(u"lbl_quantidade")
         self.lbl_quantidade.setFont(font2)
@@ -152,29 +215,23 @@ class PyInsertRecordList(QFrame):
         self.verticalLayout_3.addWidget(self.lineEdit_quantidade)
 
 
-        self.horizontalLayout_9.addWidget(self.frame_unidade)
+        self.horizontalLayout_9.addWidget(self.frame_unidade, 0, Qt.AlignRight)
 
-        self.checkBox = QCheckBox(self.frame_registro)
+        self.checkBox = QCheckBox(self)
         self.checkBox.setObjectName(u"checkBox")
         self.checkBox.setMaximumSize(QSize(24, 16777215))
 
         self.horizontalLayout_9.addWidget(self.checkBox)
 
 
-        self.verticalLayout.addWidget(self.frame_registro)
-
-
-        self.retranslateUi(return_busca)
-
-        QMetaObject.connectSlotsByName(return_busca)
+        self.__retranslateUi()
     # setupUi
 
-    def retranslateUi(self, return_busca):
-        return_busca.setWindowTitle(QCoreApplication.translate("return_busca", u"Form", None))
+    def __retranslateUi(self):
         self.chave.setText(QCoreApplication.translate("return_busca", u"333", None))
         self.nome_produto.setText(QCoreApplication.translate("return_busca", u"Coca Cola", None))
-        self.lbl_venda.setText(QCoreApplication.translate("return_busca", u"Pres\u00e7o", None))
-        self.lbl_venda_valor.setText(QCoreApplication.translate("return_busca", u"Kz 250", None))
+        self.lbl_venda.setText(QCoreApplication.translate("return_busca", u"Pre\u00e7o", None))
+        self.lbl_preco_valor.setText(QCoreApplication.translate("return_busca", u"Kz 250", None))
         self.lbl_quantidade.setText(QCoreApplication.translate("return_busca", u"Quantidade", None))
         self.lineEdit_quantidade.setText(QCoreApplication.translate("return_busca", u"0", None))
 
@@ -185,5 +242,7 @@ class PyInsertRecordList(QFrame):
 if __name__ == '__main__':
     import sys
 
-    app =QApplication(sys.argv)
-    win =
+    app = QApplication(sys.argv)
+    win = PyInsertRecordList()
+    win.show()
+    sys.exit(app.exec())
