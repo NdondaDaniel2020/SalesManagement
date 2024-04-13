@@ -53,9 +53,23 @@
 	border-radius: 12px;
 	background-color: rgb(32, 33, 37);}
 
+
+
+QLabel{background-color: transparent}
+#frame_continer_total,
+#frame_continer_data,
+#frame_continer_bottom,
+#frame_continer_top_center{background-color: transparent}
+
 #frame_border_continer{	
 	background-color: rgb(19, 20, 22);
 	border-radius: 10px;}
+
+frame_continer_center_2 &gt; *{
+		background-color: transparent;} 
+
+frame_continer_center &gt; *{
+		background-color: transparent;}
 
 #frame_border_continer &gt; QFrame{
 	background-color: rgb(28, 29, 32);
@@ -63,6 +77,18 @@
 
 #frame_central_1 QFrame{background-color: rgb(32, 33, 37);}
 
+QPushButton {
+    color: rgb(233, 234, 236);
+    background-color: rgb(38, 38, 42);
+	border: none;
+	border-radius: 6px;
+}
+ QPushButton:hover {
+ 	background-color: rgb(41, 41, 45)
+ }
+QPushButton:pressed {
+ 	background-color: rgb(38, 39, 43);
+}
 
 QDateTimeEdit{
     border-bottom: 1px solid rgb(240, 240, 240);
@@ -1082,18 +1108,7 @@ QComboBox QAbstractItemView {
             </size>
            </property>
            <property name="styleSheet">
-            <string notr="true">QPushButton {
-    color: rgb(233, 234, 236);
-    background-color: rgb(40, 41, 45);
-	border: none;
-	border-radius: 6px;
-}
- QPushButton:hover {
- 	background-color: rgb(49, 50, 55)
- }
-QPushButton:pressed {
- 	background-color: rgb(38, 39, 43);
-}</string>
+            <string notr="true"/>
            </property>
            <property name="text">
             <string>Buscar</string>
