@@ -25,6 +25,9 @@ from src.gui.widgets.py_busca_personalizada.py_busca_personalizada import PyBusc
 from src.gui.widgets.py_product_registration.py_product_registration import PyProductRegistration
 from src.gui.widgets.py_sale_registration_list.py_sale_registration_list import PySaleRegistrationList
 from src.gui.widgets.py_painel_de_produtos_a_venda.py_painel_de_produtos_a_venda import PyProductSelectionPanel
+from src.gui.widgets.py_painel_de_produtos_a_inserir.py_painel_de_produtos_a_inserir import PyProductInsertnPanel
+from src.gui.widgets.py_list_registro_venda_painel_insercao.py_list_registro_venda_painel_insercao import (
+                                                                                                    PyInsertRecordList)
 
 # MAIN INTERFACE CODE
 # CÓDIGO PRINCIPAL DA INTERFACE
@@ -76,6 +79,7 @@ class MainWindow(QMainWindow):
         self.painel_sale_finisher: PySalesFinisher = None
         self.usuario = 'NdDaniel'  # adicionar apartir da tela de login
         self.painel_de_busca_personalizada: PyBuscaPersonalizada = None
+        self.painel_de_insercao: PyProductInsertnPanel = None
 
         # adicionar nas configuracoes do despositivo que sera usado para as leiruras
         # quando se mudar tambem tem que mudar no painel de cadastro de produto
@@ -83,13 +87,13 @@ class MainWindow(QMainWindow):
         # "http://192.168.0.120:8080/video
         # "http://192.168.42.129:8080/video
         # self.cap = cv2.VideoCapture('http://192.168.43.1:8080/video')  # nas configuracoes escolher scanner
-        self.cap = None
+        # self.cap = None
         self.timer_scan_bar_code = QTimer()
         self.timer_scan_bar_code.timeout.connect(self.scanBarCodeCam)
         self.timer_scan_bar_code.setInterval(1000)
 
         self.timer_show_scan_bar_code = QTimer()
-        self.timer_show_scan_bar_code.timeout.connect(self.showScanBarCodeCam)  # adicionar no painel de configuacoes
+        # self.timer_show_scan_bar_code.timeout.connect(self.showScanBarCodeCam)  # adicionar no painel de configuacoes
 
         # self.lbl_camera = QLabel(self.ui.page_venda)  # adicionar no painel de configuacoes
         # self.lbl_camera.setGeometry(9, 9, 640, 179)
@@ -141,6 +145,7 @@ class MainWindow(QMainWindow):
         self.ui.line_edit_pesquisa_produto_devenda.returnPressed.connect(self.irerirProdutosPelaChave)
 
         # ///////////////////////////////////////////// INVENTORY ///////////////////////////////////////////
+        self.ui.btn_entrada_produto.clicked.connect(self.showPainelDeInsercaoDeProduto)
         self.ui.btn_adicionar_produto.clicked.connect(lambda: self.showPainelDeRegistroDeProduto())
         self.ui.frame_criar_produto.mousePressEvent = lambda e: self.showPainelDeRegistroDeProduto()
 
@@ -287,18 +292,21 @@ class MainWindow(QMainWindow):
     def changePage(self) -> None:
         name_btn = self.sender().objectName()
 
+        self.timer_dynamic_chart.stop()
+
         if name_btn == 'btn_home':
             self.ui.stacked_widget.setCurrentWidget(self.ui.page_home)
             self.timer_dynamic_chart.start()
 
         elif name_btn == 'btn_inventario':
             self.ui.stacked_widget.setCurrentWidget(self.ui.page_inventario)
-            self.timer_dynamic_chart.stop()
 
         elif name_btn == 'btn_venda':
             self.ui.stacked_widget.setCurrentWidget(self.ui.page_venda)
-            self.timer_dynamic_chart.stop()
             self.ui.line_edit_pesquisa_produto_devenda.setFocus()
+
+        elif name_btn == 'btn_setting':
+            self.ui.stacked_widget.setCurrentWidget(self.ui.page_configuracoes)
 
     ############################################## inventario ##############################################
 
@@ -306,6 +314,34 @@ class MainWindow(QMainWindow):
         self.registration_panel = PyProductRegistration(self.ui.central_widget)
         # self.registration_panel.countAvailableCameras()  # por nas configuracoes
         self.registration_panel.close()
+
+    def showPainelDeInsercaoDeProduto(self):
+        self.painel_de_insercao = PyProductInsertnPanel(self.ui.central_widget)
+        self.painel_de_insercao.setGeometry(0, 0, self.width(), self.height())
+        self.painel_de_insercao.move((self.width() - self.painel_de_insercao.width()) / 2,
+                                     (self.height() - self.painel_de_insercao.height()) / 2)
+
+        self.painel_de_insercao.btn_confirmar.clicked.connect(self.atualizarInventario)
+
+        self.painel_de_insercao.show()
+
+    def atualizarInventario(self):
+        dados = self.painel_de_insercao.getChaves()
+        db: DataBase = DataBase(AbsolutePath().getPathDatabase())
+        for dado in dados:
+            db.connectDataBase()
+            db.executarComand(f"""UPDATE produto SET
+                                quantidade=(SELECT quantidade FROM produto WHERE chave='{dado[0]}') + {int(dado[1])}
+                                WHERE chave='{dado[0]}'""")
+            db.disconnectDataBase()
+
+        objs = self.ui.scroll_area_widget_contents_inventario.findChildren(PyRegistrationList)
+        for obj in objs:
+            obj.deleteLater()
+
+        self.painel_de_insercao.close()
+        self.insercaoAutomaticaDeProduto()
+        ChartFunctions.updateCircularProgress(self)
 
     @Slot(None)
     def showPainelDeRegistroDeProduto(self) -> None:
@@ -345,14 +381,18 @@ class MainWindow(QMainWindow):
     def cadastrarProduto(self):
         produto = self.registration_panel.getAllData()
 
+        from pprint import pprint
+        pprint(produto)
+
         if produto:
             list_produto = PyRegistrationList()
-            list_produto.setImage(produto['linkImg'])
-            list_produto.setChave(produto['chave'][:4])
-            list_produto.setQuantidade(produto['quantidade'])
-            list_produto.setValorDeVenda(int(produto['preco_venda']))
-            list_produto.setName(produto['nome_produto'].capitalize())
-            list_produto.setImageSize(*produto['size_image']['icon_image'])
+            list_produto.setImage(produto.get('linkImg'))
+            list_produto.setChave(produto.get('chave')[:4])
+            list_produto.setQuantidade(produto.get('quantidade'))
+            list_produto.setValorDeVenda(int(produto.get('preco_venda')))
+            list_produto.setName(produto.get('nome').capitalize())
+            if produto.get('linkImg'):
+                list_produto.setImageSize(*produto.get('size_image').get('icon_image'))
 
             self.ui.vertical_layout_registro.insertWidget(0, list_produto)
             self.registration_panel.cleanAndClose()
@@ -361,7 +401,7 @@ class MainWindow(QMainWindow):
             saveImageSettingInSizeSetting(produto)
             insertProductDataIntoTheDatabase(produto)
 
-            ChartFunctions.updateCircularProgress()
+            ChartFunctions.updateCircularProgress(self)
 
     ############################################## venda ##############################################
 
@@ -408,6 +448,7 @@ class MainWindow(QMainWindow):
                             self.ui.line_edit_pesquisa_produto_devenda.setText("")
 
     Slot(None)
+
     def showMenuOpcoes(self):
         if not self.menu_opcoes_de_venda:
             self.menu_opcoes_de_venda = PySaleMenu(self.ui.page_venda)
@@ -424,8 +465,8 @@ class MainWindow(QMainWindow):
             self.menu_opcoes_de_venda.finalizar.clicked.connect(show_painel_sale_finished)
 
             def start_timer():  # ajustar a opcao de abrir e fechar  o scaner da cemera
-                self.timer_scan_bar_code.start()
-                self.timer_show_scan_bar_code.start()
+                # self.timer_scan_bar_code.start()
+                # self.timer_show_scan_bar_code.start()
                 self.menu_opcoes_de_venda.close()
                 self.ui.line_edit_pesquisa_produto_devenda.setFocus()
 
@@ -638,9 +679,9 @@ class MainWindow(QMainWindow):
     def showPainelBuscaPersonalizasa(self):
         self.painel_de_busca_personalizada = PyBuscaPersonalizada(self.ui.page_historico_venda)
         self.painel_de_busca_personalizada.setGeometry(39, 284, self.size().width() - 138, 149)
-        self.ui.page_historico_venda.mousePressEvent = lambda e: self.painel_de_busca_personalizada.close()
+        self.ui.page_historico_venda.mousePressEvent = lambda _: self.painel_de_busca_personalizada.close()
 
-        def busca_historico_de_venda():
+        def busca_historico_de_venda() -> None:
             select = self.painel_de_busca_personalizada.criarDoSelect()
             ChartFunctions.atribuirDadosNaTabelaDeHistorico(self, select)
             self.painel_de_busca_personalizada.close()
@@ -698,6 +739,17 @@ class MainWindow(QMainWindow):
 
             self.painel_de_produto.move((self.width() - self.painel_de_produto.width()) / 2,
                                         (self.height() - self.painel_de_produto.height()) / 2)
+
+
+        # //////////////////////////////////////////////////////////////////////////////////
+        if self.painel_de_insercao:
+            self.painel_de_insercao.setGeometry(
+                self.painel_de_insercao.x(),
+                self.painel_de_insercao.y(),
+                self.width(), self.height())
+
+            self.painel_de_insercao.move((self.width() - self.painel_de_insercao.width()) / 2,
+                                         (self.height() - self.painel_de_insercao.height()) / 2)
 
         # /////////////////////////////////////////////////////////////////////////////////////////
         if self.painel_sale_finisher:
