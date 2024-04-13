@@ -3,6 +3,7 @@ import json
 import pathlib
 
 import cv2
+import winsound
 from rembg import remove
 from src.qt_core import *
 from pyzbar.pyzbar import decode
@@ -17,11 +18,11 @@ from src.gui.widgets.py_slide_stacked_widgets.py_slide_stacked_widgets import Py
 
 
 class PyProductRegistration(QWidget):
-    def __init__(self, widget=None) -> None:
-        super().__init__(widget)
+    def __init__(self, parent=None) -> None:
+        super().__init__(parent)
 
         # /////////////////////////////////////////////////////////////////
-        self.setupUi(self)
+        self.__setupUi(self)
         self.validator()
         self.getSettings()
         self.getDataFromDatabase()
@@ -122,7 +123,7 @@ class PyProductRegistration(QWidget):
 
         self.btn_add_data.clicked.connect(self.addDateExpiration)
 
-        # self.btn_ok.clicked.connect(self.getAllData)
+        self.btn_ok.clicked.connect(self.getAllData)
 
     def showPopupCategoria(self) -> None:
         """
@@ -348,6 +349,7 @@ class PyProductRegistration(QWidget):
         self.lineEdit_chave.setValidator(regex_nu)
         self.lineEdit_quantidade.setValidator(regex_nu)
         self.lineEdit_preco_venda.setValidator(regex_nu)
+        self.lineEdit_preco_compra.setValidator(regex_nu)
 
     def changePosition(self) -> None:
         btn = self.sender()
@@ -618,6 +620,7 @@ class PyProductRegistration(QWidget):
             self.lbl_camera.setPixmap(pixmap)
             for code in decode(frame):
                 if not code.data.decode('utf-8') in self.lineEdit_chave.text():
+                    winsound.Beep(2500, 100)
                     self.lineEdit_chave.setText(code.data.decode('utf-8'))
                     self.backToMainPage(1)
         except ImportError:
@@ -662,6 +665,10 @@ class PyProductRegistration(QWidget):
 
                 self.image.setIcon(icon)
                 self.icon_img.setIcon(icon)
+
+                self.btn_activate.clicked.disconnect(self.saveImage)
+                self.backToMainPage(0)
+
 
         #### salvar o caminho da img na bd
 
@@ -777,78 +784,106 @@ class PyProductRegistration(QWidget):
         self.group_animation_alerta.addAnimation(self.pos_animation)
         self.group_animation_alerta.start()
 
+    def startAlarmeAnimation(self, info):
+        self.lbl_alerta.setText(info)
+        self.alertaAnimtion()
+        QTimer().singleShot(2000, lambda: self.opacity_animation_reverse.start())
+
     def getAllData(self) -> dict:
         try_exec = True
 
         produto = {}
         db = DataBase(AbsolutePath().getPathDatabase())
-        db.connectDataBase()
-
-        produto['linkImg'] = '' if 'icon_gallery.svg' in self.current_image_path else self.current_image_path
-
-        im = self.image.iconSize()
-        i_im = self.icon_img.iconSize()
-        produto['size_image'] = {'image': (im.width(), im.height()),
-                                 'icon_image': (i_im.width(), i_im.height())}
 
         if self.lineEdit_unidade.text():
             txt = self.lineEdit_unidade.text().lower()
-            id_uni = db.executarFetchone(f"SELECT id FROM unidade where nome='{txt}'")
-            produto['unidade'] = int(id_uni[0])
+
+            db.connectDataBase()
+            lis_un = db.executarFetchall(f"SELECT * FROM unidade")
+
+            if txt in str(lis_un):
+                id_uni = db.executarFetchone(f"SELECT id FROM unidade where nome='{txt}'")
+                produto['unidade'] = int(id_uni[0])
+            else:
+                self.startAlarmeAnimation('Insira a unidade')
+                try_exec = False
+
+            db.disconnectDataBase()
+
         elif try_exec:
-            self.lbl_alerta.setText('Selecione uma unidade')
-            self.alertaAnimtion()
-            QTimer().singleShot(2000, lambda: self.opacity_animation_reverse.start())
+            self.startAlarmeAnimation('Selecione uma unidade')
             try_exec = False
+
 
         if self.lineEdit_categoria.text():
             txt = self.lineEdit_categoria.text().lower()
-            id_cat = db.executarFetchone(f"SELECT id FROM categoria where nome='{txt}'")
-            produto['categoria'] = int(id_cat[0])
+
+            db.connectDataBase()
+            lis_cat = db.executarFetchall(f"SELECT * FROM categoria")
+
+            if txt in str(lis_cat):
+                id_cat = db.executarFetchone(f"SELECT id FROM categoria where nome='{txt}'")
+                produto['categoria'] = int(id_cat[0])
+            else:
+                self.startAlarmeAnimation('Insira a categoria')
+
+            db.disconnectDataBase()
+
         elif try_exec:
-            self.lbl_alerta.setText('Selecione uma categoria')
-            self.alertaAnimtion()
-            QTimer().singleShot(2000, lambda: self.opacity_animation_reverse.start())
+            self.startAlarmeAnimation('Selecione uma categoria')
             try_exec = False
 
+
         if self.lineEdit_nome_produto.text():
-            produto['nome'] = self.lineEdit_nome_produto.text()
+            txt = self.lineEdit_nome_produto.text()
+            txt = txt.replace("'", "").replace('"', "")
+            produto['nome'] = txt
+
         elif try_exec:
-            self.lbl_alerta.setText('Adicione um nome no produto')
-            self.alertaAnimtion()
-            QTimer().singleShot(2000, lambda: self.opacity_animation_reverse.start())
+            self.startAlarmeAnimation('Adicione um nome no produto')
             try_exec = False
 
         if self.lineEdit_preco_venda.text():
             produto['preco_venda'] = int(self.lineEdit_preco_venda.text())
 
         elif try_exec:
-            self.lbl_alerta.setText('Adicione o preço de venda')
-            self.alertaAnimtion()
-            QTimer().singleShot(2000, lambda: self.opacity_animation_reverse.start())
+            self.startAlarmeAnimation('Adicione o preço de venda')
             try_exec = False
 
+        if self.lineEdit_preco_compra.text():
+            produto['preco_compra'] = int(self.lineEdit_preco_compra.text())
+        else:
+            produto['preco_compra'] = 0
+
+        db.connectDataBase()
         chaves = db.executarFetchall("select chave FROM produto")
         db.disconnectDataBase()
 
-        if not self.lineEdit_chave.text():  # testar chaves iguais
+        if not self.lineEdit_chave.text():
+
             chave_gerada = generate_barcode()
-            while chave_gerada in chaves:
+            while chave_gerada in str(chaves):
                 chave_gerada = generate_barcode()
 
             produto['chave'] = chave_gerada
             self.lineEdit_chave.setText(chave_gerada)
 
-        elif not self.lineEdit_chave.text() in chaves:
+        elif not self.lineEdit_chave.text() in str(chaves):
             produto['chave'] = self.lineEdit_chave.text()
-
         elif try_exec:
-            self.lbl_alerta.setText('Mude a chave')
-            self.alertaAnimtion()
-            QTimer().singleShot(2000, lambda: self.opacity_animation_reverse.start())
+            self.startAlarmeAnimation('Código de barra existente')
             try_exec = False
 
-        # opcionais
+        if not 'icon_gallery.svg' in self.current_image_path:
+            im = self.image.iconSize()
+            i_im = self.icon_img.iconSize()
+
+            produto['linkImg'] = self.current_image_path
+            produto['size_image'] = {'image': (im.width(), im.height()), 'icon_image': (i_im.width(), i_im.height())}
+        else:
+            produto['linkImg'] = ''
+
+
 
         quantidade = self.lineEdit_quantidade.text()
         produto['quantidade'] = 0 if not quantidade.isnumeric() else int(quantidade)
@@ -861,6 +896,7 @@ class PyProductRegistration(QWidget):
 
         if try_exec:
             return produto
+
         return {}
 
     # /////////////////////////////////////////////////////
@@ -893,7 +929,7 @@ class PyProductRegistration(QWidget):
     # MONTAGEM DO WIDGET
     # /////////////////////////////////////////////////////
     # noinspection PyUnresolvedReferences
-    def setupUi(self, Form) -> None:
+    def __setupUi(self, Form) -> None:
         if not Form.objectName():
             Form.setObjectName(u"Form")
         Form.resize(296, 462)
@@ -977,7 +1013,8 @@ class PyProductRegistration(QWidget):
                                        "\n"
                                        "\n"
                                        "\n"
-                                       "#frame_nav_bar, PainelCalendario{background-color: rgb(47, 54, 100); border-radius: 7px}\n"
+                                       "#frame_nav_bar, PainelCalendario{background-color: rgb(47, 54, 100);\n"
+                                       " border-radius: 7px}\n"
                                        "\n"
                                        "#frame_nav_bar>QPushButton{\n"
                                        "background-color: rgb(19, 20, 22);\n"
@@ -1032,7 +1069,8 @@ class PyProductRegistration(QWidget):
                                        "\n"
                                        "#btn_add_data:hover, #btn_add_preco:hover{background-color: rgb(39, 40, 45);}\n"
                                        "\n"
-                                       "#btn_add_data:pressed, #btn_add_preco:pressed{background-color: rgb(35, 36, 41);}\n"
+                                       "#btn_add_data:pressed, \n"
+                                       "#btn_add_preco:pressed{background-color: rgb(35, 36, 41);}\n"
                                        "\n"
                                        "\n"
                                        "\n"
@@ -1120,7 +1158,8 @@ class PyProductRegistration(QWidget):
                                        "    margin: -9px 0;\n"
                                        ""
                                        "    border-radius: 11px;\n"
-                                       "    background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5,\n"
+                                       "    background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5,\n"
+                                       " fx:0.5, fy:0.5,\n"
                                        "        stop:0 rgb(54, 63, 118),\n"
                                        "        stop:0.5 rgb(64, 80, 170),\n"
                                        "        stop:0.6 rgb(69, 69, 69),\n"
@@ -1128,7 +1167,8 @@ class PyProductRegistration(QWidget):
                                        "}\n"
                                        "\n"
                                        "QSlider::handle:horizontal:hover {\n"
-                                       "    background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5,\n"
+                                       "    background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5,\n"
+                                       " fx:0.5, fy:0.5,\n"
                                        "        stop:0 rgb(63, 78, 165),\n"
                                        "        stop:0.6 rgb(72, 91, 190),\n"
                                        "        stop:0.7 rgb(69, 69, 69),\n"
@@ -1136,7 +1176,8 @@ class PyProductRegistration(QWidget):
                                        "}\n"
                                        "\n"
                                        "QSlider::handle:horizontal:pressed {\n"
-                                       "    background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5,\n"
+                                       "    background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5,\n"
+                                       " fx:0.5, fy:0.5,\n"
                                        "        stop:0 rgb(54, 63, 118),\n"
                                        "        stop:0.4 rgb(64, 80, 170),\n"
                                        "        stop:0.5 rgb(69, 69, 69),\n"
@@ -1475,13 +1516,21 @@ class PyProductRegistration(QWidget):
         self.horizontalLayout_14 = QHBoxLayout(self.frame_continer_preco)
         self.horizontalLayout_14.setObjectName(u"horizontalLayout_14")
 
+        self.lineEdit_preco_compra = QLineEdit(self.frame_continer_preco)
+        self.lineEdit_preco_compra.setObjectName(u"lineEdit_preco_compra")
+        self.lineEdit_preco_compra.setMinimumSize(QSize(0, 37))
+        self.lineEdit_preco_compra.setFont(font)
+        self.lineEdit_preco_compra.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_14.addWidget(self.lineEdit_preco_compra)
+
         self.lineEdit_preco_venda = QLineEdit(self.frame_continer_preco)
         self.lineEdit_preco_venda.setObjectName(u"lineEdit_preco_venda")
         self.lineEdit_preco_venda.setMinimumSize(QSize(0, 37))
         self.lineEdit_preco_venda.setFont(font)
-        self.lineEdit_preco_venda.setAlignment(Qt.AlignLeft)
+        self.lineEdit_preco_venda.setAlignment(Qt.AlignCenter)
 
-        self.horizontalLayout_14.addWidget(self.lineEdit_preco_venda)
+        self.horizontalLayout_14.addWidget(self.lineEdit_preco_venda, 0)
 
         self.frame_continer_information_adicionais = QFrame(self.page_edit)
         self.frame_continer_information_adicionais.setObjectName(u"frame_continer_information_adicionais")
@@ -1686,7 +1735,7 @@ class PyProductRegistration(QWidget):
 
         self.verticalLayout.addWidget(self.frame_style)
 
-        self.retranslateUi(Form)
+        self.__retranslateUi(Form)
 
         self.stackedWidget.setCurrentIndex(0)
         self.stackedWidget_2.setCurrentIndex(0)
@@ -1697,7 +1746,7 @@ class PyProductRegistration(QWidget):
 
     # setupUi
 
-    def retranslateUi(self, Form) -> None:
+    def __retranslateUi(self, Form) -> None:
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         self.lineEdit_quantidade.setPlaceholderText(QCoreApplication.translate("Form", u"Quantidade", None))
 
@@ -1716,6 +1765,7 @@ class PyProductRegistration(QWidget):
 
         self.lineEdit_unidade.setPlaceholderText(QCoreApplication.translate("Form", u"Selecione uma unidade", None))
 
+        self.lineEdit_preco_compra.setPlaceholderText(QCoreApplication.translate("Form", u"Pre\u00e7o de compra(o)", None))
         self.lineEdit_preco_venda.setPlaceholderText(
             QCoreApplication.translate("Form", u"Pre\u00e7o de venda", None))
 
