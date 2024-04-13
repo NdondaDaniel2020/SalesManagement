@@ -1,6 +1,6 @@
 from src.qt_core import *
 from src.gui.ui.windows.main_window.ui_main_window import Ui_MainWindow
-from src.gui.widgets.py_product_registration.py_product_registration import PyProductRegistration
+from src.gui.widgets.py_registration_list.py_registration_list import PyRegistrationList
 
 
 class FunctionsSystem:
@@ -85,7 +85,7 @@ class FunctionsSystem:
     def searchProduct(self):
         nome = self.ui.line_edit_pesquisa_produto.text()
 
-        objs = self.ui.scrollAreaWidgetContents_2.findChildren(PyRegistrationList)
+        objs = self.ui.scroll_area_widget_contents_inventario.findChildren(PyRegistrationList)
 
         if not nome:
             for obj in objs:
