@@ -21,6 +21,7 @@ class PyBuscaPersonalizada(QFrame):
         self.__setupUi(self)
         self.__autoInsert()
         self.__validator()
+        self.btn_busca.clicked.connect(self.__filtragemDeDados)
 
     def __validator(self) -> None:
         """
@@ -91,7 +92,7 @@ class PyBuscaPersonalizada(QFrame):
 
         if ini == fim and ini != '1/1/2000 00:00:00':
             dados['data'] = f"data='{ini}'"
-        elif ini != fim:
+        elif not fim in ini:
             dados['data'] = f"data BETWEEN '{ini}' AND '{fim}'"
 
         return dados
@@ -116,7 +117,7 @@ class PyBuscaPersonalizada(QFrame):
     def __setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(586, 149)
+        Form.resize(586, 146)
         Form.setMaximumSize(QSize(16777215, 149))
         Form.setStyleSheet(u"")
         self.verticalLayout = QVBoxLayout(Form)
@@ -128,6 +129,14 @@ class PyBuscaPersonalizada(QFrame):
         self.frame_borda_esterior.setMaximumSize(QSize(16777215, 149))
         self.frame_borda_esterior.setStyleSheet(u"*{color: rgb(255, 255, 255)}\n"
                                                 "\n"
+                                                "#frame_continer_bottom,"
+                                                "#frame_continer_top_center{background-color: transparent}"
+                                                "\n"
+                                                "QLabel{background-color: transparent}\n"
+                                                "\n"
+                                                "\n#frame_continer_total,"
+                                                "#frame_continer_data{background-color: transparent}\n"
+                                                "\n"
                                                 "#frame_borda_esterior{\n"
                                                 "	border-radius: 12px;\n"
                                                 "	background-color: rgb(28, 29, 32);}\n"
@@ -136,15 +145,32 @@ class PyBuscaPersonalizada(QFrame):
                                                 "	background-color: rgb(19, 20, 22);\n"
                                                 "	border-radius: 10px;}\n"
                                                 "\n"
+                                                "#frame_continer_center_2 > *{\n"
+                                                "   background-color: transparent;}\n" 
+                                                "#frame_continer_center > *{\n"
+                                                "    background-color: transparent;}\n"
                                                 "#frame_border_continer > QFrame{\n"
                                                 "	background-color: rgb(28, 29, 32);\n"
                                                 "	border-radius: 10px;}\n"
                                                 "\n"
                                                 "#frame_central_1 QFrame{background-color: rgb(28, 29, 32);}\n"
                                                 "\n"
+                                                "QPushButton {\n"
+                                                "  color: rgb(233, 234, 236);\n"
+                                                "  background-color: rgb(38, 38, 42);\n"
+                                                "  border: none;\n"
+                                                "  border-radius: 6px;\n"
+                                                "}\n"
+                                                "QPushButton:hover {\n"
+                                                "  background-color: rgb(41, 41, 45)\n"
+                                                "}\n"
+                                                "QPushButton:pressed {\n"
+                                                "  background-color: rgb(38, 39, 43);\n"
+                                                "}\n"
                                                 "\n"
                                                 "QDateTimeEdit{\n"
-                                                "    border-bottom: 1px solid rgb(240, 240, 240);\n"
+                                                "    bor"
+                                                "der-bottom: 1px solid rgb(240, 240, 240);\n"
                                                 "	border-radius: 0px;\n"
                                                 "	color: rgb(133, 133, 136);\n"
                                                 "    background-color: rgb(28, 29, 32);\n"
@@ -169,7 +195,6 @@ class PyBuscaPersonalizada(QFrame):
                                                 "    text-align: left;\n"
                                                 "}\n"
                                                 "\n"
-                                                ""
                                                 "QLineEdit:hover {\n"
                                                 "	background-color: rgb(30, 31, 34);\n"
                                                 "}\n"
@@ -189,7 +214,8 @@ class PyBuscaPersonalizada(QFrame):
                                                 "}\n"
                                                 "\n"
                                                 "QComboBox:hover {\n"
-                                                "	background-color: rgb(30, 31, 34);\n"
+                                                "	background-color: rgb(30, 31, "
+                                                "34);\n"
                                                 "}\n"
                                                 "\n"
                                                 "QComboBox:pressed , QComboBox:focus{\n"
@@ -552,18 +578,6 @@ class PyBuscaPersonalizada(QFrame):
         self.btn_busca = QPushButton(self.frame_continer_bottom)
         self.btn_busca.setObjectName(u"btn_busca")
         self.btn_busca.setMinimumSize(QSize(75, 24))
-        self.btn_busca.setStyleSheet(u"QPushButton {\n"
-                                     "    color: rgb(233, 234, 236);\n"
-                                     "    background-color: rgb(40, 41, 45);\n"
-                                     "	border: none;\n"
-                                     "	border-radius: 6px;\n"
-                                     "}\n"
-                                     " QPushButton:hover {\n"
-                                     " 	background-color: rgb(49, 50, 55)\n"
-                                     " }\n"
-                                     "QPushButton:pressed {\n"
-                                     " 	background-color: rgb(38, 39, 43);\n"
-                                     "}")
 
         self.horizontalLayout.addWidget(self.btn_busca)
 
@@ -574,31 +588,34 @@ class PyBuscaPersonalizada(QFrame):
         self.__retranslateUi(Form)
 
         QMetaObject.connectSlotsByName(Form)
-        # setupUi
+
+    # setupUi
 
     def __retranslateUi(self, Form):
-        Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
-        self.lbl_id.setText(QCoreApplication.translate("Form", u"Id", None))
-        self.lbl_nome_produto.setText(QCoreApplication.translate("Form", u"Nome do produto", None))
-        self.lbl_categoria.setText(QCoreApplication.translate("Form", u"Categoria", None))
-        self.com_categoria.setPlaceholderText(QCoreApplication.translate("Form", u"Selecione", None))
-        self.lbl_unidade.setText(QCoreApplication.translate("Form", u"Unidade", None))
-        self.com_unidade.setPlaceholderText(QCoreApplication.translate("Form", u"Selecione", None))
-        self.lbl_cliente.setText(QCoreApplication.translate("Form", u"Cliente", None))
-        self.com_cliente.setPlaceholderText(QCoreApplication.translate("Form", u"Selecione", None))
-        self.lbl_vendedor.setText(QCoreApplication.translate("Form", u"Vendedor", None))
-        self.com_vendedor.setPlaceholderText(QCoreApplication.translate("Form", u"Selecione", None))
-        self.lbl_data.setText(QCoreApplication.translate("Form", u"Data", None))
-        self.lbl_total.setText(QCoreApplication.translate("Form", u"Total", None))
-        self.com_total_operador.setItemText(0, QCoreApplication.translate("Form", u"=", None))
-        self.com_total_operador.setItemText(1, QCoreApplication.translate("Form", u">", None))
-        self.com_total_operador.setItemText(2, QCoreApplication.translate("Form", u"<", None))
-        self.com_total_operador.setItemText(3, QCoreApplication.translate("Form", u">=", None))
-        self.com_total_operador.setItemText(4, QCoreApplication.translate("Form", u"<=", None))
+            Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
+            self.lbl_id.setText(QCoreApplication.translate("Form", u"Id", None))
+            self.let_id_valor.setText("")
+            self.lbl_nome_produto.setText(QCoreApplication.translate("Form", u"Nome do produto", None))
+            self.lbl_categoria.setText(QCoreApplication.translate("Form", u"Categoria", None))
+            self.com_categoria.setPlaceholderText(QCoreApplication.translate("Form", u"Selecione", None))
+            self.lbl_unidade.setText(QCoreApplication.translate("Form", u"Unidade", None))
+            self.com_unidade.setPlaceholderText(QCoreApplication.translate("Form", u"Selecione", None))
+            self.lbl_cliente.setText(QCoreApplication.translate("Form", u"Cliente", None))
+            self.com_cliente.setPlaceholderText(QCoreApplication.translate("Form", u"Selecione", None))
+            self.lbl_vendedor.setText(QCoreApplication.translate("Form", u"Vendedor", None))
+            self.com_vendedor.setPlaceholderText(QCoreApplication.translate("Form", u"Selecione", None))
+            self.lbl_data.setText(QCoreApplication.translate("Form", u"Data", None))
+            self.lbl_total.setText(QCoreApplication.translate("Form", u"Total", None))
+            self.com_total_operador.setItemText(0, QCoreApplication.translate("Form", u"=", None))
+            self.com_total_operador.setItemText(1, QCoreApplication.translate("Form", u">", None))
+            self.com_total_operador.setItemText(2, QCoreApplication.translate("Form", u"<", None))
+            self.com_total_operador.setItemText(3, QCoreApplication.translate("Form", u">=", None))
+            self.com_total_operador.setItemText(4, QCoreApplication.translate("Form", u"<=", None))
 
-        self.com_total_operador.setPlaceholderText(QCoreApplication.translate("Form", u"Selecione", None))
-        self.btn_busca.setText(QCoreApplication.translate("Form", u"Buscar", None))
-    # retranslateUi
+            self.com_total_operador.setPlaceholderText(QCoreApplication.translate("Form", u"Selecione", None))
+            self.let_total_valor.setText("")
+            self.btn_busca.setText(QCoreApplication.translate("Form", u"Buscar", None))
+        # retranslateUi
 
 
 if __name__ == '__main__':
