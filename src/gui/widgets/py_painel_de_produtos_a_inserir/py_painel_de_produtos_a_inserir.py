@@ -10,7 +10,8 @@
 
 import json
 from src.qt_core import *
-from src.gui.widgets.py_lista_de_registros_de_selecao.py_lista_de_registros_de_selecao import PySelectionRecordList
+from src.gui.widgets.py_list_registro_venda_painel_insercao.py_list_registro_venda_painel_insercao import (
+                                                                                                    PyInsertRecordList)
 from src.gui.core.database import DataBase
 from src.gui.core.absolute_path import AbsolutePath
 
@@ -28,7 +29,7 @@ class PyProductInsertnPanel(QWidget):
         self.line_edit_pesquisa_produto.returnPressed.connect(self.searchProduct)
         self.btn_pesquisa_produto.clicked.connect(self.searchProduct)
         self.btn_deletar.clicked.connect(self.close)
-        self.btn_confirmar.clicked.connect(self.confirmProduct)
+        self.btn_confirmar.clicked.connect(self.getChaves)
 
         self.frame_center.enterEvent = self.enterEventFrameCenter
         self.frame_center.leaveEvent = self.leaveEventFrameCenter
@@ -44,15 +45,14 @@ class PyProductInsertnPanel(QWidget):
     def leaveEventFrameCenter(self, _):
         self.can_close = True
 
-    def confirmProduct(self):
+    def getChaves(self):
 
-        objs = self.scrollAreaWidgetContents_3.findChildren(PySelectionRecordList)
+        objs = self.scrollAreaWidgetContents_3.findChildren(PyInsertRecordList)
 
         ls = list()
         for obj in objs:
             if obj.checkBox.isChecked():
-                ls.append(obj.nome_produto.text())
-
+                ls.append((obj.chave_completa, obj.lineEdit_quantidade.text()))
         return ls
 
     def automaticProductInsertion(self):
@@ -64,11 +64,10 @@ class PyProductInsertnPanel(QWidget):
         db.disconnectDataBase()
 
         for dados in query:
-            list_produto = PySelectionRecordList()
+            list_produto = PyInsertRecordList()
             list_produto.setImage(dados[4])
             list_produto.setChave(dados[0])
-            list_produto.setQuantidade(dados[2])
-            list_produto.setPrecoDeVenda(dados[3], True)
+            list_produto.setPrecoDeVenda(dados[3])
             list_produto.setName(dados[1].capitalize())
 
             with open(json_file, 'r') as file:
@@ -80,7 +79,7 @@ class PyProductInsertnPanel(QWidget):
     def searchProduct(self):
         nome = self.line_edit_pesquisa_produto.text()
 
-        objs = self.scrollAreaWidgetContents_3.findChildren(PySelectionRecordList)
+        objs = self.scrollAreaWidgetContents_3.findChildren(PyInsertRecordList)
 
         if not nome:
             for obj in objs:
@@ -409,6 +408,6 @@ if __name__ == '__main__':
     import sys
 
     app = QApplication(sys.argv)
-    win = PyProductSelectionPanel()
+    win = PyProductInsertnPanel()
     win.show()
     sys.exit(app.exec())
