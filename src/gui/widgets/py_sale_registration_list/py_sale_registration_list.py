@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from matplotlib.rcsetup import validate_float_or_None
-
 ################################################################################
 ## self generated from reading UI file 'lista_de_regitro_para_vendaCDcIou.ui'
 ##
@@ -12,55 +10,56 @@ from matplotlib.rcsetup import validate_float_or_None
 from src.qt_core import *
 from src.gui.core.absolute_path import AbsolutePath
 
+
 class PySaleRegistrationList(QFrame):
     def __init__(self, parent=None):
         super().__init__(parent)
 
         self.setStyleSheet(u"QPushButton{\n"
-                                                      "border: 1px solid rgb(230, 230, 230);\n"
-                                                      "border-radius:5px;}\n"
-                                                      "\n"
-                                                      "QLabel{color: rgb(233, 234, 236);}\n"
-                                                      "\n"
-                                                      "QLineEdit{\n"
-                                                      "	background-color: transparent; \n"
-                                                      "	border-radius: 6px;\n"
-                                                      "	border: transparent;\n"
-                                                      "	color: rgb(233, 234, 236);}\n"
-                                                      "\n"
-                                                      "QLineEdit:hover{\n"
-                                                      "	background-color: transparent; \n"
-                                                      "	border: 1px solid rgb(121, 121, 121); \n"
-                                                      "	color: rgb(233, 234, 236);}\n"
-                                                      "\n"
-                                                      "QLineEdit:focus{\n"
-                                                      "	background-color: transparent; \n"
-                                                      "	border: 1px solid rgb(161, 161, 161); \n"
-                                                      "	color: rgb(233, 234, 236);}\n"
-                                                      "\n"
-                                                      "QFrame{\n"
-                                                      "	background-color: rgb(32, 33, 37);\n"
-                                                      "	border-radius:10px;}\n"
-                                                      "\n"
-                                                      "#lbl_venda, \n"
-                                                      "#lbl_quantidade, \n"
-                                                      "#lbl_preco,\n"
-                                                      "#lbl_subtotal,\n"
-                                                      "#lbl_desconto\n"
-                                                      "{color: rgb(121, 121, 121)}\n"
-                                                      "#btn_eliminar{\n"
-                                                        "color: rgb(233, 234, 236);\n"
-                                                          "background-color: rgb(38, 39, 43);\n"
-                                                          "border: none;\n"
-                                                          "border-radius: 6px;\n"
-                                                      "}\n"
-                                                      "#btn_eliminar:hover {\n"
-                                                      "background-color: rgb(49, 50, 55)\n"
-                                                      "}\n"
-                                                      "#btn_eliminar:pressed {\n"
-                                                      "background-color: rgb(38, 39, 43);\n"
-                                                      "}\n"
-                                                      "")
+                           "border: 1px solid rgb(230, 230, 230);\n"
+                           "border-radius:5px;}\n"
+                           "\n"
+                           "QLabel{color: rgb(233, 234, 236);}\n"
+                           "\n"
+                           "QLineEdit{\n"
+                           "	background-color: transparent; \n"
+                           "	border-radius: 6px;\n"
+                           "	border: transparent;\n"
+                           "	color: rgb(233, 234, 236);}\n"
+                           "\n"
+                           "QLineEdit:hover{\n"
+                           "	background-color: transparent; \n"
+                           "	border: 1px solid rgb(121, 121, 121); \n"
+                           "	color: rgb(233, 234, 236);}\n"
+                           "\n"
+                           "QLineEdit:focus{\n"
+                           "	background-color: transparent; \n"
+                           "	border: 1px solid rgb(161, 161, 161); \n"
+                           "	color: rgb(233, 234, 236);}\n"
+                           "\n"
+                           "QFrame{\n"
+                           "	background-color: rgb(32, 33, 37);\n"
+                           "	border-radius:10px;}\n"
+                           "\n"
+                           "#lbl_venda, \n"
+                           "#lbl_quantidade, \n"
+                           "#lbl_preco,\n"
+                           "#lbl_subtotal,\n"
+                           "#lbl_desconto\n"
+                           "{color: rgb(121, 121, 121)}\n"
+                           "#btn_eliminar{\n"
+                           "color: rgb(233, 234, 236);\n"
+                           "background-color: rgb(38, 39, 43);\n"
+                           "border: none;\n"
+                           "border-radius: 6px;\n"
+                           "}\n"
+                           "#btn_eliminar:hover {\n"
+                           "background-color: rgb(49, 50, 55)\n"
+                           "}\n"
+                           "#btn_eliminar:pressed {\n"
+                           "background-color: rgb(38, 39, 43);\n"
+                           "}\n"
+                           "")
         self.setMaximumHeight(50)
         self.setMinimumHeight(50)
         self.setupUi()
@@ -89,7 +88,7 @@ class PySaleRegistrationList(QFrame):
             try:
                 preco = self.preco_contante
                 percentual = float(value.replace(',', '.'))
-                novo_preco = preco - ((preco*percentual)/100)
+                novo_preco = preco - ((preco * percentual) / 100)
             except ImportError:
                 pass
             else:
@@ -344,24 +343,26 @@ class PySaleRegistrationList(QFrame):
 
         self.retranslateUi()
 
-            # setupUi
+        # setupUi
 
     def retranslateUi(self):
-            self.chave.setText(QCoreApplication.translate("lista_de_registro_pra_venda", u"333", None))
-            self.nome_produto.setText(QCoreApplication.translate("lista_de_registro_pra_venda", u"Coca Cola", None))
-            self.lbl_quantidade.setText(QCoreApplication.translate("lista_de_registro_pra_venda", u"Quantidade", None))
-            self.let_quantidade.setText(QCoreApplication.translate("lista_de_registro_pra_venda", u"0", None))
-            self.lbl_desconto.setText(QCoreApplication.translate("lista_de_registro_pra_venda", u"Desconto", None))
-            self.let_desconto.setText(QCoreApplication.translate("lista_de_registro_pra_venda", u"0", None))
-            self.lbl_preco.setText(
-                    QCoreApplication.translate("lista_de_registro_pra_venda", u"Pre\u00e7o de venda", None))
-            self.lbl_preco_valor.setText(QCoreApplication.translate("lista_de_registro_pra_venda", u"16.000.00", None))
-            self.lbl_subtotal.setText(QCoreApplication.translate("lista_de_registro_pra_venda", u"Subtotal", None))
-            self.lbl_subtotal_valor.setText(QCoreApplication.translate("lista_de_registro_pra_venda", u"0", None))
+        self.chave.setText(QCoreApplication.translate("lista_de_registro_pra_venda", u"333", None))
+        self.nome_produto.setText(QCoreApplication.translate("lista_de_registro_pra_venda", u"Coca Cola", None))
+        self.lbl_quantidade.setText(QCoreApplication.translate("lista_de_registro_pra_venda", u"Quantidade", None))
+        self.let_quantidade.setText(QCoreApplication.translate("lista_de_registro_pra_venda", u"0", None))
+        self.lbl_desconto.setText(QCoreApplication.translate("lista_de_registro_pra_venda", u"Desconto", None))
+        self.let_desconto.setText(QCoreApplication.translate("lista_de_registro_pra_venda", u"0", None))
+        self.lbl_preco.setText(
+            QCoreApplication.translate("lista_de_registro_pra_venda", u"Pre\u00e7o de venda", None))
+        self.lbl_preco_valor.setText(QCoreApplication.translate("lista_de_registro_pra_venda", u"16.000.00", None))
+        self.lbl_subtotal.setText(QCoreApplication.translate("lista_de_registro_pra_venda", u"Subtotal", None))
+        self.lbl_subtotal_valor.setText(QCoreApplication.translate("lista_de_registro_pra_venda", u"0", None))
     # retranslateUi
+
 
 if __name__ == '__main__':
     import sys
+
     app = QApplication(sys.argv)
     win = PySaleRegistrationList()
     win.show()
