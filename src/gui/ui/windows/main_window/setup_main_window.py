@@ -91,7 +91,7 @@ class SetUpMainWindow:
 
         # ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         self.ui.btn_pesquisa_produto.setIcon(QIcon(AbsolutePath().getPathIcon('icon_search.svg')))
-        self.ui.btn_mais_opcoes.setIcon(QIcon(AbsolutePath().getPathIcon('icon_more.svg')))
+        self.ui.btn_entrada_produto.setIcon(QIcon(AbsolutePath().getPathIcon('icon_produt_insert.svg')))
         self.ui.btn_adicionar_produto.setIcon(QIcon(AbsolutePath().getPathIcon('icon_add.svg')))
 
         self.ui.btn_pesquisa_produto_de_venda.setIcon(QIcon(AbsolutePath().getPathIcon('icon_search.svg')))
