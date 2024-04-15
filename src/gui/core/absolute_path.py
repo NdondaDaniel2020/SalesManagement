@@ -82,6 +82,15 @@ class AbsolutePath:
         json = os.path.normpath(path)
         return json
 
+    def getPathHaarcascades(self):
+        path = self.obs_path + r'/haarcascades/haarcascade_frontalface_default.xml'
+        json = os.path.normpath(path)
+        return json
+
+    def getPathClassifire(self):
+        path = self.obs_path + r'/classifire_lbph/classificadorLBPH.0.4.yml'
+        json = os.path.normpath(path)
+        return json
 
 if __name__ == '__main__':
     # import json
