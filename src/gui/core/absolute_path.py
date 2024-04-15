@@ -88,7 +88,7 @@ class AbsolutePath:
         return json
 
     def getPathClassifire(self):
-        path = self.obs_path + r'/classifire_lbph/classificadorLBPH.0.4.yml'
+        path = self.obs_path + r'/classifire_lbph/classificadorLBPH.0.4.ym'
         json = os.path.normpath(path)
         return json
 
