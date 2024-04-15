@@ -10,33 +10,78 @@
 
 from src.qt_core import *
 from src.gui.core.absolute_path import AbsolutePath
+from src.gui.widgets.py_circular_progress.py_circular_progress import PyCircularProgress
+from src.gui.widgets.py_slide_stacked_widgets.py_slide_stacked_widgets import PySlidingStackedWidget
+
+
+try:
+    from ctypes import windll  # Only exists on Windows.
+
+    myappid = 'mycompany.myproduct.subproduct.version'
+    windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
+except Exception as error:
+    print(error)
+
+
 
 class Ui_LoginWindow(QMainWindow):
+    VALUE_PROGRESS_BAR = 0
+
     def __init__(self):
         super().__init__()
 
-        # ////////////////////////////////////////////////////
+        # ///////////////////////////////////////////////////////////////////////////////
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
 
-        # ////////////////////////////////////////////////////
+        # ///////////////////////////////////////////////////////////////////////////////
         def moveWindow(event):
             if event.buttons() == Qt.LeftButton:
-                self.move(self.pos() + event.globalPos() - self._dragPos)
-                self._dragPos = event.globalPos()
+                self.move(self.pos() + event.globalPosition().toPoint() - self._dragPos)
+                self._dragPos = event.globalPosition().toPoint()
                 event.accept()
 
-        # ////////////////////////////////////////////////////
+        # ///////////////////////////////////////////////////////////////////////////////
         self.__setupUi__(self)
+        self.__resizeSplashCreen()
+        self.__confiCircularProgressBar()
 
-        # ////////////////////////////////////////////////////
+        # ///////////////////////////////////////////////////////////////////////////////
+        self.progress_bar_timer = QTimer()
+        self.progress_bar_timer.setInterval(20)
+        self.progress_bar_timer.timeout.connect(self.__changeValueProgressBar)
+
+        # ///////////////////////////////////////////////////////////////////////////////
         self.frame_continer_base.mouseMoveEvent = moveWindow
+
         self.btn_close.clicked.connect(self.close)
-        self.btn_minimize.clicked.connect(self.showMinimized)
+        self.btn_minimizar.clicked.connect(self.showMinimized)
 
-        self.btn_fingerprint.clicked.connect(self.resizeSplashCreen)
 
-    def resizeSplashCreen(self):
+    def __changeValueProgressBar(self):
+
+        if self.VALUE_PROGRESS_BAR == 100:
+            self.progress_bar_timer.stop()
+            self.stacked_widget_splash_screen.setDirection(Qt.Vertical)
+            self.stacked_widget_splash_screen.slideInIdx(0)
+            QTimer.singleShot(400, lambda: self.parale_animation.start())
+        else:
+            self.VALUE_PROGRESS_BAR += 1
+            self.widget_cilrcular_progress.value = self.VALUE_PROGRESS_BAR
+            self.widget_cilrcular_progress.repaint()
+
+    def __confiCircularProgressBar(self):
+        self.widget_cilrcular_progress.width = 200
+        self.widget_cilrcular_progress.height = 200
+        self.widget_cilrcular_progress.value = 0
+        self.widget_cilrcular_progress.font_size = 12
+        self.widget_cilrcular_progress.progress_width = 6
+        self.widget_cilrcular_progress.ad_shadow(True)
+        self.widget_cilrcular_progress.progress_color = 0x202124
+        self.widget_cilrcular_progress.text_color = 0xE9EAEC
+        self.widget_cilrcular_progress.move(200, 100)
+
+    def __resizeSplashCreen(self):
 
         self.parale_animation = QParallelAnimationGroup()
 
@@ -54,19 +99,15 @@ class Ui_LoginWindow(QMainWindow):
         self.animation_max.setEasingCurve(QEasingCurve.Type.InOutExpo)
         self.parale_animation.addAnimation(self.animation_max)
 
-        self.parale_animation.start()
-
-
     def mousePressEvent(self, event):
-        self._dragPos = event.globalPos()
+        self._dragPos = event.globalPosition().toPoint()
 
-
-    def __setupUi__(self, form):
-        if not form.objectName():
-            form.setObjectName(u"LoginWindow")
-        form.resize(587, 489)
-        form.setStyleSheet(u"border-radius: 10px;")
-        self.centralwidget = QWidget(form)
+    def __setupUi__(self, Form):
+        if not Form.objectName():
+            Form.setObjectName(u"Form")
+        Form.resize(586, 489)
+        Form.setStyleSheet(u"border-radius: 10px;")
+        self.centralwidget = QWidget(Form)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout = QHBoxLayout(self.centralwidget)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
@@ -74,77 +115,119 @@ class Ui_LoginWindow(QMainWindow):
         self.frame_continer_base.setObjectName(u"frame_continer_base")
         self.frame_continer_base.setFrameShape(QFrame.StyledPanel)
         self.frame_continer_base.setFrameShadow(QFrame.Raised)
-        self.frame_continer_base.setMinimumWidth(282)
         self.frame_continer_base.setMaximumWidth(282)
+        self.frame_continer_base.setMinimumWidth(282)
         self.horizontalLayout_2 = QHBoxLayout(self.frame_continer_base)
         self.horizontalLayout_2.setSpacing(0)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.frame_splash_creen = QFrame(self.frame_continer_base)
-        self.frame_splash_creen.setObjectName(u"frame_splash_creen")
-        self.frame_splash_creen.setMaximumSize(QSize(282, 453))
-        self.frame_splash_creen.setStyleSheet(u"background-color: rgb(54, 63, 118)")
-        self.frame_splash_creen.setFrameShape(QFrame.StyledPanel)
-        self.frame_splash_creen.setFrameShadow(QFrame.Raised)
-        self.verticalLayout = QVBoxLayout(self.frame_splash_creen)
+        self.stacked_widget_splash_screen = PySlidingStackedWidget(self.frame_continer_base)
+        self.stacked_widget_splash_screen.setObjectName(u"stacked_widget_splash_screen")
+        self.stacked_widget_splash_screen.setMinimumSize(QSize(282, 453))
+        self.stacked_widget_splash_screen.setMaximumSize(QSize(282, 453))
+        self.stacked_widget_splash_screen.setStyleSheet(u"background-color: rgb(54, 63, 118)")
+        self.stacked_widget_splash_screen.setFrameShape(QFrame.StyledPanel)
+        self.stacked_widget_splash_screen.setFrameShadow(QFrame.Raised)
+        self.page_main = QWidget()
+        self.page_main.setObjectName(u"page_main")
+        self.verticalLayout = QVBoxLayout(self.page_main)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.stackedWidget = QStackedWidget(self.frame_splash_creen)
-        self.stackedWidget.setObjectName(u"stackedWidget")
-        self.page = QWidget()
-        self.page.setObjectName(u"page")
-        self.verticalLayout_2 = QVBoxLayout(self.page)
-        self.verticalLayout_2.setSpacing(0)
-        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.painel_image = QPushButton(self.page)
-        self.painel_image.setObjectName(u"painel_image")
+        self.img = QPushButton(self.page_main)
+        self.img.setObjectName(u"img")
         icon = QIcon()
-        icon.addFile(u"../../../images/svg_images/objetos-removebg-preview-ajustu2.png", QSize(), QIcon.Normal,
-                     QIcon.Off)
-        self.painel_image.setIcon(icon)
-        self.painel_image.setIconSize(QSize(260, 260))
+        icon.addFile(u"../../../../../../../DriverTerabox/ajutes/objetos-removebg-preview-ajustu2.png", QSize(),
+                     QIcon.Normal, QIcon.Off)
+        self.img.setIcon(icon)
+        self.img.setIconSize(QSize(260, 260))
 
-        self.verticalLayout_2.addWidget(self.painel_image)
+        self.verticalLayout.addWidget(self.img)
 
-        self.stackedWidget.addWidget(self.page)
-        self.page_2 = QWidget()
-        self.page_2.setObjectName(u"page_2")
-        self.verticalLayout_3 = QVBoxLayout(self.page_2)
-        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
-        self.painel_image_2 = QPushButton(self.page_2)
-        self.painel_image_2.setObjectName(u"painel_image_2")
-        self.painel_image_2.setIcon(icon)
-        self.painel_image_2.setIconSize(QSize(260, 260))
+        self.stacked_widget_splash_screen.addWidget(self.page_main)
+        self.page_circular_progress_bar = QWidget()
+        self.page_circular_progress_bar.setObjectName(u"page_circular_progress_bar")
+        self.verticalLayout_2 = QVBoxLayout(self.page_circular_progress_bar)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.widget_conttiner = QWidget(self.page_circular_progress_bar)
+        self.widget_conttiner.setObjectName(u"widget_conttiner")
+        self.widget_conttiner.setMinimumSize(QSize(264, 260))
+        self.widget_conttiner.setMaximumSize(QSize(264, 260))
+        self.horizontalLayout_3 = QHBoxLayout(self.widget_conttiner)
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.widget_cilrcular_progress = PyCircularProgress(self.widget_conttiner)
+        self.widget_cilrcular_progress.setObjectName(u"widget_cilrcular_progress")
+        self.widget_cilrcular_progress.setMinimumSize(QSize(200, 200))
+        self.widget_cilrcular_progress.setMaximumSize(QSize(200, 200))
+        self.widget_cilrcular_progress.setStyleSheet("background-color: rgb(255, 255, 255);")
 
-        self.verticalLayout_3.addWidget(self.painel_image_2)
+        self.horizontalLayout_3.addWidget(self.widget_cilrcular_progress)
 
-        self.stackedWidget.addWidget(self.page_2)
+        self.verticalLayout_2.addWidget(self.widget_conttiner)
 
-        self.verticalLayout.addWidget(self.stackedWidget)
+        self.stacked_widget_splash_screen.addWidget(self.page_circular_progress_bar)
 
-        self.horizontalLayout_2.addWidget(self.frame_splash_creen)
+        self.horizontalLayout_2.addWidget(self.stacked_widget_splash_screen)
 
         self.frame_login = QFrame(self.frame_continer_base)
         self.frame_login.setObjectName(u"frame_login")
-        self.frame_login.setMaximumSize(QSize(268, 435))
+        self.frame_login.setMaximumSize(QSize(269, 435))
         self.frame_login.setStyleSheet(u"#frame_login{background-color: rgb(23, 24, 26);\n"
                                        "border-top-left-radius: 0px;\n"
                                        "border-bottom-left-radius: 0px;\n"
                                        "}\n"
                                        "\n"
-                                       "#btn_chave_qrcode{\n"
-                                       "	background-color: rgb(32, 33, 37);\n"
-                                       "	border-radius:7px;\n"
-                                       "	border: 1px solid rgb(47, 54, 100)}\n"
+                                       "#btn_login{\n"
+                                       "    border-radius: 7px;\n"
+                                       "    background-color: rgb(32, 33, 36);\n"
+                                       "    color: white;padding-left:5px;}\n"
                                        "\n"
-                                       "QLineEdit{\n"
+                                       "\n"
+                                       "#btn_fingerprint, #btn_faceid\n"
+                                       "{background-color: rgb(54, 63, 118);}\n"
+                                       "\n"
+                                       "#btn_fingerprint:hover, #btn_faceid:hover\n"
+                                       "{background-color: rgb(50, 59, 110)}\n"
+                                       "\n"
+                                       "#btn_fingerprint:pressed, #btn_faceid:pressed\n"
+                                       "{background-color: rgb(56, 65, 121)}\n"
+                                       "\n"
+                                       "\n"
+                                       "#btn_login:hover{background-color: rgb(30, 31, 34);}\n"
+                                       "\n"
+                                       "#btn_login:pressed{background-color: rgb(32, 33, 36);}\n"
+                                       "\n"
+                                       "#btn_close,\n"
+                                       "#btn_minimizar{\n"
+                                       "	background-color: rgba(54, 63, 118, 120);\n"
+                                       "	border-radius:4px;}\n"
+                                       "\n"
+                                       "#btn_close::hover,\n"
+                                       "#btn_minimizar::hover{\n"
+                                       "	background-color: rgba(54, 63, 118, 150);}\n"
+                                       "\n"
+                                       "#btn_close:pressed,\n"
+                                       "#btn_minimizar:pressed{\n"
+                                       "	background-color: rgba(54, 63, 118, 120);}\n"
+                                       "\n"
+                                       "\n"
+                                       "QPushButton{\n"
+                                       "	background-c"
+                                       "olor:  rgb(19, 20, 22);\n"
+                                       "	border-radius:7px;}\n"
+                                       "\n"
+                                       "QPushButton:hover{\n"
+                                       "	background-color: rgb(28, 29, 32)}\n"
+                                       "\n"
+                                       "QPushButton:pressed{\n"
+                                       "	background-color: rgb(19, 20, 22)}\n"
+                                       "\n"
+                                       "QLineEdit, QPlainTextEdit{\n"
                                        "border: 1px solid rgb(47, 54, 100);\n"
                                        "border-radius: 5px;\n"
                                        "background-color: rgb(32, 33, 36);\n"
                                        "color: white;padding-left:5px;}\n"
                                        "\n"
-                                       "QLineEdit:hover{background-color: rgb(30, 31, 34);}\n"
+                                       "QLineEdit:hover, QPlainTextEdit:hover{background-color: rgb(30, 31, 34);}\n"
                                        "\n"
-                                       "QLineEdit:focus{background-color: rgb(37, 39, 42);}\n"
+                                       "QLineEdit:focus, QPlainTextEdit:focus{background-color: rgb(37, 39, 42);}\n"
                                        "")
         self.frame_login.setFrameShape(QFrame.StyledPanel)
         self.frame_login.setFrameShadow(QFrame.Raised)
@@ -156,6 +239,7 @@ class Ui_LoginWindow(QMainWindow):
         self.let_senha.setObjectName(u"let_senha")
         self.let_senha.setGeometry(QRect(30, 200, 210, 35))
         self.let_senha.setStyleSheet(u"")
+        self.let_senha.setEchoMode(QLineEdit.Password)
         self.lbl_nome = QLabel(self.frame_login)
         self.lbl_nome.setObjectName(u"lbl_nome")
         self.lbl_nome.setGeometry(QRect(30, 102, 100, 17))
@@ -164,48 +248,26 @@ class Ui_LoginWindow(QMainWindow):
         self.lbl_senha.setObjectName(u"lbl_senha")
         self.lbl_senha.setGeometry(QRect(30, 180, 49, 16))
         self.lbl_senha.setStyleSheet(u"color: rgb(255, 255, 255);")
-        self.btn_entrar = QPushButton(self.frame_login)
-        self.btn_entrar.setObjectName(u"btn_entrar")
-        self.btn_entrar.setGeometry(QRect(30, 280, 210, 35))
-        self.btn_entrar.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_entrar.setStyleSheet(u"QPushButton{\n"
-                                      "border-radius: 7px;\n"
-                                      "background-color: rgb(32, 33, 36);\n"
-                                      "color: white;padding-left:5px;}\n"
-                                      "\n"
-                                      "QPushButton:hover{background-color: rgb(30, 31, 34);}\n"
-                                      "\n"
-                                      "QPushButton:pressed{background-color: rgb(32, 33, 36);}")
-        self.btn_minimize = QPushButton(self.frame_login)
-        self.btn_minimize.setObjectName(u"btn_minimize")
-        self.btn_minimize.setGeometry(QRect(205, 5, 27, 27))
-        self.btn_minimize.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_minimize.setStyleSheet(u"QPushButton{\n"
-                                        "	background-color: rgba(54, 63, 118, 120);\n"
-                                        "	border-radius:4px;}\n"
-                                        "\n"
-                                        "QPushButton:hover{\n"
-                                        "	background-color: rgba(54, 63, 118, 150);}\n"
-                                        "\n"
-                                        "QPushButton:pressed{\n"
-                                        "	background-color: rgba(54, 63, 118, 120);}")
+        self.btn_login = QPushButton(self.frame_login)
+        self.btn_login.setObjectName(u"btn_login")
+        self.btn_login.setGeometry(QRect(30, 280, 210, 35))
+        self.btn_login.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_minimizar = QPushButton(self.frame_login)
+        self.btn_minimizar.setObjectName(u"btn_minimizar")
+        self.btn_minimizar.setGeometry(QRect(205, 5, 27, 27))
+        self.btn_minimizar.setMinimumSize(QSize(27, 27))
+        self.btn_minimizar.setMaximumSize(QSize(27, 27))
+        self.btn_minimizar.setCursor(QCursor(Qt.PointingHandCursor))
         icon1 = QIcon()
         icon1.addFile(u"../../../images/svg_icons/icon_minimize.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_minimize.setIcon(icon1)
-        self.btn_minimize.setIconSize(QSize(18, 18))
+        self.btn_minimizar.setIcon(icon1)
+        self.btn_minimizar.setIconSize(QSize(18, 18))
         self.btn_close = QPushButton(self.frame_login)
         self.btn_close.setObjectName(u"btn_close")
         self.btn_close.setGeometry(QRect(237, 5, 27, 27))
+        self.btn_close.setMinimumSize(QSize(27, 27))
+        self.btn_close.setMaximumSize(QSize(27, 27))
         self.btn_close.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_close.setStyleSheet(u"QPushButton{\n"
-                                     "	background-color: rgba(54, 63, 118, 120);\n"
-                                     "	border-radius:4px;}\n"
-                                     "\n"
-                                     "QPushButton:hover{\n"
-                                     "	background-color: rgba(54, 63, 118, 150);}\n"
-                                     "\n"
-                                     "QPushButton:pressed{\n"
-                                     "	background-color: rgba(54, 63, 118, 120);}")
         icon2 = QIcon()
         icon2.addFile(u"../../../images/svg_icons/icon_close.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_close.setIcon(icon2)
@@ -214,15 +276,6 @@ class Ui_LoginWindow(QMainWindow):
         self.btn_fingerprint.setObjectName(u"btn_fingerprint")
         self.btn_fingerprint.setGeometry(QRect(80, 360, 40, 40))
         self.btn_fingerprint.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_fingerprint.setStyleSheet(u"QPushButton{\n"
-                                           "	background-color: rgb(54, 63, 118);\n"
-                                           "	border-radius:7px;}\n"
-                                           "\n"
-                                           "QPushButton:hover{\n"
-                                           "	background-color: rgb(50, 59, 110);}\n"
-                                           "\n"
-                                           "QPushButton:pressed{\n"
-                                           "	background-color: rgb(54, 63, 118)}")
         icon3 = QIcon()
         icon3.addFile(u"../../../images/svg_icons/icon_fingerprint.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_fingerprint.setIcon(icon3)
@@ -243,27 +296,18 @@ class Ui_LoginWindow(QMainWindow):
         font1.setBold(True)
         self.lbl_ola.setFont(font1)
         self.lbl_ola.setStyleSheet(u"color: rgb(255, 255, 255);")
-        self.lbl_bemvido = QLabel(self.frame_login)
-        self.lbl_bemvido.setObjectName(u"lbl_bemvido")
-        self.lbl_bemvido.setGeometry(QRect(30, 60, 151, 19))
+        self.lbl_bemvindo = QLabel(self.frame_login)
+        self.lbl_bemvindo.setObjectName(u"lbl_bemvindo")
+        self.lbl_bemvindo.setGeometry(QRect(30, 60, 150, 19))
         font2 = QFont()
         font2.setPointSize(12)
         font2.setBold(False)
-        self.lbl_bemvido.setFont(font2)
-        self.lbl_bemvido.setStyleSheet(u"color: rgb(255, 255, 255);")
+        self.lbl_bemvindo.setFont(font2)
+        self.lbl_bemvindo.setStyleSheet(u"color: rgb(255, 255, 255);")
         self.btn_faceid = QPushButton(self.frame_login)
         self.btn_faceid.setObjectName(u"btn_faceid")
         self.btn_faceid.setGeometry(QRect(150, 360, 40, 40))
         self.btn_faceid.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_faceid.setStyleSheet(u"QPushButton{\n"
-                                      "	background-color: rgb(54, 63, 118);\n"
-                                      "	border-radius:7px;}\n"
-                                      "\n"
-                                      "QPushButton:hover{\n"
-                                      "	background-color: rgb(50, 59, 110);}\n"
-                                      "\n"
-                                      "QPushButton:pressed{\n"
-                                      "	background-color: rgb(54, 63, 118)}")
         icon4 = QIcon()
         icon4.addFile(u"../../../images/svg_icons/icon_user_scan.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_faceid.setIcon(icon4)
@@ -277,39 +321,33 @@ class Ui_LoginWindow(QMainWindow):
 
         self.horizontalLayout.addWidget(self.frame_continer_base)
 
-        form.setCentralWidget(self.centralwidget)
+        Form.setCentralWidget(self.centralwidget)
 
-        self.retranslateUi(form)
+        self.__retranslateUi(Form)
 
-        self.stackedWidget.setCurrentIndex(0)
+        self.stacked_widget_splash_screen.setCurrentIndex(1)
 
-        QMetaObject.connectSlotsByName(form)
+        QMetaObject.connectSlotsByName(Form)
 
-    # setupUi
+    def __retranslateUi(self, Form):
+        Form.setWindowTitle(QCoreApplication.translate("Form", u"MainWindow", None))
+        self.let_nome.setPlaceholderText(QCoreApplication.translate("Form", u"Digite seu nome", None))
+        self.let_senha.setPlaceholderText(QCoreApplication.translate("Form", u"Digite sua senha", None))
+        self.lbl_nome.setText(QCoreApplication.translate("Form", u"Nome de usario *", None))
+        self.lbl_senha.setText(QCoreApplication.translate("Form", u"Senha *", None))
+        self.btn_login.setText(QCoreApplication.translate("Form", u"Login", None))
+        self.lbl_ou.setText(QCoreApplication.translate("Form", u"OU", None))
+        self.lbl_ola.setText(QCoreApplication.translate("Form", u"Ol\u00c1", None))
+        self.lbl_bemvindo.setText(QCoreApplication.translate("Form", u"Bem-vindo de volta!", None))
+        self.lbl_entrar.setText(QCoreApplication.translate("Form", u"Entrar *", None))
 
-    def retranslateUi(self, LoginWindow):
-        LoginWindow.setWindowTitle(QCoreApplication.translate("LoginWindow", u"MainWindow", None))
-        self.painel_image.setText("")
-        self.painel_image_2.setText("")
-        self.let_nome.setPlaceholderText(QCoreApplication.translate("LoginWindow", u"Digite seu nome", None))
-        self.let_senha.setPlaceholderText(QCoreApplication.translate("LoginWindow", u"Digite sua senha", None))
-        self.lbl_nome.setText(QCoreApplication.translate("LoginWindow", u"Nome de usario *", None))
-        self.lbl_senha.setText(QCoreApplication.translate("LoginWindow", u"Senha *", None))
-        self.btn_entrar.setText(QCoreApplication.translate("LoginWindow", u"Login", None))
-        self.btn_minimize.setText("")
-        self.btn_close.setText("")
-        self.btn_fingerprint.setText("")
-        self.lbl_ou.setText(QCoreApplication.translate("LoginWindow", u"OU", None))
-        self.lbl_ola.setText(QCoreApplication.translate("LoginWindow", u"Ol\u00c1", None))
-        self.lbl_bemvido.setText(QCoreApplication.translate("LoginWindow", u"Bem-vindo de Volta!", None))
-        self.btn_faceid.setText("")
-        self.lbl_entrar.setText(QCoreApplication.translate("LoginWindow", u"Entrar *", None))
-    # retranslateUi
+
 
 if __name__ == '__main__':
     import sys
+
     app = QApplication(sys.argv)
     win = Ui_LoginWindow()
     win.show()
-    win.resizeSplashCreen()
+    win.progress_bar_timer.start()
     sys.exit(app.exec())
