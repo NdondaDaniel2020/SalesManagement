@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>LoginWindow</class>
- <widget class="QMainWindow" name="LoginWindow">
+ <class>Form</class>
+ <widget class="QMainWindow" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -19,7 +19,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QFrame" name="frame_2">
+     <widget class="QFrame" name="frame_continer">
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
@@ -31,10 +31,10 @@
         <number>0</number>
        </property>
        <item>
-        <widget class="QFrame" name="frame">
+        <widget class="PySlidingStackedWidget" name="stacked_widget_splash_screen">
          <property name="maximumSize">
           <size>
-           <width>318</width>
+           <width>282</width>
            <height>453</height>
           </size>
          </property>
@@ -47,29 +47,54 @@
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout">
-          <item>
-           <widget class="QPushButton" name="pushButton">
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>../../../../../../../DriverTerabox/ajutes/objetos-removebg-preview-ajustu2.png</normaloff>../../../../../../../DriverTerabox/ajutes/objetos-removebg-preview-ajustu2.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>260</width>
-              <height>260</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-         </layout>
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="page_main">
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
+            <widget class="QPushButton" name="img">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>../../../../../../../DriverTerabox/ajutes/objetos-removebg-preview-ajustu2.png</normaloff>../../../../../../../DriverTerabox/ajutes/objetos-removebg-preview-ajustu2.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>260</width>
+               <height>260</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="page_circular_progress_bar">
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <widget class="PyCircularProgress" name="widget_cilrcular_progress" native="true">
+             <property name="minimumSize">
+              <size>
+               <width>264</width>
+               <height>260</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>264</width>
+               <height>260</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </widget>
        </item>
        <item>
-        <widget class="QFrame" name="frame_3">
+        <widget class="QFrame" name="frame_login">
          <property name="maximumSize">
           <size>
            <width>269</width>
@@ -77,15 +102,44 @@
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">#frame_3{background-color: rgb(23, 24, 26);
+          <string notr="true">#frame_login{background-color: rgb(23, 24, 26);
 border-top-left-radius: 0px;
 border-bottom-left-radius: 0px;
 }
 
-#btn_chave_qrcode{
-	background-color: rgb(32, 33, 37);
-	border-radius:7px;
-	border: 1px solid rgb(47, 54, 100)}
+#btn_login{
+    border-radius: 7px;
+    background-color: rgb(32, 33, 36);
+    color: white;padding-left:5px;}
+
+
+#btn_fingerprint, #btn_faceid
+{background-color: rgb(54, 63, 118);}
+
+#btn_fingerprint:hover, #btn_faceid:hover
+{background-color: rgb(50, 59, 110)}
+
+#btn_fingerprint:pressed, #btn_faceid:pressed
+{background-color: rgb(56, 65, 121)}
+
+
+#btn_login:hover{background-color: rgb(30, 31, 34);}
+
+#btn_login:pressed{background-color: rgb(32, 33, 36);}
+
+#btn_close,
+#btn_minimizar{
+	background-color: rgba(54, 63, 118, 120);
+	border-radius:4px;}
+
+#btn_close::hover,
+#btn_minimizar::hover{
+	background-color: rgba(54, 63, 118, 150);}
+
+#btn_close:pressed,
+#btn_minimizar:pressed{
+	background-color: rgba(54, 63, 118, 120);}
+
 
 QPushButton{
 	background-color:  rgb(19, 20, 22);
@@ -114,7 +168,7 @@ QLineEdit:focus, QPlainTextEdit:focus{background-color: rgb(37, 39, 42);}
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
-         <widget class="QLineEdit" name="lineEdit_2">
+         <widget class="QLineEdit" name="let_nome">
           <property name="geometry">
            <rect>
             <x>30</x>
@@ -130,7 +184,7 @@ QLineEdit:focus, QPlainTextEdit:focus{background-color: rgb(37, 39, 42);}
            <string>Digite seu nome</string>
           </property>
          </widget>
-         <widget class="QLineEdit" name="lineEdit_3">
+         <widget class="QLineEdit" name="let_senha">
           <property name="geometry">
            <rect>
             <x>30</x>
@@ -142,11 +196,14 @@ QLineEdit:focus, QPlainTextEdit:focus{background-color: rgb(37, 39, 42);}
           <property name="styleSheet">
            <string notr="true"/>
           </property>
+          <property name="echoMode">
+           <enum>QLineEdit::Password</enum>
+          </property>
           <property name="placeholderText">
            <string>Digite sua senha</string>
           </property>
          </widget>
-         <widget class="QLabel" name="label">
+         <widget class="QLabel" name="lbl_nome">
           <property name="geometry">
            <rect>
             <x>30</x>
@@ -162,7 +219,7 @@ QLineEdit:focus, QPlainTextEdit:focus{background-color: rgb(37, 39, 42);}
            <string>Nome de usario *</string>
           </property>
          </widget>
-         <widget class="QLabel" name="label_2">
+         <widget class="QLabel" name="lbl_senha">
           <property name="geometry">
            <rect>
             <x>30</x>
@@ -178,7 +235,7 @@ QLineEdit:focus, QPlainTextEdit:focus{background-color: rgb(37, 39, 42);}
            <string>Senha *</string>
           </property>
          </widget>
-         <widget class="QPushButton" name="pushButton_2">
+         <widget class="QPushButton" name="btn_login">
           <property name="geometry">
            <rect>
             <x>30</x>
@@ -190,16 +247,11 @@ QLineEdit:focus, QPlainTextEdit:focus{background-color: rgb(37, 39, 42);}
           <property name="cursor">
            <cursorShape>PointingHandCursor</cursorShape>
           </property>
-          <property name="styleSheet">
-           <string notr="true">border-radius:7px;
-color: rgb(255, 255, 255);
-background-color: rgb(32, 33, 37);</string>
-          </property>
           <property name="text">
            <string>Login</string>
           </property>
          </widget>
-         <widget class="QPushButton" name="pushButton_3">
+         <widget class="QPushButton" name="btn_minimizar">
           <property name="geometry">
            <rect>
             <x>205</x>
@@ -208,15 +260,20 @@ background-color: rgb(32, 33, 37);</string>
             <height>27</height>
            </rect>
           </property>
+          <property name="minimumSize">
+           <size>
+            <width>27</width>
+            <height>27</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>27</width>
+            <height>27</height>
+           </size>
+          </property>
           <property name="cursor">
            <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgba(54, 63, 118, 120);
-border-radius: 4px;</string>
-          </property>
-          <property name="text">
-           <string/>
           </property>
           <property name="icon">
            <iconset>
@@ -229,7 +286,7 @@ border-radius: 4px;</string>
            </size>
           </property>
          </widget>
-         <widget class="QPushButton" name="pushButton_4">
+         <widget class="QPushButton" name="btn_close">
           <property name="geometry">
            <rect>
             <x>237</x>
@@ -238,15 +295,20 @@ border-radius: 4px;</string>
             <height>27</height>
            </rect>
           </property>
+          <property name="minimumSize">
+           <size>
+            <width>27</width>
+            <height>27</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>27</width>
+            <height>27</height>
+           </size>
+          </property>
           <property name="cursor">
            <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgba(54, 63, 118, 120);
-border-radius: 4px;</string>
-          </property>
-          <property name="text">
-           <string/>
           </property>
           <property name="icon">
            <iconset>
@@ -259,7 +321,7 @@ border-radius: 4px;</string>
            </size>
           </property>
          </widget>
-         <widget class="QPushButton" name="pushButton_6">
+         <widget class="QPushButton" name="btn_fingerprint">
           <property name="geometry">
            <rect>
             <x>80</x>
@@ -270,12 +332,6 @@ border-radius: 4px;</string>
           </property>
           <property name="cursor">
            <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(54, 63, 118);</string>
-          </property>
-          <property name="text">
-           <string/>
           </property>
           <property name="icon">
            <iconset>
@@ -288,7 +344,7 @@ border-radius: 4px;</string>
            </size>
           </property>
          </widget>
-         <widget class="QLabel" name="label_3">
+         <widget class="QLabel" name="lbl_ou">
           <property name="geometry">
            <rect>
             <x>122</x>
@@ -310,7 +366,7 @@ border-radius: 4px;</string>
            <string>OU</string>
           </property>
          </widget>
-         <widget class="QLabel" name="label_4">
+         <widget class="QLabel" name="lbl_ola">
           <property name="geometry">
            <rect>
             <x>30</x>
@@ -332,12 +388,12 @@ border-radius: 4px;</string>
            <string>OlÁ</string>
           </property>
          </widget>
-         <widget class="QLabel" name="label_5">
+         <widget class="QLabel" name="lbl_bemvindo">
           <property name="geometry">
            <rect>
             <x>30</x>
             <y>60</y>
-            <width>131</width>
+            <width>150</width>
             <height>19</height>
            </rect>
           </property>
@@ -351,10 +407,10 @@ border-radius: 4px;</string>
            <string notr="true">color: rgb(255, 255, 255);</string>
           </property>
           <property name="text">
-           <string>Benvido de Volta!</string>
+           <string>Bem-vindo de volta!</string>
           </property>
          </widget>
-         <widget class="QPushButton" name="pushButton_7">
+         <widget class="QPushButton" name="btn_faceid">
           <property name="geometry">
            <rect>
             <x>150</x>
@@ -365,12 +421,6 @@ border-radius: 4px;</string>
           </property>
           <property name="cursor">
            <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(54, 63, 118);</string>
-          </property>
-          <property name="text">
-           <string/>
           </property>
           <property name="icon">
            <iconset>
@@ -383,7 +433,7 @@ border-radius: 4px;</string>
            </size>
           </property>
          </widget>
-         <widget class="QLabel" name="label_6">
+         <widget class="QLabel" name="lbl_entrar">
           <property name="geometry">
            <rect>
             <x>30</x>
@@ -407,6 +457,20 @@ border-radius: 4px;</string>
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PySlidingStackedWidget</class>
+   <extends>QStackedWidget</extends>
+   <header>src/gui/widgets/py_slide_stacked_widgets/py_slide_stacked_widgets</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>PyCircularProgress</class>
+   <extends>QWidget</extends>
+   <header>src/gui/widgets/py_circular_progress/py_circular_progress</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
