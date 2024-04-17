@@ -77,26 +77,41 @@ class AbsolutePath:
         json = os.path.normpath(path)
         return json
 
-    def getPathDatabase(self):
-        path = self.obs_path + r'/SalesManagement.db'
+    def getPathIpSelected(self):
+        path = self.obs_path + r'/gui/settings/ip_selected.json'
         json = os.path.normpath(path)
         return json
 
     def getPathHaarcascades(self):
-        path = self.obs_path + r'/haarcascades/haarcascade_frontalface_default.xml'
+        path = self.obs_path + r'/gui/haarcascades/haarcascade_frontalface_default.xml'
         json = os.path.normpath(path)
         return json
 
     def getPathClassifire(self):
-        path = self.obs_path + r'/classifire_lbph/classificadorLBPH.0.4.yml'
+        path = self.obs_path + r'/gui/classifire_lbph/classificadorLBPH.1.0.1.yml'
+        json = os.path.normpath(path)
+        return json
+
+
+    def getPathDatabase(self):
+        path = self.obs_path + r'/SalesManagement.db'
         json = os.path.normpath(path)
         return json
 
 if __name__ == '__main__':
     # import json
     # import os
-    # path = '/gui'
+    # json_file = r'C:\Users\Daniel\Code\SalesManagement\src\gui\settings\ip_selected.json'
+    #
+    # dados = {'ip_selected': 0}
+
     # json_file = AbsolutePath().getPathSettingIp()
-    # print(json_file)
+    # with open(json_file, 'r') as file:
+    #     dados = json.load(file)
+    #
+    # if not txt in dados['inderecos']:
+    #     dados['inderecos'].append(txt)
+    #     with open(json_file, "w") as file:
+    #         json.dump(dados, file)
 
     ...
