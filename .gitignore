@@ -419,3 +419,6 @@ examples pyside6/
 anotacoes
 test/test/np3.png
 src/gui/images/svg_icons/desktop.ini
+src/gui/classifire_lbph/*
+src/gui/haarcascades/*
+src/rascunho.py
