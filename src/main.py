@@ -77,7 +77,9 @@ class MainWindow(QMainWindow):
         self.painel_de_produto: PyProductSelectionPanel = None
         self.combo_box_sugestao_de_busca: QComboBox = None
         self.painel_sale_finisher: PySalesFinisher = None
-        self.usuario = 'NdDaniel'  # adicionar apartir da tela de login
+        self.__usuario: str = 'NdDaniel'  # adicionar apartir da tela de login
+        self.__acesso: bool = True
+        self.__image_user = ''
         self.painel_de_busca_personalizada: PyBuscaPersonalizada = None
         self.painel_de_insercao: PyProductInsertnPanel = None
 
@@ -102,6 +104,7 @@ class MainWindow(QMainWindow):
         SetUpMainWindow.configIconPath(self)
         SetUpMainWindow.addControlWindow(self)
         SetUpMainWindow.configTableWidget(self)
+        SetUpMainWindow.configTableWidgetIp(self)
         SetUpMainWindow.configSystem(self)
 
         # /////////////////////////////////////////////////////////////
@@ -138,20 +141,53 @@ class MainWindow(QMainWindow):
         self.btn_info_float.clicked.connect(self.left_menu.activeBtbInfo)
 
         self.ui.btn_mais_opcoes_historico_de_venda.clicked.connect(self.showPainelBuscaPersonalizasa)
-
         self.ui.btn_pesquisa_produto.clicked.connect(lambda: FunctionsSystem.searchProduct(self))
         self.ui.line_edit_pesquisa_produto.returnPressed.connect(lambda: FunctionsSystem.searchProduct(self))
-
         self.ui.line_edit_pesquisa_produto_devenda.returnPressed.connect(self.irerirProdutosPelaChave)
 
         # ///////////////////////////////////////////// INVENTORY ///////////////////////////////////////////
         self.ui.btn_entrada_produto.clicked.connect(self.showPainelDeInsercaoDeProduto)
         self.ui.btn_adicionar_produto.clicked.connect(lambda: self.showPainelDeRegistroDeProduto())
         self.ui.frame_criar_produto.mousePressEvent = lambda e: self.showPainelDeRegistroDeProduto()
-
         self.ui.btn_mais_opcoes_de_venda.clicked.connect(self.showMenuOpcoes)
 
-    # falha na arquitetura
+    # Getter e setter
+    @property
+    def usuario(self) -> str:
+        return self.__usuario
+
+    @usuario.setter
+    def usuario(self, usuario: str) -> None:
+        self.__usuario = usuario
+        self.ui.frest_user.setName(usuario)
+        self.ui.lbl_nome_usuario.setText(usuario)
+
+    @property
+    def acesso(self) -> bool:
+        return self.__acesso
+
+    @acesso.setter
+    def acesso(self, acesso: bool) -> None:
+        self.__acesso = acesso
+        if acesso:
+            self.ui.frest_user.setAccess('Admin')
+            self.ui.lbl_acesso_usuario.setText('Admin')
+        else:
+            self.ui.frest_user.setAccess('Public')
+            self.ui.lbl_acesso_usuario.setText('Public')
+
+    @property
+    def imageUser(self):
+        return self.__image_user
+
+    @imageUser.setter
+    def imageUser(self, path: str):
+        self.__image_user = path
+        self.ui.frest_user.setPathImage(path)
+        self.ui.imagem_usuario.setIcon(QIcon(path))
+
+    # //////////////////////////////////////////////////////////////////////////////////;
+        # falha na arquitetura
     def _activeBtbInfo_(self):
         # ////////////////////////////////////////////////////////////////////////////////
         if not self.btn_info_base.is_active:
@@ -661,7 +697,7 @@ class MainWindow(QMainWindow):
             for chave, _, quantidade, desconto, preco, _ in zip(*produtos_vendidos.values()):
                 db.connectDataBase()
                 id_venda = db.executarFetchone("SELECT id FROM venda ORDER BY id DESC LIMIT 1")
-                id_produto = db.executarFetchone(f"SELECT ID FROM produto WHERE chave={chave}")
+                id_produto = db.executarFetchone(f"SELECT id FROM produto WHERE chave='{chave}'")
 
                 db.executarComand(f"""INSERT INTO itens_vendido(id_venda, id_produto, quantidade, desconto, preco)
                                       VALUES ({id_venda[0]}, {id_produto[0]}, {quantidade},
@@ -689,9 +725,12 @@ class MainWindow(QMainWindow):
         self.painel_de_busca_personalizada.btn_busca.clicked.connect(busca_historico_de_venda)
         self.painel_de_busca_personalizada.show()
 
-    ################################################################################################################
-
-    ######################################### historico de venda #########################################
+    ############################################### configuracoes ###############################################
+    def mediaQueryConfigCam(self):
+        if self.width() > 840:
+            self.ui.vertical_layout_cam.setDirection(QHBoxLayout.LeftToRight)
+        else:
+            self.ui.vertical_layout_cam.setDirection(QVBoxLayout.TopToBottom)
 
     ############################################## eventos ##############################################
     def mousePressEvent(self, event):
@@ -704,22 +743,25 @@ class MainWindow(QMainWindow):
         :param event:
         :return:
         """
-        # //////////////////////////////////////////////////////////////////////////////////
+        # /////////////////////////////////////////////////////////////////////////////////////////////////
         SetUpMainWindow.resizeLeftMenu(self, event)
         SetUpMainWindow.resizeGrips(self)
 
-        # //////////////////////////////////////////////////////////////////////////////////
+        # /////////////////////////////////////////////////////////////////////////////////////////////////
         FunctionsSystem.resizeFrameChartWidth(self)
 
-        # //////////////////////////////////////////////////////////////////////////////////
+        # /////////////////////////////////////////////////////////////////////////////////////////////////
+        self.mediaQueryConfigCam()
+
+        # /////////////////////////////////////////////////////////////////////////////////////////////////
         if self.menu_opcoes_de_venda:
             self.menu_opcoes_de_venda.move(self.size().width() - 272, 234)
 
-        # //////////////////////////////////////////////////////////////////////////////////
+        # /////////////////////////////////////////////////////////////////////////////////////////////////
         if self.painel_de_busca_personalizada:
             self.painel_de_busca_personalizada.setGeometry(39, 284, self.size().width() - 138, 149)
 
-        # //////////////////////////////////////////////////////////////////////////////////
+        # /////////////////////////////////////////////////////////////////////////////////////////////////
         if self.registration_panel:
             self.registration_panel.setGeometry(
                 self.registration_panel.x(),
@@ -730,7 +772,7 @@ class MainWindow(QMainWindow):
             self.registration_panel.move((self.width() - self.registration_panel.width()) / 2,
                                          (self.height() - self.registration_panel.height()) / 2)
 
-        # //////////////////////////////////////////////////////////////////////////////////
+        # /////////////////////////////////////////////////////////////////////////////////////////////////
         if self.painel_de_produto:
             self.painel_de_produto.setGeometry(
                 self.painel_de_produto.x(),
@@ -740,8 +782,7 @@ class MainWindow(QMainWindow):
             self.painel_de_produto.move((self.width() - self.painel_de_produto.width()) / 2,
                                         (self.height() - self.painel_de_produto.height()) / 2)
 
-
-        # //////////////////////////////////////////////////////////////////////////////////
+        # /////////////////////////////////////////////////////////////////////////////////////////////////
         if self.painel_de_insercao:
             self.painel_de_insercao.setGeometry(
                 self.painel_de_insercao.x(),
@@ -751,7 +792,7 @@ class MainWindow(QMainWindow):
             self.painel_de_insercao.move((self.width() - self.painel_de_insercao.width()) / 2,
                                          (self.height() - self.painel_de_insercao.height()) / 2)
 
-        # /////////////////////////////////////////////////////////////////////////////////////////
+        # /////////////////////////////////////////////////////////////////////////////////////////////////
         if self.painel_sale_finisher:
             self.painel_sale_finisher.setGeometry(
                 self.painel_sale_finisher.x(),
