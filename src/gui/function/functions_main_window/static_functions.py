@@ -1,5 +1,6 @@
 import os
 import json
+import socket
 import random
 from src.gui.core.database import DataBase
 from src.gui.core.absolute_path import AbsolutePath
@@ -83,6 +84,21 @@ def insertProductDataIntoTheDatabase(produto: dict):
     db.disconnectDataBase()
 
 
+def verificar_acessibilidade_de_ip(e_ip: str, porta_ip: int):
+    # Cria um objeto socket
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    try:
+        # Define um timeout para a conexão (em segundos)
+        s.settimeout(0)
+        # Tenta conectar ao IP na porta específica
+        s.connect((e_ip, porta_ip))
+        return True
+    except Exception as _:
+        return False
+    finally:
+        # Fecha a conexão
+        s.close()
+
 
 if __name__ == '__main__':
     # produto = {'linkImg': 'C:\\Users\\Daniel\\Downloads\\barra_de_cera.png', 'size_image': {'image': (260, 260),
@@ -90,4 +106,9 @@ if __name__ == '__main__':
     # 'preco_venda': 12000, 'chave': '8978885538803', 'quantidade': 12, 'informacoes_adicionais': '',
     # 'data_de_expiracao': [('12/02/2025', 'primeira data de exipracao da barra de cera'),
     # ('12/02/2026', 'segunda data de exipracao da barra de cera')]}
+    ...
+    # Exemplo de uso
+    # ip = '192.168.0.120'
+    # porta = 8080
+    # print(verificar_acessibilidade_de_ip(ip, porta))
     ...
