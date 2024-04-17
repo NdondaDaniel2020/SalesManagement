@@ -99,16 +99,16 @@ class PyUserButton(QWidget):
     def setColor(self, color):
         self._color = color
 
-    def textName(self):
+    def name(self):
         return self._name
 
-    def setTextName(self, name):
+    def setName(self, name):
         self._name = name
 
-    def textAccess(self):
+    def access(self):
         return self._access
 
-    def setTextAccess(self, access):
+    def setAccess(self, access):
         self._access = access
 
     def __ini_ui__(self, parent):
