@@ -84,7 +84,7 @@ def insertProductDataIntoTheDatabase(produto: dict):
     db.disconnectDataBase()
 
 
-def verificar_acessibilidade_de_ip(e_ip: str, porta_ip: int):
+def verificar_acessibilidade_de_ip(e_ip: str, porta_ip: int) -> bool:
     # Cria um objeto socket
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
