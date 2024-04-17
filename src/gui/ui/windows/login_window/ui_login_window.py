@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import cv2
 
 ################################################################################
 ## Form generated from reading UI file 'ui_login_windowZohWrd.ui'
@@ -8,7 +9,11 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
+import json
+from hashlib import sha256
+from src.main import MainWindow
 from src.qt_core import *
+from src.gui.core.database import DataBase
 from src.gui.core.absolute_path import AbsolutePath
 from src.gui.widgets.py_circular_progress.py_circular_progress import PyCircularProgress
 from src.gui.widgets.py_slide_stacked_widgets.py_slide_stacked_widgets import PySlidingStackedWidget
@@ -19,8 +24,8 @@ try:
 
     myappid = 'mycompany.myproduct.subproduct.version'
     windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
-except Exception as error:
-    print(error)
+except Exception as _:
+    pass
 
 
 
@@ -35,31 +40,201 @@ class Ui_LoginWindow(QMainWindow):
         self.setAttribute(Qt.WA_TranslucentBackground)
 
         # ///////////////////////////////////////////////////////////////////////////////
-        def moveWindow(event):
-            if event.buttons() == Qt.LeftButton:
-                self.move(self.pos() + event.globalPosition().toPoint() - self._dragPos)
-                self._dragPos = event.globalPosition().toPoint()
-                event.accept()
+        self.main_window = MainWindow()
 
         # ///////////////////////////////////////////////////////////////////////////////
         self.__setupUi__(self)
         self.__resizeSplashCreen()
         self.__confiCircularProgressBar()
+        self.__moveWindow()
+        self.__queryUser()
 
+        self.can_capture: bool = self.__initClassifire()
         # ///////////////////////////////////////////////////////////////////////////////
         self.progress_bar_timer = QTimer()
         self.progress_bar_timer.setInterval(20)
         self.progress_bar_timer.timeout.connect(self.__changeValueProgressBar)
 
+        if self.can_capture:
+            self.capture_timer = QTimer()
+            self.capture_timer.timeout.connect(self.__capture)
         # ///////////////////////////////////////////////////////////////////////////////
-        self.frame_continer_base.mouseMoveEvent = moveWindow
 
         self.btn_close.clicked.connect(self.close)
         self.btn_minimizar.clicked.connect(self.showMinimized)
+        self.let_nome.returnPressed.connect(lambda: self.let_senha.setFocus())
+        self.let_nome.textChanged.connect(lambda: self.let_nome.setStyleSheet(""))
+        self.let_senha.returnPressed.connect(self.__login)
+        self.let_senha.textChanged.connect(lambda: self.let_senha.setStyleSheet(""))
+        self.btn_login.clicked.connect(self.__login)
+
+        self.btn_faceid.clicked.connect(self.__starFaceId)
 
 
-    def __changeValueProgressBar(self):
+    def __login(self) -> None:
+        """
+        responsavel por fazer o login
+        :return:
+        """
+        dados_de_acesso = self.__validatorLogin()
+        if dados_de_acesso:
+            self.main_window.usuario = dados_de_acesso['nome']
+            self.main_window.acesso = dados_de_acesso['acesso']
+            self.main_window.imageUser = dados_de_acesso['linkImg']
+            self.main_window.show()
+            self.close()
 
+    def __queryUser(self) -> None:
+        db: DataBase = DataBase(AbsolutePath().getPathDatabase())
+        db.connectDataBase()
+        self.query_usuario = dict(db.executarFetchall(f"SELECT id, nome FROM usuario"))
+        db.disconnectDataBase()
+
+        self.query_usuario[0] = 'Desconhecido'
+
+    def __validatorLogin(self) -> dict:
+        """
+        responsavel por validar os dados de login(nome, senha)
+        :return:
+        """
+        db: DataBase = DataBase(AbsolutePath().getPathDatabase())
+        db.connectDataBase()
+        query = db.executarFetchall(f"SELECT nome FROM usuario")
+
+        dados_de_acesso = {'nome': '', 'linkImg': '', 'acesso': True, 'validade': False}
+        nome = self.let_nome.text()
+        senha = self.let_senha.text()
+
+        for user in query:
+            if nome == user[0]:
+                dados_de_acesso['nome'] = nome
+                dados_de_acesso['validade'] = True
+
+        if not dados_de_acesso['validade']:
+            self.__animationErrorName()
+        else:
+            query = db.executarFetchone(f"SELECT senha, acesso, linkImg FROM Usuario WHERE nome='{nome}'")
+            if query[0] != sha256(senha.encode()).hexdigest():
+                self.__animtionErrorPass()
+                dados_de_acesso['validade'] = False
+            else:
+                dados_de_acesso['validade'] = True
+                dados_de_acesso['acesso'] = bool(query[1])
+                dados_de_acesso['linkImg'] = query[2]
+        db.disconnectDataBase()
+        return dados_de_acesso
+
+    def __animationErrorName(self):
+        """
+        responsavel pela animação de erro de nome
+        :return:
+        """
+        self.let_nome.setStyleSheet("""QLineEdit, QPlainTextEdit{
+            border: 1px solid rgb(255, 0, 0);
+            border-radius: 5px;
+            background-color: rgb(32, 33, 36);
+            color: white;padding-left:5px;} 
+            QLineEdit:hover, QPlainTextEdit:hover{background-color: rgb(30, 31, 34);}
+            QLineEdit:focus, QPlainTextEdit:focus{background-color: rgb(37, 39, 42);}""")
+        QTimer.singleShot(0, lambda: self.let_nome.setGeometry(QRect(33, 120, 210, 35)))
+        QTimer.singleShot(40, lambda: self.let_nome.setGeometry(QRect(28, 120, 210, 35)))
+        QTimer.singleShot(80, lambda: self.let_nome.setGeometry(QRect(33, 120, 210, 35)))
+        QTimer.singleShot(120, lambda: self.let_nome.setGeometry(QRect(33, 120, 210, 35)))
+        QTimer.singleShot(160, lambda: self.let_nome.setGeometry(QRect(28, 120, 210, 35)))
+        QTimer.singleShot(200, lambda: self.let_nome.setGeometry(QRect(33, 120, 210, 35)))
+
+    def __animtionErrorPass(self) -> None:
+        """
+        responsavel pela animação de erro da senha
+        :return:
+        """
+        self.let_senha.setStyleSheet("""QLineEdit, QPlainTextEdit{
+            border: 1px solid rgb(255, 0, 0);
+            border-radius: 5px;
+            background-color: rgb(32, 33, 36);
+            color: white;padding-left:5px;}
+            QLineEdit:hover, QPlainTextEdit:hover{background-color: rgb(30, 31, 34);}
+            QLineEdit:focus, QPlainTextEdit:focus{background-color: rgb(37, 39, 42);}""")
+        QTimer.singleShot(0, lambda: self.let_senha.setGeometry(QRect(33, 200, 210, 35)))
+        QTimer.singleShot(40, lambda: self.let_senha.setGeometry(QRect(28, 200, 210, 35)))
+        QTimer.singleShot(80, lambda: self.let_senha.setGeometry(QRect(33, 200, 210, 35)))
+        QTimer.singleShot(120, lambda: self.let_senha.setGeometry(QRect(33, 200, 210, 35)))
+        QTimer.singleShot(160, lambda: self.let_senha.setGeometry(QRect(28, 200, 210, 35)))
+        QTimer.singleShot(200, lambda: self.let_senha.setGeometry(QRect(33, 200, 210, 35)))
+
+    def __starFaceId(self):
+
+        if self.cap is None or not self.cap.isOpened():
+            json_file = AbsolutePath().getPathIpSelected()
+            with open(json_file, 'r') as file:
+                ips = json.load(file)
+
+            self.cap = cv2.VideoCapture(ips['ip_selected'])
+            self.stacked_widget_splash_screen.slideInIdx(2)
+            QTimer().singleShot(400, lambda: self.capture_timer.start())
+        else:
+            self.stacked_widget_splash_screen.slideInIdx(0)
+            self.capture_timer.stop()
+            self.cap.release()
+
+    def __initClassifire(self) -> bool:
+        """
+        responsavel por inicializar iniciar os classificadores para o reconhecimento facial
+        :return:
+        """
+        try:
+            self.classificador_haarcascade = cv2.CascadeClassifier(AbsolutePath().getPathHaarcascades())
+            self.reconhecidor_facial = cv2.face.LBPHFaceRecognizer_create()
+            self.reconhecidor_facial.read(AbsolutePath().getPathClassifire())
+
+            self.cap = None
+
+            self.font_cv2 = cv2.FONT_HERSHEY_COMPLEX_SMALL
+
+            return True
+        except Exception as _:
+            return False
+
+    def __capture(self) -> None:
+        """
+        responsavel por fazer a captura com a câmera
+        :return:
+        """
+
+        status, frame = self.cap.read()
+        imagem_cinza = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        imagem_colorida = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        faces_detetadas = self.classificador_haarcascade.detectMultiScale(imagem_cinza,
+                                                                          scaleFactor=1.9,
+                                                                          minNeighbors=3)
+        if status:
+            for (x, y, l, a) in faces_detetadas:
+                imagem_da_face = cv2.resize(imagem_cinza[y:y + a, x:x + l], (100, 100))
+                imagem_colorida = cv2.rectangle(imagem_colorida, (x, y), (x + l, y + a), (22, 22, 22), 1)
+
+                identificador, confinca = self.reconhecidor_facial.predict(imagem_da_face)
+                # name = 'NdDaniel'
+                font_color = (170, 85, 255)
+                cv2.putText(imagem_colorida, self.query_usuario[identificador],
+                            (x, y + (a + 30)), self.font_cv2, 1, font_color)
+
+            height, width, channel = imagem_colorida.shape
+            step = channel * width
+            qimage = QImage(imagem_colorida.data, width, height, step, QImage.Format_RGB888)
+
+            rest = 0
+            if width > self.lbl_cam.width():
+                rest = (width - self.lbl_cam.width()) / 2
+                width = width - rest
+
+            pixmap = QPixmap.fromImage(qimage.copy(rest, 0, width - rest, height))
+            self.lbl_cam.setPixmap(pixmap)
+
+    def __changeValueProgressBar(self) -> None:
+        """
+        responsavel mudar o valor do circular progress bar
+        :return:
+        """
         if self.VALUE_PROGRESS_BAR == 100:
             self.progress_bar_timer.stop()
             self.stacked_widget_splash_screen.setDirection(Qt.Vertical)
@@ -70,7 +245,11 @@ class Ui_LoginWindow(QMainWindow):
             self.widget_cilrcular_progress.value = self.VALUE_PROGRESS_BAR
             self.widget_cilrcular_progress.repaint()
 
-    def __confiCircularProgressBar(self):
+    def __confiCircularProgressBar(self) -> None:
+        """
+        responsavel por configurar o circular progress bar
+        :return:
+        """
         self.widget_cilrcular_progress.width = 200
         self.widget_cilrcular_progress.height = 200
         self.widget_cilrcular_progress.value = 0
@@ -81,23 +260,40 @@ class Ui_LoginWindow(QMainWindow):
         self.widget_cilrcular_progress.text_color = 0xE9EAEC
         self.widget_cilrcular_progress.move(200, 100)
 
-    def __resizeSplashCreen(self):
+    def __resizeSplashCreen(self) -> None:
+        """
+        responsavel por criar a animação de espanção da tela
+        :return:
+        """
 
         self.parale_animation = QParallelAnimationGroup()
 
         self.animation_min = QPropertyAnimation(self.frame_continer_base, b'minimumWidth')
-        self.animation_min.setStartValue(282)
+        self.animation_min.setStartValue(290)
         self.animation_min.setDuration(700)
         self.animation_min.setEndValue(568)
         self.animation_min.setEasingCurve(QEasingCurve.Type.InOutExpo)
         self.parale_animation.addAnimation(self.animation_min)
 
         self.animation_max = QPropertyAnimation(self.frame_continer_base, b'maximumWidth')
-        self.animation_max.setStartValue(282)
+        self.animation_max.setStartValue(290)
         self.animation_max.setDuration(700)
         self.animation_max.setEndValue(568)
         self.animation_max.setEasingCurve(QEasingCurve.Type.InOutExpo)
         self.parale_animation.addAnimation(self.animation_max)
+
+    def __moveWindow(self) -> None:
+        """
+        responsavel por mover a janela de login
+        :return:
+        """
+        def moveWindow(event):
+            if event.buttons() == Qt.LeftButton:
+                self.move(self.pos() + event.globalPosition().toPoint() - self._dragPos)
+                self._dragPos = event.globalPosition().toPoint()
+                event.accept()
+
+        self.frame_continer_base.mouseMoveEvent = moveWindow
 
     def mousePressEvent(self, event):
         self._dragPos = event.globalPosition().toPoint()
@@ -115,8 +311,8 @@ class Ui_LoginWindow(QMainWindow):
         self.frame_continer_base.setObjectName(u"frame_continer_base")
         self.frame_continer_base.setFrameShape(QFrame.StyledPanel)
         self.frame_continer_base.setFrameShadow(QFrame.Raised)
-        self.frame_continer_base.setMaximumWidth(282)
-        self.frame_continer_base.setMinimumWidth(282)
+        self.frame_continer_base.setMaximumWidth(290)
+        self.frame_continer_base.setMinimumWidth(290)
         self.horizontalLayout_2 = QHBoxLayout(self.frame_continer_base)
         self.horizontalLayout_2.setSpacing(0)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
@@ -163,6 +359,19 @@ class Ui_LoginWindow(QMainWindow):
         self.verticalLayout_2.addWidget(self.widget_conttiner)
 
         self.stacked_widget_splash_screen.addWidget(self.page_circular_progress_bar)
+
+        self.page_cam = QWidget()
+        self.page_cam.setObjectName(u"page_cam")
+        self.verticalLayout_3 = QVBoxLayout(self.page_cam)
+        self.verticalLayout_3.setSpacing(0)
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.verticalLayout_3.setContentsMargins(4, 4, 4, 4)
+        self.lbl_cam = QLabel(self.page_cam)
+        self.lbl_cam.setObjectName(u"lbl_cam")
+
+        self.verticalLayout_3.addWidget(self.lbl_cam)
+
+        self.stacked_widget_splash_screen.addWidget(self.page_cam)
 
         self.horizontalLayout_2.addWidget(self.stacked_widget_splash_screen)
 
@@ -290,7 +499,7 @@ class Ui_LoginWindow(QMainWindow):
         self.lbl_ou.setStyleSheet(u"color: rgb(255, 255, 255);")
         self.lbl_ola = QLabel(self.frame_login)
         self.lbl_ola.setObjectName(u"lbl_ola")
-        self.lbl_ola.setGeometry(QRect(30, 30, 100, 21))
+        self.lbl_ola.setGeometry(QRect(30, 30, 400, 21))
         font1 = QFont()
         font1.setPointSize(16)
         font1.setBold(True)
