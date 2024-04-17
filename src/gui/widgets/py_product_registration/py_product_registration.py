@@ -11,7 +11,8 @@ from qfluentwidgets import CalendarPicker, setTheme, Theme
 
 from src.gui.core.database import DataBase
 from src.gui.core.absolute_path import AbsolutePath
-from src.gui.function.functions_main_window.static_functions import generate_barcode, reduce_url
+from src.gui.function.functions_main_window.static_functions import (generate_barcode, reduce_url,
+                                                                     verificar_acessibilidade_de_ip)
 
 from src.gui.widgets.py_slide_stacked_widgets.py_slide_stacked_widgets import PySlidingStackedWidget
 
@@ -24,6 +25,7 @@ class PyProductRegistration(QWidget):
         # /////////////////////////////////////////////////////////////////
         self.__setupUi(self)
         self.validator()
+        self.countAvailableCameras()
         self.getSettings()
         self.getDataFromDatabase()
 
@@ -36,9 +38,7 @@ class PyProductRegistration(QWidget):
         self.frame_central.setGraphicsEffect(self.shadow_window)
 
         # ////////////////////////////////////////////////////////////////
-        self.selected_camera = 0
-        # self.countAvailableCameras()
-        self.cap = cv2.VideoCapture(self.selected_camera)
+        self.startRecording()
 
         # Create a QTimer to update the image every 100ms
         self.timer_foto = QTimer()
@@ -196,10 +196,21 @@ class PyProductRegistration(QWidget):
     def itemIpwebcamSelected(self, item) -> None:
         self.lineEdit_ipwebcam.setText(item)
 
-        if item.isnumeric():
-            self.selected_camera = int(item)
-        else:
-            self.selected_camera = item
+        json_file = AbsolutePath().getPathIpSelected()
+        with open(json_file, 'r+') as file:
+            item_selected = json.load(file)
+
+            if item.isnumeric():
+                self.selected_camera = int(item)
+                item_selected['ip_selected'] = int(item)
+            else:
+                self.selected_camera = item
+                item_selected['ip_selected'] = item
+
+            file.seek(0)
+            json.dump(item_selected, file)
+            file.truncate()
+
 
         if self.cap.isOpened():
             self.cap.release()
@@ -268,6 +279,19 @@ class PyProductRegistration(QWidget):
 
     def getSettings(self) -> None:
         json_file = AbsolutePath().getPathSetting()
+        json_ip_selected = AbsolutePath().getPathIpSelected()
+
+        with open(json_ip_selected, 'r+') as file:
+
+            item = json.load(file).get("ip_selected")
+            if type(item) is int:
+                self.selected_camera = item
+                self.lineEdit_ipwebcam.setText(str(item))
+            else:
+                self.selected_camera = item
+                self.lineEdit_ipwebcam.setText(item)
+
+
         with open(json_file, 'r') as file:
             dados = json.load(file)
 
@@ -524,7 +548,7 @@ class PyProductRegistration(QWidget):
         elif value == 1:
             self.btn_activate.setIcon(QIcon(AbsolutePath().getPathIcon("icon_key.svg")))
 
-        if self.cap.isOpened():
+        if self.cap is not None and self.cap.isOpened():
             self.cap.release()
         self.lbl_camera.setPixmap(QPixmap())
 
@@ -561,19 +585,27 @@ class PyProductRegistration(QWidget):
         btn = self.sender()
         self.btn_cam_selected = btn.objectName()
 
-        if not self.cap.isOpened():
+        if self.cap is not None and not self.cap.isOpened():
             QTimer().singleShot(500, lambda: self.startRecording())
 
-        if btn.objectName() == 'foto' or btn.objectName() == 'btn_camera':
-            QTimer().singleShot(800, lambda: self.timer_foto.start())
-            self.btn_activate.setIcon(QIcon(AbsolutePath().getPathIcon("icon_camera.svg")))
+            if btn.objectName() == 'foto' or btn.objectName() == 'btn_camera':
+                QTimer().singleShot(800, lambda: self.timer_foto.start())
+                self.btn_activate.setIcon(QIcon(AbsolutePath().getPathIcon("icon_camera.svg")))
 
-        elif btn.objectName() == 'btn_chave_qrcode':
-            QTimer().singleShot(800, lambda: self.timer_scan_bar_code.start())
-            self.btn_activate.setIcon(QIcon(AbsolutePath().getPathIcon("icon_qr_code.svg")))
+            elif btn.objectName() == 'btn_chave_qrcode':
+                QTimer().singleShot(800, lambda: self.timer_scan_bar_code.start())
+                self.btn_activate.setIcon(QIcon(AbsolutePath().getPathIcon("icon_qr_code.svg")))
 
     def startRecording(self) -> None:
-        self.cap = cv2.VideoCapture(self.selected_camera)
+        self.cap = None
+
+        if '/video' in self.selected_camera:
+            ip, porta = tuple(self.selected_camera.split('/')[2].split(':'))
+            if verificar_acessibilidade_de_ip(ip, porta):
+                self.cap = cv2.VideoCapture(self.selected_camera)
+
+        if type(self.selected_camera) is int:
+            self.cap = cv2.VideoCapture(self.selected_camera)
 
     def continuousImageUpdate(self) -> None:
         # Read the frame from the video capture object
@@ -928,7 +960,6 @@ class PyProductRegistration(QWidget):
 
     # MONTAGEM DO WIDGET
     # /////////////////////////////////////////////////////
-    # noinspection PyUnresolvedReferences
     def __setupUi(self, Form) -> None:
         if not Form.objectName():
             Form.setObjectName(u"Form")
@@ -1744,38 +1775,29 @@ class PyProductRegistration(QWidget):
 
         QMetaObject.connectSlotsByName(Form)
 
-    # setupUi
-
     def __retranslateUi(self, Form) -> None:
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         self.lineEdit_quantidade.setPlaceholderText(QCoreApplication.translate("Form", u"Quantidade", None))
-
         self.lineEdit_chave.setPlaceholderText(QCoreApplication.translate("Form", u"Chave", None))
-
         self.combo_box_unidade.setItemText(0, QCoreApplication.translate("Form", u"New Item 0", None))
         self.combo_box_unidade.setItemText(1, QCoreApplication.translate("Form", u"New Item 1", None))
         self.combo_box_unidade.setItemText(2, QCoreApplication.translate("Form", u"New Item 2", None))
-
         self.combo_box_unidade.setPlaceholderText(QCoreApplication.translate("Form", u"Selecione uma unidade", None))
-
         self.combo_box_categoria.setPlaceholderText(
             QCoreApplication.translate("Form", u"Selecione uma categoria", None))
         self.lineEdit_nome_produto.setPlaceholderText(QCoreApplication.translate("Form", u"Nome do produto", None))
         self.lineEdit_categoria.setPlaceholderText(QCoreApplication.translate("Form", u"Selecione uma categoria", None))
-
         self.lineEdit_unidade.setPlaceholderText(QCoreApplication.translate("Form", u"Selecione uma unidade", None))
-
-        self.lineEdit_preco_compra.setPlaceholderText(QCoreApplication.translate("Form", u"Pre\u00e7o de compra(o)", None))
+        self.lineEdit_preco_compra.setPlaceholderText(
+            QCoreApplication.translate("Form", u"Pre\u00e7o de compra(o)", None))
         self.lineEdit_preco_venda.setPlaceholderText(
             QCoreApplication.translate("Form", u"Pre\u00e7o de venda", None))
-
         self.lbl_calendario.setText(
             QCoreApplication.translate("Form", u"Data de expira\u00e7\u00e3o do produto(opcional)", None))
         self.informacoes_adicionais.setPlaceholderText(
             QCoreApplication.translate("Form", u"Informa\u00e7\u00f5es adicionais sobre o produto (opcional)",
                                        None))
         self.checkBox.setText(QCoreApplication.translate("Form", u"Mostrar exemplo da imagem minimizada", None))
-
         self.combo_box_ipwebcam.setPlaceholderText(QCoreApplication.translate("Form", u"ipwebcam", None))
         self.lineEdit_ipwebcam.setPlaceholderText(QCoreApplication.translate("Form", u"Ipwebcam", None))
     # retranslateUi
