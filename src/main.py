@@ -45,7 +45,8 @@ from src.gui.core.database import DataBase
 from src.gui.core.absolute_path import AbsolutePath
 from src.gui.function.functions_main_window.static_functions import (saveImageSettingInSizeSetting,
                                                                      insertProductDataIntoTheDatabase,
-                                                                     convert_str_in_float)
+                                                                     convert_str_in_float, mesclar_dados_de_venda,
+                                                                     enviar_dados_de_venda_na_base_de_dados)
 
 try:
     from ctypes import windll  # Only exists on Windows.
@@ -80,6 +81,8 @@ class MainWindow(QMainWindow):
         self.__usuario: str = 'NdDaniel'  # adicionar apartir da tela de login
         self.__acesso: bool = True
         self.__image_user = ''
+        self._email = ''
+        self._nome_empresa = ''
         self.painel_de_busca_personalizada: PyBuscaPersonalizada = None
         self.painel_de_insercao: PyProductInsertnPanel = None
 
@@ -187,7 +190,7 @@ class MainWindow(QMainWindow):
         self.ui.imagem_usuario.setIcon(QIcon(path))
 
     # //////////////////////////////////////////////////////////////////////////////////;
-        # falha na arquitetura
+    # falha na arquitetura
     def _activeBtbInfo_(self):
         # ////////////////////////////////////////////////////////////////////////////////
         if not self.btn_info_base.is_active:
@@ -348,7 +351,7 @@ class MainWindow(QMainWindow):
 
     def initRegistrationPanel(self):
         self.registration_panel = PyProductRegistration(self.ui.central_widget)
-        # self.registration_panel.countAvailableCameras()  # por nas configuracoes
+        self.registration_panel.countAvailableCameras()  # por nas configuracoes
         self.registration_panel.close()
 
     def showPainelDeInsercaoDeProduto(self):
@@ -484,7 +487,6 @@ class MainWindow(QMainWindow):
                             self.ui.line_edit_pesquisa_produto_devenda.setText("")
 
     Slot(None)
-
     def showMenuOpcoes(self):
         if not self.menu_opcoes_de_venda:
             self.menu_opcoes_de_venda = PySaleMenu(self.ui.page_venda)
@@ -671,42 +673,16 @@ class MainWindow(QMainWindow):
         data_atual = QDate.currentDate().toString("dd/MM/yyyy")
         hora_atual = QDateTime.currentDateTime().time().toString()
 
-        # import pprint
-        # pprint.pprint(produtos_vendidos)
-        # pprint.pprint(dados_fvenda)
-        # pprint.pprint(data_atual)
+        dados_da_venda = mesclar_dados_de_venda(dados_fvenda, produtos_vendidos, data_atual + ' ' + hora_atual,
+                                                self._email, self._nome_empresa, self.usuario)
+        if dados_da_venda['status']:
 
-        if dados_fvenda['ok']:
-
-            db = DataBase(AbsolutePath().getPathDatabase())
-            db.connectDataBase()
-
-            id_m_d_p = db.executarFetchone(f"""SELECT id FROM metodo_de_pagamento
-                                                WHERE nome='{dados_fvenda['metodo_de_pagamento']}'""")
-            id_cliente = db.executarFetchone(f"""SELECT id FROM cliente WHERE nome='{dados_fvenda['cliente']}'""")
-            id_usuario = db.executarFetchone(f"""SELECT id FROM usuario WHERE nome='{self.usuario}'""")
-
-            # print(id_usuario, id_cliente, id_m_d_p, dados_fvenda, self.usuario, produtos_vendidos)
-            db.executarComand(f"""INSERT INTO venda(data, total, troco, usuario, metodo_de_pagamento, cliente)
-                                VALUES ('{data_atual} {hora_atual}', {sum(produtos_vendidos['subtotal'])},
-                                         {convert_str_in_float(dados_fvenda['troco'])}, {id_usuario[0]},
-                                         {id_m_d_p[0]}, {id_cliente[0] if id_cliente else 'Null'})""")
-
-            db.disconnectDataBase()
-
-            for chave, _, quantidade, desconto, preco, _ in zip(*produtos_vendidos.values()):
-                db.connectDataBase()
-                id_venda = db.executarFetchone("SELECT id FROM venda ORDER BY id DESC LIMIT 1")
-                id_produto = db.executarFetchone(f"SELECT id FROM produto WHERE chave='{chave}'")
-
-                db.executarComand(f"""INSERT INTO itens_vendido(id_venda, id_produto, quantidade, desconto, preco)
-                                      VALUES ({id_venda[0]}, {id_produto[0]}, {quantidade},
-                                              {desconto}, {preco})""")
-                db.disconnectDataBase()
+            enviar_dados_de_venda_na_base_de_dados(dados_da_venda)
 
             self.cleanProduct()
             self.painel_sale_finisher.close()
             self.ui.line_edit_pesquisa_produto_devenda.setFocus()
+
             ChartFunctions.updateHistorico(self)
             ChartFunctions.updatCircularProgress(self)
 
