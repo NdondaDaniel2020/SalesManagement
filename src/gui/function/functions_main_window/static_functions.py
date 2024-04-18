@@ -2,6 +2,8 @@ import os
 import json
 import socket
 import random
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import landscape
 from src.gui.core.database import DataBase
 from src.gui.core.absolute_path import AbsolutePath
 
@@ -100,6 +102,71 @@ def verificar_acessibilidade_de_ip(e_ip: str, porta_ip: int) -> bool:
         s.close()
 
 
+
+def gerar_recibo(data):
+    # Calcula a altura da página com base na quantidade de produtos
+    page_height = 28 * (len(data['nome']) + 8)  # Estimativa da altura da página
+
+    # Cria o arquivo PDF
+    pdf_filename = "recibo_venda.pdf"
+    c = canvas.Canvas(pdf_filename, pagesize=(220, page_height))
+
+    c.setFont('Helvetica-Bold', 15)
+    c.drawString(50, page_height - 40, f"Recibo de venda")
+
+    c.setFont('Helvetica', 10)
+    c.drawString(86, page_height - 63, f"{data['empresa']}")
+    c.drawString(58, page_height - 76, f"{data['email']}")
+
+    c.line(10, page_height - 90, 210, page_height - 90)
+
+    # Adiciona os detalhes do cabeçalho
+    c.setFont('Helvetica', 10)
+    c.drawString(10, page_height - 148, f"Método de Pagamento: {data['metodo_de_pagamento'].capitalize()}")
+    c.drawString(10, page_height - 134, f"Data: {data['data']}")
+    c.drawString(10, page_height - 121, f"Cliente: {data['cliente'].capitalize()}")
+    c.drawString(10, page_height - 108, f"Status: {data['status'].capitalize()}")
+
+    c.line(10, page_height - 170, 210, page_height - 170)
+    c.line(10, page_height - 169, 210, page_height - 169)
+
+    # # Adiciona a tabela de itens vendidos
+    width_font = c.stringWidth("Nome")
+    c.drawString(10, page_height - 190, "Nome")
+    c.drawString(20 + (width_font * 2), page_height - 190, "Preço")
+    c.drawString(5 + (width_font * 4), page_height - 190, "Quantidade")
+    c.drawString(40 + (width_font * 5), page_height - 190, "Subtotal")
+
+    c.line(10, page_height - 200, 210, page_height - 200)
+    c.line(10, page_height - 199, 210, page_height - 199)
+
+    c.setFont('Helvetica', 8.8)
+    y = page_height - 203
+    for i in range(len(data['nome'])):
+        y -= 14
+        c.drawString(10, y, data['nome'][i].capitalize())
+        c.drawString(20 + (width_font * 2), y, f"{data['preco'][i]:,.2f}".replace(',', '.'))
+        c.drawString(30 + (width_font * 4), y, str(data['quantidade'][i]))
+        c.drawString(40 + (width_font * 5), y, f"{data['subtotal'][i]:,.2f}".replace(',', '.'))
+
+
+    c.line(10, y - 14, 210, y - 14)
+    # c.line(10, y - 13, 210, y - 13)
+
+    # # Adiciona o total da venda
+    c.setFont('Helvetica', 9.8)
+    c.drawString(10, y - 30, f"Total: {data['total']:,.2f} Kz".replace(',', '.'))
+
+    c.line(10, y - 50, 210, y - 50)
+
+    # c.drawImage('some_qr.PNG', 70, y - 160, 90, 90)
+
+    # Salva o PDF
+    c.save()
+
+
+
+
 if __name__ == '__main__':
     # produto = {'linkImg': 'C:\\Users\\Daniel\\Downloads\\barra_de_cera.png', 'size_image': {'image': (260, 260),
     # 'icon_image': (30, 30)}, 'data_de_expiracao': [], 'unidade': 4, 'categoria': 2, 'nome_produto': 'barra de cera',
@@ -112,3 +179,17 @@ if __name__ == '__main__':
     # porta = 8080
     # print(verificar_acessibilidade_de_ip(ip, porta))
     ...
+dados_recibo = {
+    'nome': ['Barra de cera', 'Mousse', 'area'],
+    'preco': [12000.0, 15000.0, 200.0],
+    'quantidade': [2, 4, 1],
+    'subtotal': [24000.0, 30000.0, 200],
+    'desconto': [0.0, 0.0],
+    'data': '27/04/2024',
+    'total': 54200.0,
+    'metodo_de_pagamento': 'em dinheiro',
+    'status': 'pago',
+    'cliente': 'Mauro',
+    'empresa': 'MissXtrela',
+    'email': 'missxtrela@gmail.com'
+}
