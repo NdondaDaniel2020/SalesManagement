@@ -2,6 +2,7 @@ import os
 import json
 import socket
 import random
+import webbrowser
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import landscape
 from src.gui.core.database import DataBase
@@ -103,29 +104,48 @@ def verificar_acessibilidade_de_ip(e_ip: str, porta_ip: int) -> bool:
 
 
 
-def gerar_recibo(data):
+def mesclar_dados_de_venda(dados_fvenda: dict, produtos_vendidos: dict,
+                           data_atual: str,
+                           email: str,
+                           nome_empresa: str,
+                           usuario: str) -> dict:
+
+    dados_estaticos = {'empresa': nome_empresa, 'email': email, 'data': data_atual, 'usuario': usuario}
+    dados_da_venda = dados_fvenda | produtos_vendidos | dados_estaticos
+
+    return dados_da_venda
+
+
+def gerar_recibo(dados: dict) -> None:
     # Calcula a altura da página com base na quantidade de produtos
-    page_height = 28 * (len(data['nome']) + 8)  # Estimativa da altura da página
+    page_height = 28 * (len(dados['nome']) + 8)  # Estimativa da altura da página
 
     # Cria o arquivo PDF
-    pdf_filename = "recibo_venda.pdf"
+    json_file = AbsolutePath().getPathSetting()
+    with open(json_file, 'r') as file:
+        folder = json.load(file)
+
+    pdf_filename = f"/recibo de venda {dados['data'].replace('/', '-').replace(':', '-')}.pdf"
+    file_path = folder['registration_panel']['image_path'] + pdf_filename
+    pdf_filename = os.path.normpath(file_path)
+
     c = canvas.Canvas(pdf_filename, pagesize=(220, page_height))
 
     c.setFont('Helvetica-Bold', 15)
     c.drawString(50, page_height - 40, f"Recibo de venda")
 
     c.setFont('Helvetica', 10)
-    c.drawString(86, page_height - 63, f"{data['empresa']}")
-    c.drawString(58, page_height - 76, f"{data['email']}")
+    c.drawString(86, page_height - 63, f"{dados['empresa']}")
+    c.drawString(58, page_height - 76, f"{dados['email']}")
 
     c.line(10, page_height - 90, 210, page_height - 90)
 
     # Adiciona os detalhes do cabeçalho
     c.setFont('Helvetica', 10)
-    c.drawString(10, page_height - 148, f"Método de Pagamento: {data['metodo_de_pagamento'].capitalize()}")
-    c.drawString(10, page_height - 134, f"Data: {data['data']}")
-    c.drawString(10, page_height - 121, f"Cliente: {data['cliente'].capitalize()}")
-    c.drawString(10, page_height - 108, f"Status: {data['status'].capitalize()}")
+    c.drawString(10, page_height - 148, f"Método de Pagamento: {dados['metodo_de_pagamento'].capitalize()}")
+    c.drawString(10, page_height - 134, f"Data: {dados['data']}")
+    c.drawString(10, page_height - 121, f"Cliente: {dados['cliente'].capitalize()}")
+    c.drawString(10, page_height - 108, f"Status: {dados['status']}")
 
     c.line(10, page_height - 170, 210, page_height - 170)
     c.line(10, page_height - 169, 210, page_height - 169)
@@ -142,12 +162,12 @@ def gerar_recibo(data):
 
     c.setFont('Helvetica', 8.8)
     y = page_height - 203
-    for i in range(len(data['nome'])):
+    for i in range(len(dados['nome'])):
         y -= 14
-        c.drawString(10, y, data['nome'][i].capitalize())
-        c.drawString(20 + (width_font * 2), y, f"{data['preco'][i]:,.2f}".replace(',', '.'))
-        c.drawString(30 + (width_font * 4), y, str(data['quantidade'][i]))
-        c.drawString(40 + (width_font * 5), y, f"{data['subtotal'][i]:,.2f}".replace(',', '.'))
+        c.drawString(10, y, dados['nome'][i].capitalize())
+        c.drawString(20 + (width_font * 2), y, f"{dados['preco'][i]:,.2f}".replace(',', '.'))
+        c.drawString(30 + (width_font * 4), y, str(dados['quantidade'][i]))
+        c.drawString(40 + (width_font * 5), y, f"{dados['subtotal'][i]:,.2f}".replace(',', '.'))
 
 
     c.line(10, y - 14, 210, y - 14)
@@ -155,41 +175,52 @@ def gerar_recibo(data):
 
     # # Adiciona o total da venda
     c.setFont('Helvetica', 9.8)
-    c.drawString(10, y - 30, f"Total: {data['total']:,.2f} Kz".replace(',', '.'))
+    c.drawString(10, y - 30, f"Total: {sum(dados['subtotal']):,.2f} Kz".replace(',', '.'))
 
     c.line(10, y - 50, 210, y - 50)
 
-    # c.drawImage('some_qr.PNG', 70, y - 160, 90, 90)
-
     # Salva o PDF
     c.save()
+
+    # webbrowser.open(pdf_filename)
+
+
+
+def enviar_dados_de_venda_na_base_de_dados(dados_da_venda: dict) -> None:
+    db = DataBase(AbsolutePath().getPathDatabase())
+    db.connectDataBase()
+
+    id_m_d_p = db.executarFetchone(f"""SELECT id FROM metodo_de_pagamento
+                                        WHERE nome='{dados_da_venda['metodo_de_pagamento']}'""")
+    id_cliente = db.executarFetchone(f"""SELECT id FROM cliente WHERE nome='{dados_da_venda['cliente']}'""")
+    id_usuario = db.executarFetchone(f"""SELECT id FROM usuario WHERE nome='{dados_da_venda['usuario']}'""")
+
+    db.executarComand(f"""INSERT INTO venda(data, total, troco, usuario, metodo_de_pagamento, cliente)
+                        VALUES ('{dados_da_venda['data']}', {sum(dados_da_venda['subtotal'])},
+                                 {convert_str_in_float(dados_da_venda['troco'])}, {id_usuario[0]},
+                                 {id_m_d_p[0]}, {id_cliente[0] if id_cliente else 'Null'})""")
+
+    db.disconnectDataBase()
+
+    precos = dados_da_venda.get('preco')
+    chaves = dados_da_venda.get('chave')
+    descontos = dados_da_venda.get('desconto')
+    quantidades = dados_da_venda.get('quantidade')
+
+    for chave, quantidade, desconto, preco in zip(chaves, quantidades, descontos, precos):
+        db.connectDataBase()
+        id_venda = db.executarFetchone("SELECT id FROM venda ORDER BY id DESC LIMIT 1")
+        id_produto = db.executarFetchone(f"SELECT id FROM produto WHERE chave='{chave}'")
+        db.executarComand(f"""INSERT INTO itens_vendido(id_venda, id_produto, quantidade, desconto, preco)
+                              VALUES ({id_venda[0]}, {id_produto[0]}, {quantidade}, {desconto}, {preco})""")
+        db.disconnectDataBase()
+
+    if dados_da_venda['recibo']:
+        dados_da_venda['status'] = 'Pago'
+        gerar_recibo(dados_da_venda)
 
 
 
 
 if __name__ == '__main__':
-    # produto = {'linkImg': 'C:\\Users\\Daniel\\Downloads\\barra_de_cera.png', 'size_image': {'image': (260, 260),
-    # 'icon_image': (30, 30)}, 'data_de_expiracao': [], 'unidade': 4, 'categoria': 2, 'nome_produto': 'barra de cera',
-    # 'preco_venda': 12000, 'chave': '8978885538803', 'quantidade': 12, 'informacoes_adicionais': '',
-    # 'data_de_expiracao': [('12/02/2025', 'primeira data de exipracao da barra de cera'),
-    # ('12/02/2026', 'segunda data de exipracao da barra de cera')]}
     ...
-    # Exemplo de uso
-    # ip = '192.168.0.120'
-    # porta = 8080
-    # print(verificar_acessibilidade_de_ip(ip, porta))
-    ...
-dados_recibo = {
-    'nome': ['Barra de cera', 'Mousse', 'area'],
-    'preco': [12000.0, 15000.0, 200.0],
-    'quantidade': [2, 4, 1],
-    'subtotal': [24000.0, 30000.0, 200],
-    'desconto': [0.0, 0.0],
-    'data': '27/04/2024',
-    'total': 54200.0,
-    'metodo_de_pagamento': 'em dinheiro',
-    'status': 'pago',
-    'cliente': 'Mauro',
-    'empresa': 'MissXtrela',
-    'email': 'missxtrela@gmail.com'
-}
