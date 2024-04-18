@@ -64,18 +64,19 @@ class PyProductSelectionPanel(QWidget):
         db.disconnectDataBase()
 
         for dados in query:
-            list_produto = PySelectionRecordList()
-            list_produto.setImage(dados[4])
-            list_produto.setChave(dados[0])
-            list_produto.setQuantidade(dados[2])
-            list_produto.setPrecoDeVenda(dados[3], True)
-            list_produto.setName(dados[1].capitalize())
+            if int(dados[2]) > 0:
+                list_produto = PySelectionRecordList()
+                list_produto.setImage(dados[4])
+                list_produto.setChave(dados[0])
+                list_produto.setQuantidade(dados[2])
+                list_produto.setPrecoDeVenda(dados[3], True)
+                list_produto.setName(dados[1].capitalize())
 
-            with open(json_file, 'r') as file:
-                dado = json.load(file)
-                list_produto.setImageSize(*dado[dados[1]]["icon_image"])
+                with open(json_file, 'r') as file:
+                    dado = json.load(file)
+                    list_produto.setImageSize(*dado[dados[1]]["icon_image"])
 
-            self.vertical_layout.insertWidget(0, list_produto)
+                self.vertical_layout.insertWidget(0, list_produto)
 
     def searchProduct(self):
         nome = self.line_edit_pesquisa_produto.text()
