@@ -101,7 +101,8 @@ class PySalesFinisher(QFrame):
         QTimer.singleShot(800, lambda: self.opacity_animation_down.start())
 
     def confirmar(self) -> bool:
-        dados = {'cliente': self.lineEdit_cliente.text().lower(), 'metodo_de_pagamento': '', 'troco': '', 'ok': True}
+        dados = {'cliente': self.lineEdit_cliente.text().lower(),
+                 'metodo_de_pagamento': '', 'troco': '', 'status': True}
 
         list_item: list = []
         q = self.combo_box_pagamento.count()
@@ -111,7 +112,7 @@ class PySalesFinisher(QFrame):
         if not self.lineEdit_pagamento.text() in list_item:
             self.label_notificacao.setText("Selecione metodo de pagamento")
             self.__startanimationNotification()
-            dados['ok'] = False
+            dados['status'] = False
         else:
             dados['metodo_de_pagamento'] = self.lineEdit_pagamento.text().lower()
 
@@ -122,20 +123,20 @@ class PySalesFinisher(QFrame):
         if not valor or valor == '.' or valor == ',':
             self.label_notificacao.setText("Falha no valor pago")
             self.__startanimationNotification()
-            dados['ok'] = False
+            dados['status'] = False
         else:
             try:
                 float(valor)
             except ImportError as _:
                 self.label_notificacao.setText("Falha no valor pago")
                 self.__startanimationNotification()
-                dados['ok'] = False
+                dados['status'] = False
             else:
                 if troco.count('.') == 1:
                     if float(troco) < 0:
                         self.label_notificacao.setText("Falha no valor pago")
                         self.__startanimationNotification()
-                        dados['ok'] = False
+                        dados['status'] = False
                 elif troco.count('.') > 1:
                     troco = troco.split('.')
                     troco.insert(-1, '.')
@@ -143,9 +144,14 @@ class PySalesFinisher(QFrame):
                     if float(troco) < 0:
                         self.label_notificacao.setText("Falha no valor pago")
                         self.__startanimationNotification()
-                        dados['ok'] = False
+                        dados['status'] = False
 
-        if dados['ok']:
+        if self.check_box_recibo_venda.isChecked():
+            dados['recibo'] = True
+        else:
+            dados['recibo'] = False
+
+        if dados['status']:
             dados['troco'] = self.lbl_troco.text()
 
         return dados
