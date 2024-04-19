@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_windowiBpxmf.ui'
+## Form generated from reading UI file 'main_windowywgyKy.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.4.2
 ##
@@ -15,7 +15,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGridLayout,
+from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGroupBox,
     QHBoxLayout, QHeaderView, QLabel, QLineEdit,
     QMainWindow, QProgressBar, QPushButton, QScrollArea,
     QSizePolicy, QSpacerItem, QStackedWidget, QTableWidget,
@@ -31,7 +31,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(724, 568)
+        MainWindow.resize(741, 568)
         self.widget_style_sheet = QWidget(MainWindow)
         self.widget_style_sheet.setObjectName(u"widget_style_sheet")
         self.widget_style_sheet.setStyleSheet(u"#central_widget,\n"
@@ -531,7 +531,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_27 = QHBoxLayout(self.page_configuracoes)
         self.horizontalLayout_27.setSpacing(6)
         self.horizontalLayout_27.setObjectName(u"horizontalLayout_27")
-        self.horizontalLayout_27.setContentsMargins(7, 7, 7, 7)
+        self.horizontalLayout_27.setContentsMargins(7, 6, 5, 7)
         self.frame_14 = QFrame(self.page_configuracoes)
         self.frame_14.setObjectName(u"frame_14")
         self.frame_14.setStyleSheet(u"background-color: transparent;")
@@ -832,6 +832,251 @@ class Ui_MainWindow(object):
         self.frame_64.setStyleSheet(u"background-color: rgb(32, 33, 37);")
         self.frame_64.setFrameShape(QFrame.StyledPanel)
         self.frame_64.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_31 = QVBoxLayout(self.frame_64)
+        self.verticalLayout_31.setSpacing(0)
+        self.verticalLayout_31.setObjectName(u"verticalLayout_31")
+        self.verticalLayout_31.setContentsMargins(2, 2, 2, 2)
+        self.stackedWidget = QStackedWidget(self.frame_64)
+        self.stackedWidget.setObjectName(u"stackedWidget")
+        self.page_4 = QWidget()
+        self.page_4.setObjectName(u"page_4")
+        self.verticalLayout_32 = QVBoxLayout(self.page_4)
+        self.verticalLayout_32.setSpacing(4)
+        self.verticalLayout_32.setObjectName(u"verticalLayout_32")
+        self.verticalLayout_32.setContentsMargins(3, 3, 3, 3)
+        self.scroll_area_cam = QScrollArea(self.page_4)
+        self.scroll_area_cam.setObjectName(u"scroll_area_cam")
+        self.scroll_area_cam.setLayoutDirection(Qt.LeftToRight)
+        self.scroll_area_cam.setStyleSheet(u"background-color: rgb(17, 18, 20);\n"
+"border-radius: 12px;")
+        self.scroll_area_cam.setWidgetResizable(True)
+        self.scroll_area_widget_contents_cam = QWidget()
+        self.scroll_area_widget_contents_cam.setObjectName(u"scroll_area_widget_contents_cam")
+        self.scroll_area_widget_contents_cam.setGeometry(QRect(0, 0, 451, 498))
+        self.vertical_layout_cam = QVBoxLayout(self.scroll_area_widget_contents_cam)
+        self.vertical_layout_cam.setSpacing(6)
+        self.vertical_layout_cam.setObjectName(u"vertical_layout_cam")
+        self.vertical_layout_cam.setContentsMargins(6, 6, 4, 6)
+        self.frame_47 = QFrame(self.scroll_area_widget_contents_cam)
+        self.frame_47.setObjectName(u"frame_47")
+        self.frame_47.setMinimumSize(QSize(0, 230))
+        self.frame_47.setStyleSheet(u"background-color: rgb(32, 33, 37);")
+        self.frame_47.setFrameShape(QFrame.StyledPanel)
+        self.frame_47.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_35 = QVBoxLayout(self.frame_47)
+        self.verticalLayout_35.setSpacing(0)
+        self.verticalLayout_35.setObjectName(u"verticalLayout_35")
+        self.verticalLayout_35.setContentsMargins(0, 0, 0, 0)
+        self.groupBox = QGroupBox(self.frame_47)
+        self.groupBox.setObjectName(u"groupBox")
+        self.groupBox.setMinimumSize(QSize(0, 100))
+        font5 = QFont()
+        font5.setPointSize(12)
+        font5.setBold(False)
+        self.groupBox.setFont(font5)
+        self.groupBox.setStyleSheet(u"color: rgb(255, 255, 255);")
+        self.verticalLayout_20 = QVBoxLayout(self.groupBox)
+        self.verticalLayout_20.setObjectName(u"verticalLayout_20")
+        self.verticalLayout_20.setContentsMargins(6, 27, 6, 5)
+        self.frame_barra_busca_do_historico_2 = QFrame(self.groupBox)
+        self.frame_barra_busca_do_historico_2.setObjectName(u"frame_barra_busca_do_historico_2")
+        self.frame_barra_busca_do_historico_2.setMinimumSize(QSize(0, 44))
+        self.frame_barra_busca_do_historico_2.setMaximumSize(QSize(16777215, 44))
+        self.frame_barra_busca_do_historico_2.setStyleSheet(u"background-color: rgb(32, 33, 37);\n"
+"border: 1px solid rgb(49, 50, 55);")
+        self.frame_barra_busca_do_historico_2.setFrameShape(QFrame.StyledPanel)
+        self.frame_barra_busca_do_historico_2.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_30 = QHBoxLayout(self.frame_barra_busca_do_historico_2)
+        self.horizontalLayout_30.setSpacing(4)
+        self.horizontalLayout_30.setObjectName(u"horizontalLayout_30")
+        self.horizontalLayout_30.setContentsMargins(2, 0, 2, 0)
+        self.btn_testar_camera_selecionada = QPushButton(self.frame_barra_busca_do_historico_2)
+        self.btn_testar_camera_selecionada.setObjectName(u"btn_testar_camera_selecionada")
+        self.btn_testar_camera_selecionada.setMinimumSize(QSize(37, 37))
+        self.btn_testar_camera_selecionada.setMaximumSize(QSize(37, 37))
+        self.btn_testar_camera_selecionada.setStyleSheet(u"QPushButton {\n"
+"            color: rgb(233, 234, 236);\n"
+"            background-color: rgb(38, 39, 43);\n"
+"            border: none;\n"
+"            border-radius: 8px;\n"
+"}\n"
+" QPushButton:hover {\n"
+" 	background-color: rgb(49, 50, 55)\n"
+" }\n"
+"QPushButton:pressed {\n"
+" 	background-color: rgb(38, 39, 43);\n"
+"}")
+        icon7 = QIcon()
+        icon7.addFile(u"../../../images/svg_icons/icon_camera.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_testar_camera_selecionada.setIcon(icon7)
+        self.btn_testar_camera_selecionada.setIconSize(QSize(28, 28))
+
+        self.horizontalLayout_30.addWidget(self.btn_testar_camera_selecionada)
+
+        self.btn_atualizar_depositivo = QPushButton(self.frame_barra_busca_do_historico_2)
+        self.btn_atualizar_depositivo.setObjectName(u"btn_atualizar_depositivo")
+        self.btn_atualizar_depositivo.setMinimumSize(QSize(37, 37))
+        self.btn_atualizar_depositivo.setMaximumSize(QSize(37, 37))
+        self.btn_atualizar_depositivo.setStyleSheet(u"QPushButton {\n"
+"            color: rgb(233, 234, 236);\n"
+"            background-color: rgb(38, 39, 43);\n"
+"            border: none;\n"
+"            border-radius: 8px;\n"
+"}\n"
+" QPushButton:hover {\n"
+" 	background-color: rgb(49, 50, 55)\n"
+" }\n"
+"QPushButton:pressed {\n"
+" 	background-color: rgb(38, 39, 43);\n"
+"}")
+        icon8 = QIcon()
+        icon8.addFile(u"../../../images/svg_icons/icon_reload.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_atualizar_depositivo.setIcon(icon8)
+        self.btn_atualizar_depositivo.setIconSize(QSize(24, 24))
+
+        self.horizontalLayout_30.addWidget(self.btn_atualizar_depositivo)
+
+        self.line_edit_adicionar_despositivo = QLineEdit(self.frame_barra_busca_do_historico_2)
+        self.line_edit_adicionar_despositivo.setObjectName(u"line_edit_adicionar_despositivo")
+        self.line_edit_adicionar_despositivo.setMinimumSize(QSize(0, 35))
+        self.line_edit_adicionar_despositivo.setStyleSheet(u"QLineEdit{\n"
+"color: rgb(233, 234, 236);\n"
+"border: 1px solid rgb(38, 39, 43);\n"
+"border-radius: 5px;\n"
+"padding-left: 5px;\n"
+"}\n"
+"QLineEdit:hover{\n"
+"border: 1px solid rgb(49, 50, 55);\n"
+"}\n"
+"QLineEdit:focus{\n"
+"border: 1px solid rgb(58, 59, 65);\n"
+"}")
+        self.line_edit_adicionar_despositivo.setClearButtonEnabled(False)
+
+        self.horizontalLayout_30.addWidget(self.line_edit_adicionar_despositivo)
+
+        self.btn_mais_adicionar_despositivo = QPushButton(self.frame_barra_busca_do_historico_2)
+        self.btn_mais_adicionar_despositivo.setObjectName(u"btn_mais_adicionar_despositivo")
+        self.btn_mais_adicionar_despositivo.setMinimumSize(QSize(37, 37))
+        self.btn_mais_adicionar_despositivo.setMaximumSize(QSize(37, 37))
+        self.btn_mais_adicionar_despositivo.setStyleSheet(u"QPushButton {\n"
+"            color: rgb(233, 234, 236);\n"
+"            background-color: rgb(38, 39, 43);\n"
+"            border: none;\n"
+"            border-radius: 8px;\n"
+"}\n"
+" QPushButton:hover {\n"
+" 	background-color: rgb(49, 50, 55)\n"
+" }\n"
+"QPushButton:pressed {\n"
+" 	background-color: rgb(38, 39, 43);\n"
+"}")
+        icon9 = QIcon()
+        icon9.addFile(u"../../../images/svg_icons/icon_add.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_mais_adicionar_despositivo.setIcon(icon9)
+        self.btn_mais_adicionar_despositivo.setIconSize(QSize(37, 37))
+
+        self.horizontalLayout_30.addWidget(self.btn_mais_adicionar_despositivo)
+
+
+        self.verticalLayout_20.addWidget(self.frame_barra_busca_do_historico_2)
+
+        self.table_widget_despositivo = QTableWidget(self.groupBox)
+        if (self.table_widget_despositivo.columnCount() < 2):
+            self.table_widget_despositivo.setColumnCount(2)
+        __qtablewidgetitem = QTableWidgetItem()
+        self.table_widget_despositivo.setHorizontalHeaderItem(0, __qtablewidgetitem)
+        __qtablewidgetitem1 = QTableWidgetItem()
+        self.table_widget_despositivo.setHorizontalHeaderItem(1, __qtablewidgetitem1)
+        self.table_widget_despositivo.setObjectName(u"table_widget_despositivo")
+        self.table_widget_despositivo.setStyleSheet(u"QTableWidget {	\n"
+"    background-color: rgb(16, 17, 19);\n"
+"	color: rgb(233, 234, 236);\n"
+"    padding: 0px;\n"
+"    border-radius: 5px;\n"
+"    gridline-color: rgb(38, 39, 43);\n"
+"}\n"
+"QTableWidget::item{\n"
+"    border-color: rgb(54, 63, 118);\n"
+"    padding-left: 5px;\n"
+"    padding-right: 5px;\n"
+"    gridline-color: rgb(38, 39, 43);\n"
+"	color: rgb(233, 234, 236);\n"
+"}\n"
+"QTableWidget::item:selected{\n"
+"    background-color: rgb(49, 50, 55);\n"
+"	color: rgb(233, 234, 236);\n"
+"}\n"
+"QHeaderView::section{\n"
+"    background-color: rgb(38, 39, 43);\n"
+"    border: 1px solid  rgb(38, 39, 43);\n"
+"	color: rgb(233, 234, 236);\n"
+"}\n"
+"QTableWidget::horizontalHeader {	\n"
+"    background-color: rgb(239, 236, 231);\n"
+"	color: rgb(233, 234, 236);\n"
+"}\n"
+"QHeaderView::section:horizontal\n"
+"{\n"
+"    border: 1px solid rgb(49, 50, 55);\n"
+"	background-color: rgb(38, 39, 43);\n"
+"	color: rgb(233, 234, 236);\n"
+"	padding: 3px;\n"
+"	border-top-left-radius: 7px;\n"
+"	border-top-right-radius: 7px\n"
+"}\n"
+""
+                        "QHeaderView::section:vertical\n"
+"{\n"
+"	text-align:center;\n"
+"}\n"
+"QTableView QTableCornerButton::section {\n"
+"	background: rgb(38, 39, 43);\n"
+"	color: rgb(233, 234, 236);\n"
+"}")
+
+        self.verticalLayout_20.addWidget(self.table_widget_despositivo)
+
+
+        self.verticalLayout_35.addWidget(self.groupBox)
+
+
+        self.vertical_layout_cam.addWidget(self.frame_47)
+
+        self.frame_48 = QFrame(self.scroll_area_widget_contents_cam)
+        self.frame_48.setObjectName(u"frame_48")
+        self.frame_48.setMinimumSize(QSize(0, 250))
+        self.frame_48.setStyleSheet(u"background-color: rgb(32, 33, 37);")
+        self.frame_48.setFrameShape(QFrame.StyledPanel)
+        self.frame_48.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_34 = QVBoxLayout(self.frame_48)
+        self.verticalLayout_34.setObjectName(u"verticalLayout_34")
+        self.verticalLayout_34.setContentsMargins(5, 5, 5, 5)
+        self.lbl_cam = QLabel(self.frame_48)
+        self.lbl_cam.setObjectName(u"lbl_cam")
+        sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.lbl_cam.sizePolicy().hasHeightForWidth())
+        self.lbl_cam.setSizePolicy(sizePolicy)
+        self.lbl_cam.setStyleSheet(u"background-color: rgb(16, 17, 19);")
+
+        self.verticalLayout_34.addWidget(self.lbl_cam)
+
+
+        self.vertical_layout_cam.addWidget(self.frame_48)
+
+        self.scroll_area_cam.setWidget(self.scroll_area_widget_contents_cam)
+
+        self.verticalLayout_32.addWidget(self.scroll_area_cam)
+
+        self.stackedWidget.addWidget(self.page_4)
+        self.page_3 = QWidget()
+        self.page_3.setObjectName(u"page_3")
+        self.stackedWidget.addWidget(self.page_3)
+
+        self.verticalLayout_31.addWidget(self.stackedWidget)
+
 
         self.verticalLayout_28.addWidget(self.frame_64)
 
@@ -852,32 +1097,32 @@ class Ui_MainWindow(object):
         self.frame_15.setMaximumSize(QSize(16777215, 156))
         self.frame_15.setFrameShape(QFrame.StyledPanel)
         self.frame_15.setFrameShadow(QFrame.Raised)
-        self.label_21 = QLabel(self.frame_15)
-        self.label_21.setObjectName(u"label_21")
-        self.label_21.setGeometry(QRect(57, 135, 55, 20))
-        font5 = QFont()
-        font5.setPointSize(11)
-        self.label_21.setFont(font5)
-        self.label_21.setStyleSheet(u"color: rgb(233, 234, 236)")
-        self.label_21.setAlignment(Qt.AlignCenter)
-        self.label_20 = QLabel(self.frame_15)
-        self.label_20.setObjectName(u"label_20")
-        self.label_20.setGeometry(QRect(46, 116, 80, 18))
-        self.label_20.setFont(font)
-        self.label_20.setStyleSheet(u"color: rgb(233, 234, 236)")
-        self.label_20.setAlignment(Qt.AlignCenter)
-        self.pushButton = QPushButton(self.frame_15)
-        self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.setGeometry(QRect(30, 0, 110, 110))
-        self.pushButton.setMinimumSize(QSize(110, 110))
-        self.pushButton.setMaximumSize(QSize(110, 110))
-        self.pushButton.setStyleSheet(u"border-radius: 55px;\n"
+        self.lbl_acesso_usuario = QLabel(self.frame_15)
+        self.lbl_acesso_usuario.setObjectName(u"lbl_acesso_usuario")
+        self.lbl_acesso_usuario.setGeometry(QRect(57, 135, 55, 20))
+        font6 = QFont()
+        font6.setPointSize(11)
+        self.lbl_acesso_usuario.setFont(font6)
+        self.lbl_acesso_usuario.setStyleSheet(u"color: rgb(233, 234, 236)")
+        self.lbl_acesso_usuario.setAlignment(Qt.AlignCenter)
+        self.lbl_nome_usuario = QLabel(self.frame_15)
+        self.lbl_nome_usuario.setObjectName(u"lbl_nome_usuario")
+        self.lbl_nome_usuario.setGeometry(QRect(46, 116, 80, 18))
+        self.lbl_nome_usuario.setFont(font)
+        self.lbl_nome_usuario.setStyleSheet(u"color: rgb(233, 234, 236)")
+        self.lbl_nome_usuario.setAlignment(Qt.AlignCenter)
+        self.imagem_usuario = QPushButton(self.frame_15)
+        self.imagem_usuario.setObjectName(u"imagem_usuario")
+        self.imagem_usuario.setGeometry(QRect(30, 0, 110, 110))
+        self.imagem_usuario.setMinimumSize(QSize(110, 110))
+        self.imagem_usuario.setMaximumSize(QSize(110, 110))
+        self.imagem_usuario.setStyleSheet(u"border-radius: 55px;\n"
 "border: 2px solid rgb(54, 63, 118);\n"
 "background-color: rgb(19, 20, 22);")
-        icon7 = QIcon()
-        icon7.addFile(u"../../../images/svg_images/daniel-removebg-preview.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.pushButton.setIcon(icon7)
-        self.pushButton.setIconSize(QSize(100, 100))
+        icon10 = QIcon()
+        icon10.addFile(u"../../../images/svg_images/daniel-removebg-preview.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.imagem_usuario.setIcon(icon10)
+        self.imagem_usuario.setIconSize(QSize(100, 100))
 
         self.verticalLayout_25.addWidget(self.frame_15)
 
@@ -927,9 +1172,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout_28.setContentsMargins(0, 0, 0, 0)
         self.label_22 = QLabel(self.frame_45)
         self.label_22.setObjectName(u"label_22")
-        font6 = QFont()
-        font6.setPointSize(10)
-        self.label_22.setFont(font6)
+        font7 = QFont()
+        font7.setPointSize(10)
+        self.label_22.setFont(font7)
         self.label_22.setStyleSheet(u"color: rgb(233, 234, 236)")
         self.label_22.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
 
@@ -937,7 +1182,7 @@ class Ui_MainWindow(object):
 
         self.label_25 = QLabel(self.frame_45)
         self.label_25.setObjectName(u"label_25")
-        self.label_25.setFont(font6)
+        self.label_25.setFont(font7)
         self.label_25.setStyleSheet(u"color: rgb(233, 234, 236)")
         self.label_25.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
@@ -964,7 +1209,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_29.setContentsMargins(0, 0, 0, 0)
         self.label_23 = QLabel(self.frame_46)
         self.label_23.setObjectName(u"label_23")
-        self.label_23.setFont(font6)
+        self.label_23.setFont(font7)
         self.label_23.setStyleSheet(u"color: rgb(233, 234, 236)")
         self.label_23.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
 
@@ -972,7 +1217,7 @@ class Ui_MainWindow(object):
 
         self.label_24 = QLabel(self.frame_46)
         self.label_24.setObjectName(u"label_24")
-        self.label_24.setFont(font6)
+        self.label_24.setFont(font7)
         self.label_24.setStyleSheet(u"color: rgb(233, 234, 236)")
         self.label_24.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
@@ -1015,7 +1260,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_24 = QHBoxLayout(self.frame_base_chart)
         self.horizontalLayout_24.setSpacing(4)
         self.horizontalLayout_24.setObjectName(u"horizontalLayout_24")
-        self.horizontalLayout_24.setContentsMargins(4, 4, 4, 4)
+        self.horizontalLayout_24.setContentsMargins(7, 7, 7, 7)
         self.frame_chart_historicode_venda = QFrame(self.frame_base_chart)
         self.frame_chart_historicode_venda.setObjectName(u"frame_chart_historicode_venda")
         self.frame_chart_historicode_venda.setMinimumSize(QSize(396, 207))
@@ -1059,9 +1304,9 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {\n"
 " 	background-color: rgb(38, 39, 43);\n"
 "}")
-        icon8 = QIcon()
-        icon8.addFile(u"../../../images/svg_icons/icon_search.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_pesquisa_historico_de_venda.setIcon(icon8)
+        icon11 = QIcon()
+        icon11.addFile(u"../../../images/svg_icons/icon_search.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_pesquisa_historico_de_venda.setIcon(icon11)
         self.btn_pesquisa_historico_de_venda.setIconSize(QSize(25, 25))
 
         self.horizontalLayout_26.addWidget(self.btn_pesquisa_historico_de_venda)
@@ -1101,9 +1346,9 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {\n"
 " 	background-color: rgb(38, 39, 43);\n"
 "}")
-        icon9 = QIcon()
-        icon9.addFile(u"../../../images/svg_icons/icon_controller_adjust.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_mais_opcoes_historico_de_venda.setIcon(icon9)
+        icon12 = QIcon()
+        icon12.addFile(u"../../../images/svg_icons/icon_controller_adjust.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_mais_opcoes_historico_de_venda.setIcon(icon12)
         self.btn_mais_opcoes_historico_de_venda.setIconSize(QSize(30, 30))
 
         self.horizontalLayout_26.addWidget(self.btn_mais_opcoes_historico_de_venda)
@@ -1132,17 +1377,17 @@ class Ui_MainWindow(object):
         self.vertical_layout_inventario_3.setContentsMargins(5, 5, 5, 5)
         self.scrollArea_4 = QScrollArea(self.frame_59)
         self.scrollArea_4.setObjectName(u"scrollArea_4")
-        sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.scrollArea_4.sizePolicy().hasHeightForWidth())
-        self.scrollArea_4.setSizePolicy(sizePolicy)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.scrollArea_4.sizePolicy().hasHeightForWidth())
+        self.scrollArea_4.setSizePolicy(sizePolicy1)
         self.scrollArea_4.setStyleSheet(u"background-color: rgb(19, 20, 22);\n"
 "border-radius: 10px;")
         self.scrollArea_4.setWidgetResizable(True)
         self.scroll_area_widget_contents_venda_2 = QWidget()
         self.scroll_area_widget_contents_venda_2.setObjectName(u"scroll_area_widget_contents_venda_2")
-        self.scroll_area_widget_contents_venda_2.setGeometry(QRect(0, 0, 626, 202))
+        self.scroll_area_widget_contents_venda_2.setGeometry(QRect(0, 0, 643, 202))
         self.vertical_layout_venda_2 = QVBoxLayout(self.scroll_area_widget_contents_venda_2)
         self.vertical_layout_venda_2.setSpacing(0)
         self.vertical_layout_venda_2.setObjectName(u"vertical_layout_venda_2")
@@ -1150,65 +1395,65 @@ class Ui_MainWindow(object):
         self.tabela_widget_de_historico_de_venda = QTableWidget(self.scroll_area_widget_contents_venda_2)
         if (self.tabela_widget_de_historico_de_venda.columnCount() < 13):
             self.tabela_widget_de_historico_de_venda.setColumnCount(13)
-        __qtablewidgetitem = QTableWidgetItem()
-        self.tabela_widget_de_historico_de_venda.setHorizontalHeaderItem(0, __qtablewidgetitem)
-        __qtablewidgetitem1 = QTableWidgetItem()
-        self.tabela_widget_de_historico_de_venda.setHorizontalHeaderItem(1, __qtablewidgetitem1)
         __qtablewidgetitem2 = QTableWidgetItem()
-        self.tabela_widget_de_historico_de_venda.setHorizontalHeaderItem(2, __qtablewidgetitem2)
+        self.tabela_widget_de_historico_de_venda.setHorizontalHeaderItem(0, __qtablewidgetitem2)
         __qtablewidgetitem3 = QTableWidgetItem()
-        self.tabela_widget_de_historico_de_venda.setHorizontalHeaderItem(3, __qtablewidgetitem3)
+        self.tabela_widget_de_historico_de_venda.setHorizontalHeaderItem(1, __qtablewidgetitem3)
         __qtablewidgetitem4 = QTableWidgetItem()
-        self.tabela_widget_de_historico_de_venda.setHorizontalHeaderItem(4, __qtablewidgetitem4)
+        self.tabela_widget_de_historico_de_venda.setHorizontalHeaderItem(2, __qtablewidgetitem4)
         __qtablewidgetitem5 = QTableWidgetItem()
-        self.tabela_widget_de_historico_de_venda.setHorizontalHeaderItem(5, __qtablewidgetitem5)
+        self.tabela_widget_de_historico_de_venda.setHorizontalHeaderItem(3, __qtablewidgetitem5)
         __qtablewidgetitem6 = QTableWidgetItem()
-        self.tabela_widget_de_historico_de_venda.setHorizontalHeaderItem(6, __qtablewidgetitem6)
+        self.tabela_widget_de_historico_de_venda.setHorizontalHeaderItem(4, __qtablewidgetitem6)
         __qtablewidgetitem7 = QTableWidgetItem()
-        self.tabela_widget_de_historico_de_venda.setHorizontalHeaderItem(7, __qtablewidgetitem7)
+        self.tabela_widget_de_historico_de_venda.setHorizontalHeaderItem(5, __qtablewidgetitem7)
         __qtablewidgetitem8 = QTableWidgetItem()
-        self.tabela_widget_de_historico_de_venda.setHorizontalHeaderItem(8, __qtablewidgetitem8)
+        self.tabela_widget_de_historico_de_venda.setHorizontalHeaderItem(6, __qtablewidgetitem8)
         __qtablewidgetitem9 = QTableWidgetItem()
-        self.tabela_widget_de_historico_de_venda.setHorizontalHeaderItem(9, __qtablewidgetitem9)
+        self.tabela_widget_de_historico_de_venda.setHorizontalHeaderItem(7, __qtablewidgetitem9)
         __qtablewidgetitem10 = QTableWidgetItem()
-        self.tabela_widget_de_historico_de_venda.setHorizontalHeaderItem(10, __qtablewidgetitem10)
+        self.tabela_widget_de_historico_de_venda.setHorizontalHeaderItem(8, __qtablewidgetitem10)
         __qtablewidgetitem11 = QTableWidgetItem()
-        self.tabela_widget_de_historico_de_venda.setHorizontalHeaderItem(11, __qtablewidgetitem11)
+        self.tabela_widget_de_historico_de_venda.setHorizontalHeaderItem(9, __qtablewidgetitem11)
         __qtablewidgetitem12 = QTableWidgetItem()
-        self.tabela_widget_de_historico_de_venda.setHorizontalHeaderItem(12, __qtablewidgetitem12)
+        self.tabela_widget_de_historico_de_venda.setHorizontalHeaderItem(10, __qtablewidgetitem12)
+        __qtablewidgetitem13 = QTableWidgetItem()
+        self.tabela_widget_de_historico_de_venda.setHorizontalHeaderItem(11, __qtablewidgetitem13)
+        __qtablewidgetitem14 = QTableWidgetItem()
+        self.tabela_widget_de_historico_de_venda.setHorizontalHeaderItem(12, __qtablewidgetitem14)
         if (self.tabela_widget_de_historico_de_venda.rowCount() < 9):
             self.tabela_widget_de_historico_de_venda.setRowCount(9)
-        __qtablewidgetitem13 = QTableWidgetItem()
-        self.tabela_widget_de_historico_de_venda.setVerticalHeaderItem(0, __qtablewidgetitem13)
-        __qtablewidgetitem14 = QTableWidgetItem()
-        self.tabela_widget_de_historico_de_venda.setVerticalHeaderItem(1, __qtablewidgetitem14)
         __qtablewidgetitem15 = QTableWidgetItem()
-        self.tabela_widget_de_historico_de_venda.setVerticalHeaderItem(2, __qtablewidgetitem15)
+        self.tabela_widget_de_historico_de_venda.setVerticalHeaderItem(0, __qtablewidgetitem15)
         __qtablewidgetitem16 = QTableWidgetItem()
-        self.tabela_widget_de_historico_de_venda.setVerticalHeaderItem(3, __qtablewidgetitem16)
+        self.tabela_widget_de_historico_de_venda.setVerticalHeaderItem(1, __qtablewidgetitem16)
         __qtablewidgetitem17 = QTableWidgetItem()
-        self.tabela_widget_de_historico_de_venda.setVerticalHeaderItem(4, __qtablewidgetitem17)
+        self.tabela_widget_de_historico_de_venda.setVerticalHeaderItem(2, __qtablewidgetitem17)
         __qtablewidgetitem18 = QTableWidgetItem()
-        self.tabela_widget_de_historico_de_venda.setVerticalHeaderItem(5, __qtablewidgetitem18)
+        self.tabela_widget_de_historico_de_venda.setVerticalHeaderItem(3, __qtablewidgetitem18)
         __qtablewidgetitem19 = QTableWidgetItem()
-        self.tabela_widget_de_historico_de_venda.setVerticalHeaderItem(6, __qtablewidgetitem19)
+        self.tabela_widget_de_historico_de_venda.setVerticalHeaderItem(4, __qtablewidgetitem19)
         __qtablewidgetitem20 = QTableWidgetItem()
-        self.tabela_widget_de_historico_de_venda.setVerticalHeaderItem(7, __qtablewidgetitem20)
+        self.tabela_widget_de_historico_de_venda.setVerticalHeaderItem(5, __qtablewidgetitem20)
         __qtablewidgetitem21 = QTableWidgetItem()
-        self.tabela_widget_de_historico_de_venda.setVerticalHeaderItem(8, __qtablewidgetitem21)
+        self.tabela_widget_de_historico_de_venda.setVerticalHeaderItem(6, __qtablewidgetitem21)
+        __qtablewidgetitem22 = QTableWidgetItem()
+        self.tabela_widget_de_historico_de_venda.setVerticalHeaderItem(7, __qtablewidgetitem22)
+        __qtablewidgetitem23 = QTableWidgetItem()
+        self.tabela_widget_de_historico_de_venda.setVerticalHeaderItem(8, __qtablewidgetitem23)
         self.tabela_widget_de_historico_de_venda.setObjectName(u"tabela_widget_de_historico_de_venda")
         self.tabela_widget_de_historico_de_venda.setStyleSheet(u"QTableWidget {	\n"
 "    background-color: transparent;\n"
 "	color: rgb(233, 234, 236);\n"
 "    padding: 0px;\n"
 "    border-radius: 5px;\n"
-"    gridline-color: rgb(54, 63, 118);\n"
+"    gridline-color: rgb(38, 39, 43);\n"
 "}\n"
 "QTableWidget::item{\n"
 "    border-color: rgb(54, 63, 118);\n"
 "    padding-left: 5px;\n"
 "    padding-right: 5px;\n"
-"    gridline-color: rgb(239, 236, 231);\n"
+"    gridline-color: rgb(38, 39, 43);\n"
 "	color: rgb(233, 234, 236);\n"
 "}\n"
 "QTableWidget::item:selected{\n"
@@ -1226,15 +1471,15 @@ class Ui_MainWindow(object):
 "}\n"
 "QHeaderView::section:horizontal\n"
 "{\n"
-"    border: 1px solid rgb(49, 50, 55);\n"
-"	background-color: rgb(38, 39, 43);\n"
+"    border: 1px solid rgb(38, 39, 43);\n"
+"	background-color: rgb(32, 33, 37);\n"
 "	color: rgb(233, 234, 236);\n"
 "	padding: 3px;\n"
 "	border-top-left-radius: 7px;\n"
 "	border-top-right-radius: 7px\n"
 "}\n"
-""
-                        "QHeaderView::section:vertical\n"
+"QH"
+                        "eaderView::section:vertical\n"
 "{\n"
 "	text-align:center;\n"
 "}\n"
@@ -1257,40 +1502,12 @@ class Ui_MainWindow(object):
         self.verticalLayout_24.addWidget(self.frame_58)
 
         self.stacked_widget.addWidget(self.page_historico_venda)
-        self.page_5 = QWidget()
-        self.page_5.setObjectName(u"page_5")
-        self.verticalLayout_36 = QVBoxLayout(self.page_5)
+        self.page_recibo = QWidget()
+        self.page_recibo.setObjectName(u"page_recibo")
+        self.verticalLayout_36 = QVBoxLayout(self.page_recibo)
         self.verticalLayout_36.setObjectName(u"verticalLayout_36")
-        self.frame_17 = QFrame(self.page_5)
-        self.frame_17.setObjectName(u"frame_17")
-        self.frame_17.setMinimumSize(QSize(0, 50))
-        self.frame_17.setMaximumSize(QSize(16777215, 50))
-        self.frame_17.setFrameShape(QFrame.StyledPanel)
-        self.frame_17.setFrameShadow(QFrame.Raised)
-
-        self.verticalLayout_36.addWidget(self.frame_17)
-
-        self.frame_37 = QFrame(self.page_5)
-        self.frame_37.setObjectName(u"frame_37")
-        self.frame_37.setMaximumSize(QSize(16777215, 86))
-        self.frame_37.setStyleSheet(u"background-color: rgb(19, 20, 22);")
-        self.frame_37.setFrameShape(QFrame.StyledPanel)
-        self.frame_37.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_37 = QVBoxLayout(self.frame_37)
-        self.verticalLayout_37.setSpacing(0)
-        self.verticalLayout_37.setObjectName(u"verticalLayout_37")
-        self.verticalLayout_37.setContentsMargins(0, 0, 0, 0)
-        self.label_58 = QLabel(self.frame_37)
-        self.label_58.setObjectName(u"label_58")
-        font7 = QFont()
-        font7.setFamilies([u"Segoe UI Semibold"])
-        font7.setPointSize(16)
-        self.label_58.setFont(font7)
-        self.label_58.setStyleSheet(u"color: rgb(255, 255, 255);")
-
-        self.verticalLayout_37.addWidget(self.label_58)
-
-        self.frame_81 = QFrame(self.frame_37)
+        self.verticalLayout_36.setContentsMargins(7, 7, 7, 7)
+        self.frame_81 = QFrame(self.page_recibo)
         self.frame_81.setObjectName(u"frame_81")
         self.frame_81.setMinimumSize(QSize(0, 44))
         self.frame_81.setMaximumSize(QSize(16777215, 44))
@@ -1317,7 +1534,7 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {\n"
 " 	background-color: rgb(38, 39, 43);\n"
 "}")
-        self.btn_pesquisa_produto_2.setIcon(icon8)
+        self.btn_pesquisa_produto_2.setIcon(icon11)
         self.btn_pesquisa_produto_2.setIconSize(QSize(25, 25))
 
         self.horizontalLayout_17.addWidget(self.btn_pesquisa_produto_2)
@@ -1357,9 +1574,9 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {\n"
 " 	background-color: rgb(38, 39, 43);\n"
 "}")
-        icon10 = QIcon()
-        icon10.addFile(u"../../../images/svg_icons/icon_more.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_mais_opcoes_27.setIcon(icon10)
+        icon13 = QIcon()
+        icon13.addFile(u"../../../images/svg_icons/icon_more.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_mais_opcoes_27.setIcon(icon13)
         self.btn_mais_opcoes_27.setIconSize(QSize(25, 25))
 
         self.horizontalLayout_17.addWidget(self.btn_mais_opcoes_27)
@@ -1380,625 +1597,51 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {\n"
 " 	background-color: rgb(38, 39, 43);\n"
 "}")
-        icon11 = QIcon()
-        icon11.addFile(u"../../../images/svg_icons/icon_add.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_adicionar_produto_2.setIcon(icon11)
+        self.btn_adicionar_produto_2.setIcon(icon9)
         self.btn_adicionar_produto_2.setIconSize(QSize(35, 35))
 
         self.horizontalLayout_17.addWidget(self.btn_adicionar_produto_2)
 
 
-        self.verticalLayout_37.addWidget(self.frame_81)
+        self.verticalLayout_36.addWidget(self.frame_81)
 
-        self.label_59 = QLabel(self.frame_37)
-        self.label_59.setObjectName(u"label_59")
-        self.label_59.setStyleSheet(u"color: rgb(255, 255, 255);")
+        self.frame_border_2 = QFrame(self.page_recibo)
+        self.frame_border_2.setObjectName(u"frame_border_2")
+        self.frame_border_2.setFrameShape(QFrame.StyledPanel)
+        self.frame_border_2.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_33 = QVBoxLayout(self.frame_border_2)
+        self.verticalLayout_33.setSpacing(0)
+        self.verticalLayout_33.setObjectName(u"verticalLayout_33")
+        self.verticalLayout_33.setContentsMargins(4, 4, 4, 4)
+        self.frame_continer_border_3 = QFrame(self.frame_border_2)
+        self.frame_continer_border_3.setObjectName(u"frame_continer_border_3")
+        self.frame_continer_border_3.setStyleSheet(u"background-color: rgb(19, 20, 22);")
+        self.frame_continer_border_3.setFrameShape(QFrame.StyledPanel)
+        self.frame_continer_border_3.setFrameShadow(QFrame.Raised)
+        self.vertical_layout_inventario_6 = QVBoxLayout(self.frame_continer_border_3)
+        self.vertical_layout_inventario_6.setSpacing(0)
+        self.vertical_layout_inventario_6.setObjectName(u"vertical_layout_inventario_6")
+        self.vertical_layout_inventario_6.setContentsMargins(5, 5, 5, 5)
+        self.scroll_area_list_regitro_inventario_4 = QScrollArea(self.frame_continer_border_3)
+        self.scroll_area_list_regitro_inventario_4.setObjectName(u"scroll_area_list_regitro_inventario_4")
+        sizePolicy1.setHeightForWidth(self.scroll_area_list_regitro_inventario_4.sizePolicy().hasHeightForWidth())
+        self.scroll_area_list_regitro_inventario_4.setSizePolicy(sizePolicy1)
+        self.scroll_area_list_regitro_inventario_4.setStyleSheet(u"background-color: rgb(19, 20, 22);")
+        self.scroll_area_list_regitro_inventario_4.setWidgetResizable(True)
+        self.scroll_area_widget_contents_inventario_4 = QWidget()
+        self.scroll_area_widget_contents_inventario_4.setObjectName(u"scroll_area_widget_contents_inventario_4")
+        self.scroll_area_widget_contents_inventario_4.setGeometry(QRect(0, 0, 643, 433))
+        self.scroll_area_list_regitro_inventario_4.setWidget(self.scroll_area_widget_contents_inventario_4)
 
-        self.verticalLayout_37.addWidget(self.label_59)
-
-
-        self.verticalLayout_36.addWidget(self.frame_37)
-
-        self.scrollArea_2 = QScrollArea(self.page_5)
-        self.scrollArea_2.setObjectName(u"scrollArea_2")
-        self.scrollArea_2.setWidgetResizable(True)
-        self.scrollAreaWidgetContents = QWidget()
-        self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 876, 427))
-        self.verticalLayout_20 = QVBoxLayout(self.scrollAreaWidgetContents)
-        self.verticalLayout_20.setSpacing(0)
-        self.verticalLayout_20.setObjectName(u"verticalLayout_20")
-        self.verticalLayout_20.setContentsMargins(0, 0, 0, 0)
-        self.frame_34 = QFrame(self.scrollAreaWidgetContents)
-        self.frame_34.setObjectName(u"frame_34")
-        self.frame_34.setStyleSheet(u"background-color: rgb(19, 20, 22);")
-        self.frame_34.setFrameShape(QFrame.StyledPanel)
-        self.frame_34.setFrameShadow(QFrame.Raised)
-        self.gridLayout = QGridLayout(self.frame_34)
-        self.gridLayout.setObjectName(u"gridLayout")
-        self.gridLayout.setContentsMargins(0, 0, 0, 0)
-        self.frame_21 = QFrame(self.frame_34)
-        self.frame_21.setObjectName(u"frame_21")
-        self.frame_21.setMinimumSize(QSize(140, 55))
-        self.frame_21.setMaximumSize(QSize(16777215, 55))
-        self.frame_21.setStyleSheet(u"background-color: rgb(38, 39, 43);")
-        self.frame_21.setFrameShape(QFrame.StyledPanel)
-        self.frame_21.setFrameShadow(QFrame.Raised)
-        self.icon_img_22 = QPushButton(self.frame_21)
-        self.icon_img_22.setObjectName(u"icon_img_22")
-        self.icon_img_22.setGeometry(QRect(10, 10, 37, 37))
-        self.icon_img_22.setMinimumSize(QSize(37, 37))
-        self.icon_img_22.setMaximumSize(QSize(37, 37))
-        self.icon_img_22.setStyleSheet(u"background-color: rgb(32, 33, 37);\n"
-"border-radius:7px;\n"
-"color: #ffffff;\n"
-"border: 1px solid rgb(255, 255, 255)")
-        icon12 = QIcon()
-        icon12.addFile(u"../../../../../../imagem de modelo/transferir-removebg-preview.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.icon_img_22.setIcon(icon12)
-        self.icon_img_22.setIconSize(QSize(50, 50))
-        self.nome_produto_22 = QLabel(self.frame_21)
-        self.nome_produto_22.setObjectName(u"nome_produto_22")
-        self.nome_produto_22.setGeometry(QRect(60, 30, 60, 13))
-        font8 = QFont()
-        font8.setFamilies([u"Zilla Slab Medium"])
-        font8.setPointSize(10)
-        self.nome_produto_22.setFont(font8)
-        self.nome_produto_22.setStyleSheet(u"color: rgb(233, 234, 236);")
-        self.chave_22 = QLabel(self.frame_21)
-        self.chave_22.setObjectName(u"chave_22")
-        self.chave_22.setGeometry(QRect(60, 10, 30, 13))
-        font9 = QFont()
-        font9.setFamilies([u"Segoe UI Semibold"])
-        font9.setPointSize(10)
-        self.chave_22.setFont(font9)
-        self.chave_22.setStyleSheet(u"color: rgb(233, 234, 236);")
-
-        self.gridLayout.addWidget(self.frame_21, 1, 0, 1, 1)
-
-        self.frame_79 = QFrame(self.frame_34)
-        self.frame_79.setObjectName(u"frame_79")
-        self.frame_79.setMinimumSize(QSize(140, 55))
-        self.frame_79.setMaximumSize(QSize(16777215, 55))
-        self.frame_79.setStyleSheet(u"background-color: rgb(38, 39, 43);")
-        self.frame_79.setFrameShape(QFrame.StyledPanel)
-        self.frame_79.setFrameShadow(QFrame.Raised)
-        self.icon_img_50 = QPushButton(self.frame_79)
-        self.icon_img_50.setObjectName(u"icon_img_50")
-        self.icon_img_50.setGeometry(QRect(10, 10, 37, 37))
-        self.icon_img_50.setMinimumSize(QSize(37, 37))
-        self.icon_img_50.setMaximumSize(QSize(37, 37))
-        self.icon_img_50.setStyleSheet(u"background-color: rgb(32, 33, 37);\n"
-"border-radius:7px;\n"
-"color: #ffffff;\n"
-"border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_50.setIcon(icon12)
-        self.icon_img_50.setIconSize(QSize(50, 50))
-        self.nome_produto_50 = QLabel(self.frame_79)
-        self.nome_produto_50.setObjectName(u"nome_produto_50")
-        self.nome_produto_50.setGeometry(QRect(60, 30, 60, 13))
-        self.nome_produto_50.setFont(font8)
-        self.nome_produto_50.setStyleSheet(u"color: rgb(233, 234, 236);")
-        self.chave_50 = QLabel(self.frame_79)
-        self.chave_50.setObjectName(u"chave_50")
-        self.chave_50.setGeometry(QRect(60, 10, 30, 13))
-        self.chave_50.setFont(font9)
-        self.chave_50.setStyleSheet(u"color: rgb(233, 234, 236);")
-
-        self.gridLayout.addWidget(self.frame_79, 0, 5, 1, 1)
-
-        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.gridLayout.addItem(self.verticalSpacer, 9, 0, 1, 1)
-
-        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout.addItem(self.horizontalSpacer_2, 0, 6, 1, 1)
-
-        self.frame_73 = QFrame(self.frame_34)
-        self.frame_73.setObjectName(u"frame_73")
-        self.frame_73.setMinimumSize(QSize(140, 55))
-        self.frame_73.setMaximumSize(QSize(16777215, 55))
-        self.frame_73.setStyleSheet(u"background-color: rgb(38, 39, 43);")
-        self.frame_73.setFrameShape(QFrame.StyledPanel)
-        self.frame_73.setFrameShadow(QFrame.Raised)
-        self.icon_img_44 = QPushButton(self.frame_73)
-        self.icon_img_44.setObjectName(u"icon_img_44")
-        self.icon_img_44.setGeometry(QRect(10, 10, 37, 37))
-        self.icon_img_44.setMinimumSize(QSize(37, 37))
-        self.icon_img_44.setMaximumSize(QSize(37, 37))
-        self.icon_img_44.setStyleSheet(u"background-color: rgb(32, 33, 37);\n"
-"border-radius:7px;\n"
-"color: #ffffff;\n"
-"border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_44.setIcon(icon12)
-        self.icon_img_44.setIconSize(QSize(50, 50))
-        self.nome_produto_44 = QLabel(self.frame_73)
-        self.nome_produto_44.setObjectName(u"nome_produto_44")
-        self.nome_produto_44.setGeometry(QRect(60, 30, 60, 13))
-        self.nome_produto_44.setFont(font8)
-        self.nome_produto_44.setStyleSheet(u"color: rgb(233, 234, 236);")
-        self.chave_44 = QLabel(self.frame_73)
-        self.chave_44.setObjectName(u"chave_44")
-        self.chave_44.setGeometry(QRect(60, 10, 30, 13))
-        self.chave_44.setFont(font9)
-        self.chave_44.setStyleSheet(u"color: rgb(233, 234, 236);")
-
-        self.gridLayout.addWidget(self.frame_73, 8, 0, 1, 1)
-
-        self.frame_83 = QFrame(self.frame_34)
-        self.frame_83.setObjectName(u"frame_83")
-        self.frame_83.setMinimumSize(QSize(140, 55))
-        self.frame_83.setMaximumSize(QSize(16777215, 55))
-        self.frame_83.setStyleSheet(u"background-color: rgb(38, 39, 43);")
-        self.frame_83.setFrameShape(QFrame.StyledPanel)
-        self.frame_83.setFrameShadow(QFrame.Raised)
-        self.icon_img_52 = QPushButton(self.frame_83)
-        self.icon_img_52.setObjectName(u"icon_img_52")
-        self.icon_img_52.setGeometry(QRect(10, 10, 37, 37))
-        self.icon_img_52.setMinimumSize(QSize(37, 37))
-        self.icon_img_52.setMaximumSize(QSize(37, 37))
-        self.icon_img_52.setStyleSheet(u"background-color: rgb(32, 33, 37);\n"
-"border-radius:7px;\n"
-"color: #ffffff;\n"
-"border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_52.setIcon(icon12)
-        self.icon_img_52.setIconSize(QSize(50, 50))
-        self.nome_produto_52 = QLabel(self.frame_83)
-        self.nome_produto_52.setObjectName(u"nome_produto_52")
-        self.nome_produto_52.setGeometry(QRect(60, 30, 60, 13))
-        self.nome_produto_52.setFont(font8)
-        self.nome_produto_52.setStyleSheet(u"color: rgb(233, 234, 236);")
-        self.chave_52 = QLabel(self.frame_83)
-        self.chave_52.setObjectName(u"chave_52")
-        self.chave_52.setGeometry(QRect(60, 10, 30, 13))
-        self.chave_52.setFont(font9)
-        self.chave_52.setStyleSheet(u"color: rgb(233, 234, 236);")
-
-        self.gridLayout.addWidget(self.frame_83, 5, 0, 1, 1)
-
-        self.frame_25 = QFrame(self.frame_34)
-        self.frame_25.setObjectName(u"frame_25")
-        self.frame_25.setMinimumSize(QSize(140, 55))
-        self.frame_25.setMaximumSize(QSize(16777215, 55))
-        self.frame_25.setStyleSheet(u"background-color: rgb(38, 39, 43);")
-        self.frame_25.setFrameShape(QFrame.StyledPanel)
-        self.frame_25.setFrameShadow(QFrame.Raised)
-        self.icon_img_25 = QPushButton(self.frame_25)
-        self.icon_img_25.setObjectName(u"icon_img_25")
-        self.icon_img_25.setGeometry(QRect(10, 10, 37, 37))
-        self.icon_img_25.setMinimumSize(QSize(37, 37))
-        self.icon_img_25.setMaximumSize(QSize(37, 37))
-        self.icon_img_25.setStyleSheet(u"background-color: rgb(32, 33, 37);\n"
-"border-radius:7px;\n"
-"color: #ffffff;\n"
-"border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_25.setIcon(icon12)
-        self.icon_img_25.setIconSize(QSize(50, 50))
-        self.nome_produto_25 = QLabel(self.frame_25)
-        self.nome_produto_25.setObjectName(u"nome_produto_25")
-        self.nome_produto_25.setGeometry(QRect(60, 30, 60, 13))
-        self.nome_produto_25.setFont(font8)
-        self.nome_produto_25.setStyleSheet(u"color: rgb(233, 234, 236);")
-        self.chave_25 = QLabel(self.frame_25)
-        self.chave_25.setObjectName(u"chave_25")
-        self.chave_25.setGeometry(QRect(60, 10, 30, 13))
-        self.chave_25.setFont(font9)
-        self.chave_25.setStyleSheet(u"color: rgb(233, 234, 236);")
-
-        self.gridLayout.addWidget(self.frame_25, 0, 2, 1, 1)
-
-        self.frame_72 = QFrame(self.frame_34)
-        self.frame_72.setObjectName(u"frame_72")
-        self.frame_72.setMinimumSize(QSize(140, 55))
-        self.frame_72.setMaximumSize(QSize(16777215, 55))
-        self.frame_72.setStyleSheet(u"background-color: rgb(38, 39, 43);")
-        self.frame_72.setFrameShape(QFrame.StyledPanel)
-        self.frame_72.setFrameShadow(QFrame.Raised)
-        self.icon_img_43 = QPushButton(self.frame_72)
-        self.icon_img_43.setObjectName(u"icon_img_43")
-        self.icon_img_43.setGeometry(QRect(10, 10, 37, 37))
-        self.icon_img_43.setMinimumSize(QSize(37, 37))
-        self.icon_img_43.setMaximumSize(QSize(37, 37))
-        self.icon_img_43.setStyleSheet(u"background-color: rgb(32, 33, 37);\n"
-"border-radius:7px;\n"
-"color: #ffffff;\n"
-"border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_43.setIcon(icon12)
-        self.icon_img_43.setIconSize(QSize(50, 50))
-        self.nome_produto_43 = QLabel(self.frame_72)
-        self.nome_produto_43.setObjectName(u"nome_produto_43")
-        self.nome_produto_43.setGeometry(QRect(60, 30, 60, 13))
-        self.nome_produto_43.setFont(font8)
-        self.nome_produto_43.setStyleSheet(u"color: rgb(233, 234, 236);")
-        self.chave_43 = QLabel(self.frame_72)
-        self.chave_43.setObjectName(u"chave_43")
-        self.chave_43.setGeometry(QRect(60, 10, 30, 13))
-        self.chave_43.setFont(font9)
-        self.chave_43.setStyleSheet(u"color: rgb(233, 234, 236);")
-
-        self.gridLayout.addWidget(self.frame_72, 0, 0, 1, 1)
-
-        self.frame_82 = QFrame(self.frame_34)
-        self.frame_82.setObjectName(u"frame_82")
-        self.frame_82.setMinimumSize(QSize(140, 55))
-        self.frame_82.setMaximumSize(QSize(16777215, 55))
-        self.frame_82.setStyleSheet(u"background-color: rgb(38, 39, 43);")
-        self.frame_82.setFrameShape(QFrame.StyledPanel)
-        self.frame_82.setFrameShadow(QFrame.Raised)
-        self.icon_img_51 = QPushButton(self.frame_82)
-        self.icon_img_51.setObjectName(u"icon_img_51")
-        self.icon_img_51.setGeometry(QRect(10, 10, 37, 37))
-        self.icon_img_51.setMinimumSize(QSize(37, 37))
-        self.icon_img_51.setMaximumSize(QSize(37, 37))
-        self.icon_img_51.setStyleSheet(u"background-color: rgb(32, 33, 37);\n"
-"border-radius:7px;\n"
-"color: #ffffff;\n"
-"border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_51.setIcon(icon12)
-        self.icon_img_51.setIconSize(QSize(50, 50))
-        self.nome_produto_51 = QLabel(self.frame_82)
-        self.nome_produto_51.setObjectName(u"nome_produto_51")
-        self.nome_produto_51.setGeometry(QRect(60, 30, 60, 13))
-        self.nome_produto_51.setFont(font8)
-        self.nome_produto_51.setStyleSheet(u"color: rgb(233, 234, 236);")
-        self.chave_51 = QLabel(self.frame_82)
-        self.chave_51.setObjectName(u"chave_51")
-        self.chave_51.setGeometry(QRect(60, 10, 30, 13))
-        self.chave_51.setFont(font9)
-        self.chave_51.setStyleSheet(u"color: rgb(233, 234, 236);")
-
-        self.gridLayout.addWidget(self.frame_82, 0, 4, 1, 1)
-
-        self.frame_85 = QFrame(self.frame_34)
-        self.frame_85.setObjectName(u"frame_85")
-        self.frame_85.setMinimumSize(QSize(140, 55))
-        self.frame_85.setMaximumSize(QSize(16777215, 55))
-        self.frame_85.setStyleSheet(u"background-color: rgb(38, 39, 43);")
-        self.frame_85.setFrameShape(QFrame.StyledPanel)
-        self.frame_85.setFrameShadow(QFrame.Raised)
-        self.icon_img_53 = QPushButton(self.frame_85)
-        self.icon_img_53.setObjectName(u"icon_img_53")
-        self.icon_img_53.setGeometry(QRect(10, 10, 37, 37))
-        self.icon_img_53.setMinimumSize(QSize(37, 37))
-        self.icon_img_53.setMaximumSize(QSize(37, 37))
-        self.icon_img_53.setStyleSheet(u"background-color: rgb(32, 33, 37);\n"
-"border-radius:7px;\n"
-"color: #ffffff;\n"
-"border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_53.setIcon(icon12)
-        self.icon_img_53.setIconSize(QSize(50, 50))
-        self.nome_produto_53 = QLabel(self.frame_85)
-        self.nome_produto_53.setObjectName(u"nome_produto_53")
-        self.nome_produto_53.setGeometry(QRect(60, 30, 60, 13))
-        self.nome_produto_53.setFont(font8)
-        self.nome_produto_53.setStyleSheet(u"color: rgb(233, 234, 236);")
-        self.chave_53 = QLabel(self.frame_85)
-        self.chave_53.setObjectName(u"chave_53")
-        self.chave_53.setGeometry(QRect(60, 10, 30, 13))
-        self.chave_53.setFont(font9)
-        self.chave_53.setStyleSheet(u"color: rgb(233, 234, 236);")
-
-        self.gridLayout.addWidget(self.frame_85, 4, 0, 1, 1)
-
-        self.frame_19 = QFrame(self.frame_34)
-        self.frame_19.setObjectName(u"frame_19")
-        self.frame_19.setMinimumSize(QSize(140, 55))
-        self.frame_19.setMaximumSize(QSize(16777215, 55))
-        self.frame_19.setStyleSheet(u"background-color: rgb(38, 39, 43);")
-        self.frame_19.setFrameShape(QFrame.StyledPanel)
-        self.frame_19.setFrameShadow(QFrame.Raised)
-        self.icon_img_2 = QPushButton(self.frame_19)
-        self.icon_img_2.setObjectName(u"icon_img_2")
-        self.icon_img_2.setGeometry(QRect(10, 10, 37, 37))
-        self.icon_img_2.setMinimumSize(QSize(37, 37))
-        self.icon_img_2.setMaximumSize(QSize(37, 37))
-        self.icon_img_2.setStyleSheet(u"background-color: rgb(32, 33, 37);\n"
-"border-radius:7px;\n"
-"color: #ffffff;\n"
-"border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_2.setIcon(icon12)
-        self.icon_img_2.setIconSize(QSize(50, 50))
-        self.nome_produto_2 = QLabel(self.frame_19)
-        self.nome_produto_2.setObjectName(u"nome_produto_2")
-        self.nome_produto_2.setGeometry(QRect(60, 30, 60, 13))
-        self.nome_produto_2.setFont(font8)
-        self.nome_produto_2.setStyleSheet(u"color: rgb(233, 234, 236);")
-        self.chave_2 = QLabel(self.frame_19)
-        self.chave_2.setObjectName(u"chave_2")
-        self.chave_2.setGeometry(QRect(60, 10, 30, 13))
-        self.chave_2.setFont(font9)
-        self.chave_2.setStyleSheet(u"color: rgb(233, 234, 236);")
-
-        self.gridLayout.addWidget(self.frame_19, 1, 1, 1, 1)
-
-        self.frame_71 = QFrame(self.frame_34)
-        self.frame_71.setObjectName(u"frame_71")
-        self.frame_71.setMinimumSize(QSize(140, 55))
-        self.frame_71.setMaximumSize(QSize(16777215, 55))
-        self.frame_71.setStyleSheet(u"background-color: rgb(38, 39, 43);")
-        self.frame_71.setFrameShape(QFrame.StyledPanel)
-        self.frame_71.setFrameShadow(QFrame.Raised)
-        self.icon_img_42 = QPushButton(self.frame_71)
-        self.icon_img_42.setObjectName(u"icon_img_42")
-        self.icon_img_42.setGeometry(QRect(10, 10, 37, 37))
-        self.icon_img_42.setMinimumSize(QSize(37, 37))
-        self.icon_img_42.setMaximumSize(QSize(37, 37))
-        self.icon_img_42.setStyleSheet(u"background-color: rgb(32, 33, 37);\n"
-"border-radius:7px;\n"
-"color: #ffffff;\n"
-"border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_42.setIcon(icon12)
-        self.icon_img_42.setIconSize(QSize(50, 50))
-        self.nome_produto_42 = QLabel(self.frame_71)
-        self.nome_produto_42.setObjectName(u"nome_produto_42")
-        self.nome_produto_42.setGeometry(QRect(60, 30, 60, 13))
-        self.nome_produto_42.setFont(font8)
-        self.nome_produto_42.setStyleSheet(u"color: rgb(233, 234, 236);")
-        self.chave_42 = QLabel(self.frame_71)
-        self.chave_42.setObjectName(u"chave_42")
-        self.chave_42.setGeometry(QRect(60, 10, 30, 13))
-        self.chave_42.setFont(font9)
-        self.chave_42.setStyleSheet(u"color: rgb(233, 234, 236);")
-
-        self.gridLayout.addWidget(self.frame_71, 0, 1, 1, 1)
-
-        self.frame_87 = QFrame(self.frame_34)
-        self.frame_87.setObjectName(u"frame_87")
-        self.frame_87.setMinimumSize(QSize(140, 55))
-        self.frame_87.setMaximumSize(QSize(16777215, 55))
-        self.frame_87.setStyleSheet(u"background-color: rgb(38, 39, 43);")
-        self.frame_87.setFrameShape(QFrame.StyledPanel)
-        self.frame_87.setFrameShadow(QFrame.Raised)
-        self.icon_img_55 = QPushButton(self.frame_87)
-        self.icon_img_55.setObjectName(u"icon_img_55")
-        self.icon_img_55.setGeometry(QRect(10, 10, 37, 37))
-        self.icon_img_55.setMinimumSize(QSize(37, 37))
-        self.icon_img_55.setMaximumSize(QSize(37, 37))
-        self.icon_img_55.setStyleSheet(u"background-color: rgb(32, 33, 37);\n"
-"border-radius:7px;\n"
-"color: #ffffff;\n"
-"border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_55.setIcon(icon12)
-        self.icon_img_55.setIconSize(QSize(50, 50))
-        self.nome_produto_55 = QLabel(self.frame_87)
-        self.nome_produto_55.setObjectName(u"nome_produto_55")
-        self.nome_produto_55.setGeometry(QRect(60, 30, 60, 13))
-        self.nome_produto_55.setFont(font8)
-        self.nome_produto_55.setStyleSheet(u"color: rgb(233, 234, 236);")
-        self.chave_55 = QLabel(self.frame_87)
-        self.chave_55.setObjectName(u"chave_55")
-        self.chave_55.setGeometry(QRect(60, 10, 30, 13))
-        self.chave_55.setFont(font9)
-        self.chave_55.setStyleSheet(u"color: rgb(233, 234, 236);")
-
-        self.gridLayout.addWidget(self.frame_87, 0, 3, 1, 1)
-
-        self.frame_75 = QFrame(self.frame_34)
-        self.frame_75.setObjectName(u"frame_75")
-        self.frame_75.setMinimumSize(QSize(140, 55))
-        self.frame_75.setMaximumSize(QSize(16777215, 55))
-        self.frame_75.setStyleSheet(u"background-color: rgb(38, 39, 43);")
-        self.frame_75.setFrameShape(QFrame.StyledPanel)
-        self.frame_75.setFrameShadow(QFrame.Raised)
-        self.icon_img_46 = QPushButton(self.frame_75)
-        self.icon_img_46.setObjectName(u"icon_img_46")
-        self.icon_img_46.setGeometry(QRect(10, 10, 37, 37))
-        self.icon_img_46.setMinimumSize(QSize(37, 37))
-        self.icon_img_46.setMaximumSize(QSize(37, 37))
-        self.icon_img_46.setStyleSheet(u"background-color: rgb(32, 33, 37);\n"
-"border-radius:7px;\n"
-"color: #ffffff;\n"
-"border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_46.setIcon(icon12)
-        self.icon_img_46.setIconSize(QSize(50, 50))
-        self.nome_produto_46 = QLabel(self.frame_75)
-        self.nome_produto_46.setObjectName(u"nome_produto_46")
-        self.nome_produto_46.setGeometry(QRect(60, 30, 60, 13))
-        self.nome_produto_46.setFont(font8)
-        self.nome_produto_46.setStyleSheet(u"color: rgb(233, 234, 236);")
-        self.chave_46 = QLabel(self.frame_75)
-        self.chave_46.setObjectName(u"chave_46")
-        self.chave_46.setGeometry(QRect(60, 10, 30, 13))
-        self.chave_46.setFont(font9)
-        self.chave_46.setStyleSheet(u"color: rgb(233, 234, 236);")
-
-        self.gridLayout.addWidget(self.frame_75, 6, 0, 1, 1)
-
-        self.frame_74 = QFrame(self.frame_34)
-        self.frame_74.setObjectName(u"frame_74")
-        self.frame_74.setMinimumSize(QSize(140, 55))
-        self.frame_74.setMaximumSize(QSize(16777215, 55))
-        self.frame_74.setStyleSheet(u"background-color: rgb(38, 39, 43);")
-        self.frame_74.setFrameShape(QFrame.StyledPanel)
-        self.frame_74.setFrameShadow(QFrame.Raised)
-        self.icon_img_45 = QPushButton(self.frame_74)
-        self.icon_img_45.setObjectName(u"icon_img_45")
-        self.icon_img_45.setGeometry(QRect(10, 10, 37, 37))
-        self.icon_img_45.setMinimumSize(QSize(37, 37))
-        self.icon_img_45.setMaximumSize(QSize(37, 37))
-        self.icon_img_45.setStyleSheet(u"background-color: rgb(32, 33, 37);\n"
-"border-radius:7px;\n"
-"color: #ffffff;\n"
-"border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_45.setIcon(icon12)
-        self.icon_img_45.setIconSize(QSize(50, 50))
-        self.nome_produto_45 = QLabel(self.frame_74)
-        self.nome_produto_45.setObjectName(u"nome_produto_45")
-        self.nome_produto_45.setGeometry(QRect(60, 30, 60, 13))
-        self.nome_produto_45.setFont(font8)
-        self.nome_produto_45.setStyleSheet(u"color: rgb(233, 234, 236);")
-        self.chave_45 = QLabel(self.frame_74)
-        self.chave_45.setObjectName(u"chave_45")
-        self.chave_45.setGeometry(QRect(60, 10, 30, 13))
-        self.chave_45.setFont(font9)
-        self.chave_45.setStyleSheet(u"color: rgb(233, 234, 236);")
-
-        self.gridLayout.addWidget(self.frame_74, 7, 0, 1, 1)
-
-        self.frame_70 = QFrame(self.frame_34)
-        self.frame_70.setObjectName(u"frame_70")
-        self.frame_70.setMinimumSize(QSize(140, 55))
-        self.frame_70.setMaximumSize(QSize(16777215, 55))
-        self.frame_70.setStyleSheet(u"background-color: rgb(38, 39, 43);")
-        self.frame_70.setFrameShape(QFrame.StyledPanel)
-        self.frame_70.setFrameShadow(QFrame.Raised)
-        self.icon_img_41 = QPushButton(self.frame_70)
-        self.icon_img_41.setObjectName(u"icon_img_41")
-        self.icon_img_41.setGeometry(QRect(10, 10, 37, 37))
-        self.icon_img_41.setMinimumSize(QSize(37, 37))
-        self.icon_img_41.setMaximumSize(QSize(37, 37))
-        self.icon_img_41.setStyleSheet(u"background-color: rgb(32, 33, 37);\n"
-"border-radius:7px;\n"
-"color: #ffffff;\n"
-"border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_41.setIcon(icon12)
-        self.icon_img_41.setIconSize(QSize(50, 50))
-        self.nome_produto_41 = QLabel(self.frame_70)
-        self.nome_produto_41.setObjectName(u"nome_produto_41")
-        self.nome_produto_41.setGeometry(QRect(60, 30, 60, 13))
-        self.nome_produto_41.setFont(font8)
-        self.nome_produto_41.setStyleSheet(u"color: rgb(233, 234, 236);")
-        self.chave_41 = QLabel(self.frame_70)
-        self.chave_41.setObjectName(u"chave_41")
-        self.chave_41.setGeometry(QRect(60, 10, 30, 13))
-        self.chave_41.setFont(font9)
-        self.chave_41.setStyleSheet(u"color: rgb(233, 234, 236);")
-
-        self.gridLayout.addWidget(self.frame_70, 4, 1, 1, 1)
-
-        self.frame_86 = QFrame(self.frame_34)
-        self.frame_86.setObjectName(u"frame_86")
-        self.frame_86.setMinimumSize(QSize(140, 55))
-        self.frame_86.setMaximumSize(QSize(16777215, 55))
-        self.frame_86.setStyleSheet(u"background-color: rgb(38, 39, 43);")
-        self.frame_86.setFrameShape(QFrame.StyledPanel)
-        self.frame_86.setFrameShadow(QFrame.Raised)
-        self.icon_img_54 = QPushButton(self.frame_86)
-        self.icon_img_54.setObjectName(u"icon_img_54")
-        self.icon_img_54.setGeometry(QRect(10, 10, 37, 37))
-        self.icon_img_54.setMinimumSize(QSize(37, 37))
-        self.icon_img_54.setMaximumSize(QSize(37, 37))
-        self.icon_img_54.setStyleSheet(u"background-color: rgb(32, 33, 37);\n"
-"border-radius:7px;\n"
-"color: #ffffff;\n"
-"border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_54.setIcon(icon12)
-        self.icon_img_54.setIconSize(QSize(50, 50))
-        self.nome_produto_54 = QLabel(self.frame_86)
-        self.nome_produto_54.setObjectName(u"nome_produto_54")
-        self.nome_produto_54.setGeometry(QRect(60, 30, 60, 13))
-        self.nome_produto_54.setFont(font8)
-        self.nome_produto_54.setStyleSheet(u"color: rgb(233, 234, 236);")
-        self.chave_54 = QLabel(self.frame_86)
-        self.chave_54.setObjectName(u"chave_54")
-        self.chave_54.setGeometry(QRect(60, 10, 30, 13))
-        self.chave_54.setFont(font9)
-        self.chave_54.setStyleSheet(u"color: rgb(233, 234, 236);")
-
-        self.gridLayout.addWidget(self.frame_86, 1, 2, 1, 1)
-
-        self.frame_78 = QFrame(self.frame_34)
-        self.frame_78.setObjectName(u"frame_78")
-        self.frame_78.setMinimumSize(QSize(140, 55))
-        self.frame_78.setMaximumSize(QSize(16777215, 55))
-        self.frame_78.setStyleSheet(u"background-color: rgb(38, 39, 43);")
-        self.frame_78.setFrameShape(QFrame.StyledPanel)
-        self.frame_78.setFrameShadow(QFrame.Raised)
-        self.icon_img_49 = QPushButton(self.frame_78)
-        self.icon_img_49.setObjectName(u"icon_img_49")
-        self.icon_img_49.setGeometry(QRect(10, 10, 37, 37))
-        self.icon_img_49.setMinimumSize(QSize(37, 37))
-        self.icon_img_49.setMaximumSize(QSize(37, 37))
-        self.icon_img_49.setStyleSheet(u"background-color: rgb(32, 33, 37);\n"
-"border-radius:7px;\n"
-"color: #ffffff;\n"
-"border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_49.setIcon(icon12)
-        self.icon_img_49.setIconSize(QSize(50, 50))
-        self.nome_produto_49 = QLabel(self.frame_78)
-        self.nome_produto_49.setObjectName(u"nome_produto_49")
-        self.nome_produto_49.setGeometry(QRect(60, 30, 60, 13))
-        self.nome_produto_49.setFont(font8)
-        self.nome_produto_49.setStyleSheet(u"color: rgb(233, 234, 236);")
-        self.chave_49 = QLabel(self.frame_78)
-        self.chave_49.setObjectName(u"chave_49")
-        self.chave_49.setGeometry(QRect(60, 10, 30, 13))
-        self.chave_49.setFont(font9)
-        self.chave_49.setStyleSheet(u"color: rgb(233, 234, 236);")
-
-        self.gridLayout.addWidget(self.frame_78, 4, 2, 1, 1)
-
-        self.frame_77 = QFrame(self.frame_34)
-        self.frame_77.setObjectName(u"frame_77")
-        self.frame_77.setMinimumSize(QSize(140, 55))
-        self.frame_77.setMaximumSize(QSize(16777215, 55))
-        self.frame_77.setStyleSheet(u"background-color: rgb(38, 39, 43);")
-        self.frame_77.setFrameShape(QFrame.StyledPanel)
-        self.frame_77.setFrameShadow(QFrame.Raised)
-        self.icon_img_48 = QPushButton(self.frame_77)
-        self.icon_img_48.setObjectName(u"icon_img_48")
-        self.icon_img_48.setGeometry(QRect(10, 10, 37, 37))
-        self.icon_img_48.setMinimumSize(QSize(37, 37))
-        self.icon_img_48.setMaximumSize(QSize(37, 37))
-        self.icon_img_48.setStyleSheet(u"background-color: rgb(32, 33, 37);\n"
-"border-radius:7px;\n"
-"color: #ffffff;\n"
-"border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_48.setIcon(icon12)
-        self.icon_img_48.setIconSize(QSize(50, 50))
-        self.nome_produto_48 = QLabel(self.frame_77)
-        self.nome_produto_48.setObjectName(u"nome_produto_48")
-        self.nome_produto_48.setGeometry(QRect(60, 30, 60, 13))
-        self.nome_produto_48.setFont(font8)
-        self.nome_produto_48.setStyleSheet(u"color: rgb(233, 234, 236);")
-        self.chave_48 = QLabel(self.frame_77)
-        self.chave_48.setObjectName(u"chave_48")
-        self.chave_48.setGeometry(QRect(60, 10, 30, 13))
-        self.chave_48.setFont(font9)
-        self.chave_48.setStyleSheet(u"color: rgb(233, 234, 236);")
-
-        self.gridLayout.addWidget(self.frame_77, 1, 3, 1, 1)
-
-        self.frame_76 = QFrame(self.frame_34)
-        self.frame_76.setObjectName(u"frame_76")
-        self.frame_76.setMinimumSize(QSize(140, 55))
-        self.frame_76.setMaximumSize(QSize(16777215, 55))
-        self.frame_76.setStyleSheet(u"background-color: rgb(38, 39, 43);")
-        self.frame_76.setFrameShape(QFrame.StyledPanel)
-        self.frame_76.setFrameShadow(QFrame.Raised)
-        self.icon_img_47 = QPushButton(self.frame_76)
-        self.icon_img_47.setObjectName(u"icon_img_47")
-        self.icon_img_47.setGeometry(QRect(10, 10, 37, 37))
-        self.icon_img_47.setMinimumSize(QSize(37, 37))
-        self.icon_img_47.setMaximumSize(QSize(37, 37))
-        self.icon_img_47.setStyleSheet(u"background-color: rgb(32, 33, 37);\n"
-"border-radius:7px;\n"
-"color: #ffffff;\n"
-"border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_47.setIcon(icon12)
-        self.icon_img_47.setIconSize(QSize(50, 50))
-        self.nome_produto_47 = QLabel(self.frame_76)
-        self.nome_produto_47.setObjectName(u"nome_produto_47")
-        self.nome_produto_47.setGeometry(QRect(60, 30, 60, 13))
-        self.nome_produto_47.setFont(font8)
-        self.nome_produto_47.setStyleSheet(u"color: rgb(233, 234, 236);")
-        self.chave_47 = QLabel(self.frame_76)
-        self.chave_47.setObjectName(u"chave_47")
-        self.chave_47.setGeometry(QRect(60, 10, 30, 13))
-        self.chave_47.setFont(font9)
-        self.chave_47.setStyleSheet(u"color: rgb(233, 234, 236);")
-
-        self.gridLayout.addWidget(self.frame_76, 4, 3, 1, 1)
+        self.vertical_layout_inventario_6.addWidget(self.scroll_area_list_regitro_inventario_4)
 
 
-        self.verticalLayout_20.addWidget(self.frame_34)
+        self.verticalLayout_33.addWidget(self.frame_continer_border_3)
 
-        self.scrollArea_2.setWidget(self.scrollAreaWidgetContents)
 
-        self.verticalLayout_36.addWidget(self.scrollArea_2)
+        self.verticalLayout_36.addWidget(self.frame_border_2)
 
-        self.stacked_widget.addWidget(self.page_5)
+        self.stacked_widget.addWidget(self.page_recibo)
         self.page_home = QWidget()
         self.page_home.setObjectName(u"page_home")
         self.verticalLayout_12 = QVBoxLayout(self.page_home)
@@ -2013,6 +1656,7 @@ class Ui_MainWindow(object):
         self.frame_nav_continer.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_21 = QHBoxLayout(self.frame_nav_continer)
         self.horizontalLayout_21.setObjectName(u"horizontalLayout_21")
+        self.horizontalLayout_21.setContentsMargins(7, 7, 7, 7)
         self.frame_inventario = QFrame(self.frame_nav_continer)
         self.frame_inventario.setObjectName(u"frame_inventario")
         self.frame_inventario.setMinimumSize(QSize(151, 161))
@@ -2320,16 +1964,22 @@ class Ui_MainWindow(object):
 "border-radius:7px;\n"
 "color: #ffffff;\n"
 "border: 1px solid rgb(255, 255, 255)")
-        self.icon_img_29.setIcon(icon7)
+        self.icon_img_29.setIcon(icon10)
         self.icon_img_29.setIconSize(QSize(32, 32))
         self.nome_produto_32 = QLabel(self.frame_56)
         self.nome_produto_32.setObjectName(u"nome_produto_32")
         self.nome_produto_32.setGeometry(QRect(49, 24, 130, 10))
+        font8 = QFont()
+        font8.setFamilies([u"Zilla Slab Medium"])
+        font8.setPointSize(10)
         self.nome_produto_32.setFont(font8)
         self.nome_produto_32.setStyleSheet(u"color: rgb(233, 234, 236);")
         self.chave_33 = QLabel(self.frame_56)
         self.chave_33.setObjectName(u"chave_33")
         self.chave_33.setGeometry(QRect(50, 5, 30, 10))
+        font9 = QFont()
+        font9.setFamilies([u"Segoe UI Semibold"])
+        font9.setPointSize(10)
         self.chave_33.setFont(font9)
         self.chave_33.setStyleSheet(u"color: rgb(233, 234, 236);")
 
@@ -2378,9 +2028,9 @@ class Ui_MainWindow(object):
 "border-radius:7px;\n"
 "color: #ffffff;\n"
 "border: 1px solid rgb(255, 255, 255)")
-        icon13 = QIcon()
-        icon13.addFile(u"../../../images/svg_images/tatiana-removebg-preview.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.icon_img_28.setIcon(icon13)
+        icon14 = QIcon()
+        icon14.addFile(u"../../../images/svg_images/tatiana-removebg-preview.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.icon_img_28.setIcon(icon14)
         self.icon_img_28.setIconSize(QSize(32, 32))
         self.nome_produto_31 = QLabel(self.frame_55)
         self.nome_produto_31.setObjectName(u"nome_produto_31")
@@ -2438,9 +2088,9 @@ class Ui_MainWindow(object):
 "border-radius:7px;\n"
 "color: #ffffff;\n"
 "border: 1px solid rgb(255, 255, 255)")
-        icon14 = QIcon()
-        icon14.addFile(u"../../../images/svg_images/john-removebg-preview.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.icon_img_30.setIcon(icon14)
+        icon15 = QIcon()
+        icon15.addFile(u"../../../images/svg_images/john-removebg-preview.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.icon_img_30.setIcon(icon15)
         self.icon_img_30.setIconSize(QSize(32, 32))
         self.nome_produto_28 = QLabel(self.frame_54)
         self.nome_produto_28.setObjectName(u"nome_produto_28")
@@ -2501,7 +2151,9 @@ class Ui_MainWindow(object):
         font10 = QFont()
         font10.setFamilies([u"Segoe Script"])
         self.pushButton_7.setFont(font10)
-        self.pushButton_7.setIcon(icon12)
+        icon16 = QIcon()
+        icon16.addFile(u"../../../../../../imagem de modelo/transferir-removebg-preview.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.pushButton_7.setIcon(icon16)
         self.pushButton_7.setIconSize(QSize(100, 100))
 
         self.horizontalLayout_19.addWidget(self.pushButton_7)
@@ -2600,7 +2252,7 @@ class Ui_MainWindow(object):
         self.comboBox.addItem("")
         self.comboBox.setObjectName(u"comboBox")
         self.comboBox.setMinimumSize(QSize(300, 42))
-        self.comboBox.setFont(font6)
+        self.comboBox.setFont(font7)
         self.comboBox.setStyleSheet(u"QComboBox , QLineEdit{\n"
 "    border: 1px solid rgba(255, 255, 255, 80);\n"
 "    border-radius: 10px;\n"
@@ -2805,9 +2457,9 @@ class Ui_MainWindow(object):
         font13.setPointSize(8)
         self.pushButton_4.setFont(font13)
         self.pushButton_4.setStyleSheet(u"border:none")
-        icon15 = QIcon()
-        icon15.addFile(u"../../../images/svg_icons/icon_sale.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.pushButton_4.setIcon(icon15)
+        icon17 = QIcon()
+        icon17.addFile(u"../../../images/svg_icons/icon_sale.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.pushButton_4.setIcon(icon17)
         self.pushButton_4.setIconSize(QSize(60, 57))
         self.label_41 = QLabel(self.frame_1)
         self.label_41.setObjectName(u"label_41")
@@ -2953,9 +2605,9 @@ class Ui_MainWindow(object):
         self.pushButton_18.setGeometry(QRect(8, 13, 61, 61))
         self.pushButton_18.setFont(font13)
         self.pushButton_18.setStyleSheet(u"border:none")
-        icon16 = QIcon()
-        icon16.addFile(u"../../../images/svg_icons/Icon_receipt_svgrepo.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.pushButton_18.setIcon(icon16)
+        icon18 = QIcon()
+        icon18.addFile(u"../../../images/svg_icons/Icon_receipt_svgrepo.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.pushButton_18.setIcon(icon18)
         self.pushButton_18.setIconSize(QSize(53, 54))
         self.label_57 = QLabel(self.frame_22)
         self.label_57.setObjectName(u"label_57")
@@ -2978,7 +2630,7 @@ class Ui_MainWindow(object):
         self.scroll_area_home_bottom.setWidgetResizable(True)
         self.scroll_area_widget_contents_home_bottom = QWidget()
         self.scroll_area_widget_contents_home_bottom.setObjectName(u"scroll_area_widget_contents_home_bottom")
-        self.scroll_area_widget_contents_home_bottom.setGeometry(QRect(0, 0, 632, 400))
+        self.scroll_area_widget_contents_home_bottom.setGeometry(QRect(0, 0, 649, 400))
         self.scroll_area_widget_contents_home_bottom.setStyleSheet(u"background-color: rgb(19, 20, 22);")
         self.verticalLayout_3 = QVBoxLayout(self.scroll_area_widget_contents_home_bottom)
         self.verticalLayout_3.setSpacing(0)
@@ -2994,8 +2646,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.stackedWidget_4 = QStackedWidget(self.frame_2)
         self.stackedWidget_4.setObjectName(u"stackedWidget_4")
-        sizePolicy.setHeightForWidth(self.stackedWidget_4.sizePolicy().hasHeightForWidth())
-        self.stackedWidget_4.setSizePolicy(sizePolicy)
+        sizePolicy1.setHeightForWidth(self.stackedWidget_4.sizePolicy().hasHeightForWidth())
+        self.stackedWidget_4.setSizePolicy(sizePolicy1)
         self.stackedWidget_4.setFrameShape(QFrame.StyledPanel)
         self.stackedWidget_4.setFrameShadow(QFrame.Raised)
         self.stackedWidget_4Page1 = QWidget()
@@ -3100,8 +2752,8 @@ class Ui_MainWindow(object):
 
         self.frame_3 = QFrame(self.frame_2)
         self.frame_3.setObjectName(u"frame_3")
-        sizePolicy.setHeightForWidth(self.frame_3.sizePolicy().hasHeightForWidth())
-        self.frame_3.setSizePolicy(sizePolicy)
+        sizePolicy1.setHeightForWidth(self.frame_3.sizePolicy().hasHeightForWidth())
+        self.frame_3.setSizePolicy(sizePolicy1)
         self.frame_3.setMinimumSize(QSize(290, 0))
         self.frame_3.setMaximumSize(QSize(123045, 16777215))
         self.frame_3.setFrameShape(QFrame.StyledPanel)
@@ -3243,7 +2895,7 @@ class Ui_MainWindow(object):
         self.btn_pesquisa_produto.setObjectName(u"btn_pesquisa_produto")
         self.btn_pesquisa_produto.setMinimumSize(QSize(37, 37))
         self.btn_pesquisa_produto.setMaximumSize(QSize(37, 37))
-        self.btn_pesquisa_produto.setIcon(icon8)
+        self.btn_pesquisa_produto.setIcon(icon11)
         self.btn_pesquisa_produto.setIconSize(QSize(25, 25))
 
         self.horizontalLayout_12.addWidget(self.btn_pesquisa_produto)
@@ -3259,7 +2911,7 @@ class Ui_MainWindow(object):
         self.btn_adicionar_produto.setObjectName(u"btn_adicionar_produto")
         self.btn_adicionar_produto.setMinimumSize(QSize(37, 37))
         self.btn_adicionar_produto.setMaximumSize(QSize(37, 37))
-        self.btn_adicionar_produto.setIcon(icon11)
+        self.btn_adicionar_produto.setIcon(icon9)
         self.btn_adicionar_produto.setIconSize(QSize(35, 35))
 
         self.horizontalLayout_12.addWidget(self.btn_adicionar_produto)
@@ -3268,9 +2920,9 @@ class Ui_MainWindow(object):
         self.btn_entrada_produto.setObjectName(u"btn_entrada_produto")
         self.btn_entrada_produto.setMinimumSize(QSize(37, 37))
         self.btn_entrada_produto.setMaximumSize(QSize(37, 37))
-        icon17 = QIcon()
-        icon17.addFile(u"../../../images/svg_icons/icon_produt_insert.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_entrada_produto.setIcon(icon17)
+        icon19 = QIcon()
+        icon19.addFile(u"../../../images/svg_icons/icon_produt_insert.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_entrada_produto.setIcon(icon19)
         self.btn_entrada_produto.setIconSize(QSize(26, 25))
 
         self.horizontalLayout_12.addWidget(self.btn_entrada_produto)
@@ -3340,13 +2992,13 @@ class Ui_MainWindow(object):
         self.vertical_layout_inventario.setContentsMargins(5, 5, 5, 5)
         self.scroll_area_list_regitro_inventario = QScrollArea(self.frame_continer_border)
         self.scroll_area_list_regitro_inventario.setObjectName(u"scroll_area_list_regitro_inventario")
-        sizePolicy.setHeightForWidth(self.scroll_area_list_regitro_inventario.sizePolicy().hasHeightForWidth())
-        self.scroll_area_list_regitro_inventario.setSizePolicy(sizePolicy)
+        sizePolicy1.setHeightForWidth(self.scroll_area_list_regitro_inventario.sizePolicy().hasHeightForWidth())
+        self.scroll_area_list_regitro_inventario.setSizePolicy(sizePolicy1)
         self.scroll_area_list_regitro_inventario.setStyleSheet(u"background-color: rgb(19, 20, 22);")
         self.scroll_area_list_regitro_inventario.setWidgetResizable(True)
         self.scroll_area_widget_contents_inventario = QWidget()
         self.scroll_area_widget_contents_inventario.setObjectName(u"scroll_area_widget_contents_inventario")
-        self.scroll_area_widget_contents_inventario.setGeometry(QRect(0, 0, 622, 209))
+        self.scroll_area_widget_contents_inventario.setGeometry(QRect(0, 0, 639, 209))
         self.vertical_layout_registro = QVBoxLayout(self.scroll_area_widget_contents_inventario)
         self.vertical_layout_registro.setObjectName(u"vertical_layout_registro")
         self.vertical_layout_registro.setContentsMargins(2, 3, 2, 3)
@@ -3379,6 +3031,7 @@ class Ui_MainWindow(object):
         self.frame_nav_continer_venda.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_23 = QHBoxLayout(self.frame_nav_continer_venda)
         self.horizontalLayout_23.setObjectName(u"horizontalLayout_23")
+        self.horizontalLayout_23.setContentsMargins(7, 7, 7, 7)
         self.frame_historico_de_venda = QFrame(self.frame_nav_continer_venda)
         self.frame_historico_de_venda.setObjectName(u"frame_historico_de_venda")
         self.frame_historico_de_venda.setMinimumSize(QSize(151, 161))
@@ -3395,9 +3048,9 @@ class Ui_MainWindow(object):
         self.btn_logo_historico_de_venda.setObjectName(u"btn_logo_historico_de_venda")
         self.btn_logo_historico_de_venda.setGeometry(QRect(18, 25, 51, 55))
         self.btn_logo_historico_de_venda.setStyleSheet(u"background-color: transparent")
-        icon18 = QIcon()
-        icon18.addFile(u"../../../images/svg_icons/icon_clipboar.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_logo_historico_de_venda.setIcon(icon18)
+        icon20 = QIcon()
+        icon20.addFile(u"../../../images/svg_icons/icon_clipboar.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_logo_historico_de_venda.setIcon(icon20)
         self.btn_logo_historico_de_venda.setIconSize(QSize(63, 63))
         self.lbl_venda_historico_de_venda = QLabel(self.frame_historico_de_venda)
         self.lbl_venda_historico_de_venda.setObjectName(u"lbl_venda_historico_de_venda")
@@ -3519,9 +3172,9 @@ class Ui_MainWindow(object):
         self.btn_logo_criar_produto.setObjectName(u"btn_logo_criar_produto")
         self.btn_logo_criar_produto.setGeometry(QRect(18, 25, 56, 56))
         self.btn_logo_criar_produto.setStyleSheet(u"background-color: transparent")
-        icon19 = QIcon()
-        icon19.addFile(u"../../../images/svg_icons/icon_existinginventory.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_logo_criar_produto.setIcon(icon19)
+        icon21 = QIcon()
+        icon21.addFile(u"../../../images/svg_icons/icon_existinginventory.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_logo_criar_produto.setIcon(icon21)
         self.btn_logo_criar_produto.setIconSize(QSize(55, 55))
         self.lbl_criar_produto = QLabel(self.frame_criar_produto)
         self.lbl_criar_produto.setObjectName(u"lbl_criar_produto")
@@ -3579,9 +3232,9 @@ class Ui_MainWindow(object):
         self.btn_logo_pedido_de_compra.setObjectName(u"btn_logo_pedido_de_compra")
         self.btn_logo_pedido_de_compra.setGeometry(QRect(18, 25, 52, 55))
         self.btn_logo_pedido_de_compra.setStyleSheet(u"background-color: transparent")
-        icon20 = QIcon()
-        icon20.addFile(u"../../../images/svg_icons/icon_receipt.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_logo_pedido_de_compra.setIcon(icon20)
+        icon22 = QIcon()
+        icon22.addFile(u"../../../images/svg_icons/icon_receipt.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_logo_pedido_de_compra.setIcon(icon22)
         self.btn_logo_pedido_de_compra.setIconSize(QSize(48, 48))
         self.lbl_pedido_de_compra = QLabel(self.frame_pedido_de_compra)
         self.lbl_pedido_de_compra.setObjectName(u"lbl_pedido_de_compra")
@@ -3645,7 +3298,7 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {\n"
 " 	background-color: rgb(38, 39, 43);\n"
 "}")
-        self.btn_pesquisa_produto_de_venda.setIcon(icon8)
+        self.btn_pesquisa_produto_de_venda.setIcon(icon11)
         self.btn_pesquisa_produto_de_venda.setIconSize(QSize(25, 25))
 
         self.horizontalLayout_25.addWidget(self.btn_pesquisa_produto_de_venda)
@@ -3685,7 +3338,7 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {\n"
 " 	background-color: rgb(38, 39, 43);\n"
 "}")
-        self.btn_mais_opcoes_de_venda.setIcon(icon10)
+        self.btn_mais_opcoes_de_venda.setIcon(icon13)
         self.btn_mais_opcoes_de_venda.setIconSize(QSize(25, 25))
 
         self.horizontalLayout_25.addWidget(self.btn_mais_opcoes_de_venda)
@@ -3714,14 +3367,14 @@ class Ui_MainWindow(object):
         self.vertical_layout_inventario_2.setContentsMargins(5, 5, 5, 5)
         self.scrollArea_3 = QScrollArea(self.frame_57)
         self.scrollArea_3.setObjectName(u"scrollArea_3")
-        sizePolicy.setHeightForWidth(self.scrollArea_3.sizePolicy().hasHeightForWidth())
-        self.scrollArea_3.setSizePolicy(sizePolicy)
+        sizePolicy1.setHeightForWidth(self.scrollArea_3.sizePolicy().hasHeightForWidth())
+        self.scrollArea_3.setSizePolicy(sizePolicy1)
         self.scrollArea_3.setStyleSheet(u"background-color: rgb(19, 20, 22);\n"
 "border-radius: 10px;")
         self.scrollArea_3.setWidgetResizable(True)
         self.scroll_area_widget_contents_venda = QWidget()
         self.scroll_area_widget_contents_venda.setObjectName(u"scroll_area_widget_contents_venda")
-        self.scroll_area_widget_contents_venda.setGeometry(QRect(0, 0, 626, 248))
+        self.scroll_area_widget_contents_venda.setGeometry(QRect(0, 0, 643, 248))
         self.vertical_layout_venda = QVBoxLayout(self.scroll_area_widget_contents_venda)
         self.vertical_layout_venda.setObjectName(u"vertical_layout_venda")
         self.vertical_layout_venda.setContentsMargins(2, 3, 2, 3)
@@ -3762,7 +3415,8 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stacked_widget.setCurrentIndex(6)
+        self.stacked_widget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(0)
         self.stackedWidget_4.setCurrentIndex(1)
 
 
@@ -3797,118 +3451,71 @@ class Ui_MainWindow(object):
         self.lbl_info_extra_recibo_7.setText(QCoreApplication.translate("MainWindow", u"Crie recibos personalizados", None))
         self.lbl_info_extra_recibo_8.setText(QCoreApplication.translate("MainWindow", u"para uma experi\u00eancia do", None))
         self.lbl_info_extra_recibo_9.setText(QCoreApplication.translate("MainWindow", u"cliente excepcional", None))
-        self.label_21.setText(QCoreApplication.translate("MainWindow", u"Admin", None))
-        self.label_20.setText(QCoreApplication.translate("MainWindow", u"NdDaniel", None))
-        self.pushButton.setText("")
+        self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"C\u00e2mera", None))
+        self.btn_testar_camera_selecionada.setText("")
+        self.btn_atualizar_depositivo.setText("")
+        self.btn_mais_adicionar_despositivo.setText("")
+        ___qtablewidgetitem = self.table_widget_despositivo.horizontalHeaderItem(0)
+        ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"Despositivos", None));
+        ___qtablewidgetitem1 = self.table_widget_despositivo.horizontalHeaderItem(1)
+        ___qtablewidgetitem1.setText(QCoreApplication.translate("MainWindow", u"Del", None));
+        self.lbl_cam.setText("")
+        self.lbl_acesso_usuario.setText(QCoreApplication.translate("MainWindow", u"Admin", None))
+        self.lbl_nome_usuario.setText(QCoreApplication.translate("MainWindow", u"NdDaniel", None))
+        self.imagem_usuario.setText("")
         self.label_22.setText(QCoreApplication.translate("MainWindow", u"Total de Usuario", None))
         self.label_25.setText(QCoreApplication.translate("MainWindow", u"1", None))
         self.label_23.setText(QCoreApplication.translate("MainWindow", u"Vers\u00e3o", None))
         self.label_24.setText(QCoreApplication.translate("MainWindow", u"0.4.0", None))
         self.btn_pesquisa_historico_de_venda.setText("")
         self.btn_mais_opcoes_historico_de_venda.setText("")
-        ___qtablewidgetitem = self.tabela_widget_de_historico_de_venda.horizontalHeaderItem(0)
-        ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"N\u00ba", None));
-        ___qtablewidgetitem1 = self.tabela_widget_de_historico_de_venda.horizontalHeaderItem(1)
-        ___qtablewidgetitem1.setText(QCoreApplication.translate("MainWindow", u"Data", None));
-        ___qtablewidgetitem2 = self.tabela_widget_de_historico_de_venda.horizontalHeaderItem(2)
-        ___qtablewidgetitem2.setText(QCoreApplication.translate("MainWindow", u"Chave", None));
-        ___qtablewidgetitem3 = self.tabela_widget_de_historico_de_venda.horizontalHeaderItem(3)
-        ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"Nome", None));
-        ___qtablewidgetitem4 = self.tabela_widget_de_historico_de_venda.horizontalHeaderItem(4)
-        ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"Categoria", None));
-        ___qtablewidgetitem5 = self.tabela_widget_de_historico_de_venda.horizontalHeaderItem(5)
-        ___qtablewidgetitem5.setText(QCoreApplication.translate("MainWindow", u"Quantidade", None));
-        ___qtablewidgetitem6 = self.tabela_widget_de_historico_de_venda.horizontalHeaderItem(6)
-        ___qtablewidgetitem6.setText(QCoreApplication.translate("MainWindow", u"Unidade", None));
-        ___qtablewidgetitem7 = self.tabela_widget_de_historico_de_venda.horizontalHeaderItem(7)
-        ___qtablewidgetitem7.setText(QCoreApplication.translate("MainWindow", u"Pre\u00e7o", None));
-        ___qtablewidgetitem8 = self.tabela_widget_de_historico_de_venda.horizontalHeaderItem(8)
-        ___qtablewidgetitem8.setText(QCoreApplication.translate("MainWindow", u"Desconto", None));
-        ___qtablewidgetitem9 = self.tabela_widget_de_historico_de_venda.horizontalHeaderItem(9)
-        ___qtablewidgetitem9.setText(QCoreApplication.translate("MainWindow", u"Troco", None));
-        ___qtablewidgetitem10 = self.tabela_widget_de_historico_de_venda.horizontalHeaderItem(10)
-        ___qtablewidgetitem10.setText(QCoreApplication.translate("MainWindow", u"Total", None));
-        ___qtablewidgetitem11 = self.tabela_widget_de_historico_de_venda.horizontalHeaderItem(11)
-        ___qtablewidgetitem11.setText(QCoreApplication.translate("MainWindow", u"Vendedor", None));
-        ___qtablewidgetitem12 = self.tabela_widget_de_historico_de_venda.horizontalHeaderItem(12)
-        ___qtablewidgetitem12.setText(QCoreApplication.translate("MainWindow", u"Cliente", None));
-        ___qtablewidgetitem13 = self.tabela_widget_de_historico_de_venda.verticalHeaderItem(0)
-        ___qtablewidgetitem13.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
-        ___qtablewidgetitem14 = self.tabela_widget_de_historico_de_venda.verticalHeaderItem(1)
-        ___qtablewidgetitem14.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
-        ___qtablewidgetitem15 = self.tabela_widget_de_historico_de_venda.verticalHeaderItem(2)
+        ___qtablewidgetitem2 = self.tabela_widget_de_historico_de_venda.horizontalHeaderItem(0)
+        ___qtablewidgetitem2.setText(QCoreApplication.translate("MainWindow", u"N\u00ba", None));
+        ___qtablewidgetitem3 = self.tabela_widget_de_historico_de_venda.horizontalHeaderItem(1)
+        ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"Data", None));
+        ___qtablewidgetitem4 = self.tabela_widget_de_historico_de_venda.horizontalHeaderItem(2)
+        ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"Chave", None));
+        ___qtablewidgetitem5 = self.tabela_widget_de_historico_de_venda.horizontalHeaderItem(3)
+        ___qtablewidgetitem5.setText(QCoreApplication.translate("MainWindow", u"Nome", None));
+        ___qtablewidgetitem6 = self.tabela_widget_de_historico_de_venda.horizontalHeaderItem(4)
+        ___qtablewidgetitem6.setText(QCoreApplication.translate("MainWindow", u"Categoria", None));
+        ___qtablewidgetitem7 = self.tabela_widget_de_historico_de_venda.horizontalHeaderItem(5)
+        ___qtablewidgetitem7.setText(QCoreApplication.translate("MainWindow", u"Quantidade", None));
+        ___qtablewidgetitem8 = self.tabela_widget_de_historico_de_venda.horizontalHeaderItem(6)
+        ___qtablewidgetitem8.setText(QCoreApplication.translate("MainWindow", u"Unidade", None));
+        ___qtablewidgetitem9 = self.tabela_widget_de_historico_de_venda.horizontalHeaderItem(7)
+        ___qtablewidgetitem9.setText(QCoreApplication.translate("MainWindow", u"Pre\u00e7o", None));
+        ___qtablewidgetitem10 = self.tabela_widget_de_historico_de_venda.horizontalHeaderItem(8)
+        ___qtablewidgetitem10.setText(QCoreApplication.translate("MainWindow", u"Desconto", None));
+        ___qtablewidgetitem11 = self.tabela_widget_de_historico_de_venda.horizontalHeaderItem(9)
+        ___qtablewidgetitem11.setText(QCoreApplication.translate("MainWindow", u"Troco", None));
+        ___qtablewidgetitem12 = self.tabela_widget_de_historico_de_venda.horizontalHeaderItem(10)
+        ___qtablewidgetitem12.setText(QCoreApplication.translate("MainWindow", u"Total", None));
+        ___qtablewidgetitem13 = self.tabela_widget_de_historico_de_venda.horizontalHeaderItem(11)
+        ___qtablewidgetitem13.setText(QCoreApplication.translate("MainWindow", u"Vendedor", None));
+        ___qtablewidgetitem14 = self.tabela_widget_de_historico_de_venda.horizontalHeaderItem(12)
+        ___qtablewidgetitem14.setText(QCoreApplication.translate("MainWindow", u"Cliente", None));
+        ___qtablewidgetitem15 = self.tabela_widget_de_historico_de_venda.verticalHeaderItem(0)
         ___qtablewidgetitem15.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
-        ___qtablewidgetitem16 = self.tabela_widget_de_historico_de_venda.verticalHeaderItem(3)
+        ___qtablewidgetitem16 = self.tabela_widget_de_historico_de_venda.verticalHeaderItem(1)
         ___qtablewidgetitem16.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
-        ___qtablewidgetitem17 = self.tabela_widget_de_historico_de_venda.verticalHeaderItem(4)
+        ___qtablewidgetitem17 = self.tabela_widget_de_historico_de_venda.verticalHeaderItem(2)
         ___qtablewidgetitem17.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
-        ___qtablewidgetitem18 = self.tabela_widget_de_historico_de_venda.verticalHeaderItem(5)
+        ___qtablewidgetitem18 = self.tabela_widget_de_historico_de_venda.verticalHeaderItem(3)
         ___qtablewidgetitem18.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
-        ___qtablewidgetitem19 = self.tabela_widget_de_historico_de_venda.verticalHeaderItem(6)
+        ___qtablewidgetitem19 = self.tabela_widget_de_historico_de_venda.verticalHeaderItem(4)
         ___qtablewidgetitem19.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
-        ___qtablewidgetitem20 = self.tabela_widget_de_historico_de_venda.verticalHeaderItem(7)
+        ___qtablewidgetitem20 = self.tabela_widget_de_historico_de_venda.verticalHeaderItem(5)
         ___qtablewidgetitem20.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
-        ___qtablewidgetitem21 = self.tabela_widget_de_historico_de_venda.verticalHeaderItem(8)
+        ___qtablewidgetitem21 = self.tabela_widget_de_historico_de_venda.verticalHeaderItem(6)
         ___qtablewidgetitem21.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
-        self.label_58.setText(QCoreApplication.translate("MainWindow", u"Selecione uma nova conta", None))
+        ___qtablewidgetitem22 = self.tabela_widget_de_historico_de_venda.verticalHeaderItem(7)
+        ___qtablewidgetitem22.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
+        ___qtablewidgetitem23 = self.tabela_widget_de_historico_de_venda.verticalHeaderItem(8)
+        ___qtablewidgetitem23.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
         self.btn_pesquisa_produto_2.setText("")
         self.btn_mais_opcoes_27.setText("")
         self.btn_adicionar_produto_2.setText("")
-        self.label_59.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
-        self.icon_img_22.setText("")
-        self.nome_produto_22.setText(QCoreApplication.translate("MainWindow", u"Coca Cola", None))
-        self.chave_22.setText(QCoreApplication.translate("MainWindow", u"333", None))
-        self.icon_img_50.setText("")
-        self.nome_produto_50.setText(QCoreApplication.translate("MainWindow", u"Coca Cola", None))
-        self.chave_50.setText(QCoreApplication.translate("MainWindow", u"333", None))
-        self.icon_img_44.setText("")
-        self.nome_produto_44.setText(QCoreApplication.translate("MainWindow", u"Coca Cola", None))
-        self.chave_44.setText(QCoreApplication.translate("MainWindow", u"333", None))
-        self.icon_img_52.setText("")
-        self.nome_produto_52.setText(QCoreApplication.translate("MainWindow", u"Coca Cola", None))
-        self.chave_52.setText(QCoreApplication.translate("MainWindow", u"333", None))
-        self.icon_img_25.setText("")
-        self.nome_produto_25.setText(QCoreApplication.translate("MainWindow", u"Coca Cola", None))
-        self.chave_25.setText(QCoreApplication.translate("MainWindow", u"333", None))
-        self.icon_img_43.setText("")
-        self.nome_produto_43.setText(QCoreApplication.translate("MainWindow", u"Coca Cola", None))
-        self.chave_43.setText(QCoreApplication.translate("MainWindow", u"333", None))
-        self.icon_img_51.setText("")
-        self.nome_produto_51.setText(QCoreApplication.translate("MainWindow", u"Coca Cola", None))
-        self.chave_51.setText(QCoreApplication.translate("MainWindow", u"333", None))
-        self.icon_img_53.setText("")
-        self.nome_produto_53.setText(QCoreApplication.translate("MainWindow", u"Coca Cola", None))
-        self.chave_53.setText(QCoreApplication.translate("MainWindow", u"333", None))
-        self.icon_img_2.setText("")
-        self.nome_produto_2.setText(QCoreApplication.translate("MainWindow", u"Coca Cola", None))
-        self.chave_2.setText(QCoreApplication.translate("MainWindow", u"333", None))
-        self.icon_img_42.setText("")
-        self.nome_produto_42.setText(QCoreApplication.translate("MainWindow", u"Coca Cola", None))
-        self.chave_42.setText(QCoreApplication.translate("MainWindow", u"333", None))
-        self.icon_img_55.setText("")
-        self.nome_produto_55.setText(QCoreApplication.translate("MainWindow", u"Coca Cola", None))
-        self.chave_55.setText(QCoreApplication.translate("MainWindow", u"333", None))
-        self.icon_img_46.setText("")
-        self.nome_produto_46.setText(QCoreApplication.translate("MainWindow", u"Coca Cola", None))
-        self.chave_46.setText(QCoreApplication.translate("MainWindow", u"333", None))
-        self.icon_img_45.setText("")
-        self.nome_produto_45.setText(QCoreApplication.translate("MainWindow", u"Coca Cola", None))
-        self.chave_45.setText(QCoreApplication.translate("MainWindow", u"333", None))
-        self.icon_img_41.setText("")
-        self.nome_produto_41.setText(QCoreApplication.translate("MainWindow", u"Coca Cola", None))
-        self.chave_41.setText(QCoreApplication.translate("MainWindow", u"333", None))
-        self.icon_img_54.setText("")
-        self.nome_produto_54.setText(QCoreApplication.translate("MainWindow", u"Coca Cola", None))
-        self.chave_54.setText(QCoreApplication.translate("MainWindow", u"333", None))
-        self.icon_img_49.setText("")
-        self.nome_produto_49.setText(QCoreApplication.translate("MainWindow", u"Coca Cola", None))
-        self.chave_49.setText(QCoreApplication.translate("MainWindow", u"333", None))
-        self.icon_img_48.setText("")
-        self.nome_produto_48.setText(QCoreApplication.translate("MainWindow", u"Coca Cola", None))
-        self.chave_48.setText(QCoreApplication.translate("MainWindow", u"333", None))
-        self.icon_img_47.setText("")
-        self.nome_produto_47.setText(QCoreApplication.translate("MainWindow", u"Coca Cola", None))
-        self.chave_47.setText(QCoreApplication.translate("MainWindow", u"333", None))
         self.btn_logo_inventario.setText("")
         self.lbl_inventario.setText(QCoreApplication.translate("MainWindow", u"Inventario", None))
         self.lbl_info_inventario_1.setText(QCoreApplication.translate("MainWindow", u"Gerencie eficientemente ", None))
