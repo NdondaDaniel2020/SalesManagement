@@ -39,6 +39,8 @@ class PyProductRegistration(QWidget):
 
         # ////////////////////////////////////////////////////////////////
         self.startRecording()
+        if self.cap is not None:
+            self.cap.release()
 
         # Create a QTimer to update the image every 100ms
         self.timer_foto = QTimer()
@@ -52,6 +54,8 @@ class PyProductRegistration(QWidget):
 
         # ////////////////////////////////////////////////////////////////
         self.connections()
+
+        # print(self.cap, self.selected_camera)
 
     # VALIDAÇÃO E CÓDIGO DO PAINEL
     # /////////////////////////////////////////////////////
@@ -211,8 +215,8 @@ class PyProductRegistration(QWidget):
             json.dump(item_selected, file)
             file.truncate()
 
-
-        if self.cap.isOpened():
+        self.startRecording()
+        if self.cap is not None and self.cap.isOpened():
             self.cap.release()
 
     def addIpwbcam(self) -> None:
@@ -232,17 +236,17 @@ class PyProductRegistration(QWidget):
             self.combo_box_ipwebcam.addItem(txt)
 
         self.selected_camera = txt
-        if self.cap.isOpened():
+        if self.cap is not None and self.cap.isOpened():
             self.cap.release()
 
         self.combo_box_ipwebcam.showPopup()
 
-        json_file = AbsolutePath().getPathSettingIp()
+        json_file = AbsolutePath().getPathSettingDevices()
         with open(json_file, 'r') as file:
             dados = json.load(file)
 
-        if not txt in dados['inderecos']:
-            dados['inderecos'].append(txt)
+        if not txt in dados['despositivo']:
+            dados['despositivo'].append(txt)
             with open(json_file, "w") as file:
                 json.dump(dados, file)
 
@@ -284,11 +288,10 @@ class PyProductRegistration(QWidget):
         with open(json_ip_selected, 'r+') as file:
 
             item = json.load(file).get("ip_selected")
+            self.selected_camera = item
             if type(item) is int:
-                self.selected_camera = item
                 self.lineEdit_ipwebcam.setText(str(item))
             else:
-                self.selected_camera = item
                 self.lineEdit_ipwebcam.setText(item)
 
 
@@ -312,25 +315,14 @@ class PyProductRegistration(QWidget):
 
     def countAvailableCameras(self) -> None:
         # Inicializa a contagem de câmeras disponíveis
-        contador = 0
-        for i in range(1000):
-            if cv2.VideoCapture(i).read()[0]:
-                contador += 1
-                cv2.VideoCapture(i).release()
-            else:
-                contador -= 2
-                self.combo_box_ipwebcam.addItem(f"{contador}")
-                break
 
-        json_file = AbsolutePath().getPathSettingIp()
+        json_file = AbsolutePath().getPathSettingDevices()
         with open(json_file, 'r') as file:
             dados = json.load(file)
 
-        for dado in dados['inderecos']:
+        for dado in dados['despositivo']:
             self.combo_box_ipwebcam.addItem(f"{dado}")
 
-        self.selected_camera = contador
-        self.lineEdit_ipwebcam.setText(str(contador))
 
     def addImage(self) -> None:
 
@@ -415,7 +407,7 @@ class PyProductRegistration(QWidget):
             try:
                 self.render_file = remove(self.render_file)
                 cv2.imwrite(self.current_image_path, self.render_file)
-            except ImportError:
+            except Exception as _:
                 pass
             else:
                 self.updateProductImage()
@@ -433,7 +425,7 @@ class PyProductRegistration(QWidget):
                 rotated_image = cv2.warpAffine(imagem, rotation_matrix, (width, height))
 
                 cv2.imwrite(self.current_image_path, rotated_image)
-            except ImportError:
+            except Exception as _:
                 pass
             else:
                 self.updateProductImage()
@@ -599,13 +591,14 @@ class PyProductRegistration(QWidget):
     def startRecording(self) -> None:
         self.cap = None
 
-        if '/video' in self.selected_camera:
+        if type(self.selected_camera) is int:
+            self.cap = cv2.VideoCapture(self.selected_camera)
+            return
+        elif '/video' in self.selected_camera:
             ip, porta = tuple(self.selected_camera.split('/')[2].split(':'))
             if verificar_acessibilidade_de_ip(ip, porta):
                 self.cap = cv2.VideoCapture(self.selected_camera)
-
-        if type(self.selected_camera) is int:
-            self.cap = cv2.VideoCapture(self.selected_camera)
+            return
 
     def continuousImageUpdate(self) -> None:
         # Read the frame from the video capture object
@@ -627,7 +620,7 @@ class PyProductRegistration(QWidget):
 
             # Set the pixmap to the label
             self.lbl_camera.setPixmap(pixmap)
-        except ImportError:
+        except Exception as _:
             pass
 
     def scanBarCodeCam(self) -> None:
@@ -655,52 +648,54 @@ class PyProductRegistration(QWidget):
                     winsound.Beep(2500, 100)
                     self.lineEdit_chave.setText(code.data.decode('utf-8'))
                     self.backToMainPage(1)
-        except ImportError:
+        except Exception as _:
             pass
 
     def saveImage(self, _) -> None:
 
         if self.timer_foto.isActive():
-            # Get the current frame
-            ret, frame = self.cap.read()
+            try:
+                # Get the current frame
+                ret, frame = self.cap.read()
 
-            # Convert the frame to QImage
-            height, width, channels = frame.shape
-            bytes_per_line = channels * width
-            qimg = QImage(frame.data, width, height, bytes_per_line, QImage.Format_RGB888).rgbSwapped()
+                # Convert the frame to QImage
+                height, width, channels = frame.shape
+                bytes_per_line = channels * width
+                qimg = QImage(frame.data, width, height, bytes_per_line, QImage.Format_RGB888).rgbSwapped()
 
-            rest = 0
-            if width > self.lbl_camera.width():
-                rest = (width - self.lbl_camera.width()) / 2
-                width = width - rest
+                rest = 0
+                if width > self.lbl_camera.width():
+                    rest = (width - self.lbl_camera.width()) / 2
+                    width = width - rest
 
-            # Convert the QImage to QPixmap
-            qimg = QPixmap.fromImage(qimg.copy(rest, 0, width - rest, height))
+                # Convert the QImage to QPixmap
+                qimg = QPixmap.fromImage(qimg.copy(rest, 0, width - rest, height))
 
-            # Convert the QImage to a bytes object
-            self.current_image_path = self.image_path + r"\photo.JPEG"
-            self.current_image_path = os.path.abspath(self.current_image_path)
-            if os.path.exists(self.current_image_path):
-                for i in range(1, 100_000_000):
-                    if not os.path.exists(self.current_image_path.replace('.', f'{i}.')):
-                        self.current_image_path = self.current_image_path.replace('.', f'{i}.')
-                        break
+                # Convert the QImage to a bytes object
+                self.current_image_path = self.image_path + r"\photo.JPEG"
+                self.current_image_path = os.path.abspath(self.current_image_path)
+                if os.path.exists(self.current_image_path):
+                    for i in range(1, 100_000_000):
+                        if not os.path.exists(self.current_image_path.replace('.', f'{i}.')):
+                            self.current_image_path = self.current_image_path.replace('.', f'{i}.')
+                            break
 
-            qimg.save(self.current_image_path)
+                qimg.save(self.current_image_path)
 
-            if self.current_image_path:
-                icon = QIcon()
-                icon.addFile(self.current_image_path)
+                if self.current_image_path:
+                    icon = QIcon()
+                    icon.addFile(self.current_image_path)
 
-                self.image.setIconSize(QSize(250, 250))
-                self.icon_img.setIconSize(QSize(30, 30))
+                    self.image.setIconSize(QSize(250, 250))
+                    self.icon_img.setIconSize(QSize(30, 30))
 
-                self.image.setIcon(icon)
-                self.icon_img.setIcon(icon)
+                    self.image.setIcon(icon)
+                    self.icon_img.setIcon(icon)
 
-                self.btn_activate.clicked.disconnect(self.saveImage)
-                self.backToMainPage(0)
-
+                    self.btn_activate.clicked.disconnect(self.saveImage)
+                    self.backToMainPage(0)
+            except Exception as _:
+                pass
 
         #### salvar o caminho da img na bd
 
