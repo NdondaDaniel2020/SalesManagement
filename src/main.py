@@ -46,7 +46,8 @@ from src.gui.core.absolute_path import AbsolutePath
 from src.gui.function.functions_main_window.static_functions import (saveImageSettingInSizeSetting,
                                                                      insertProductDataIntoTheDatabase,
                                                                      convert_str_in_float, mesclar_dados_de_venda,
-                                                                     enviar_dados_de_venda_na_base_de_dados)
+                                                                     enviar_dados_de_venda_na_base_de_dados,
+                                                                     verificar_acessibilidade_de_ip)
 
 try:
     from ctypes import windll  # Only exists on Windows.
@@ -85,6 +86,7 @@ class MainWindow(QMainWindow):
         self._nome_empresa = ''
         self.painel_de_busca_personalizada: PyBuscaPersonalizada = None
         self.painel_de_insercao: PyProductInsertnPanel = None
+        self.can_test_cam = True
 
         # adicionar nas configuracoes do despositivo que sera usado para as leiruras
         # quando se mudar tambem tem que mudar no painel de cadastro de produto
@@ -92,22 +94,22 @@ class MainWindow(QMainWindow):
         # "http://192.168.0.120:8080/video
         # "http://192.168.42.129:8080/video
         # self.cap = cv2.VideoCapture('http://192.168.43.1:8080/video')  # nas configuracoes escolher scanner
+
         # self.cap = None
+
         self.timer_scan_bar_code = QTimer()
         self.timer_scan_bar_code.timeout.connect(self.scanBarCodeCam)
         self.timer_scan_bar_code.setInterval(1000)
 
         self.timer_show_scan_bar_code = QTimer()
-        # self.timer_show_scan_bar_code.timeout.connect(self.showScanBarCodeCam)  # adicionar no painel de configuacoes
+        self.timer_show_scan_bar_code.timeout.connect(self.showScanBarCodeCam)  # adicionar no painel de configuacoes
 
-        # self.lbl_camera = QLabel(self.ui.page_venda)  # adicionar no painel de configuacoes
-        # self.lbl_camera.setGeometry(9, 9, 640, 179)
 
         # /////////////////////////////////////////////////////////////
         SetUpMainWindow.configIconPath(self)
         SetUpMainWindow.addControlWindow(self)
         SetUpMainWindow.configTableWidget(self)
-        SetUpMainWindow.configTableWidgetIp(self)
+        SetUpMainWindow.configTableWidgetDevice(self)
         SetUpMainWindow.configSystem(self)
 
         # /////////////////////////////////////////////////////////////
@@ -128,11 +130,15 @@ class MainWindow(QMainWindow):
             self.ui.page_historico_venda)
 
         # //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        # todas as iniciolizacoes tem que passa na tela de login
         self._iniLeftMenu_()
         self.initRegistrationPanel()
         self.insercaoAutomaticaDeProduto()
 
+        self.getCameraSelecionada()
+        self.AutoInsertDespositivo()
+
+        self.startRecording()
+        self.cap.release()
         # //////////////////////////////////////////////////////////////////////////////////
         self._connectingPages_()
 
@@ -153,6 +159,11 @@ class MainWindow(QMainWindow):
         self.ui.btn_adicionar_produto.clicked.connect(lambda: self.showPainelDeRegistroDeProduto())
         self.ui.frame_criar_produto.mousePressEvent = lambda e: self.showPainelDeRegistroDeProduto()
         self.ui.btn_mais_opcoes_de_venda.clicked.connect(self.showMenuOpcoes)
+
+        # /////////////////////////////////////////// config cam //////////////////////////////////////////////
+        self.ui.btn_atualizar_depositivo.clicked.connect(self.updateDespositivoCam)
+        self.ui.btn_mais_adicionar_despositivo.clicked.connect(self.addDespositivo)
+        self.ui.btn_testar_camera_selecionada.clicked.connect(self.startCap)
 
     # Getter e setter
     @property
@@ -347,11 +358,29 @@ class MainWindow(QMainWindow):
         elif name_btn == 'btn_setting':
             self.ui.stacked_widget.setCurrentWidget(self.ui.page_configuracoes)
 
+    ###
+    def getCameraSelecionada(self) -> None:
+        json_ip_selected = AbsolutePath().getPathIpSelected()
+        with open(json_ip_selected, 'r+') as file:
+            item = json.load(file).get("ip_selected")
+            self.selected_camera = item
+
+    def startRecording(self) -> None:
+        self.cap = None
+        if type(self.selected_camera) is int:
+            self.cap = cv2.VideoCapture(self.selected_camera)
+        elif '/video' in self.selected_camera:
+            ip, porta = tuple(self.selected_camera.split('/')[2].split(':'))
+            if verificar_acessibilidade_de_ip(ip, porta):
+                self.cap = cv2.VideoCapture(self.selected_camera)
+
+
+
+
     ############################################## inventario ##############################################
 
     def initRegistrationPanel(self):
         self.registration_panel = PyProductRegistration(self.ui.central_widget)
-        self.registration_panel.countAvailableCameras()  # por nas configuracoes
         self.registration_panel.close()
 
     def showPainelDeInsercaoDeProduto(self):
@@ -503,8 +532,10 @@ class MainWindow(QMainWindow):
             self.menu_opcoes_de_venda.finalizar.clicked.connect(show_painel_sale_finished)
 
             def start_timer():  # ajustar a opcao de abrir e fechar  o scaner da cemera
-                # self.timer_scan_bar_code.start()
-                # self.timer_show_scan_bar_code.start()
+                # if self.cap is None or self.cap.is
+                self.startRecording()
+                self.timer_scan_bar_code.start()
+                self.timer_show_scan_bar_code.start()
                 self.menu_opcoes_de_venda.close()
                 self.ui.line_edit_pesquisa_produto_devenda.setFocus()
 
@@ -625,26 +656,30 @@ class MainWindow(QMainWindow):
 
     def showScanBarCodeCam(self) -> None:
         # Read the frame from the video capture object
-        ret, frame = self.cap.read()
+        if self.cap is not None:
+            ret, frame = self.cap.read()
 
-        # Convert the frame to QImage
-        try:
-            height, width, channels = frame.shape
-            bytes_per_line = channels * width
-            qimg = QImage(frame.data, width, height, bytes_per_line, QImage.Format_RGB888).rgbSwapped()
+            # Convert the frame to QImage
+            try:
+                height, width, channels = frame.shape
+                bytes_per_line = channels * width
+                qimg = QImage(frame.data, width, height, bytes_per_line, QImage.Format_RGB888).rgbSwapped()
 
-            # rest = 0
-            # if width > self.lbl_camera.width():
-            #     rest = (width - self.lbl_camera.width()) / 2
-            #     width = width - rest
+                rest = 0
+                if width > self.ui.lbl_cam.width():
+                    rest = (width - self.ui.lbl_cam.width()) / 2
+                    width = width - rest
 
-            # Convert the QImage to QPixmap
-            # pixmap = QPixmap.fromImage(qimg.copy(rest, 0, width - rest, height))
+                # Convert the QImage to QPixmap
+                pixmap = QPixmap.fromImage(qimg.copy(rest, 0, width - rest, height))
 
-            # Set the pixmap to the label
-            # self.lbl_camera.setPixmap(pixmap)  # por nas configuralcoes
-        except ImportError:
-            pass
+                # Set the pixmap to the label
+
+                self.ui.lbl_cam.setPixmap(pixmap)  # por nas configuralcoes
+                # ; criar uma propriedade possibilite visualizar os produtos mas para ver
+                # apenas quando entrar na configuracao de camera
+            except Exception as _:
+                pass
 
     def showPanelSaleFinisher(self):
 
@@ -666,7 +701,7 @@ class MainWindow(QMainWindow):
 
             self.painel_sale_finisher.show()
 
-    def FinalizarVenda(self):  # modula depois de criar recibo
+    def FinalizarVenda(self):
         produtos_vendidos = self.getSelectedProductsForSale()
         dados_fvenda = self.painel_sale_finisher.confirmar()
 
@@ -702,13 +737,147 @@ class MainWindow(QMainWindow):
         self.painel_de_busca_personalizada.show()
 
     ############################################### configuracoes ###############################################
+    ############################################### camera conection
     def mediaQueryConfigCam(self):
         if self.width() > 840:
             self.ui.vertical_layout_cam.setDirection(QHBoxLayout.LeftToRight)
         else:
             self.ui.vertical_layout_cam.setDirection(QVBoxLayout.TopToBottom)
 
-    ############################################## eventos ##############################################
+    @Slot(None)
+    def updateDespositivoCam(self):
+        # Inicializa a contagem de câmeras disponíveis
+        contador = 0
+        lista_encontrado = []
+        self.registration_panel.combo_box_ipwebcam.clear()
+        for i in range(1000):
+            if cv2.VideoCapture(i).read()[0]:
+                contador += 1
+                cv2.VideoCapture(i).release()
+            else:
+                contador -= 2
+                lista_encontrado.append(contador)
+                self.registration_panel.combo_box_ipwebcam.addItem(f"{contador}")
+                break
+
+        json_file = AbsolutePath().getPathSettingDevices()
+        with open(json_file, 'r') as file:
+            dados = json.load(file)
+
+        novo_despositivo = {'despositivo': []}
+        for dado in dados['despositivo']:
+            if not dado in lista_encontrado:
+                self.registration_panel.combo_box_ipwebcam.addItem(f"{dado}")
+                novo_despositivo['despositivo'].append(dado)
+
+        n_despositivo = self.registration_panel.combo_box_ipwebcam.count()
+        self.ui.table_widget_despositivo.setRowCount(n_despositivo)
+
+        self.ui.table_widget_despositivo.itemSelectionChanged.disconnect(self.itemSelecionado)
+        for i in range(n_despositivo):
+            dado = self.registration_panel.combo_box_ipwebcam.itemText(i)
+            self.ui.table_widget_despositivo.setItem(i, 0, QTableWidgetItem(dado))
+            if i > 0:
+                btn_del = QPushButton()
+                btn_del.setStyleSheet(self.ui.btn_mais_adicionar_despositivo.styleSheet())
+                btn_del.setFixedSize(28, 28)
+                btn_del.setIcon(QIcon(AbsolutePath().getPathIcon('icon_close.svg')))
+                btn_del.clicked.connect(self.deleteLinhaSelecionada)
+                self.ui.table_widget_despositivo.setCellWidget(i, 1, btn_del)
+
+        self.ui.table_widget_despositivo.itemSelectionChanged.connect(self.itemSelecionado)
+        if n_despositivo > len(dados['despositivo']):
+            with open(json_file, 'w') as file:
+                json.dump(novo_despositivo, file)
+
+    @Slot(None)
+    def addDespositivo(self):
+        len_t = self.ui.table_widget_despositivo.rowCount()
+        despositivo = self.ui.line_edit_adicionar_despositivo.text()
+        self.ui.table_widget_despositivo.setRowCount(len_t + 1)
+        self.ui.table_widget_despositivo.itemSelectionChanged.disconnect(self.itemSelecionado)
+
+        btn_del = QPushButton()
+        btn_del.setStyleSheet(self.ui.btn_mais_adicionar_despositivo.styleSheet())
+        btn_del.setFixedSize(28, 28)
+        btn_del.setIcon(QIcon(AbsolutePath().getPathIcon('icon_close.svg')))
+        btn_del.clicked.connect(self.deleteLinhaSelecionada)
+
+        if len_t == 0:
+            self.ui.table_widget_despositivo.setItem(0, 0, QTableWidgetItem(despositivo))
+            self.ui.table_widget_despositivo.setCellWidget(0, 1, btn_del)
+        else:
+            self.ui.table_widget_despositivo.setItem(len_t, 0, QTableWidgetItem(despositivo))
+            self.ui.table_widget_despositivo.setCellWidget(len_t, 1, btn_del)
+
+        json_file = AbsolutePath().getPathSettingDevices()
+        with open(json_file, 'r+') as file:
+            dados = json.load(file)
+            dados["despositivo"].append(despositivo)
+            file.seek(0)
+            json.dump(dados, file)
+            file.truncate()
+
+        self.ui.line_edit_adicionar_despositivo.setText("")
+        self.ui.table_widget_despositivo.itemSelectionChanged.connect(self.itemSelecionado)
+
+    def AutoInsertDespositivo(self):
+        json_file = AbsolutePath().getPathSettingDevices()
+        with open(json_file, 'r') as file:
+            dados = json.load(file)
+
+        len_d = len(dados['despositivo'])
+        self.ui.table_widget_despositivo.setRowCount(len_d)
+        for i, dado in enumerate(dados['despositivo']):
+            self.ui.table_widget_despositivo.setItem(i, 0, QTableWidgetItem(str(dado)))
+            if i > 0:
+                btn_del = QPushButton()
+                btn_del.setStyleSheet(self.ui.btn_mais_adicionar_despositivo.styleSheet())
+                btn_del.setFixedSize(28, 28)
+                btn_del.setIcon(QIcon(AbsolutePath().getPathIcon('icon_close.svg')))
+                btn_del.clicked.connect(self.deleteLinhaSelecionada)
+                self.ui.table_widget_despositivo.setCellWidget(i, 1, btn_del)
+
+        self.ui.table_widget_despositivo.itemSelectionChanged.connect(self.itemSelecionado)
+
+    def startCap(self):
+        # criar um atrubuto que vai permitir ver e nao ver que vai ser sempre True no teste e false no painel de venda
+        if self.can_test_cam:
+            self.startRecording()
+            self.timer_show_scan_bar_code.start()
+            self.ui.btn_testar_camera_selecionada.setIcon(QIcon(AbsolutePath().getPathIcon('icon_close.svg')))
+            self.can_test_cam = False
+        else:
+            if self.cap is not None:
+                self.cap.release()
+            self.timer_show_scan_bar_code.stop()
+            self.ui.btn_testar_camera_selecionada.setIcon(QIcon(AbsolutePath().getPathIcon('icon_camera.svg')))
+            self.can_test_cam = True
+            self.ui.lbl_cam.setPixmap(QPixmap(""))
+
+    def itemSelecionado(self):
+        selected_items = self.ui.table_widget_despositivo.selectedItems()
+        if selected_items:
+            selected_item = selected_items[0].text()
+            if selected_item.isnumeric():
+                self.selected_camera = int(selected_item)
+            elif type(selected_item) is str:
+                self.selected_camera = selected_item
+
+    def deleteLinhaSelecionada(self):
+        selected_rows = set(index.row() for index in self.ui.table_widget_despositivo.selectedIndexes())
+        for row in sorted(selected_rows, reverse=True):
+            self.ui.table_widget_despositivo.removeRow(row)
+
+            json_file = AbsolutePath().getPathSettingDevices()
+            with open(json_file, 'r+') as file:
+                dados = json.load(file)
+                dados["despositivo"].pop(row)
+                file.seek(0)
+                json.dump(dados, file)
+                file.truncate()
+
+    ############################################### eventos ###############################################
     def mousePressEvent(self, event):
         self._dragPos = event.globalPosition().toPoint()
 
