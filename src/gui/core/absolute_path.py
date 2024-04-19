@@ -72,8 +72,8 @@ class AbsolutePath:
         json = os.path.normpath(path)
         return json
 
-    def getPathSettingIp(self):
-        path = self.obs_path + r'/gui/settings/settings_ip.json'
+    def getPathSettingDevices(self):
+        path = self.obs_path + r'/gui/settings/settings_devices.json'
         json = os.path.normpath(path)
         return json
 
@@ -99,19 +99,4 @@ class AbsolutePath:
         return json
 
 if __name__ == '__main__':
-    # import json
-    # import os
-    # json_file = r'C:\Users\Daniel\Code\SalesManagement\src\gui\settings\ip_selected.json'
-    #
-    # dados = {'ip_selected': 0}
-
-    # json_file = AbsolutePath().getPathSettingIp()
-    # with open(json_file, 'r') as file:
-    #     dados = json.load(file)
-    #
-    # if not txt in dados['inderecos']:
-    #     dados['inderecos'].append(txt)
-    #     with open(json_file, "w") as file:
-    #         json.dump(dados, file)
-
     ...

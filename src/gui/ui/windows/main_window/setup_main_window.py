@@ -1,3 +1,4 @@
+import json
 import platform
 
 from src.qt_core import *
@@ -28,14 +29,16 @@ class SetUpMainWindow:
 
 
     def configTableWidget(self):
-
         for i in range(14):
             self.ui.tabela_widget_de_historico_de_venda.horizontalHeader().setSectionResizeMode(i, QHeaderView.Stretch)
 
         self.ui.tabela_widget_de_historico_de_venda.verticalHeader().hide()
         self.ui.tabela_widget_de_historico_de_venda.setRowCount(0)
 
-
+    def configTableWidgetDevice(self):
+        self.ui.table_widget_despositivo.horizontalHeader().setSectionResizeMode(0, QHeaderView.Stretch)
+        self.ui.table_widget_despositivo.verticalHeader().hide()
+        self.ui.table_widget_despositivo.setRowCount(0)
 
     def configIconPath(self):
 
@@ -100,6 +103,12 @@ class SetUpMainWindow:
         self.ui.btn_pesquisa_historico_de_venda.setIcon(QIcon(AbsolutePath().getPathIcon('icon_search.svg')))
         self.ui.btn_mais_opcoes_historico_de_venda.setIcon(QIcon(AbsolutePath().getPathIcon(
             'icon_controller_adjust.svg')))
+
+        # ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        self.ui.btn_testar_camera_selecionada.setIcon(QIcon(AbsolutePath().getPathIcon('icon_camera.svg')))
+        self.ui.btn_mais_adicionar_despositivo.setIcon(QIcon(AbsolutePath().getPathIcon('icon_add.svg')))
+        self.ui.btn_atualizar_depositivo.setIcon(QIcon(AbsolutePath().getPathIcon('icon_reload.svg')))
+
 
 
     def configSystem(self):
