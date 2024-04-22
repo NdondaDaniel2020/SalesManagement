@@ -3,8 +3,14 @@ import json
 import socket
 import random
 import webbrowser
+import urllib.request
+
 from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import landscape
+from reportlab.lib.pagesizes import letter
+from reportlab.lib import colors
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.platypus import Table, TableStyle
+
 from src.gui.core.database import DataBase
 from src.gui.core.absolute_path import AbsolutePath
 
@@ -87,21 +93,13 @@ def insertProductDataIntoTheDatabase(produto: dict):
     db.disconnectDataBase()
 
 
-def verificar_acessibilidade_de_ip(e_ip: str, porta_ip: int) -> bool:
-    # Cria um objeto socket
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+def verificar_acessibilidade_de_pagina_camera(url):
     try:
-        # Define um timeout para a conexão (em segundos)
-        s.settimeout(0)
-        # Tenta conectar ao IP na porta específica
-        s.connect((e_ip, porta_ip))
-        return True
+        urllib.request.urlopen(url)
     except Exception as _:
         return False
-    finally:
-        # Fecha a conexão
-        s.close()
-
+    else:
+        return True
 
 
 def mesclar_dados_de_venda(dados_fvenda: dict, produtos_vendidos: dict,
@@ -185,7 +183,6 @@ def gerar_recibo(dados: dict) -> None:
     # webbrowser.open(pdf_filename)
 
 
-
 def enviar_dados_de_venda_na_base_de_dados(dados_da_venda: dict) -> None:
     db = DataBase(AbsolutePath().getPathDatabase())
     db.connectDataBase()
@@ -220,7 +217,88 @@ def enviar_dados_de_venda_na_base_de_dados(dados_da_venda: dict) -> None:
         gerar_recibo(dados_da_venda)
 
 
+def criar_pedido_de_compra(data: str, items: dict, total: float) -> None:
+
+    json_file = AbsolutePath().getPathSetting()
+    with open(json_file, 'r') as file:
+        folder = json.load(file)
+
+    nome_do_arquivo = f"/recibo de venda {data.replace('/', '-').replace(':', '-')}.pdf"
+    file_path = folder['registration_panel']['image_path'] + nome_do_arquivo
+    nome_do_arquivo = os.path.normpath(file_path)
+
+    def create_receipt_header(corpo_local, data_do_arquivo):
+        corpo_local.setFont("Helvetica-Bold", 14)
+        corpo_local.drawString(30, 730, "PEDIDO DE COMPRA")
+        corpo_local.setFont("Helvetica", 12)
+        corpo_local.drawString(30, 700, f"Data: {data_do_arquivo}")
+
+    # Função para criar a tabela de itens vendidos
+    def create_item_table(c, items_da_tabela: dict):
+        # Define os dados da tabela
+        dados = [["Nome", "Preço", "Quantidade", "Subtotal"]]
+        for nome, preco, quantidade, subtotal in zip(*items_da_tabela.values()):
+            dados.append([nome, preco, quantidade, subtotal])
+
+        # Cria a tabela de itens
+        table = Table(dados, colWidths=[138, 138, 138, 138])
+
+        # Define o estilo da tabela
+        style = TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.transparent),
+                            ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
+                            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                            ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+                            ('BACKGROUND', (0, 1), (-1, -1), colors.transparent),
+                            ('GRID', (0, 0), (-1, -1), 1, colors.black)])
+        table.setStyle(style)
+
+        # Adiciona a tabela ao canvas
+        table.wrapOn(c, 400, 200)
+        table.drawOn(c, 30, 590 - (17 * len(items_da_tabela['nome'])))
+
+    # Função para criar a tabela do total
+    def create_total_table(c, total_de_produto, tamanho_itens):
+        # Define os dados da tabela do total
+        dados = [["Total", f"Kz {total_de_produto}"]]
+
+        # Cria a tabela do total
+        table = Table(dados, colWidths=[276, 276], rowHeights=17)
+
+        # Define o estilo da tabela do total
+        style = TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.transparent),
+                            ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
+                            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                            ('BOTTOMPADDING', (0, 0), (-1, 0), 3),
+                            ('GRID', (0, 0), (-1, -1), 1, colors.black)])
+        table.setStyle(style)
+
+        # Adiciona a tabela do total ao canvas
+        table.wrapOn(c, 400, 200)
+        table.drawOn(c, 30, (560 - (17 * tamanho_itens + 1)))  # 455
+
+    # criar o recibo de venda
+    corpo = canvas.Canvas(nome_do_arquivo, pagesize=letter)
+    create_receipt_header(corpo, data)
+    create_item_table(corpo, items)
+    create_total_table(corpo, total, len(items))
+    corpo.save()
+
+    webbrowser.open(nome_do_arquivo)
+
 
 
 if __name__ == '__main__':
-    ...
+    data = "27-04-2024 16-15-10"
+    items = {'nome': ['Barra de cera', 'Mousse', 'Sabunete', 'Madar'],
+             'preco': [0.0, 0.0, 0.0, 0.0],
+             'quantidade': ['15', '19', '10', '25'],
+             'subtotal': [9.0, 100.0, 10000.0, 990.0]}
+
+    total = sum(items['subtotal'])
+
+    # Cria o recibo de venda em PDF
+    criar_pedido_de_compra(data, items, total)
+
+
