@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>637</width>
+    <width>586</width>
     <height>68</height>
    </rect>
   </property>
@@ -218,7 +218,7 @@ border-radius:5px;</string>
             <property name="bottomMargin">
              <number>0</number>
             </property>
-            <item alignment="Qt::AlignRight">
+            <item>
              <widget class="QLabel" name="lbl_valor_total">
               <property name="maximumSize">
                <size>
@@ -242,7 +242,7 @@ border-radius:5px;</string>
               </property>
              </widget>
             </item>
-            <item alignment="Qt::AlignLeft">
+            <item>
              <widget class="QLabel" name="lbl_percentual">
               <property name="minimumSize">
                <size>
