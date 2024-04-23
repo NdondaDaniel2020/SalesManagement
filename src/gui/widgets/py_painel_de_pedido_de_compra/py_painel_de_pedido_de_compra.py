@@ -12,11 +12,12 @@ import json
 from src.qt_core import *
 from src.gui.widgets.py_list_registro_venda_painel_insercao.py_list_registro_venda_painel_insercao import (
                                                                                                     PyInsertRecordList)
+from src.gui.function.functions_main_window.static_functions import criar_pedido_de_compra
 from src.gui.core.database import DataBase
 from src.gui.core.absolute_path import AbsolutePath
 
 
-class PyPainelDePerda(QWidget):
+class PyPainelDePedidoDeCompra(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
 
@@ -46,14 +47,24 @@ class PyPainelDePerda(QWidget):
         self.can_close = True
 
     def getChaves(self):
-
         objs = self.scrollAreaWidgetContents_3.findChildren(PyInsertRecordList)
-
-        ls = list()
+        db = DataBase(AbsolutePath().getPathDatabase())
+        lista_selecionado = {'nome': [], 'preco': [], 'quantidade': [], 'subtotal': []}
         for obj in objs:
             if obj.checkBox.isChecked():
-                ls.append((obj.chave_completa, obj.lineEdit_quantidade.text()))
-        return ls
+                lista_selecionado['nome'].append(obj.nome_produto.text())
+                lista_selecionado['quantidade'].append(obj.lineEdit_quantidade.text())
+                db.connectDataBase()
+                q = db.executarFetchone(f"SELECT preco_compra FROM produto WHERE chave='{obj.chave_completa}'")
+                db.disconnectDataBase()
+                lista_selecionado['preco'].append(q[0])
+                lista_selecionado['subtotal'].append(q[0] * int(obj.lineEdit_quantidade.text()))
+
+        if lista_selecionado['nome']:
+            data_atual = QDate.currentDate().toString("dd/MM/yyyy")
+            hora_atual = QDateTime.currentDateTime().time().toString()
+            criar_pedido_de_compra(f"{data_atual} {hora_atual}", lista_selecionado, sum(lista_selecionado['subtotal']))
+            self.close()
 
     def automaticProductInsertion(self):
 
@@ -64,18 +75,17 @@ class PyPainelDePerda(QWidget):
         db.disconnectDataBase()
 
         for dados in query:
-            if dados[2] > 0:
-                list_produto = PyInsertRecordList()
-                list_produto.setImage(dados[4])
-                list_produto.setChave(dados[0])
-                list_produto.setPrecoDeVenda(dados[3])
-                list_produto.setName(dados[1].capitalize())
+            list_produto = PyInsertRecordList()
+            list_produto.setImage(dados[4])
+            list_produto.setChave(dados[0])
+            list_produto.setPrecoDeVenda(dados[3])
+            list_produto.setName(dados[1].capitalize())
 
-                with open(json_file, 'r') as file:
-                    dado = json.load(file)
-                    list_produto.setImageSize(*dado[dados[1]]["icon_image"])
+            with open(json_file, 'r') as file:
+                dado = json.load(file)
+                list_produto.setImageSize(*dado[dados[1]]["icon_image"])
 
-                self.vertical_layout.insertWidget(0, list_produto)
+            self.vertical_layout.insertWidget(0, list_produto)
 
     def searchProduct(self):
         nome = self.line_edit_pesquisa_produto.text()
@@ -360,7 +370,7 @@ class PyPainelDePerda(QWidget):
 
         self.btn_confirmar = QPushButton(self.frame_90)
         self.btn_confirmar.setObjectName(u"btn_adicionar_produto_4")
-        self.btn_confirmar.setMinimumSize(QSize(37, 37))
+        self.btn_confirmar.setMinimumSize(QSize(35, 37))
         self.btn_confirmar.setMaximumSize(QSize(37, 37))
         self.btn_confirmar.setStyleSheet(u"QPushButton {\n"
                                          "            color: rgb(233, 234, 236);\n"
@@ -375,9 +385,9 @@ class PyPainelDePerda(QWidget):
                                          " 	background-color: rgb(38, 39, 43);\n"
                                          "}")
         icon2 = QIcon()
-        icon2.addFile(AbsolutePath().getPathIcon("icon_check_ok.svg"))
+        icon2.addFile(AbsolutePath().getPathIcon("icon_save.svg"))
         self.btn_confirmar.setIcon(icon2)
-        self.btn_confirmar.setIconSize(QSize(25, 25))
+        self.btn_confirmar.setIconSize(QSize(24, 24))
 
         self.horizontalLayout_26.addWidget(self.btn_confirmar)
 
@@ -399,6 +409,6 @@ if __name__ == '__main__':
     import sys
 
     app = QApplication(sys.argv)
-    win = PyPainelDePerda()
+    win = PyPainelDePedidoDeCompra()
     win.show()
     sys.exit(app.exec())
