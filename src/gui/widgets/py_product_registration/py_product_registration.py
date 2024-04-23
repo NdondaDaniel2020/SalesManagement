@@ -12,7 +12,7 @@ from qfluentwidgets import CalendarPicker, setTheme, Theme
 from src.gui.core.database import DataBase
 from src.gui.core.absolute_path import AbsolutePath
 from src.gui.function.functions_main_window.static_functions import (generate_barcode, reduce_url,
-                                                                     verificar_acessibilidade_de_ip)
+                                                                     verificar_acessibilidade_de_pagina_camera)
 
 from src.gui.widgets.py_slide_stacked_widgets.py_slide_stacked_widgets import PySlidingStackedWidget
 
@@ -595,8 +595,7 @@ class PyProductRegistration(QWidget):
             self.cap = cv2.VideoCapture(self.selected_camera)
             return
         elif '/video' in self.selected_camera:
-            ip, porta = tuple(self.selected_camera.split('/')[2].split(':'))
-            if verificar_acessibilidade_de_ip(ip, porta):
+            if verificar_acessibilidade_de_pagina_camera(self.selected_camera):
                 self.cap = cv2.VideoCapture(self.selected_camera)
             return
 
