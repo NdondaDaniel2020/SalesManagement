@@ -5,7 +5,7 @@ import random
 import webbrowser
 import urllib.request
 
-from src.qt_core import QBarSet
+from src.qt_core import QBarSet, QColor
 
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
@@ -15,6 +15,33 @@ from reportlab.platypus import Table, TableStyle
 
 from src.gui.core.database import DataBase
 from src.gui.core.absolute_path import AbsolutePath
+
+
+meses_do_ano = {
+    1: "Janeiro",
+    2: "Fevereiro",
+    3: "Março",
+    4: "Abril",
+    5: "Maio",
+    6: "Junho",
+    7: "Julho",
+    8: "Agosto",
+    9: "Setembro",
+    10: "Outubro",
+    11: "Novembro",
+    12: "Dezembro"
+}
+cores_contraste_do_grafico = ['#A9A9A9', '#FFDAB9', '#FFEFD5', '#696969',
+                              '#F0F0F0', '#FAEBD7', '#B0C4DE', '#FAFAFA',
+                              '#FFF5EE', '#F0F8FF', '#ADD8E6', '#FFE4C4',
+                              '#F5FFFA', '#00BFFF', '#B0E0E6', '#FFFFF0',
+                              '#FFEBCD', '#FAFAD2', '#FFFAFA', '#FFE4B5',
+                              '#D3D3D3', '#FFF8DC', '#E6E6FA', '#808080',
+                              '#FFFFE0', '#F5F5F5', '#FFDEAD', '#FFFFFF',
+                              '#FFFACD', '#F5F5DC', '#708090', '#FFF0F5',
+                              '#FFE4E1', '#C0C0C0', '#FAF0E6', '#F0FFF0',
+                              '#87CEFA', '#778899', '#87CEEB', '#F0FFFF']
+
 
 
 def converter_data_para_ano_mes_dia(data) -> str:
@@ -311,6 +338,7 @@ def criar_pedido_de_compra(data: str, items: dict, total: float) -> None:
 
 
 def get_dados_do_relatorio_categoria_char() -> dict:
+    global cores_contraste_do_grafico
     db = DataBase(AbsolutePath().getPathDatabase())
 
     db.connectDataBase()
@@ -320,18 +348,26 @@ def get_dados_do_relatorio_categoria_char() -> dict:
 
     lista_de_bar_series = {}
     lista_de_dados = {}
-    for item_categoria in query_categoria:
+    for item_categoria, cor in zip(query_categoria, cores_contraste_do_grafico):
         lista_de_dados[item_categoria[0]] = []
-        lista_de_bar_series[item_categoria[0]] = QBarSet(item_categoria[0])
+        bar = QBarSet(item_categoria[0])
+        bar.setColor(QColor(cor))
+        bar.setLabelColor(QColor(255, 255, 255))
+        lista_de_bar_series[item_categoria[0]] = bar
     db.disconnectDataBase()
 
     for i in range(1, 13):
         db.connectDataBase()
         query = db.executarFetchall(f"""SELECT categoria, count(categoria) AS quantidade FROM vw_historico_de_venda
                                             WHERE data like '%-{i:02}-%' GROUP by categoria""")
+        categorias = db.executarFetchall(f"SELECT DISTINCT categoria FROM vw_historico_de_venda")
         if query:
             for item in query:
                 lista_de_dados[item[0]].append(item[1])
+
+            for categoria in categorias:
+                if not categoria[0] in str(query):
+                    lista_de_dados[categoria[0]].append(0)
         else:
             for key in lista_de_dados.keys():
                 lista_de_dados[key].append(0)
@@ -341,9 +377,9 @@ def get_dados_do_relatorio_categoria_char() -> dict:
     for key in lista_de_bar_series.keys():
         lista_de_bar_series[key].append(lista_de_dados[key])
 
-    return lista_de_bar_series, valor_total_dos_meses
+    return lista_de_bar_series, valor_total_dos_meses[0]
 
 
 
 if __name__ == '__main__':
-    ...
+    get_dados_do_relatorio_categoria_char()
