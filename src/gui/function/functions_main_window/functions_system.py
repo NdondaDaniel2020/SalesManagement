@@ -1,6 +1,7 @@
 from src.qt_core import *
 from src.gui.ui.windows.main_window.ui_main_window import Ui_MainWindow
 from src.gui.widgets.py_registration_list.py_registration_list import PyRegistrationList
+from src.gui.widgets.py_lista_registro_perda.py_lista_registro_perda import PyListaDePerda
 
 
 class FunctionsSystem:
@@ -96,31 +97,26 @@ class FunctionsSystem:
                 if nome.lower() in obj.nome_produto.text().lower():
                     obj.show()
 
+    @Slot(None)
+    def searchPerda(self):
+        nome = self.ui.line_edit_pesquisa_produto_perda.text()
+
+        objs = self.ui.scroll_area_widget_contents_perda.findChildren(PyListaDePerda)
+
+        if not nome:
+            for obj in objs:
+                obj.show()
+        else:
+            for obj in objs:
+                obj.hide()
+                if nome.lower() in obj.nome_produto.text().lower():
+                    obj.show()
+
     def resizeFrameChartWidth(self):
         height = self.ui.frame_chart_bar.size().height()
         width = self.ui.frame_chart_bar.size().width()
 
         if height > 154:
-            # self.group_animation = QParallelAnimationGroup()
-            #
-            # self.maximum_animation = QPropertyAnimation(self.ui.frame_chart_bar, b'maximumWidth')
-            # self.maximum_animation.setStartValue(width)
-            # self.maximum_animation.setDuration(400)
-            # self.maximum_animation.setEndValue(height)
-            # self.maximum_animation.setEasingCurve(QEasingCurve.Type.InOutCirc)
-            #
-            # self.group_animation.addAnimation(self.maximum_animation)
-            #
-            # self.minimum_animation = QPropertyAnimation(self.ui.frame_chart_bar, b'minimumWidth')
-            # self.minimum_animation.setStartValue(width)
-            # self.minimum_animation.setDuration(400)
-            # self.minimum_animation.setEndValue(height)
-            # self.minimum_animation.setEasingCurve(QEasingCurve.Type.InOutCirc)
-            #
-            # self.group_animation.addAnimation(self.minimum_animation)
-            #
-            # self.group_animation.start()
-
             self.ui.frame_chart_bar.setMaximumWidth(height)
             self.ui.frame_chart_bar.setMinimumWidth(height)
 
