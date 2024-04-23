@@ -219,7 +219,7 @@ class PyInsertRecordList(QFrame):
 
         self.checkBox = QCheckBox(self)
         self.checkBox.setObjectName(u"checkBox")
-        self.checkBox.setMaximumSize(QSize(24, 16777215))
+        self.checkBox.setFixedSize(QSize(21, 21))
 
         self.horizontalLayout_9.addWidget(self.checkBox)
 
