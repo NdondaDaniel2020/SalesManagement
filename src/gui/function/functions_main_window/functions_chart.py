@@ -1,16 +1,20 @@
 from src.qt_core import *
 from src.gui.ui.windows.main_window.ui_main_window import Ui_MainWindow
 from src.gui.widgets.py_dynamic_chart.py_dynamic_chart import PyDynamicChart
+from src.gui.function.functions_main_window.functions_system import FunctionsSystem
 
 from src.gui.core.database import DataBase
 from src.gui.core.absolute_path import AbsolutePath
 
 from src.gui.function.functions_main_window.static_functions import (converter_data_para_dia_mes_ano,
                                                                      converter_data_para_ano_mes_dia,
-                                                                     get_dados_do_relatorio_categoria_char)
+                                                                     get_dados_do_relatorio_categoria_char,
+                                                                     meses_do_ano)
+
 
 class ChartFunctions:
     MES_DO_GRAFICO_DE_VENDA_SELECIONADO: int = 0
+    MES_DO_GRAFICO_DE_CATEGORIA_DO_RELATORIO: int = 0
 
     def __init__(self):
         super().__init__()
@@ -107,9 +111,9 @@ class ChartFunctions:
         self.chart_bar.setBackgroundBrush(QColor(255, 255, 255))
         self.chart_bar.legend().hide()
 
-        self.categories = ["Jan", "Feb", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Sem", "Oct", "Nov", "Dez"]
+        categories = ["Jan", "Feb", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Sem", "Oct", "Nov", "Dez"]
         self.axis_x_bar = QBarCategoryAxis()
-        self.axis_x_bar.append(self.categories)
+        self.axis_x_bar.append(categories)
         self.chart_bar.addAxis(self.axis_x_bar, Qt.AlignBottom)
 
         self.axis_y_bar = QValueAxis()
@@ -426,6 +430,8 @@ class ChartFunctions:
         lista_de_bar_series, valor_total_dos_meses = get_dados_do_relatorio_categoria_char()
         self.series_bar_categoria = QBarSeries()
         for itens in lista_de_bar_series.values():
+            itens.clicked.connect(lambda: ChartFunctions.selecionarMesDoGraficoCategorio(self))
+            itens.hovered.connect(ChartFunctions.mudarMesDoGraficoCategorio)
             self.series_bar_categoria.append(itens)
 
         # self.series_bar_categoria.clicked.connect(lambda: ChartFunctions.buscarDadosDoMesSelecionado(self))
@@ -442,7 +448,7 @@ class ChartFunctions:
         self.chart_bar_categoria.addAxis(self.axis_x_bar_categoria, Qt.AlignBottom)
 
         self.axis_y_bar_categoria = QValueAxis()
-        self.axis_y_bar_categoria.setRange(0, max(valor_total_dos_meses)+10)
+        self.axis_y_bar_categoria.setRange(0, valor_total_dos_meses + 10)
         self.chart_bar_categoria.addAxis(self.axis_y_bar_categoria, Qt.AlignLeft)
         self.series_bar_categoria.attachAxis(self.axis_y_bar_categoria)
 
@@ -471,6 +477,7 @@ class ChartFunctions:
         self.chart_bar_categoria.setBackgroundPen(QColor(47, 54, 100, 156))
 
         self.chart_bar_categoria.legend().setVisible(False)
+        # self.chart_bar_categoria.legend().setLabelColor(QColor(255, 255, 255))
         self.chart_bar_categoria.legend().setAlignment(Qt.AlignBottom)
 
         self.chart_bar_categoria.setContentsMargins(-9, -7, -7, -7)
@@ -480,3 +487,10 @@ class ChartFunctions:
         self._chart_view_categoria.setRenderHint(QPainter.Antialiasing)
 
         self.ui.vertical_layout_chart_relatorio_categoria.insertWidget(0, self._chart_view_categoria)
+
+    @staticmethod
+    def mudarMesDoGraficoCategorio(_, mes):
+        ChartFunctions.MES_DO_GRAFICO_DE_CATEGORIA_DO_RELATORIO = mes + 1
+
+    def selecionarMesDoGraficoCategorio(self):
+        FunctionsSystem.serachRelatorioCategoria(self, ChartFunctions.MES_DO_GRAFICO_DE_CATEGORIA_DO_RELATORIO)
