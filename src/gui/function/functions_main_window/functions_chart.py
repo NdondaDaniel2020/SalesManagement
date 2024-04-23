@@ -5,6 +5,9 @@ from src.gui.widgets.py_dynamic_chart.py_dynamic_chart import PyDynamicChart
 from src.gui.core.database import DataBase
 from src.gui.core.absolute_path import AbsolutePath
 
+from src.gui.function.functions_main_window.static_functions import (converter_data_para_dia_mes_ano,
+                                                                     converter_data_para_ano_mes_dia,
+                                                                     get_dados_do_relatorio_categoria_char)
 
 class ChartFunctions:
     MES_DO_GRAFICO_DE_VENDA_SELECIONADO: int = 0
@@ -83,7 +86,7 @@ class ChartFunctions:
         db = DataBase(AbsolutePath().getPathDatabase())
         for i in range(1, 13):
             db.connectDataBase()
-            query = db.executarFetchone(f"SELECT sum(total) FROM vw_venda WHERE data like '%/{i:02}/%'")
+            query = db.executarFetchone(f"SELECT sum(total) FROM vw_venda WHERE data like '%-{i:02}-%'")
             if query[0]:
                 valor_total_dos_meses.append(query[0])
             else:
@@ -167,7 +170,7 @@ class ChartFunctions:
         mes = ChartFunctions.MES_DO_GRAFICO_DE_VENDA_SELECIONADO
         self.ui.tabela_widget_de_historico_de_venda.setRowCount(0)
 
-        select = f"SELECT * FROM vw_historico_de_venda WHERE data like '%/{mes+1:02}/%'"
+        select = f"SELECT * FROM vw_historico_de_venda WHERE data like '%-{mes+1:02}-%'"
 
         ChartFunctions.atribuirDadosNaTabelaDeHistorico(self, select)
 
@@ -186,7 +189,8 @@ class ChartFunctions:
 
         for i, dados in enumerate(query):
             self.ui.tabela_widget_de_historico_de_venda.setItem(i, 0, QTableWidgetItem(str(dados[0])))
-            self.ui.tabela_widget_de_historico_de_venda.setItem(i, 1, QTableWidgetItem(str(dados[2])))
+            self.ui.tabela_widget_de_historico_de_venda.setItem(i, 1, QTableWidgetItem(
+                                                                             converter_data_para_dia_mes_ano(dados[2])))
             self.ui.tabela_widget_de_historico_de_venda.setItem(i, 2, QTableWidgetItem(str(dados[5])))
             self.ui.tabela_widget_de_historico_de_venda.setItem(i, 3, QTableWidgetItem(str(dados[7]).title()))
             self.ui.tabela_widget_de_historico_de_venda.setItem(i, 4, QTableWidgetItem(str(dados[6]).title()))
@@ -225,7 +229,7 @@ class ChartFunctions:
             if txt in str(lista_do_dado['id']):
                 select = f"{select} WHERE id='{txt}';"
             elif padrao.match(txt).hasMatch():
-                select = f"{select} WHERE data LIKE '{txt}%';"
+                select = f"{select} WHERE data LIKE '{converter_data_para_ano_mes_dia(txt)}%';"
             elif txt in str(lista_do_dado['nome']):
                 select = f"{select} WHERE nome='{txt}';"
             elif txt in str(lista_do_dado['unidade']):
@@ -266,7 +270,7 @@ class ChartFunctions:
         ChartFunctions.updateHistorico(self)
     # fechamento historico de venda
 
-    def updatCircularProgress(self):
+    def configCircularProgress(self):
         """
         responsavel por atualizar o o ggraficu circular do inventario
         :return:
@@ -413,3 +417,66 @@ class ChartFunctions:
         self.ui.vertical_layout_dynamic_chart.addWidget(self.dynamic_chart_view)
 
         return self.dynamic_chart.timer
+
+    def addRelatorioCategoriaChar(self) -> None:
+        """
+        responsavel por cria o gráfico de relatorio
+        :return:
+        """
+        lista_de_bar_series, valor_total_dos_meses = get_dados_do_relatorio_categoria_char()
+        self.series_bar_categoria = QBarSeries()
+        for itens in lista_de_bar_series.values():
+            self.series_bar_categoria.append(itens)
+
+        # self.series_bar_categoria.clicked.connect(lambda: ChartFunctions.buscarDadosDoMesSelecionado(self))
+        # self.series_bar_categoria.hovered.connect(ChartFunctions.selecionarMes)
+
+        self.chart_bar_categoria = QChart()
+        self.chart_bar_categoria.addSeries(self.series_bar_categoria)
+        self.chart_bar_categoria.setBackgroundBrush(QColor(47, 54, 100))
+        self.chart_bar_categoria.legend().hide()
+
+        mes = ["Jan", "Feb", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Sem", "Oct", "Nov", "Dez"]
+        self.axis_x_bar_categoria = QBarCategoryAxis()
+        self.axis_x_bar_categoria.append(mes)
+        self.chart_bar_categoria.addAxis(self.axis_x_bar_categoria, Qt.AlignBottom)
+
+        self.axis_y_bar_categoria = QValueAxis()
+        self.axis_y_bar_categoria.setRange(0, max(valor_total_dos_meses)+10)
+        self.chart_bar_categoria.addAxis(self.axis_y_bar_categoria, Qt.AlignLeft)
+        self.series_bar_categoria.attachAxis(self.axis_y_bar_categoria)
+
+        # cor da linha x e y
+        pen = self.axis_x_bar_categoria.linePen()
+        pen.setColor(QColor(32, 33, 37))
+        self.axis_x_bar_categoria.setLinePen(pen)
+
+        pen = self.axis_y_bar_categoria.linePen()
+        pen.setColor(QColor(32, 33, 37))
+        self.axis_y_bar_categoria.setLinePen(pen)
+
+        # grid color
+        self.grid_pen_y_bar = self.axis_y_bar_categoria.gridLinePen()
+        self.grid_pen_y_bar.setColor(QColor(32, 33, 37))
+        self.axis_y_bar_categoria.setGridLinePen(self.grid_pen_y_bar)
+
+        self.grid_pen_x_bar = self.axis_x_bar_categoria.gridLinePen()
+        self.grid_pen_x_bar.setColor(QColor(32, 33, 37))
+        self.axis_x_bar_categoria.setGridLinePen(self.grid_pen_x_bar)
+
+        self.axis_x_bar_categoria.setLabelsColor(QColor(255, 255, 255))
+        self.axis_y_bar_categoria.setLabelsColor(QColor(255, 255, 255))
+
+        self.chart_bar_categoria.setBackgroundBrush(QColor(47, 54, 100, 156))
+        self.chart_bar_categoria.setBackgroundPen(QColor(47, 54, 100, 156))
+
+        self.chart_bar_categoria.legend().setVisible(False)
+        self.chart_bar_categoria.legend().setAlignment(Qt.AlignBottom)
+
+        self.chart_bar_categoria.setContentsMargins(-9, -7, -7, -7)
+        self.chart_bar_categoria.setMargins(QMargins(0, 5, 10, 0))
+
+        self._chart_view_categoria = QChartView(self.chart_bar_categoria)
+        self._chart_view_categoria.setRenderHint(QPainter.Antialiasing)
+
+        self.ui.vertical_layout_chart_relatorio_categoria.insertWidget(0, self._chart_view_categoria)
