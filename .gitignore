@@ -422,3 +422,4 @@ src/gui/images/svg_icons/desktop.ini
 src/gui/classifire_lbph/*
 src/gui/haarcascades/*
 src/rascunho.py
+src/racunho_interno.py
