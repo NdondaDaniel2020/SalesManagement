@@ -66,8 +66,8 @@ class PyBuscaPersonalizada(QFrame):
         """
         dados = {}
 
-        ini = self.date_time_edit_inicio.dateTime().toString("dd/MM/yyyy HH:mm:ss")
-        fim = self.date_time_edit_fim.dateTime().toString("d/MM/yyyy HH:mm:ss")
+        ini = self.date_time_edit_inicio.dateTime().toString("yyyy-MM-dd HH:mm:ss")
+        fim = self.date_time_edit_fim.dateTime().toString("yyyy-MM-dd HH:mm:ss")
 
         if self.let_id_valor.text():
             dados['id'] = f"id={self.let_id_valor.text()}"
@@ -90,7 +90,7 @@ class PyBuscaPersonalizada(QFrame):
         if self.com_total_operador.currentText() and self.let_total_valor.text():
             dados['total_operador'] = f"total{self.com_total_operador.currentText()}{self.let_total_valor.text()}"
 
-        if ini == fim and ini != '1/1/2000 00:00:00':
+        if ini == fim and ini != '2000-01-01 00:00:00':
             dados['data'] = f"data='{ini}'"
         elif not fim in ini:
             dados['data'] = f"data BETWEEN '{ini}' AND '{fim}'"
@@ -111,7 +111,7 @@ class PyBuscaPersonalizada(QFrame):
                 select += f" {value}"
                 if i != len(dados.values())-1:
                     select += " AND"
-
+        print(select)
         return select
 
     def __setupUi(self, Form):
