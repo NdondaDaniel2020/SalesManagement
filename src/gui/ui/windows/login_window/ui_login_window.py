@@ -35,6 +35,8 @@ class Ui_LoginWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
+        self.setWindowIcon(QIcon(AbsolutePath().getPathImage('icon_resimido.png')))
+        self.setWindowTitle("Sales Management MX")
         # ///////////////////////////////////////////////////////////////////////////////
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
@@ -77,7 +79,7 @@ class Ui_LoginWindow(QMainWindow):
         :return:
         """
         dados_de_acesso = self.__validatorLogin()
-        if dados_de_acesso:
+        if dados_de_acesso['validade']:
             self.main_window.usuario = dados_de_acesso['nome']
             self.main_window.acesso = dados_de_acesso['acesso']
             self.main_window.imageUser = dados_de_acesso['linkImg']
