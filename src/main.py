@@ -122,6 +122,7 @@ class MainWindow(QMainWindow):
         # self.timer_dynamic_chart tem que ativar sempre que entrar nas na home
         # se o dinamic estiver ativo nas comfiguracoes
 
+        FunctionsSystem.autoInsertRelatorioCategoria(self)
         # //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         self.ui.frame_pedido_de_compra.mousePressEvent = lambda e: self.showPainelDePedidoDeCompra()
@@ -166,6 +167,7 @@ class MainWindow(QMainWindow):
         self.ui.btn_pesquisa_produto_perda.clicked.connect(lambda: FunctionsSystem.searchPerda(self))
         self.ui.line_edit_pesquisa_produto_perda.returnPressed.connect(lambda: FunctionsSystem.searchPerda(self))
 
+        self.ui.combo_box_relatorio_categoria.currentTextChanged.connect(self.changeRelatorio)
         # ///////////////////////////////////////////// INVENTORY ///////////////////////////////////////////
         self.ui.btn_entrada_produto.clicked.connect(self.showPainelDeInsercaoDeProduto)
         self.ui.btn_painel_de_produto.clicked.connect(self.showPainelDePerda)
@@ -761,7 +763,15 @@ class MainWindow(QMainWindow):
         self.painel_de_busca_personalizada.btn_busca.clicked.connect(busca_historico_de_venda)
         self.painel_de_busca_personalizada.show()
 
-    ############################################### Perda ###############################################
+    ############################################### RELATORIO ############################################
+    def changeRelatorio(self, txt):
+        if txt.lower() == 'categoria':
+            FunctionsSystem.serachRelatorioCategoria(self, 13)
+            # mudar as paginas top
+            # mudar paginas base
+
+
+    ##################################################### Perda ####################################################
 
     # remover da bd quando deletar
     def insercaoAutomaticaDePerda(self):
