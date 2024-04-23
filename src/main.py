@@ -11,7 +11,7 @@ import winsound
 import cv2
 from src.qt_core import *
 from pyzbar.pyzbar import decode
-
+from qfluentwidgets import FlowLayout
 # CUSTOM WIDGETS
 # WIDGETS PERSONALIZADOS
 
@@ -19,15 +19,19 @@ from src.gui.widgets.py_grips.py_grips import PyGrips
 from src.gui.widgets.py_menu.py_menu import PySaleMenu
 from src.gui.widgets.py_left_menu.py_left_menu import LeftMenu
 from src.gui.widgets.py_push_button.py_push_button import PyPushButton
+from src.gui.widgets.py_lista_de_recibo.py_lista_de_recibo import PyLisaRecibo
 from src.gui.widgets.py_sales_finisher.py_sales_finisher import PySalesFinisher
+from src.gui.widgets.py_painel_de_perda.py_painel_de_perda import PyPainelDePerda
 from src.gui.widgets.py_registration_list.py_registration_list import PyRegistrationList
+from src.gui.widgets.py_lista_registro_perda.py_lista_registro_perda import PyListaDePerda
 from src.gui.widgets.py_busca_personalizada.py_busca_personalizada import PyBuscaPersonalizada
 from src.gui.widgets.py_product_registration.py_product_registration import PyProductRegistration
 from src.gui.widgets.py_sale_registration_list.py_sale_registration_list import PySaleRegistrationList
 from src.gui.widgets.py_painel_de_produtos_a_venda.py_painel_de_produtos_a_venda import PyProductSelectionPanel
+from src.gui.widgets.py_painel_de_pedido_de_compra.py_painel_de_pedido_de_compra import PyPainelDePedidoDeCompra
 from src.gui.widgets.py_painel_de_produtos_a_inserir.py_painel_de_produtos_a_inserir import PyProductInsertnPanel
 from src.gui.widgets.py_list_registro_venda_painel_insercao.py_list_registro_venda_painel_insercao import (
-                                                                                                    PyInsertRecordList)
+    PyInsertRecordList)
 
 # MAIN INTERFACE CODE
 # CÓDIGO PRINCIPAL DA INTERFACE
@@ -47,7 +51,7 @@ from src.gui.function.functions_main_window.static_functions import (saveImageSe
                                                                      insertProductDataIntoTheDatabase,
                                                                      convert_str_in_float, mesclar_dados_de_venda,
                                                                      enviar_dados_de_venda_na_base_de_dados,
-                                                                     verificar_acessibilidade_de_ip)
+                                                                     verificar_acessibilidade_de_pagina_camera)
 
 try:
     from ctypes import windll  # Only exists on Windows.
@@ -73,37 +77,31 @@ class MainWindow(QMainWindow):
         self.setBaseSize(QSize(724, 621))
 
         # ////////////////////////////////////////////////////////////////////////
-        self.set_title_bar = False
         self.menu_opcoes_de_venda: PySaleMenu = None
         self.registration_panel: PyProductRegistration = None
         self.painel_de_produto: PyProductSelectionPanel = None
-        self.combo_box_sugestao_de_busca: QComboBox = None
         self.painel_sale_finisher: PySalesFinisher = None
-        self.__usuario: str = 'NdDaniel'  # adicionar apartir da tela de login
+        self.painel_de_busca_personalizada: PyBuscaPersonalizada = None
+        self.painel_de_insercao: PyProductInsertnPanel = None
+        self.painel_de_perda: PyPainelDePerda = None
+        self.painel_de_pedido_de_compra: PyPainelDePedidoDeCompra = None
+
+        self.set_title_bar: bool = False
+        self.can_test_cam: bool = True
+        self.can_see_in_test_cam: bool = False
+
+        self.__usuario: str = 'NdDaniel'
         self.__acesso: bool = True
         self.__image_user = ''
         self._email = ''
         self._nome_empresa = ''
-        self.painel_de_busca_personalizada: PyBuscaPersonalizada = None
-        self.painel_de_insercao: PyProductInsertnPanel = None
-        self.can_test_cam = True
-
-        # adicionar nas configuracoes do despositivo que sera usado para as leiruras
-        # quando se mudar tambem tem que mudar no painel de cadastro de produto
-        # 'http://192.168.43.1:8080/video'
-        # "http://192.168.0.120:8080/video
-        # "http://192.168.42.129:8080/video
-        # self.cap = cv2.VideoCapture('http://192.168.43.1:8080/video')  # nas configuracoes escolher scanner
-
-        # self.cap = None
 
         self.timer_scan_bar_code = QTimer()
         self.timer_scan_bar_code.timeout.connect(self.scanBarCodeCam)
         self.timer_scan_bar_code.setInterval(1000)
 
         self.timer_show_scan_bar_code = QTimer()
-        self.timer_show_scan_bar_code.timeout.connect(self.showScanBarCodeCam)  # adicionar no painel de configuacoes
-
+        self.timer_show_scan_bar_code.timeout.connect(self.showScanBarCodeCam)
 
         # /////////////////////////////////////////////////////////////
         SetUpMainWindow.configIconPath(self)
@@ -115,30 +113,41 @@ class MainWindow(QMainWindow):
         # /////////////////////////////////////////////////////////////
         ChartFunctions.addInventoryChart(self)
         ChartFunctions.addHistoricBar(self)
-        ChartFunctions.updatCircularProgress(self)
+        ChartFunctions.configCircularProgress(self)
+        ChartFunctions.updateCircularProgress(self)
         ChartFunctions.addBarChartOnHomepage(self)
         ChartFunctions.connecoesHistoricoDeVenda(self)
+        ChartFunctions.addRelatorioCategoriaChar(self)
         self.timer_dynamic_chart = ChartFunctions.addDynamicLineChart(self)
         # self.timer_dynamic_chart tem que ativar sempre que entrar nas na home
         # se o dinamic estiver ativo nas comfiguracoes
 
         # //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        self.ui.frame_inventario.mousePressEvent = lambda e: self.ui.stacked_widget.setCurrentWidget(
-            self.ui.page_inventario)
-        self.ui.frame_venda.mousePressEvent = lambda e: self.ui.stacked_widget.setCurrentWidget(self.ui.page_venda)
-        self.ui.frame_historico_de_venda.mousePressEvent = lambda e: self.ui.stacked_widget.setCurrentWidget(
-            self.ui.page_historico_venda)
 
+        self.ui.frame_pedido_de_compra.mousePressEvent = lambda e: self.showPainelDePedidoDeCompra()
+        self.ui.frame_criar_produto.mousePressEvent = lambda e: self.showPainelDeRegistroDeProduto()
+        self.ui.frame_venda.mousePressEvent = lambda e: self.ui.stacked_widget.setCurrentWidget(self.ui.page_venda)
+        self.ui.frame_perda.mousePressEvent = lambda e: self.ui.stacked_widget.setCurrentWidget(self.ui.page_perda)
+        self.ui.frame_historico_de_venda.mousePressEvent = lambda e: self.ui.stacked_widget.setCurrentWidget(
+                                                                                           self.ui.page_historico_venda)
+        self.ui.frame_inventario.mousePressEvent = lambda e: self.ui.stacked_widget.setCurrentWidget(
+                                                                                                self.ui.page_inventario)
+        self.ui.frame_relatorio_venda.mousePressEvent = lambda e: self.ui.stacked_widget.setCurrentWidget(
+                                                                                                 self.ui.page_relatorio)
+        self.ui.frame_relatorio_home.mousePressEvent = lambda e: self.ui.stacked_widget.setCurrentWidget(
+                                                                                                 self.ui.page_relatorio)
         # //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         self._iniLeftMenu_()
         self.initRegistrationPanel()
         self.insercaoAutomaticaDeProduto()
 
         self.getCameraSelecionada()
-        self.AutoInsertDespositivo()
+        self.insercaoAutomaticaDeDespositivo()
+        self.insercaoAutomaticaDePerda()
 
         self.startRecording()
-        self.cap.release()
+        if self.cap is not None:
+            self.cap.release()
         # //////////////////////////////////////////////////////////////////////////////////
         self._connectingPages_()
 
@@ -154,10 +163,13 @@ class MainWindow(QMainWindow):
         self.ui.line_edit_pesquisa_produto.returnPressed.connect(lambda: FunctionsSystem.searchProduct(self))
         self.ui.line_edit_pesquisa_produto_devenda.returnPressed.connect(self.irerirProdutosPelaChave)
 
+        self.ui.btn_pesquisa_produto_perda.clicked.connect(lambda: FunctionsSystem.searchPerda(self))
+        self.ui.line_edit_pesquisa_produto_perda.returnPressed.connect(lambda: FunctionsSystem.searchPerda(self))
+
         # ///////////////////////////////////////////// INVENTORY ///////////////////////////////////////////
         self.ui.btn_entrada_produto.clicked.connect(self.showPainelDeInsercaoDeProduto)
+        self.ui.btn_painel_de_produto.clicked.connect(self.showPainelDePerda)
         self.ui.btn_adicionar_produto.clicked.connect(lambda: self.showPainelDeRegistroDeProduto())
-        self.ui.frame_criar_produto.mousePressEvent = lambda e: self.showPainelDeRegistroDeProduto()
         self.ui.btn_mais_opcoes_de_venda.clicked.connect(self.showMenuOpcoes)
 
         # /////////////////////////////////////////// config cam //////////////////////////////////////////////
@@ -201,6 +213,7 @@ class MainWindow(QMainWindow):
         self.ui.imagem_usuario.setIcon(QIcon(path))
 
     # //////////////////////////////////////////////////////////////////////////////////;
+
     # falha na arquitetura
     def _activeBtbInfo_(self):
         # ////////////////////////////////////////////////////////////////////////////////
@@ -342,6 +355,7 @@ class MainWindow(QMainWindow):
     def changePage(self) -> None:
         name_btn = self.sender().objectName()
 
+        self.can_see_in_test_cam = False
         self.timer_dynamic_chart.stop()
 
         if name_btn == 'btn_home':
@@ -356,6 +370,7 @@ class MainWindow(QMainWindow):
             self.ui.line_edit_pesquisa_produto_devenda.setFocus()
 
         elif name_btn == 'btn_setting':
+            self.can_see_in_test_cam = True
             self.ui.stacked_widget.setCurrentWidget(self.ui.page_configuracoes)
 
     ###
@@ -370,12 +385,8 @@ class MainWindow(QMainWindow):
         if type(self.selected_camera) is int:
             self.cap = cv2.VideoCapture(self.selected_camera)
         elif '/video' in self.selected_camera:
-            ip, porta = tuple(self.selected_camera.split('/')[2].split(':'))
-            if verificar_acessibilidade_de_ip(ip, porta):
+            if verificar_acessibilidade_de_pagina_camera(self.selected_camera):
                 self.cap = cv2.VideoCapture(self.selected_camera)
-
-
-
 
     ############################################## inventario ##############################################
 
@@ -531,13 +542,23 @@ class MainWindow(QMainWindow):
 
             self.menu_opcoes_de_venda.finalizar.clicked.connect(show_painel_sale_finished)
 
-            def start_timer():  # ajustar a opcao de abrir e fechar  o scaner da cemera
-                # if self.cap is None or self.cap.is
-                self.startRecording()
-                self.timer_scan_bar_code.start()
-                self.timer_show_scan_bar_code.start()
-                self.menu_opcoes_de_venda.close()
-                self.ui.line_edit_pesquisa_produto_devenda.setFocus()
+            def start_timer():
+                if self.cap is None or not self.cap.isOpened():
+                    self.startRecording()
+                    self.timer_scan_bar_code.start()
+                    self.timer_show_scan_bar_code.start()
+                    self.menu_opcoes_de_venda.close()
+                    self.menu_opcoes_de_venda.scanner.setText("  Fechar Scanear")
+                    self.menu_opcoes_de_venda.scanner.setIcon(QIcon(AbsolutePath().getPathIcon('icon_close.svg')))
+                    self.ui.line_edit_pesquisa_produto_devenda.setFocus()
+                else:
+                    if self.cap is not None:
+                        self.cap.release()
+                    self.timer_scan_bar_code.stop()
+                    self.timer_show_scan_bar_code.stop()
+                    self.menu_opcoes_de_venda.close()
+                    self.menu_opcoes_de_venda.scanner.setText("  Scanear com câmera")
+                    self.menu_opcoes_de_venda.scanner.setIcon(QIcon(AbsolutePath().getPathIcon('icon_scan.svg')))
 
             self.menu_opcoes_de_venda.scanner.clicked.connect(start_timer)
 
@@ -655,8 +676,7 @@ class MainWindow(QMainWindow):
             pass
 
     def showScanBarCodeCam(self) -> None:
-        # Read the frame from the video capture object
-        if self.cap is not None:
+        if self.cap is not None and self.can_see_in_test_cam:
             ret, frame = self.cap.read()
 
             # Convert the frame to QImage
@@ -674,10 +694,7 @@ class MainWindow(QMainWindow):
                 pixmap = QPixmap.fromImage(qimg.copy(rest, 0, width - rest, height))
 
                 # Set the pixmap to the label
-
-                self.ui.lbl_cam.setPixmap(pixmap)  # por nas configuralcoes
-                # ; criar uma propriedade possibilite visualizar os produtos mas para ver
-                # apenas quando entrar na configuracao de camera
+                self.ui.lbl_cam.setPixmap(pixmap)
             except Exception as _:
                 pass
 
@@ -705,21 +722,29 @@ class MainWindow(QMainWindow):
         produtos_vendidos = self.getSelectedProductsForSale()
         dados_fvenda = self.painel_sale_finisher.confirmar()
 
-        data_atual = QDate.currentDate().toString("dd/MM/yyyy")
+        data_atual = QDate.currentDate().toString("yyyy-MM-dd")
         hora_atual = QDateTime.currentDateTime().time().toString()
 
         dados_da_venda = mesclar_dados_de_venda(dados_fvenda, produtos_vendidos, data_atual + ' ' + hora_atual,
                                                 self._email, self._nome_empresa, self.usuario)
         if dados_da_venda['status']:
-
-            enviar_dados_de_venda_na_base_de_dados(dados_da_venda)
+            enviar_dados_de_venda_na_base_de_dados(dados_da_venda)  # seguir e imprimir na impressora o pdf gerado
 
             self.cleanProduct()
             self.painel_sale_finisher.close()
             self.ui.line_edit_pesquisa_produto_devenda.setFocus()
 
             ChartFunctions.updateHistorico(self)
-            ChartFunctions.updatCircularProgress(self)
+            ChartFunctions.updateCircularProgress(self)
+
+
+    def showPainelDePedidoDeCompra(self):
+        self.painel_de_pedido_de_compra = PyPainelDePedidoDeCompra(self.ui.central_widget)
+        self.painel_de_pedido_de_compra.setGeometry(0, 0, self.width(), self.height())
+        self.painel_de_pedido_de_compra.move((self.width() - self.painel_de_pedido_de_compra.width()) / 2,
+                                             (self.height() - self.painel_de_pedido_de_compra.height()) / 2)
+
+        self.painel_de_pedido_de_compra.show()
 
     ############################################### historico de venda ############################################
 
@@ -735,6 +760,74 @@ class MainWindow(QMainWindow):
 
         self.painel_de_busca_personalizada.btn_busca.clicked.connect(busca_historico_de_venda)
         self.painel_de_busca_personalizada.show()
+
+    ############################################### Perda ###############################################
+
+    # remover da bd quando deletar
+    def insercaoAutomaticaDePerda(self):
+        db = DataBase(AbsolutePath().getPathDatabase())
+        db.connectDataBase()
+        query = db.executarFetchall("SELECT chave, nome, quantidade, preco, imagem from vw_perda")
+
+        db.disconnectDataBase()
+
+        json_file = AbsolutePath().getPathSettingSize()
+
+        for dados in query:
+            list_produto = PyListaDePerda()
+            list_produto.setImage(dados[4])
+            list_produto.setChave(dados[0][:4])
+            list_produto.setQuantidade(dados[2])
+            list_produto.setValorDeVenda(dados[3])
+            list_produto.setName(dados[1].capitalize())
+
+            with open(json_file, 'r') as file:
+                dado = json.load(file)
+                list_produto.setImageSize(*dado[dados[1]]["icon_image"])
+
+            self.ui.vertical_layout_perda.insertWidget(0, list_produto)
+
+    def showPainelDePerda(self):
+        self.painel_de_perda = PyPainelDePerda(self.ui.central_widget)
+        self.painel_de_perda.setGeometry(0, 0, self.width(), self.height())
+        self.painel_de_perda.move((self.width() - self.painel_de_perda.width()) / 2,
+                                  (self.height() - self.painel_de_perda.height()) / 2)
+
+        self.painel_de_perda.btn_confirmar.clicked.connect(self.InserirPerda)
+
+        self.painel_de_perda.show()
+
+    def InserirPerda(self):
+        dados = self.painel_de_perda.getChaves()
+
+        json_file = AbsolutePath().getPathSettingSize()
+        db: DataBase = DataBase(AbsolutePath().getPathDatabase())
+
+        data_atual = QDate.currentDate().toString("yyyy-MM-dd")
+        hora_atual = QDateTime.currentDateTime().time().toString()
+        for dado in dados:
+            db.connectDataBase()
+            query_produto = db.executarFetchone(f"""SELECT id, nome, quantidade, preco_venda, linkImg 
+                                                    FROM produto WHERE chave='{dado[0]}'""")
+            id_usuario = db.executarFetchone(f"SELECT id FROM usuario WHERE nome='{self.usuario}'")
+            db.executarComand(f"""INSERT INTO perda(id_produto, id_usuario, quantidade, data)
+                                values({query_produto[0]}, {id_usuario[0]}, {dado[1]}, "{data_atual} {hora_atual}")""")
+            db.disconnectDataBase()
+
+            list_produto = PyListaDePerda()
+            list_produto.setImage(query_produto[4])
+            list_produto.setChave(dado[0][:4])
+            list_produto.setQuantidade(dado[1])
+            list_produto.setValorDeVenda(query_produto[3])
+            list_produto.setName(query_produto[1].capitalize())
+
+            with open(json_file, 'r') as file:
+                json_dado = json.load(file)
+                list_produto.setImageSize(*json_dado[query_produto[1]]["icon_image"])
+
+            self.ui.vertical_layout_perda.insertWidget(0, list_produto)
+
+        self.painel_de_perda.close()
 
     ############################################### configuracoes ###############################################
     ############################################### camera conection
@@ -821,7 +914,7 @@ class MainWindow(QMainWindow):
         self.ui.line_edit_adicionar_despositivo.setText("")
         self.ui.table_widget_despositivo.itemSelectionChanged.connect(self.itemSelecionado)
 
-    def AutoInsertDespositivo(self):
+    def insercaoAutomaticaDeDespositivo(self):
         json_file = AbsolutePath().getPathSettingDevices()
         with open(json_file, 'r') as file:
             dados = json.load(file)
@@ -841,7 +934,7 @@ class MainWindow(QMainWindow):
         self.ui.table_widget_despositivo.itemSelectionChanged.connect(self.itemSelecionado)
 
     def startCap(self):
-        # criar um atrubuto que vai permitir ver e nao ver que vai ser sempre True no teste e false no painel de venda
+        self.can_see_in_test_cam = True
         if self.can_test_cam:
             self.startRecording()
             self.timer_show_scan_bar_code.start()
@@ -858,11 +951,24 @@ class MainWindow(QMainWindow):
     def itemSelecionado(self):
         selected_items = self.ui.table_widget_despositivo.selectedItems()
         if selected_items:
+
             selected_item = selected_items[0].text()
-            if selected_item.isnumeric():
-                self.selected_camera = int(selected_item)
-            elif type(selected_item) is str:
-                self.selected_camera = selected_item
+            json_file = AbsolutePath().getPathIpSelected()
+
+            with open(json_file, 'r+') as file:
+
+                item_selected_on_file = json.load(file)
+                if selected_item.isnumeric():
+                    self.selected_camera = int(selected_item)
+                    item_selected_on_file['ip_selected'] = int(selected_item)
+
+                elif type(selected_item) is str:
+                    self.selected_camera = selected_item
+                    item_selected_on_file['ip_selected'] = selected_item
+
+                file.seek(0)
+                json.dump(item_selected_on_file, file)
+                file.truncate()
 
     def deleteLinhaSelecionada(self):
         selected_rows = set(index.row() for index in self.ui.table_widget_despositivo.selectedIndexes())
@@ -946,6 +1052,27 @@ class MainWindow(QMainWindow):
 
             self.painel_sale_finisher.move((self.width() - self.painel_sale_finisher.width()) / 2,
                                            (self.height() - self.painel_sale_finisher.height()) / 2)
+
+        # /////////////////////////////////////////////////////////////////////////////////////////////////
+        if self.painel_de_perda:
+            self.painel_de_perda.setGeometry(
+                self.painel_de_perda.x(),
+                self.painel_de_perda.y(),
+                self.width(), self.height())
+
+            self.painel_de_perda.move((self.width() - self.painel_de_perda.width()) / 2,
+                                      (self.height() - self.painel_de_perda.height()) / 2)
+
+        # /////////////////////////////////////////////////////////////////////////////////////////////////
+        if self.painel_de_pedido_de_compra:
+            self.painel_de_pedido_de_compra.setGeometry(
+                self.painel_de_pedido_de_compra.x(),
+                self.painel_de_pedido_de_compra.y(),
+                self.width(), self.height())
+
+            self.painel_de_pedido_de_compra.move((self.width() - self.painel_de_pedido_de_compra.width()) / 2,
+                                                 (self.height() - self.painel_de_pedido_de_compra.height()) / 2)
+
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_F11:
