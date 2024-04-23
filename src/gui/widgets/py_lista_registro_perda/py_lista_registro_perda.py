@@ -10,9 +10,10 @@ class PyListaDePerda(QFrame):
 
         self.setGeometry(0, 0, 618, 50)
         self.setStyleSheet("QFrame{background-color: rgb(32, 33, 37);border-radius:10px;}")
+        self.setFixedHeight(50)
         self.__setUp__()
 
-        self.btn_close.clicked.connect(self.close)
+        self.btn_close.clicked.connect(self.deleteLater)
 
         self.chave_completa = ''
 
