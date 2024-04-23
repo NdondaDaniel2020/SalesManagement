@@ -109,6 +109,8 @@ class SetUpMainWindow:
         self.ui.btn_mais_adicionar_despositivo.setIcon(QIcon(AbsolutePath().getPathIcon('icon_add.svg')))
         self.ui.btn_atualizar_depositivo.setIcon(QIcon(AbsolutePath().getPathIcon('icon_reload.svg')))
 
+        self.ui.btn_painel_de_produto.setIcon(QIcon(AbsolutePath().getPathIcon('icon_produt_insert.svg')))
+        self.ui.btn_pesquisa_produto_perda.setIcon(QIcon(AbsolutePath().getPathIcon('icon_search.svg')))
 
 
     def configSystem(self):
