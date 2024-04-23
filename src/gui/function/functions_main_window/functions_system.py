@@ -2,7 +2,11 @@ from src.qt_core import *
 from src.gui.ui.windows.main_window.ui_main_window import Ui_MainWindow
 from src.gui.widgets.py_registration_list.py_registration_list import PyRegistrationList
 from src.gui.widgets.py_lista_registro_perda.py_lista_registro_perda import PyListaDePerda
+from src.gui.widgets.py_lista_de_relatorio_categoria.py_lista_de_relatorio_categoria import PyListaRelatorioDeCategoria
 
+from src.gui.function.functions_main_window.static_functions import meses_do_ano, cores_contraste_do_grafico
+from src.gui.core.database import DataBase
+from src.gui.core.absolute_path import AbsolutePath
 
 class FunctionsSystem:
 
@@ -120,6 +124,45 @@ class FunctionsSystem:
             self.ui.frame_chart_bar.setMaximumWidth(height)
             self.ui.frame_chart_bar.setMinimumWidth(height)
 
-# : https://doc.qt.io/qt-6/qt.html#Key-enum
+    def autoInsertRelatorioCategoria(self):
+        db = DataBase(AbsolutePath().getPathDatabase())
+
+        db.connectDataBase()
+        for i in range(1, 13):
+            query = db.executarFetchall(f"""SELECT categoria, count(categoria) AS quantidade FROM vw_historico_de_venda
+                                            WHERE data like '%-{i:02}-%' GROUP by categoria""")
+            query_total = db.executarFetchone(f"""SELECT count(categoria) AS quantidade FROM vw_historico_de_venda
+                                                  WHERE data like '%-{i:02}-%'""")
+            if query:
+                for item, color in zip(query, cores_contraste_do_grafico):
+                    lista = PyListaRelatorioDeCategoria()
+                    lista.setCategoria(item[0])
+                    lista.setQuantidade(item[1], query_total[0])
+                    lista.setColoProgressbar(color)
+                    lista.setMes(meses_do_ano[i])
+                    lista.mes_n = i
+                    self.ui.vertical_layout_listas_relatorio_categoria.insertWidget(0, lista)
+
+        db.disconnectDataBase()
+
+    def serachRelatorioCategoria(self, mes_n):
+
+        objs = self.ui.scroll_area_widget_contents_inventario_5.findChildren(PyListaRelatorioDeCategoria)
+
+        if mes_n == 13:
+            for obj in objs:
+                obj.show()
+
+        if objs and mes_n <= 12:
+            for obj in objs:
+                if mes_n != obj.mes_n:
+                    obj.hide()
+                else:
+                    obj.show()
+
+
+
+
+
 
 
