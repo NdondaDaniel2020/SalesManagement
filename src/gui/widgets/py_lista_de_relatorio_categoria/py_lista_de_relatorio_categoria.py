@@ -16,6 +16,7 @@ class PyListaRelatorioDeCategoria(QFrame):
         super().__init__(parent)
 
         self.__setupUi()
+        self.mes_n = 0
 
     def setMes(self, mes: str) -> None:
         self.lbl_mes.setText(mes)
@@ -25,8 +26,8 @@ class PyListaRelatorioDeCategoria(QFrame):
 
     def setQuantidade(self, quantidade: int, quantidade_total: int) -> None:
         self.lbl_quantidade.setText(str(quantidade))
-        percentual = (quantidade_total / quantidade) * 100
-        self.progress_bar_percentual.setValue(str(percentual))
+        percentual = (int(quantidade) / int(quantidade_total)) * 100
+        self.progress_bar_percentual.setValue(percentual)
 
     def setColoProgressbar(self, color: tuple) -> None:
         self.setStyleSheet(u'* {color: rgb(233, 234, 236)}\n'
@@ -35,7 +36,7 @@ class PyListaRelatorioDeCategoria(QFrame):
                            '\n'
                            'QProgressBar {\n'
                            '	background-color: rgb(49, 50, 55);\n'
-                           '	color: rgb(200, 200, 200);\n'
+                           '	color: #596deb;\n'
                            '	border-style:none;\n'
                            '	border-radius:5px;\n'
                            '	text-align: center;\n'
@@ -43,7 +44,7 @@ class PyListaRelatorioDeCategoria(QFrame):
                            '\n'
                            'QProgressBar::chunk {\n'
                            'border-radius:5px;\n'
-                           f'background-color: rgb{color}\n'
+                           f'background-color: {color}\n'
                            '}')
 
     def __setupUi(self):
@@ -56,7 +57,7 @@ class PyListaRelatorioDeCategoria(QFrame):
                            '\n'
                            'QProgressBar {\n'
                            '	background-color: rgb(49, 50, 55);\n'
-                           '	color: rgb(200, 200, 200);\n'
+                           '	color: #596deb;\n'
                            '	border-style:none;\n'
                            '	border-radius:5px;\n'
                            '	text-align: center;\n'
