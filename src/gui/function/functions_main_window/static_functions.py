@@ -5,6 +5,8 @@ import random
 import webbrowser
 import urllib.request
 
+from src.qt_core import QBarSet
+
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
@@ -13,6 +15,26 @@ from reportlab.platypus import Table, TableStyle
 
 from src.gui.core.database import DataBase
 from src.gui.core.absolute_path import AbsolutePath
+
+
+def converter_data_para_ano_mes_dia(data) -> str:
+    data = data.split('/')
+    data.reverse()
+    return '-'.join(data)
+
+
+def converter_data_para_dia_mes_ano(data_completa) -> str:
+    """
+    tratar data no formato portugues
+    :param data_completa: 
+    :return: 
+    """
+    data_completa = str(data_completa)
+    data_completa = data_completa.split(' ')
+    data = data_completa[0]
+    data = data.split('-')
+    data.reverse()
+    return '/'.join(data)+' ' + data_completa[1]
 
 
 def convert_str_in_float(value: str) -> float:
@@ -223,7 +245,7 @@ def criar_pedido_de_compra(data: str, items: dict, total: float) -> None:
     with open(json_file, 'r') as file:
         folder = json.load(file)
 
-    nome_do_arquivo = f"/recibo de venda {data.replace('/', '-').replace(':', '-')}.pdf"
+    nome_do_arquivo = f"/pedido de compra {data.replace('/', '-').replace(':', '-')}.pdf"
     file_path = folder['registration_panel']['image_path'] + nome_do_arquivo
     nome_do_arquivo = os.path.normpath(file_path)
 
@@ -285,20 +307,43 @@ def criar_pedido_de_compra(data: str, items: dict, total: float) -> None:
     create_total_table(corpo, total, len(items))
     corpo.save()
 
-    webbrowser.open(nome_do_arquivo)
+    # webbrowser.open(nome_do_arquivo)
+
+
+def get_dados_do_relatorio_categoria_char() -> dict:
+    db = DataBase(AbsolutePath().getPathDatabase())
+
+    db.connectDataBase()
+    query_categoria = db.executarFetchall(f"SELECT DISTINCT categoria FROM vw_historico_de_venda")
+    valor_total_dos_meses = max(
+        db.executarFetchall("SELECT count(categoria) AS quantidade FROM vw_historico_de_venda GROUP by categoria"))
+
+    lista_de_bar_series = {}
+    lista_de_dados = {}
+    for item_categoria in query_categoria:
+        lista_de_dados[item_categoria[0]] = []
+        lista_de_bar_series[item_categoria[0]] = QBarSet(item_categoria[0])
+    db.disconnectDataBase()
+
+    for i in range(1, 13):
+        db.connectDataBase()
+        query = db.executarFetchall(f"""SELECT categoria, count(categoria) AS quantidade FROM vw_historico_de_venda
+                                            WHERE data like '%-{i:02}-%' GROUP by categoria""")
+        if query:
+            for item in query:
+                lista_de_dados[item[0]].append(item[1])
+        else:
+            for key in lista_de_dados.keys():
+                lista_de_dados[key].append(0)
+
+        db.disconnectDataBase()
+
+    for key in lista_de_bar_series.keys():
+        lista_de_bar_series[key].append(lista_de_dados[key])
+
+    return lista_de_bar_series, valor_total_dos_meses
 
 
 
 if __name__ == '__main__':
-    data = "27-04-2024 16-15-10"
-    items = {'nome': ['Barra de cera', 'Mousse', 'Sabunete', 'Madar'],
-             'preco': [0.0, 0.0, 0.0, 0.0],
-             'quantidade': ['15', '19', '10', '25'],
-             'subtotal': [9.0, 100.0, 10000.0, 990.0]}
-
-    total = sum(items['subtotal'])
-
-    # Cria o recibo de venda em PDF
-    criar_pedido_de_compra(data, items, total)
-
-
+    ...
